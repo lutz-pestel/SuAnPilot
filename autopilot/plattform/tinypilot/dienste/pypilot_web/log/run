@@ -1,0 +1,5 @@
+#!/bin/sh
+NAM=pypilot_web
+mkdir -p /var/log/$NAM
+chown tc /var/log/$NAM
+exec chpst -utc svlogd -tt -b 24 -l 16 /var/log/$NAM 

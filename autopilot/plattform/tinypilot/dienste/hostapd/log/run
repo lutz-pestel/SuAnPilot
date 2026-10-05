@@ -1,0 +1,5 @@
+#!/bin/sh
+NAM=hostapd
+mkdir -p /var/log/$NAM
+chown tc /var/log/$NAM
+exec chpst -utc svlogd -tt /var/log/$NAM

@@ -1,0 +1,3 @@
+#!/bin/sh
+exec 2>&1
+exec /tmp/tcloop/openssh/usr/local/sbin/sshd -D

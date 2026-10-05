@@ -1,0 +1,10 @@
+#!/bin/sh
+chown tc /sys/class/gpio/export /sys/class/gpio/unexport
+chown tc /dev/gpiomem
+
+exec 2>&1
+
+export HOME=/home/tc
+chown tc /dev/gpiomem /dev/mem /dev/spi*
+#exec nice -n 5 pypilot_hat  # <-- slower startup
+exec nice -n 5 chpst -b pypilot_hat python3.6 /usr/local/lib/python3.6/site-packages/pypilot/hat/hat.py

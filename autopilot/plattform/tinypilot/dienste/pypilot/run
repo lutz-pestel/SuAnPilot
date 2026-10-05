@@ -1,0 +1,5 @@
+#!/bin/sh
+exec 2>&1
+export HOME=/home/tc
+export PYTHON=python`cat /opt/python`
+exec nice -n -10 chpst -u tc -b pypilot -L /var/lock/pypilot -P $PYTHON /usr/local/lib/python3.6/site-packages/pypilot/autopilot.py

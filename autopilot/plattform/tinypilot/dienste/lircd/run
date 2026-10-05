@@ -1,0 +1,4 @@
+#!/bin/sh
+exec 2>&1
+mkdir -p /var/run/lirc
+exec lircd -n -d /dev/lirc0 -L /var/log/lircd/log -H default /etc/lircd.conf

@@ -1,0 +1,6 @@
+#!/bin/sh
+NAM=lircd
+mkdir -p /var/log/$NAM
+chown tc /var/log/$NAM
+exec chpst -utc svlogd -tt /var/log/$NAM
+#exec chpst -utc svlogd -tt /mnt/mmcblk0p2/log/$NAM

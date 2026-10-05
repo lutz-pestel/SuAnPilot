@@ -1,0 +1,18 @@
+#!/bin/sh
+
+# Start serial terminal
+#/usr/sbin/startserialtty &
+
+
+echo 'loading desktop'
+#chpst -utc tce-load -i flwm_topside wbar Xorg 
+su tc -c "tce-load -i Xorg"
+
+# Set CPU frequency governor to ondemand (default is performance)
+
+echo 'loading plotter'
+su tc -c "tce-load -i opencpn wxWidgets alsa portaudio curl"
+su tc -c startx
+su tc -c 'DISPLAY=:0 opencpn'
+
+echo 'done'
