@@ -63,17 +63,16 @@ Aus `motor-controller/hardware/konzeption/Bauteilauswahl.md`, dort wegen „kein
 - Isolierte Fertigbausteine wie ADM2483 (Zeile 181)
 Für jedes ist zu prüfen: gibt es ein Basic/Extended-Teil bei JLCPCB, was kostet es, ersetzt es Aufbau in A?
 
-## 7. Teiletabelle (Vorlage, noch leer: Endstückliste fehlt)
-| Ref | Funktion | THT-Teil (A) | SMD-Teil (B) | LCSC | Basic/Ext. | Lager | Abweichung (Grund für THT) |
-|---|---|---|---|---|---|---|---|
-Wird angelegt, sobald die Endstückliste steht. Dann je Teil Katalog prüfen und eintragen.
+## 7. Hauptliste (BOM)
+Je Baugruppe unter `hardware/bom/bom.csv`, für den Motor-Controller `motor-controller/hardware/bom/bom.csv` (Spalten: THT-Teil,
+SMD-Gegenstück, LCSC, Klasse, Lager, Abweichung). Katalogstand 05.10.2026. Befund: Für die Schutzdiode 1.5KE20A ist der SMD-Ersatz nicht gleichwertig.
 
 ## 8. Testschaltplan (Probe, nicht Teil der Linien)
 `C:\Users\SuAn\AppData\Local\Temp\kicad-test\test.kicad_sch`: Pi-Zero-2-Leiste, MCP3208 (SPI0), LM4040 mit
 Vorwiderstand 2,2 kΩ; Referenzsymbol SMD-Typ (TO-92-Symbol der KiCad-Bibliothek defekt). Nur Erprobung des Ablaufs.
 
 ## 9. Offen
-- Endstückliste und Teiletabelle (Abschnitt 7).
+- Endstückliste: `bom.csv` des Motor-Controllers ist angelegt, Typen teils offen (Abschnitt 7).
 - THT-Bestückung bei JLCPCB: Möglichkeit und Preis klären.
 - Zeile 12 in `Bauteilauswahl.md` („Kein SMD-Löten") an Regel 2 anpassen.
 - Hilfen für EasyEDA (KI-Unterstützung, KiCad-Import) nicht untersucht.
