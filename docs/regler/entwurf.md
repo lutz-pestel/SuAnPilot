@@ -1,6 +1,6 @@
 # SuAn-Regler – Entwurf
 
-Stand: 02.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
+Version 0.1, Stand: 02.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
 TinyPilot; wird der Kern von SuAnPilot V1.0 auf derselben Hardware. Hardware bleibt vorerst unverändert
 (RPi Zero 2 W nur, falls die Rechenleistung nicht reicht). Grundlagen: `docs/wissen/Marktrecherche.md`
 (Bauart der Hersteller), Testberichte `docs/tests/`.
