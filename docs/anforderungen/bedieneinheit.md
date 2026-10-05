@@ -8,6 +8,11 @@ Stand: 01.10.2026.
 - Motor-Controller (mit RF300-Interface) und Stromversorgung sitzen im Motorraum und sind ein eigenes
   Projekt: `docs/anforderungen/motorcontroller.md`. Verbindung RS422 im vorhandenen Kabel.
 - Baut auf einem Pi mit Standard-Betriebssystem. Eine einzige, größere Anzeige statt zwei.
+- Unterschiede zur Peripherie des TinyPilot (nur diese; der Kern `autopilot/kern/` bleibt gleich, ersetzt wird
+  `autopilot/plattform/tinypilot/…/hat/`):
+  P1 Nur ein LCD auf der Platine; der Arduino-Coprozessor entfällt ganz.
+  P2 Die Tastenabfrage wird neu gebaut und erkennt „gedrückt, solange gehalten“ (B3).
+  P3 Kein Menü mehr; alle Einstellungen in der Weboberfläche (B4).
 
 ## 2. Erfahrungen mit dem TinyPilot (Ausgangslage)
 - Zwei Anzeigen; die zweite samt Tasten hängt an einem Coprozessor, dessen Code verschollen ist und

@@ -39,6 +39,9 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `docs/system/Sys
 - `werkzeuge/logger/`: Kopie von Aufzeichnung, Pumpenüberwachung, Leitstand (Master); `werkzeuge/auswertung/`.
 - `werkzeuge/versuche/`: eigenständige Probeprogramme, keine automatischen Tests.
 - `Software/pypilot_Fork/`: eigener Fork von 0.24; `docs/regler/verbesserungen.md` = Liste zu testender Verbesserungen.
+- `autopilot/kern/` (pypilot-Kern mit Regler, auf jeder Plattform gleich) und `autopilot/plattform/tinypilot/` (`paket/` mit
+  Tasten und Anzeige `hat/`, `opt/` Startskripte, `dienste/`, `einstellungen/`). `autopilot/bauen.sh` setzt daraus den
+  Paketbaum zusammen; das Paket selbst wird auf dem TinyPilot gebaut.
 - `autopilot/suan-regler/`: eigener Kursregler (Neuentwicklung, nur SuAns eigene Werte) samt Messprogrammen; Entwurf in `docs/regler/entwurf.md`.
 - `docs/anforderungen/`: Nachfolger. `gesamt.md` (Gesamtbeschreibung), `bedieneinheit.md` (Pi mit Standard-Betriebssystem),
   `motorcontroller.md` (Controller + Interface); `docs/wissen/`: Hintergrund und Marktrecherche.
