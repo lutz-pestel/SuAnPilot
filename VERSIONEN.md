@@ -6,7 +6,7 @@ Version 00.02, Stand 05.10.2026. Format der Nummern und Regeln: `CLAUDE.md`, Abs
 | Baugruppe | Version | Beleg |
 |---|---|---|
 | Autopilot-Software (Paket `pypilot.tcz`) | `ap-v00.02` | Git-Etikett `ap-v00.02`; Prüfsumme (md5) 4e92d81c8ca35d80b283edbf94c35251; aufgespielt am 05.10.2026 im Hafen, Ruder frei |
-| darin Regler `suan` | 00.04 | Datei `tinypilot/regler/suan.py`; ihr Kopfkommentar nennt noch „an Bord: 00.03" und ist damit veraltet (wird mit der nächsten Fassung berichtigt) |
+| darin Regler `suan` | 00.04 | Datei `tinypilot/regler/suan.py` |
 | Platinen (Main, General, RF300-Interface) | keine Version vergeben | Betreiber nennt die Stände |
 | Motor-Controller (gekauft) | Firmware-Stand unbekannt | Faktendokument: `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md` |
 | RF300-Interface (Arduino-Code) | keine Version vergeben | `tinypilot/rf300-interface/software/` |

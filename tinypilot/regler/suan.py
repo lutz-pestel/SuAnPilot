@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# SuAn-Regler, Version 00.04, Stand 05.10.2026 (an Bord: 00.03). Entwurf: tinypilot/regler/entwurf.md
+# SuAn-Regler, Version 00.04, Stand 05.10.2026 (an Bord: 00.04). Entwurf: tinypilot/regler/entwurf.md
 # Regelt die Ruderlage:  Soll = Trimm + k(Fahrt) x (Kursfehler + Tg x (Drehrate - Soll-Drehrate)) + Drehruder
 # Die Pumpe wird ueber eine geschaetzte Ruderlage gefuehrt (Laufzeit x Rudergeschwindigkeit), die mit der um
 # 'delay' verspaeteten Ruderanzeige abgeglichen wird. Alle Schiffswerte kommen aus SuAns Vermessung; solange
