@@ -147,4 +147,4 @@ Jeder Schritt wird einzeln vorgelegt.
 
 ## 6. Pflege
 - Jede Schwäche und jedes Problem des TinyPilot wird als Anforderung hier oder in
-  `docs/anforderungen/bedieneinheit.md` aufgenommen (vorher angesagt, Regel 1).
+  `suanpilot-v01.00/autopilot/hardware/konzeption/bedieneinheit.md` aufgenommen (vorher angesagt, Regel 1).

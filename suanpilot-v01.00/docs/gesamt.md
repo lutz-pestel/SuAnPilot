@@ -16,8 +16,8 @@ Ein eigener Autopilot für das 15-t-Schiff mit Hydrauliksteuerung:
 | Komponente | Ort | Aufgabe | Teilprojekt |
 |---|---|---|---|
 | SuAnPilot-Bedieneinheit | Steuerstand (im Freien) | Kursregler, Lage-/Kompasssensor, eine größere Anzeige, ≥ 4 Tasten, Weboberfläche, Aufzeichnung | `SuAnPilot/` |
-| Motor-Controller mit Interface | Motorraum | H-Brücke (handelsüblich), Pumpenansteuerung, Strommessung, RF300-Frequenz → Ruderlage, NMEA-Ruderlage | `docs/anforderungen/motorcontroller.md` |
-| Stromversorgung | Motorraum | 12-V-Bordnetz für Pumpe und Elektronik | `docs/anforderungen/motorcontroller.md` |
+| Motor-Controller mit Interface | Motorraum | H-Brücke (handelsüblich), Pumpenansteuerung, Strommessung, RF300-Frequenz → Ruderlage, NMEA-Ruderlage | `motor-controller/hardware/konzeption/motorcontroller.md` |
+| Stromversorgung | Motorraum | 12-V-Bordnetz für Pumpe und Elektronik | `motor-controller/hardware/konzeption/motorcontroller.md` |
 | Hydraulikpumpe | Motorraum | vorhanden, seit Jahren mit Robertson J300 bewährt | – |
 | Ruderlagengeber RF300 | Ruder | vorhanden (Robertson), liefert Frequenz | – |
 | Ruderlagenanzeige | Steuerstand | vorhanden, empfängt NMEA-Ruderlage – **vorrangig** | – |
@@ -48,7 +48,7 @@ Welche Prüfungen im Controller liegen (Strom, Ruderbewegung, Verbindungsverlust
 Bedieneinheit (Kurs, Sensor-Plausibilität, Selbsthilfe, Buchführung), ist noch festzulegen.
 
 ## 5. Dokumente
-- `docs/anforderungen/bedieneinheit.md` – Anforderungen an die Bedieneinheit (B, U, R, L, Z, W) und Nachbesserungsbedarf gegenüber pypilot 0.24.
-- `docs/anforderungen/motorcontroller.md` – Anforderungen an Controller und Interface (F, S).
+- `suanpilot-v01.00/autopilot/hardware/konzeption/bedieneinheit.md` – Anforderungen an die Bedieneinheit (B, U, R, L, Z, W) und Nachbesserungsbedarf gegenüber pypilot 0.24.
+- `motor-controller/hardware/konzeption/motorcontroller.md` – Anforderungen an Controller und Interface (F, S).
 - Kursregler (Kern von V1.0, läuft vorher schon im TinyPilot): `tinypilot/regler/entwurf.md` im Hauptprojekt.
 - Lehren des Hauptprojekts: `CHRONIK.md`; Aufgaben am heutigen TinyPilot: `TODO.md`.

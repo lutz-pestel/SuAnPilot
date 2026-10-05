@@ -9,7 +9,7 @@ Platinen werden in KiCad entworfen und bei JLCPCB gefertigt. Zwei Linien laufen 
 - **Linie B (SMD, bestückt):** Oberflächenteile (SMD, kleine Teile ohne Drähte), von JLCPCB maschinell bestückt.
   Entsteht aus A, indem möglichst viele Teile auf ihr SMD-Gegenstück umgestellt werden. B darf sich elektrisch von A
   unterscheiden, wenn eine SMD-Lösung etwas ermöglicht, das in THT nicht ging.
-- Je Linie ein eigenes KiCad-Projekt (Unterordner von `suanpilot/motorcontroller/` bzw. `tinypilot/autopilot/hardware/kicad/`).
+- Je Linie ein eigenes KiCad-Projekt (Unterordner von `motor-controller/hardware/` bzw. `tinypilot/autopilot/hardware/kicad/`).
   Änderungen in A werden in B bewusst nachgezogen, nicht automatisch.
 
 ## 2. Entwurfsregeln
@@ -57,7 +57,7 @@ in Economic 2 × 3,07 $ = 6,14 $ Aufschlag.
   **noch nicht erprobt**. Lesezugriff auf die JLCPCB-Seite über den Chrome-Browser funktioniert (Teilesuche, Preise).
 
 ## 6. Teile, die nur mit SMD möglich werden (Kandidaten für Linie B)
-Aus `suanpilot/motorcontroller/Bauteilauswahl.md`, dort wegen „kein SMD-Löten" verworfen:
+Aus `motor-controller/hardware/konzeption/Bauteilauswahl.md`, dort wegen „kein SMD-Löten" verworfen:
 - Verstärkerbaustein für den Messwiderstand (Zeile 70)
 - MAX9921 (Zeile 128)
 - Isolierte Fertigbausteine wie ADM2483 (Zeile 181)

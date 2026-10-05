@@ -1,7 +1,7 @@
 # Aufgabenliste TinyPilot (aktuelles Projekt)
 
 Stand: 04.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `CHRONIK.md`.
-Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `docs/anforderungen/`.
+Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `suanpilot-v01.00/docs/gesamt.md`.
 Einteilung nach Ort: **Im Hafen** (entwickeln, einrichten) und **Unterwegs** (messen, testen); Reihenfolge
 innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `tinypilot/regler/verbesserungen.md`.
 
@@ -27,7 +27,7 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
 9. AIS-Positionsmeldungen mit Datum 2007 abstellen; Signal-K-Passwort zurücksetzen;
    Aufzeichnungsprogramm: Takt nach nicht springendem Zähler.
 10. **Pumpe rückwärts schwach** (Testbericht 04.10.): im Fehlerfall Klemme A und B gegen Masse messen (`messlauf3.py`);
-    dann entscheiden: Testgerät ESP32 + IBT-2 oder neuer pypilot-Controller (`docs/anforderungen/motorcontroller.md`).
+    dann entscheiden: Testgerät ESP32 + IBT-2 oder neuer pypilot-Controller (`motor-controller/hardware/konzeption/motorcontroller.md`).
 
 ## Unterwegs
 1. **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).

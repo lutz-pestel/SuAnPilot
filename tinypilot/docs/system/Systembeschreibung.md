@@ -107,7 +107,7 @@ Herleitung: Testberichte 01.10. (Starkwind: P 0,02, D 0,27, gain 0,7) und 02.10.
 ## 7. Schwachstellen (offene Fragen stehen nur in `TODO.md`)
 - **Pumpe rückwärts zeitweise schwach** (1,9 V statt 11 V am Motor, Motor steht, brummt; Endstufe des Controllers; Testbericht 04.10.).
 - Ruderlage etwa 1 s verzögert: für basic unerheblich, für adaptive eingerechnet (Chronik).
-- Handsteuerung per Taste nur als Notlösung (A2); Ziel siehe `docs/anforderungen/bedieneinheit.md`, B3.
+- Handsteuerung per Taste nur als Notlösung (A2); Ziel siehe `suanpilot-v01.00/autopilot/hardware/konzeption/bedieneinheit.md`, B3.
 - **AIS-Gerät sendet `$GPRMC` mit Datum 14.02.2007** (vermutlich Überlauf des GPS-Wochenzählers;
   nachgewiesen 30.09.2026 durch Ab-/Einschalten). Die Signal-K-Erweiterung „set-system-time“
   übernahm es ungeprüft, die Master-Uhr sprang 2007↔2026; seit 30.09. abgeschaltet, Uhr stabil.

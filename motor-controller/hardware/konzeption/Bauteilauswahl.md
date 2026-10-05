@@ -10,7 +10,7 @@ wird eine Festlegung unbeschaffbar, wird neu gesucht, nicht in alten Listen nach
 - Pumpe **Robertson RPU160**, Typenschild: 12 V DC, **7,5 A**, 3500 min⁻¹, 1,6 l/min, IP 44, Bj. 1995.
   Gemessen: Betrieb 4–6 A, Spitzen 8,3 A ohne Last. Endstufe soll 40 A Spitze vertragen (Reserve, Blockierfall).
 - **Linie A (THT):** kein SMD-Löten auf unserer Platine: Einzelteile in Drahtform (DIP, TO-220) oder Module mit
-  Stiftleiste. Je Teil SMD-Gegenstück prüfen, Abweichung begründen (`suanpilot/fertigungsstrategie-platinen.md`).
+  Stiftleiste. Je Teil SMD-Gegenstück prüfen, Abweichung begründen (`fertigung/fertigungsstrategie-platinen.md`).
 - Vor Preis gehen **Robustheit** und **Diagnosefähigkeit** (Strom *und* Klemmenspannung zurücklesen).
 - Motorraum: warm, feucht, Vibration. Bauteile möglichst −40…+85 °C.
 

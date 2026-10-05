@@ -1,6 +1,6 @@
 # TEMPORÄR – Messung RF300 am Robertson (nach Erledigung löschen)
 
-Ergebnisse gehen danach in `docs/anforderungen/motorcontroller.md`, Abschnitt 3.4.
+Ergebnisse gehen danach in `motor-controller/hardware/konzeption/motorcontroller.md`, Abschnitt 3.4.
 
 **Zweck:** Mit welcher Spannung und welchem Strom versorgt Robertson selbst den RF300?
 Vergleich: An der eigenen Interfaceplatine bekommt er 7,3 V bei 13,3 V Bordspannung (04.10.2026, ~17 mA gerechnet).

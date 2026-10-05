@@ -6,7 +6,7 @@ Version 00.01, Stand: 05.10.2026.
 ## 1. Ziel und Abgrenzung
 - Bedien- und Recheneinheit am Steuerstand: Kursregler, Sensoren, Anzeige, Tasten, Weboberfläche.
 - Motor-Controller (mit RF300-Interface) und Stromversorgung sitzen im Motorraum und sind ein eigenes
-  Projekt: `docs/anforderungen/motorcontroller.md`. Verbindung RS422 im vorhandenen Kabel.
+  Projekt: `motor-controller/hardware/konzeption/motorcontroller.md`. Verbindung RS422 im vorhandenen Kabel.
 - Baut auf einem Pi mit Standard-Betriebssystem. Eine einzige, größere Anzeige statt zwei.
 - Unterschiede zur Peripherie des TinyPilot (nur diese; der Kern `tinypilot/autopilot/software/RPI/kern/` bleibt gleich, ersetzt wird
   `tinypilot/autopilot/software/RPI/plattform/…/hat/`):

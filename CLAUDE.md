@@ -20,12 +20,12 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `tinypilot/docs/
 - 60: `tinypilot/rf300-interface/software/Programmbeschreibung.md`
 - 80: `CLAUDE.md`, `TODO.md`, `tinypilot/regler/verbesserungen.md`, `tinypilot/docs/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
   `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
-- 90: `suanpilot/fertigungsstrategie-platinen.md`
+- 90: `fertigung/fertigungsstrategie-platinen.md`
 - 100: `tinypilot/docs/anforderungen/notloesung-A2.md`, `tinypilot/docs/system/Testplan_Autopilot.md`
 - 150: `CHRONIK.md` (einzige Chronik), `tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `tinypilot/docs/tests/*.md`, `tinypilot/regler/entwurf.md`,
-  `docs/anforderungen/gesamt.md` und `docs/anforderungen/bedieneinheit.md`
-- 200: `docs/anforderungen/motorcontroller.md`
-- 300: `suanpilot/motorcontroller/Bauteilauswahl.md`
+  `suanpilot-v01.00/docs/gesamt.md` und `suanpilot-v01.00/autopilot/hardware/konzeption/bedieneinheit.md`
+- 200: `motor-controller/hardware/konzeption/motorcontroller.md`
+- 300: `motor-controller/hardware/konzeption/Bauteilauswahl.md`
 - 500: `docs/wissen/Wie funktioniert ein Autopilot.md`
 
 ## Ablage
@@ -34,7 +34,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `tinypilot/docs/
   (eigenes Arduino-Programm, `Programmbeschreibung.md`), `coprozessor/`, `motorcontroller-hersteller/`
   (gekaufter Controller: Code **nur als Reserve** in `firmware/`, Faktendokument).
 - **`suanpilot/` = Entwurf** (alles Neue, mit Versionsnummer): `motorcontroller/` (Bauteilauswahl, Blockschaltbild);
-  Fertigung bei JLCPCB: `suanpilot/fertigungsstrategie-platinen.md`.
+  Fertigung bei JLCPCB: `fertigung/fertigungsstrategie-platinen.md`.
 - Gemeinsam für beide: `autopilot/`, `tinypilot/werkzeuge/`, `docs/`.
 - `tinypilot/werkzeuge/logger/`: Kopie von Aufzeichnung, Pumpenüberwachung, Leitstand (Master); `tinypilot/werkzeuge/auswertung/`.
 - `tinypilot/werkzeuge/versuche/`: eigenständige Probeprogramme, keine automatischen Tests.
