@@ -162,7 +162,7 @@ Teensy 4.1 (mehr als nötig).
 **MAX488E / MAX3488E (DIP-8)** — Datenblatt <https://www.analog.com/en/products/max3488e.html>, Bezug z. B.
 <https://de.farnell.com/analog-devices/max488cpa/transceiver-rs-485-422-dip8-488/dp/2519464>.
 Die Familie steckt bereits zweimal auf der vorhandenen Platine
-`tinypilot/hardware/PyPilot_Main_RS422`: U6 für die Strecke zum Motor-Controller, U7 für die Ruderlage, beide an
+`tinypilot/autopilot/hardware/kicad/PyPilot_Main_RS422`: U6 für die Strecke zum Motor-Controller, U7 für die Ruderlage, beide an
 3,3 V, je ein Abschlusswiderstand am Empfangspaar — an Bord erprobt und beschaffbar. Eigenschaften: Vollduplex
 (getrennte Sende- und Empfangsadern, keine Umschaltung in Software), 250 kbit/s bei weichen Flanken (wenig
 Störstrahlung), Treiber kurzschluss- und übertemperaturfest, Empfänger mit Fail-Safe (Kabelbruch ergibt sicheren
@@ -264,7 +264,7 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
 ## Quellen
 **Die Bezugsquelle jedes Bauteils steht im jeweiligen Abschnitt.** Hier nur, was nicht an einem Bauteil hängt:
 - Ladungspumpe, Strombegrenzung und Stromrückmeldung des G2: <https://www.pololu.com/product/2994/faqs>
-- RS422-Treiber im Schiff verbaut: `tinypilot/hardware/PyPilot_Main_RS422/PyPilot_Main.net` (U6, U7)
+- RS422-Treiber im Schiff verbaut: `tinypilot/autopilot/hardware/kicad/PyPilot_Main_RS422/PyPilot_Main.net` (U6, U7)
 - Leiterbahnbreite hoher Ströme: <https://courses.fedevel.com/forum/other/high-current-tracepour>
 - Neuer pypilot-Controller (4,5 oz Kupfer, Sicherungs-LED): <https://forum.openmarine.net/printthread.php?tid=2248>
-- Heutiges Protokoll und Verkabelung: `tinypilot/motorcontroller-hersteller/Motor_Controller_Fakten.md`
+- Heutiges Protokoll und Verkabelung: `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`

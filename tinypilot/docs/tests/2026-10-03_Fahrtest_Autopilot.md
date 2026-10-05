@@ -1,7 +1,7 @@
 # Fahrtest Autopilot 03.10.2026 – Vermessung SuAn, eigener Regler „suan“, Pumpenfehler rückwärts
 
 Daten: Master `/home/pi/aplog/data/signals_2026-10-03_*.csv`, `guete_2026-10-03.csv`, `marks.csv`, Pumpenläufe; TinyPilot
-`/mnt/mmcblk0p2/servo_recovery.csv`. Werkzeuge: `autopilot/suan-regler/` (`ident.py`, `sim.py`, `kalib.py`, `fehlertest.py`, `live.py`).
+`/mnt/mmcblk0p2/servo_recovery.csv`. Werkzeuge: `tinypilot/regler/` (`ident.py`, `sim.py`, `kalib.py`, `fehlertest.py`, `live.py`).
 Bedingungen: 08:36–09:38 Motor (spätestens ab 09:17 mit Groß), glattes Wasser, Wind 5–10 kn, SOG 6–6,7 kn; Halse 09:22;
 09:38–10:44 nur Groß, 4–5 kn, Wind 9–15 kn, Kurs zum Wind 131–162°, Seegang 1; ab 10:44 Groß + gereffte Genua, 5–5,7 kn.
 
@@ -23,7 +23,7 @@ Stattdessen `ident.py`: Modell je Minute an beliebige Ruderbewegungen angepasst;
 | Motor + Groß, 6,0 kn, Wind von StB ~80° | 9–12 s / 0,8–1,2° | **28–31 s** / 0–0,9° |
 | nur Groß, 4,1–4,7 kn, Wind von BB 131–145° | 11–16 s / 2–6° | 10–27 s / 1,6–3° |
 
-## 3. Eigener Regler „suan“ (Ruderlage-Regler, Entwurf `docs/regler/entwurf.md`)
+## 3. Eigener Regler „suan“ (Ruderlage-Regler, Entwurf `tinypilot/regler/entwurf.md`)
 Startwerte aus Abschnitt 1 per Simulation: k_ref 1,0 (bei 6,5 kn, mit Fahrt angepasst), Tg 2 s, Drehrate Kurswechsel 1,5 °/s.
 Kurshalten, nur Groß, 4,9–5,7 kn, Kurs zum Wind 145–156° (Vergleich „basic“ 09:48–09:52 unter gleichen Bedingungen):
 | Stand | Kurs-Trend | Pumpe Ø | Wechsel/min |

@@ -11,18 +11,18 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 **Ein Kommando ist erst beendet, wenn seine Ausführung überprüft wurde.**
 
 ## Einstieg für neue Sitzungen
-1. `TODO.md` lesen (was als Nächstes ansteht). 2. Heutiger Aufbau und Werte: `docs/system/Systembeschreibung.md`.
-3. Letzte Tests: `docs/tests/`, Ablauf und Sicherheit: `docs/system/Testplan_Autopilot.md`. 4. Lehren: `CHRONIK.md`.
+1. `TODO.md` lesen (was als Nächstes ansteht). 2. Heutiger Aufbau und Werte: `tinypilot/docs/system/Systembeschreibung.md`.
+3. Letzte Tests: `tinypilot/docs/tests/`, Ablauf und Sicherheit: `tinypilot/docs/system/Testplan_Autopilot.md`. 4. Lehren: `CHRONIK.md`.
 5. Nachfolger: `docs/anforderungen/` (Einstieg `gesamt.md`).
-Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `docs/system/Systembeschreibung.md`, Abschnitt 8.
+Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
-- 60: `tinypilot/rf300-interface/Programmbeschreibung.md`
-- 80: `CLAUDE.md`, `TODO.md`, `docs/regler/verbesserungen.md`, `docs/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
-  `tinypilot/motorcontroller-hersteller/Motor_Controller_Fakten.md`
+- 60: `tinypilot/rf300-interface/software/Programmbeschreibung.md`
+- 80: `CLAUDE.md`, `TODO.md`, `tinypilot/regler/verbesserungen.md`, `tinypilot/docs/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
+  `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
 - 90: `suanpilot/fertigungsstrategie-platinen.md`
-- 100: `docs/anforderungen/notloesung-A2.md`, `docs/system/Testplan_Autopilot.md`
-- 150: `CHRONIK.md` (einzige Chronik), `docs/system/Systembeschreibung.md`, jeder Testbericht `docs/tests/*.md`, `docs/regler/entwurf.md`,
+- 100: `tinypilot/docs/anforderungen/notloesung-A2.md`, `tinypilot/docs/system/Testplan_Autopilot.md`
+- 150: `CHRONIK.md` (einzige Chronik), `tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `tinypilot/docs/tests/*.md`, `tinypilot/regler/entwurf.md`,
   `docs/anforderungen/gesamt.md` und `docs/anforderungen/bedieneinheit.md`
 - 200: `docs/anforderungen/motorcontroller.md`
 - 300: `suanpilot/motorcontroller/Bauteilauswahl.md`
@@ -35,21 +35,21 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `docs/system/Sys
   (gekaufter Controller: Code **nur als Reserve** in `firmware/`, Faktendokument).
 - **`suanpilot/` = Entwurf** (alles Neue, mit Versionsnummer): `motorcontroller/` (Bauteilauswahl, Blockschaltbild);
   Fertigung bei JLCPCB: `suanpilot/fertigungsstrategie-platinen.md`.
-- Gemeinsam für beide: `autopilot/`, `werkzeuge/`, `docs/`.
-- `werkzeuge/logger/`: Kopie von Aufzeichnung, Pumpenüberwachung, Leitstand (Master); `werkzeuge/auswertung/`.
-- `werkzeuge/versuche/`: eigenständige Probeprogramme, keine automatischen Tests.
-- `Software/pypilot_Fork/`: eigener Fork von 0.24; `docs/regler/verbesserungen.md` = Liste zu testender Verbesserungen.
-- `autopilot/kern/` (pypilot-Kern mit Regler, auf jeder Plattform gleich) und `autopilot/plattform/tinypilot/` (`paket/` mit
-  Tasten und Anzeige `hat/`, `opt/` Startskripte, `dienste/`, `einstellungen/`). `autopilot/bauen.sh` setzt daraus den
+- Gemeinsam für beide: `autopilot/`, `tinypilot/werkzeuge/`, `docs/`.
+- `tinypilot/werkzeuge/logger/`: Kopie von Aufzeichnung, Pumpenüberwachung, Leitstand (Master); `tinypilot/werkzeuge/auswertung/`.
+- `tinypilot/werkzeuge/versuche/`: eigenständige Probeprogramme, keine automatischen Tests.
+- `Software/pypilot_Fork/`: eigener Fork von 0.24; `tinypilot/regler/verbesserungen.md` = Liste zu testender Verbesserungen.
+- `tinypilot/autopilot/software/RPI/kern/` (pypilot-Kern mit Regler, auf jeder Plattform gleich) und `tinypilot/autopilot/software/RPI/plattform/` (`paket/` mit
+  Tasten und Anzeige `hat/`, `opt/` Startskripte, `dienste/`, `einstellungen/`). `tinypilot/autopilot/software/RPI/bauen.sh` setzt daraus den
   Paketbaum zusammen; das Paket selbst wird auf dem TinyPilot gebaut.
-- `autopilot/suan-regler/`: eigener Kursregler (Neuentwicklung, nur SuAns eigene Werte) samt Messprogrammen; Entwurf in `docs/regler/entwurf.md`.
+- `tinypilot/regler/`: eigener Kursregler (Neuentwicklung, nur SuAns eigene Werte) samt Messprogrammen; Entwurf in `tinypilot/regler/entwurf.md`.
 - `docs/anforderungen/`: Nachfolger. `gesamt.md` (Gesamtbeschreibung), `bedieneinheit.md` (Pi mit Standard-Betriebssystem),
   `motorcontroller.md` (Controller + Interface); `docs/wissen/`: Hintergrund und Marktrecherche.
 - Beide Zukunftsprojekte sind Ideensammlungen: **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.**
-- `tinypilot/coprozessor/TinyPilot_Coprocessor/`: **veralteter** Code des Tasten-/Display-Arduinos (Pro Mini 3,3 V
+- `tinypilot/autopilot/software/Arduino/TinyPilot_Coprocessor/`: **veralteter** Code des Tasten-/Display-Arduinos (Pro Mini 3,3 V
   auf PyPilot_Main_RS422). Der aufgespielte Code ist verschollen; Verhalten weicht nachweislich ab.
 - KiCad: Das alte Original (Platinen, Gerber, Verdrahtungspläne) liegt außerhalb, nicht Teil des Projekts:
-  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `tinypilot/hardware/` ist eine Kopie (Stand 05.10.2026);
+  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `tinypilot/autopilot/hardware/kicad/` ist eine Kopie (Stand 05.10.2026);
   Netzlisten dort, z. B. `PyPilot_Main.net`.
 - Karten-Images und Sicherungen: `...\uC_Raspberry\Projects\PyPilot\PyPilot_2021\PyPilot_Imgage\`.
 

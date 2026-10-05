@@ -3,13 +3,13 @@
 Version 00.01, Stand: 05.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
 TinyPilot; wird der Kern von SuAnPilot V1.0 auf derselben Hardware. Hardware bleibt vorerst unverändert
 (RPi Zero 2 W nur, falls die Rechenleistung nicht reicht). Grundlagen: `docs/wissen/Marktrecherche.md`
-(Bauart der Hersteller), Testberichte `docs/tests/`.
+(Bauart der Hersteller), Testberichte `tinypilot/docs/tests/`.
 
 ## 1. Ziel
 - SuAn bei **jedem Wetter, auf jedem Kurs, bei jedem Seegang** sicher steuern – mindestens so gut wie der Robertson,
   der mit derselben Pumpe ohne Zusatzdaten steuert; mit Drehrate, Krängung und Fahrt besser als er.
 - Zwei Wertesätze: **„ruhig“** (wenig Pendeln, mehr Strom) und **„sparsam“** (etwas mehr Pendeln, weniger Strom).
-- Bewertung nach dem Gütemaß in `docs/system/Testplan_Autopilot.md` (Trend, Pumpe W, Wechsel, Ausreißer).
+- Bewertung nach dem Gütemaß in `tinypilot/docs/system/Testplan_Autopilot.md` (Trend, Pumpe W, Wechsel, Ausreißer).
 
 ## 2. Grundsätze
 - **Nur SuAns eigene Werte.** Handbücher anderer Hersteller liefern nur die Bauart, keine Zahlen.
@@ -115,7 +115,7 @@ und Luvgierigkeit stecken beide im Trimm und werden mitgelernt):
 - Werte als eigene pypilot-Werte (`ap.pilot.suan.*`, gespeichert); Satz „ruhig“/„sparsam“ als ein Wert.
 - Zusätzliche Aufzeichnung: Soll-Ruder, geschätzte Ruderlage, Trimm-Anteile, k, Gierband.
 - Rechenlast prüfen (TinyPilot heute 42 % frei mit Aufzeichnung, gemessen); Zero 2 W nur bei Bedarf.
-- Code im Projekt `autopilot/suan-regler/`: `suan.py` (Regler, erste Fassung ohne Krängung/Gierband/Fahrtwerte), `sim.py`
+- Code im Projekt `tinypilot/regler/`: `suan.py` (Regler, erste Fassung ohne Krängung/Gierband/Fahrtwerte), `sim.py`
   (Simulation, Startwerte), `sprung.py` (Auswertung Rudersprünge), `setzen.py` (Werte setzen und prüfen).
 - **Bedienung V1.0:** Tasten und Display an der Steuersäule bleiben genau wie heute (über den Arduino-Coprozessor):
   Autopilot ein/aus und Kurs ändern. Einzige Änderung: Taste 3 (Menü) entfällt – alle Einstellungen in der

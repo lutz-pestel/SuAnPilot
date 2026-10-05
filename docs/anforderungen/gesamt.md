@@ -2,7 +2,7 @@
 
 **Ideensammlung.** Noch nicht gestartet; jede Anforderung wird vor Projektstart einzeln geprüft.
 Version 00.01, Stand: 05.10.2026. Grundlage sind die Erfahrungen mit dem heutigen TinyPilot (pypilot 0.24),
-beschrieben in `docs/system/Systembeschreibung.md` und `docs/tests/` des Hauptprojekts.
+beschrieben in `tinypilot/docs/system/Systembeschreibung.md` und `tinypilot/docs/tests/` des Hauptprojekts.
 
 ## 1. Ziel
 SuAnPilot ist die künftige Hardware; die Autopilot-Software läuft auf TinyPilot und später auf SuAnPilot.
@@ -50,5 +50,5 @@ Bedieneinheit (Kurs, Sensor-Plausibilität, Selbsthilfe, Buchführung), ist noch
 ## 5. Dokumente
 - `docs/anforderungen/bedieneinheit.md` – Anforderungen an die Bedieneinheit (B, U, R, L, Z, W) und Nachbesserungsbedarf gegenüber pypilot 0.24.
 - `docs/anforderungen/motorcontroller.md` – Anforderungen an Controller und Interface (F, S).
-- Kursregler (Kern von V1.0, läuft vorher schon im TinyPilot): `docs/regler/entwurf.md` im Hauptprojekt.
+- Kursregler (Kern von V1.0, läuft vorher schon im TinyPilot): `tinypilot/regler/entwurf.md` im Hauptprojekt.
 - Lehren des Hauptprojekts: `CHRONIK.md`; Aufgaben am heutigen TinyPilot: `TODO.md`.

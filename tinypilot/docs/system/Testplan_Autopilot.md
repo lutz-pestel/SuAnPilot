@@ -1,7 +1,7 @@
 # Testplan Autopilot im Automatik-Betrieb
 
 Ziel: Kurshalteleistung messen, Probleme finden, Reglerwerte schrittweise verbessern.
-Vorbereitet am 29.09.2026. Systemaufbau siehe `docs/system/Systembeschreibung.md`.
+Vorbereitet am 29.09.2026. Systemaufbau siehe `tinypilot/docs/system/Systembeschreibung.md`.
 
 ## Sicherheit
 - Freies Wasser, wenig Verkehr, ruhige bis mäßige Bedingungen.
@@ -10,7 +10,7 @@ Vorbereitet am 29.09.2026. Systemaufbau siehe `docs/system/Systembeschreibung.md
 - Nach jeder Wertänderung mindestens 60 s warten, bevor ausgeschaltet wird (Speichertakt).
 
 ## Aufzeichnung
-- Beschrieben in `docs/system/Systembeschreibung.md`, Abschnitt 8. Markierung je Testabschnitt:
+- Beschrieben in `tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8. Markierung je Testabschnitt:
   `ssh pi@10.10.10.1 /home/pi/aplog/aplog.sh mark "Text"`. 10/s mit `APLOG_PERIOD=0.1` (38 % frei).
 - Werte ändern: pypilot-Server `10.10.10.163:23322` (Adresse per DHCP, Name `box`), Zeile
   `ap.pilot.basic.D=0.25`. Ausgangswerte stehen unten.
@@ -50,7 +50,7 @@ Dazu bei Bedarf: Pendelperiode, Stromspitzen, neue Servo-Störungen, Selbsthilfe
   · Kurve (eigene Drehung). Segelfläche ergibt sich aus SOG und Krängung.
 - Antrieb (Segel / Motor / Motorsegeln) als Angabe des Betreibers; Betriebsart und Manöver werden erkannt.
 
-## Bekannte Verdachtsstellen (siehe `docs/wissen/Weiterentwicklung PyPilot 2020-2026.md`)
+## Bekannte Verdachtsstellen (siehe `tinypilot/docs/wissen/Weiterentwicklung PyPilot 2020-2026.md`)
 - Servo-Logik von 0.24 (später mehrfach korrigiert), hoch eingestellte Reglerwerte.
 - 57 Servo-Störungen ohne bekannte Ursache.
 - Ruderlage ~1 s verzögert (für den Kursregler laut Chronik nicht maßgeblich – im Test prüfen).

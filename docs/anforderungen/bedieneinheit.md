@@ -8,8 +8,8 @@ Version 00.01, Stand: 05.10.2026.
 - Motor-Controller (mit RF300-Interface) und Stromversorgung sitzen im Motorraum und sind ein eigenes
   Projekt: `docs/anforderungen/motorcontroller.md`. Verbindung RS422 im vorhandenen Kabel.
 - Baut auf einem Pi mit Standard-Betriebssystem. Eine einzige, größere Anzeige statt zwei.
-- Unterschiede zur Peripherie des TinyPilot (nur diese; der Kern `autopilot/kern/` bleibt gleich, ersetzt wird
-  `autopilot/plattform/tinypilot/…/hat/`):
+- Unterschiede zur Peripherie des TinyPilot (nur diese; der Kern `tinypilot/autopilot/software/RPI/kern/` bleibt gleich, ersetzt wird
+  `tinypilot/autopilot/software/RPI/plattform/…/hat/`):
   P1 Nur ein LCD auf der Platine; der Arduino-Coprozessor entfällt ganz.
   P2 Die Tastenabfrage wird neu gebaut und erkennt „gedrückt, solange gehalten“ (B3).
   P3 Kein Menü mehr; alle Einstellungen in der Weboberfläche (B4).
@@ -26,7 +26,7 @@ Version 00.01, Stand: 05.10.2026.
 - Beim Tausch des Motor-Controllers wurden Einstellungen im TinyPilot überschrieben.
 - Keine eingebaute Aufzeichnung; Auswertung erst mit eigenem Programm auf dem Master.
 - Rechenleistung knapp: etwa 50 % frei, 42 % mit Aufzeichnung.
-Einzelheiten: `docs/tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
+Einzelheiten: `tinypilot/docs/tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
 
 ## 3. Anforderungen (Ideen)
 ### 3.1 Bedienung
@@ -48,7 +48,7 @@ Einzelheiten: `docs/tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
 - R2 Ruder-Trimmlage aus der gemessenen (geglätteten) Krängung; in der Böe vorausschauend Ruder geben,
   bevor das Schiff anluvt. Bei Geschwindigkeitsbefehlen: Glied auf die Änderung der Krängung.
 - R3 Wertebereiche groß genug; kein Regelglied am Anschlag (heute P).
-- R4 Mehrere Profile nach dem Bedingungsraster und Gütemaß in `docs/system/Testplan_Autopilot.md` (Hauptprojekt), umschaltbar
+- R4 Mehrere Profile nach dem Bedingungsraster und Gütemaß in `tinypilot/docs/system/Testplan_Autopilot.md` (Hauptprojekt), umschaltbar
   per Taste und Weboberfläche; später selbsttätige Wahl nach Seegang, Wind und Kurs zum Wind.
   Je Profil wird mitgeschrieben, wie gut es war (Kursabweichung, Pumpenzeit, Strom). Anlass: Werte vom
   30.09. (gegen defekte Pumpe erhöht) ließen das Schiff am 01.10. mit 14–17 s Periode pendeln.

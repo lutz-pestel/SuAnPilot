@@ -2,7 +2,7 @@
 
 ## A2 – Übergangslösung „Pumpenstoß je Tastendruck“ (Notlösung, umgesetzt 29.09.2026)
 - **Nur aus der Not gewählt:** Es gibt derzeit kein Programmiergerät für den Arduino, und der
-  aufgespielte Code ist verschollen. Der Code in `tinypilot/coprozessor/TinyPilot_Coprocessor` ist veraltet
+  aufgespielte Code ist verschollen. Der Code in `tinypilot/autopilot/software/Arduino/TinyPilot_Coprocessor` ist veraltet
   (Ruhepegel der Tastenleitungen: gemessen HIGH, laut diesem Code LOW).
 - Verhalten: Bei ausgeschaltetem Autopiloten lässt jeder Tastendruck einer Steuertaste (kurz
   oder lang) die Pumpe 1,4 s mit voller Drehzahl in die gewählte Richtung laufen.

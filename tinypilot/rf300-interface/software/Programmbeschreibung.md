@@ -26,4 +26,4 @@ Die Kalibrierwerte (Winkel min/max, Frequenz min/mitte/max) werden im Menü gese
 - Ohne RF300-Signal wartet `pulseIn` bis zu seiner Zeitgrenze, und die ganze Schleife stockt.
 - `HallSensor_PIN` wird zwar eingerichtet, aber nie gelesen.
 - Der Mittelwert über 30 Messungen trägt zur gemessenen Verzögerung der Ruderlage von etwa 1 s bei
-  (siehe `CHRONIK.md`). Am heutigen System wird daran bewusst nichts geändert (`docs/anforderungen/notloesung-A2.md`, B1).
+  (siehe `CHRONIK.md`). Am heutigen System wird daran bewusst nichts geändert (`tinypilot/docs/anforderungen/notloesung-A2.md`, B1).

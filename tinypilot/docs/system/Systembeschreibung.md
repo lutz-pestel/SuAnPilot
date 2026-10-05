@@ -62,7 +62,7 @@ braun NMEA-Ruderlage, blau frei. 5 V kommen getrennt (rot/schwarz). Unbenutzt am
 - Krängungs-Glied H in `pilots/basic.py` und dauerhaft gespeicherte Filter in `boatimu.py` (01.10.2026).
   Paket davor: `pypilot.tcz.bak-2026-10-01-heel`.
 - Eigener Regler **adaptive** (im Gerät noch „suan“, `pilots/suan.py`, 03.10.2026): regelt die Ruderlage, wählbar neben
-  basic. Pakete davor: `pypilot.tcz.bak-2026-10-03-vor-suan`, `…-suan-v1`, `…-suan-v2`. Code `autopilot/suan-regler/`.
+  basic. Pakete davor: `pypilot.tcz.bak-2026-10-03-vor-suan`, `…-suan-v1`, `…-suan-v2`. Code `tinypilot/regler/`.
 - Laut Bedienungsanleitung wurde früher das Vorzeichen der NMEA-Ruderausgabe (`nmea.py`)
   geändert; im heutigen Paket nicht nachgeprüft.
 
@@ -100,7 +100,7 @@ Herleitung: Testberichte 01.10. (Starkwind: P 0,02, D 0,27, gain 0,7) und 02.10.
 - **Motor-Controller:** fertig gekauft; Code des Herstellers liegt nur als Reserve im Projekt.
   Welcher Stand aufgespielt ist, ist unbekannt. Neu aufspielen ist nicht vorgesehen. Seit 01.10.2026
   Ersatzgerät (altes: Vorwärtsrichtung ausgefallen); er überschrieb beim Verbinden Werte im TinyPilot.
-- **RF300-Interface:** eigener Code im Projekt (`tinypilot/rf300-interface/RF300_Interface`), Kalibrierung im EEPROM.
+- **RF300-Interface:** eigener Code im Projekt (`tinypilot/rf300-interface/software/RF300_Interface`), Kalibrierung im EEPROM.
 - **Coprozessor:** der aufgespielte Code ist verschollen; der Code im Projekt ist veraltet.
   Kein Programmierzugang vorhanden.
 
@@ -114,7 +114,7 @@ Herleitung: Testberichte 01.10. (Starkwind: P 0,02, D 0,27, gain 0,7) und 02.10.
 
 ## 8. Aufzeichnung und Überwachung
 Läuft auf dem Master, unabhängig von Claude; startet beim Hochfahren selbst (`crontab` pi, `@reboot`, 90 s).
-Programme `/home/pi/aplog/` (`aplog.py`, `pumpwatch.py`, `aplog.sh`; Kopie `werkzeuge/logger/`).
+Programme `/home/pi/aplog/` (`aplog.py`, `pumpwatch.py`, `aplog.sh`; Kopie `tinypilot/werkzeuge/logger/`).
 | Datei in `/home/pi/aplog/data/` | Inhalt |
 |---|---|
 | `signals_<Datum>_<Zeit>.csv` | 5/s: Kurs, Soll, Fehler, Drehrate, Krängung, Roll/Stampf, Ruder, Pumpe, Strom, Spannung, Wind, GPS, Reglerglieder, Controller-Temperatur, Selbsthilfe; je Start neue Datei; Zeit = Unix-Zeit (UTC) |
@@ -134,11 +134,11 @@ Im TinyPilot: Selbsthilfe-Logbuch `/mnt/mmcblk0p2/servo_recovery.csv`.
 - **Leitstand** (`leitstand.py`, Desktop-Symbol „Leitstand Autopilot“ am Master): Seite 1 Lage, Ruderbalken, Verlauf
   10 min in Ampelfarben; Seite 2 „Güte“ (AP-Health, Umwelt, Ruder-Trimm, Gesamtampel 60 min); Seite 3 schaltet Regler
   und Satz (Rückfrage, Bestätigung) und zeigt alle Meldungen; Statuszeile auf jeder Seite. ~15–20 % eines Kerns, ohne Summer.
-- Kopie im Projekt: `Daten/aplog/` (für Excel: Unix-Zeit umrechnen). Last: TinyPilot 49 % frei ohne, 42 % mit Aufzeichnung.
+- Kopie im Projekt: `tinypilot/daten/aplog/` (für Excel: Unix-Zeit umrechnen). Last: TinyPilot 49 % frei ohne, 42 % mit Aufzeichnung.
 
 ## 9. Weitere Dokumente
-- `docs/anforderungen/notloesung-A2.md` – Notlösung A2; künftige Systeme: `docs/anforderungen/`
-- `docs/wissen/Weiterentwicklung PyPilot 2020-2026.md` – Änderungen seit 0.24, Verdachtsstellen
-- `tinypilot/motorcontroller-hersteller/Motor_Controller_Fakten.md` – Motor-Controller
+- `tinypilot/docs/anforderungen/notloesung-A2.md` – Notlösung A2; künftige Systeme: `docs/anforderungen/`
+- `tinypilot/docs/wissen/Weiterentwicklung PyPilot 2020-2026.md` – Änderungen seit 0.24, Verdachtsstellen
+- `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md` – Motor-Controller
 - `CHRONIK.md` – Lehren
 - `CLAUDE.md` – Arbeitshinweise (Zugang, Paket ändern, Ablage)

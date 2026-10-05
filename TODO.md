@@ -3,7 +3,7 @@
 Stand: 04.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `CHRONIK.md`.
 Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `docs/anforderungen/`.
 Einteilung nach Ort: **Im Hafen** (entwickeln, einrichten) und **Unterwegs** (messen, testen); Reihenfolge
-innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `docs/regler/verbesserungen.md`.
+innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `tinypilot/regler/verbesserungen.md`.
 
 ## Im Hafen
 1. **Leitstand erweitern** (läuft seit 01.10. am Master, `leitstand.py`): Seite 2 „Güte“ aus `guete_<Datum>.csv`
@@ -18,7 +18,7 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
 4. **Fork:** Einträge aus `Verbesserungen.md` nach deren Priorität einbauen; Test unterwegs.
 5. **Profile** als Behelf auf dem Master: Bedingung (Kurs zum Wind, Krängung, Seegang) × Ziel
    („bestes Kurshalten“, „minimaler Strom“); ein Befehl schaltet um und markiert. Werte unterwegs messen.
-6. **Datensicherung** Master → `Daten/aplog/` regelmäßig; automatische Erkennung von Kurs- und
+6. **Datensicherung** Master → `tinypilot/daten/aplog/` regelmäßig; automatische Erkennung von Kurs- und
    Bedingungswechseln, damit Abschnitte ohne Markierung auswertbar sind.
 7. Ausfall des Autopiloten beim Signal-K-Neustart (30.09.) und Hartruder beim Einschalten nachstellen;
    Verdacht prüfen, ob der Signal-K-Client in pypilot beteiligt ist. Bis dahin: Signal K nie bei
@@ -54,7 +54,7 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 11. Endlagenschalter am Motor-Controller angeschlossen? Kabel vorhanden, in keinem Plan. (N)
 12. Ursache der 57 Servo-Störungen? (Aufzeichnung auswerten)
 13. Altes Gerät (Ausfall vorwärts): welches Bauteil? Als Reserve reparieren? (M, F)
-14. Pumpe rückwärts zeitweise schwach (1,4 statt 4 A, Brummen): Spannung an den Motorklemmen beim Brummen, Klopftest; `autopilot/suan-regler/diagnose.py`. (M)
+14. Pumpe rückwärts zeitweise schwach (1,4 statt 4 A, Brummen): Spannung an den Motorklemmen beim Brummen, Klopftest; `tinypilot/regler/diagnose.py`. (M)
 15. Pumpendaten: Typ, Nennspannung, Lauf- und Anlaufstrom, Fördermenge. (N Typenschild)
 16. Ruder von Anschlag zu Anschlag: Zeit? pypilot nimmt 2,14 s an. (M)
 17. Anzeige-Fehler +2,9° bei Ruder mittig: Einbau RF300, Kalibrierung Interface oder pypilot? (N, M)

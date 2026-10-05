@@ -1,6 +1,6 @@
 # Fahrtest Autopilot 30.09.2026
 
-Test abgeschlossen. Planung: `docs/system/Testplan_Autopilot.md`. Folgetag: `2026-10-01_Fahrtest_Autopilot.md`.
+Test abgeschlossen. Planung: `tinypilot/docs/system/Testplan_Autopilot.md`. Folgetag: `2026-10-01_Fahrtest_Autopilot.md`.
 
 ## 1. Rahmen
 - Schlag durch Dänemark nach Norden (um 55°02' N, 9°38' O), Ziel ist Vorwärtskommen, Test nebenbei.
@@ -109,4 +109,4 @@ blieb also auf der Drehseite (Ruder für Geradeauslauf auf diesem Kurs ~+5…+10
 ## 7. Daten
 Master `/home/pi/aplog/data/`: `signals_2026-09-30_073645.csv` (Messwerte), `events_…csv`
 (Einstellungen), `marks.csv` (Markierungen). Zeit in `signals` = Unix-Zeit (UTC). Kopie im
-Projekt: `Daten/aplog/`.
+Projekt: `tinypilot/daten/aplog/`.

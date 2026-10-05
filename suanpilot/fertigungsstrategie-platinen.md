@@ -9,7 +9,7 @@ Platinen werden in KiCad entworfen und bei JLCPCB gefertigt. Zwei Linien laufen 
 - **Linie B (SMD, bestückt):** Oberflächenteile (SMD, kleine Teile ohne Drähte), von JLCPCB maschinell bestückt.
   Entsteht aus A, indem möglichst viele Teile auf ihr SMD-Gegenstück umgestellt werden. B darf sich elektrisch von A
   unterscheiden, wenn eine SMD-Lösung etwas ermöglicht, das in THT nicht ging.
-- Je Linie ein eigenes KiCad-Projekt (Unterordner von `suanpilot/motorcontroller/` bzw. `tinypilot/hardware/`).
+- Je Linie ein eigenes KiCad-Projekt (Unterordner von `suanpilot/motorcontroller/` bzw. `tinypilot/autopilot/hardware/kicad/`).
   Änderungen in A werden in B bewusst nachgezogen, nicht automatisch.
 
 ## 2. Entwurfsregeln

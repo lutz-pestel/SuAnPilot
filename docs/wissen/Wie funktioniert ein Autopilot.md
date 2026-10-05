@@ -138,7 +138,7 @@ Besonderheiten:
 Erster Versuch nur in freiem Wasser, bei ruhigen Bedingungen, mit Steuermann bereit. Rückweg: Pilot „basic“ wählen.
 
 ## 7. Der dritte Regler: adaptive (eigener Regler, eingebaut)
-Eigene Neuentwicklung für SuAn (`docs/regler/entwurf.md`). Er befiehlt wie absolute eine **Ruderlage**,
+Eigene Neuentwicklung für SuAn (`tinypilot/regler/entwurf.md`). Er befiehlt wie absolute eine **Ruderlage**,
 rechnet aber ein, was SuAn ausmacht:
 - **Fahrt:** Die Ruderwirkung wächst mit der Fahrt (03.10.: 0,23 °/s Drehung je Grad Ruder bei 4,4 kn, 0,42 bei
   6,5 kn). Der Regler passt seine Stärke selbst an, statt dass man P je Wetter umstellen muss.
@@ -167,7 +167,7 @@ Fünf Reiter; unten steht immer die Statuszeile. **Jede Änderung wirkt sofort**
 - Darunter je Glied ein Schieberegler mit Zahl, nur die Glieder des gewählten Reglers
   (bei basic: P, I, D, DD, PR, FF, R, H; bei adaptive über 30 Werte, dort besser `setzen.py`).
 - Schieberegler lassen sich schlecht fein stellen. Für genaue Werte besser über den pypilot-Server setzen
-  (Port 23322, `autopilot/suan-regler/setzen.py`).
+  (Port 23322, `tinypilot/regler/setzen.py`).
 - **Nicht hier:** servo.gain, der Drehrate-Filter und die Werte des kleinen Ruderlage-Reglers von absolute
   (position.p/i/d). Sie lassen sich nur über den pypilot-Server lesen und setzen.
 
