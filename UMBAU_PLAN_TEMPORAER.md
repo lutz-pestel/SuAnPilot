@@ -33,7 +33,7 @@ PyPilot-AI/
       motorcontroller-hersteller/  gekaufter Controller: firmware/ (motor.ino, unverändert, Reserve), Fakten
       rf300-interface/             eigener Arduino-Code, läuft heute an Bord
       coprozessor/                 Tasten-Arduino, veralteter Code (aufgespielter verschollen)
-      hardware/                    KiCad: PyPilot_Main_RS422, General_Dual_Display, General_Basic, Ruderlagen_Geber_RF300;
+      hardware/                    KiCad: PyPilot_Main_RS422, General_Dual_Display, General_Basic, RF300_Interface (Platine);
                                    GPIO-Liste, Kabelverbindung
     suanpilot/                     ENTWURF (alles Neue mit Versionsnummer)
       motorcontroller/             Bauteilauswahl, Blockschaltbild; später test-nano/, esp32/, KiCad
