@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Leitstand Autopilot
+Comment=Lage, Verlauf und Probleme des TinyPilot (nur lesend)
+Exec=bash -c "exec python3 /home/pi/aplog/leitstand.py >>/tmp/leitstand.log 2>&1"
+Path=/home/pi/aplog
+Icon=utilities-system-monitor
+Terminal=false
+Categories=Utility;

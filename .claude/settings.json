@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ssh -o BatchMode=yes pi@10.10.10.1 \"/home/pi/aplog/aplog.sh mark 'AP an mit Selbsthilfe, Tests beginnen'; date +%H:%M:%S\")",
+      "ClaudeInChromeDomain(10.10.10.163)"
+    ]
+  }
+}

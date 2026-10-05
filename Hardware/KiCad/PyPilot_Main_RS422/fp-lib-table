@@ -1,0 +1,5 @@
+(fp_lib_table
+  (lib (name MyLibrary)(type KiCad)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/MyLibrary")(options "")(descr ""))
+  (lib (name ARDUINO_PRO_MINI_3)(type KiCad)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/ARDUINO_PRO_MINI_3.3V")(options "")(descr ""))
+  (lib (name LCD)(type KiCad)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/LCD")(options "")(descr ""))
+)

@@ -1,0 +1,6 @@
+(sym_lib_table
+	(version 7)
+	(lib (name "PyPilot_General-rescue") (type "Legacy") (uri "${KIPRJMOD}/PyPilot_General-rescue.lib") (options "") (descr ""))
+	(lib (name "General") (type "Legacy") (uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/MyLibrary/General_Library.lib") (options "") (descr ""))
+	(lib (name "PyPilot_General-cache") (type "Legacy") (uri "E:/Users/SuAn/Cloud/My Apps/KiCad/Projects/PyPilot/PyPilot_General_Dual_Display/PyPilot_General-cache.lib") (options "") (descr "Legacy project cache library"))
+)

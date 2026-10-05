@@ -1,0 +1,5 @@
+# Zeilenenden wie auf dem Pi (LF), auch beim Auschecken unter Windows
+* text=auto eol=lf
+*.xls binary
+*.doc binary
+*.zip binary

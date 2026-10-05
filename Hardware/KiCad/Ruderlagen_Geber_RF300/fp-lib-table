@@ -1,0 +1,4 @@
+(fp_lib_table
+  (lib (name Amplifier_Operational)(type KiCad)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/Amplifier_Operational")(options "")(descr ""))
+  (lib (name MyLibrary)(type KiCad)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/MyLibrary")(options "")(descr ""))
+)

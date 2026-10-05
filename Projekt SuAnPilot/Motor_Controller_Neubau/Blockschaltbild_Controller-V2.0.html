@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockschaltbild Motor-Controller V2.0</title>
+<style>
+  :root{
+    --bg:#f6f7f9; --fg:#1a1d21; --muted:#5b6471; --line:#c2c8d0;
+    --per:#eceff3; --per-bd:#9aa4b2;
+    --inn:#ffffff; --inn-bd:#2d6cdf;
+    --cpu:#f4f8ff; --cpu-bd:#3b7ddd;
+    --pwr:#fff5f3; --pwr-bd:#c0392b;
+    --c-power:#c0392b; --c-digi:#1f6feb; --c-ana:#d97706;
+    --c-data:#7c3aed; --c-sup:#6b7280; --c-keep:#15803d;
+  }
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;}
+  .wrap{max-width:1760px;margin:0 auto;padding:18px 16px 40px;}
+  h1{font-size:20px;margin:0 0 2px;}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.5;}
+  .sheet{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;}
+  svg{width:100%;height:auto;display:block;}
+  .bx{font:10px/1.30 "Segoe UI",system-ui,Arial,sans-serif;color:#1a1d21;
+      padding:5px 7px;box-sizing:border-box;height:100%;overflow:hidden;}
+  .bx b{display:block;font-size:11.5px;line-height:1.25;margin-bottom:3px;}
+  .bx i{font-style:normal;color:var(--muted);}
+  .bx .ref{display:block;margin-top:3px;font-size:9px;color:var(--muted);letter-spacing:.02em;}
+  text{font-family:"Segoe UI",system-ui,Arial,sans-serif;}
+  .lb{font-size:9px;fill:#374151;}
+  .lb.s{font-size:8.5px;}
+  .frame-t{font-size:12px;fill:var(--muted);font-weight:600;}
+  .legend{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:12.5px;color:#243040;}
+  .legend div{display:flex;align-items:center;gap:8px;}
+  .legend span.k{display:inline-block;width:30px;height:0;border-top-width:3px;border-top-style:solid;}
+  .note{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.6;}
+  @media print{
+    @page{size:A4 landscape;margin:8mm;}
+    body{background:#fff;} .sheet{border:none;padding:0;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Blockschaltbild &mdash; Motor-Controller V2.0 (Endger&auml;t)</h1>
+  <p class="sub">Ein Ger&auml;t im Motorraum ersetzt den gekauften Motor-Controller <em>und</em> die
+  RF300-Interfaceplatine. Ideensammlung, Stand 04.10.2026. Die K&uuml;rzel F&hellip; und S&hellip; in den
+  K&auml;sten verweisen auf die Anforderungen in <code>Projektdokument.md</code>, Abschnitt&nbsp;3.</p>
+
+<div class="sheet">
+<svg viewBox="0 0 1700 1030" role="img" aria-label="Blockschaltbild des neuen Motor-Controllers">
+  <defs>
+    <marker id="m-power" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+    <marker id="m-digi"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f6feb"/></marker>
+    <marker id="m-ana"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+    <marker id="m-data"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+    <marker id="m-sup"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+    <marker id="m-keep"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#15803d"/></marker>
+    <style>
+      .w-power{stroke:#c0392b;stroke-width:4;fill:none;marker-end:url(#m-power);}
+      .w-digi {stroke:#1f6feb;stroke-width:2;fill:none;marker-end:url(#m-digi);}
+      .w-ana  {stroke:#d97706;stroke-width:2;fill:none;marker-end:url(#m-ana);}
+      .w-data {stroke:#7c3aed;stroke-width:2.6;fill:none;marker-end:url(#m-data);}
+      .w-sup  {stroke:#6b7280;stroke-width:2;fill:none;stroke-dasharray:6 4;marker-end:url(#m-sup);}
+      .w-keep {stroke:#15803d;stroke-width:3.4;fill:none;marker-end:url(#m-keep);}
+      .both.w-data{marker-start:url(#m-data);}
+      .both.w-ana{marker-start:url(#m-ana);}
+      .both.w-digi{marker-start:url(#m-digi);}
+      .dot{fill:#374151;}
+    </style>
+  </defs>
+
+  <!-- ======== Rahmen ======== -->
+  <rect x="330" y="70" width="1010" height="935" rx="14" fill="#fbfcfe" stroke="#8c97a6" stroke-width="2" stroke-dasharray="10 6"/>
+  <text class="frame-t" x="346" y="92">Neues Ger&#228;t im Motorraum &#8211; ersetzt Motor-Controller und RF300-Interfaceplatine</text>
+
+  <rect x="680" y="100" width="290" height="870" rx="12" fill="#f4f8ff" stroke="#3b7ddd" stroke-width="1.6"/>
+  <text class="frame-t" x="690" y="124" fill="#2d6cdf">Steuerung: ein Rechner (ESP32)</text>
+
+  <!-- ======== Peripherie links ======== -->
+  <g><rect x="20" y="90" width="210" height="100" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="21" y="91" width="208" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>12-V-Bordnetz</b>Batterie, Hauptschalter, Sicherungen. <i>Spannung schwankt 12,4&#8211;14 V.</i></div></foreignObject></g>
+
+  <g><rect x="20" y="300" width="210" height="140" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="21" y="301" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RF300 Ruderlagengeber</b>Am Ruderschaft. Mitte 3400 Hz, 20 Hz je Grad, &#177;90&#176; = 1600&#8211;5200 Hz. 10 m geschirmtes Kabel.</div></foreignObject></g>
+
+  <g><rect x="20" y="820" width="210" height="140" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="21" y="821" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>TinyPilot (PyPilot-Einheit)</b>Kursregler, Bedientasten, Display. Steht im Steuerhaus.</div></foreignObject></g>
+
+  <!-- ======== Spalte A: Eingang, Versorgung, Verbindung ======== -->
+  <g><rect x="360" y="110" width="210" height="130" rx="8" fill="#ffffff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="361" y="111" width="208" height="128"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Versorgung der Elektronik</b>12 V &#8594; 5 V und 3,3 V. Schutz gegen Verpolung und &#220;berspannung, Filter.<span class="ref">F8</span></div></foreignObject></g>
+
+  <g><rect x="360" y="300" width="210" height="250" rx="8" fill="#ffffff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="361" y="301" width="208" height="248"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RF300-Eingang (Stromschnittstelle)</b>Feste, gefilterte Speisung des Gebers. Kleiner Messwiderstand in der Masseleitung. Vergleicher mit Hysterese und <i>mitlaufender Schwelle</i> (lernt den Ruhestrom). St&#246;rfilter, Schutz. Erkennt Kurzschluss und Kabelbruch. Macht aus dem Stromtakt ein sauberes Rechtecksignal.<span class="ref">F3, S2</span></div></foreignObject></g>
+
+  <g><rect x="360" y="820" width="210" height="140" rx="8" fill="#ffffff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="361" y="821" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RS422-Sender und -Empf&#228;nger</b>Nutzt das vorhandene 8-adrige Kabel zur PyPilot-Einheit.<span class="ref">F7</span></div></foreignObject></g>
+
+  <!-- ======== Spalte B: Aufgaben im Rechner ======== -->
+  <g><rect x="695" y="145" width="240" height="80" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="146" width="238" height="78"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Stellteil</b>Richtung, Drehzahl (PWM), einstellbare Anlauframpe.<span class="ref">F1, F9</span></div></foreignObject></g>
+
+  <g><rect x="695" y="240" width="240" height="110" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="241" width="238" height="108"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>&#220;berwachung, je Richtung getrennt</b>Vergleicht Befehl mit Wirkung: Strom, Klemmenspannung, Ruderbewegung. Erkennt F&#246;rderausfall und grenzt die Ursache ein. Endlagen aus der Ruderlage.<span class="ref">F2, F6, F10, S1, S3, S9</span></div></foreignObject></g>
+
+  <g><rect x="695" y="365" width="240" height="90" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="366" width="238" height="88"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Frequenzmessung &#8594; Grad</b>Z&#228;hlt die Frequenz unmittelbar, ohne Mittelung &#252;ber viele Messungen: Ruderlage ohne sp&#252;rbare Verz&#246;gerung.<span class="ref">F3, F4</span></div></foreignObject></g>
+
+  <g><rect x="695" y="470" width="240" height="85" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="471" width="238" height="83"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Kalibrierung und Grenzwerte</b>Nullpunkt, Ma&#223;stab, Anschl&#228;ge, Stromgrenze &#8211; im Ger&#228;t, nicht im TinyPilot.<span class="ref">F3, S7</span></div></foreignObject></g>
+
+  <g><rect x="695" y="570" width="240" height="85" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="571" width="238" height="83"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Selbsthilfe mit Buchf&#252;hrung</b>Ma&#223;nahmen nacheinander versuchen, Erfolg notieren. Kurzer &#220;berstrom sperrt keine Richtung dauerhaft.<span class="ref">S4, S5</span></div></foreignObject></g>
+
+  <g><rect x="695" y="670" width="240" height="60" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="671" width="238" height="58"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Meldungen</b>Jede St&#246;rung sofort, mit Richtung und Ursache.<span class="ref">S2</span></div></foreignObject></g>
+
+  <g><rect x="695" y="745" width="240" height="85" rx="7" fill="#fff" stroke="#15803d" stroke-width="1.8"/>
+  <foreignObject x="696" y="746" width="238" height="83"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Ruderlagen-Ausgabe</b>Bildet den NMEA-Satz. Arbeitet unabh&#228;ngig vom Pumpenteil und vom TinyPilot.<span class="ref">F5, S6</span></div></foreignObject></g>
+
+  <g><rect x="695" y="845" width="240" height="60" rx="7" fill="#fff" stroke="#3b7ddd" stroke-width="1.2"/>
+  <foreignObject x="696" y="846" width="238" height="58"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Befehle und R&#252;ckmeldung</b>Protokoll zum TinyPilot. Verbindung weg &#8594; Pumpe stoppt.<span class="ref">F7, S6</span></div></foreignObject></g>
+
+  <g><rect x="695" y="912" width="240" height="46" rx="7" fill="#f1f5f9" stroke="#3b7ddd" stroke-width="1.2" stroke-dasharray="5 3"/>
+  <foreignObject x="696" y="913" width="238" height="44"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Speicher (bleibt beim Tausch)</b>Kalibrierung, Grenzwerte, Buchf&#252;hrung.<span class="ref">S7</span></div></foreignObject></g>
+
+  <!-- ======== Spalte C: Leistung und Messung ======== -->
+  <g><rect x="1060" y="145" width="250" height="175" rx="8" fill="#fff5f3" stroke="#c0392b" stroke-width="1.8"/>
+  <foreignObject x="1061" y="146" width="248" height="173"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Endstufe: H-Br&#252;cke</b>Baustein mit eingebauter Ladungspumpe (z.&#8239;B. BTS7960) &#8211; keine knappe Bootstrap-Hilfsspannung, daher in beiden Richtungen dauerhaft 100&#8239;%. Eigener Fehlerausgang (zu hei&#223;, Strom). Option: zweite Br&#252;cke als Reserve.<span class="ref">F1, F9, S8</span></div></foreignObject></g>
+
+  <g><rect x="1060" y="355" width="250" height="100" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="1061" y="356" width="248" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Strommessung</b>Im Motorpfad, je Richtung getrennt; erfasst auch kurze Spitzen (bisher 4&#8211;6 A, Spitzen 8,3 A).<span class="ref">F2</span></div></foreignObject></g>
+
+  <g><rect x="1060" y="490" width="250" height="120" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="1061" y="491" width="248" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Spannungsmessung</b>Klemme A und Klemme B gegen Masse, dazu die Bordspannung (intern abgegriffen). Nur so l&#228;sst sich ein Ausfall der Endstufe von einem der Pumpe unterscheiden.<span class="ref">F10</span></div></foreignObject></g>
+
+  <g><rect x="1060" y="745" width="250" height="90" rx="8" fill="#fff" stroke="#15803d" stroke-width="1.8"/>
+  <foreignObject x="1061" y="746" width="248" height="88"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>NMEA-Ausgang (eigener Treiber)</b>Getrennt von der Verbindung zum TinyPilot.<span class="ref">F5</span></div></foreignObject></g>
+
+  <g><rect x="1060" y="870" width="250" height="80" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="1061" y="871" width="248" height="78"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Schaltausgang Warnung</b>Treibt Summer und Warnleuchte direkt.<span class="ref">S2</span></div></foreignObject></g>
+
+  <!-- ======== Peripherie rechts ======== -->
+  <g><rect x="1430" y="170" width="250" height="130" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="1431" y="171" width="248" height="128"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Hydraulikpumpe (Motor)</b>12 V, Betrieb 4&#8211;6 A. Keine Kupplung, keine Endlagenschalter. Bewegt das Ruder &#8211; und damit den RF300.</div></foreignObject></g>
+
+  <g><rect x="1430" y="745" width="250" height="90" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="1431" y="746" width="248" height="88"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Ruderlagen-Anzeige am Steuerstand</b>Wird beim Man&#246;vrieren im Hafen gebraucht.</div></foreignObject></g>
+
+  <g><rect x="1430" y="870" width="250" height="80" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="1431" y="871" width="248" height="78"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Summer und Warnleuchte</b>St&#246;rung wird h&#246;rbar, nicht nur sichtbar.</div></foreignObject></g>
+
+  <!-- ======== Leitungen ======== -->
+  <!-- 12 V zur Elektronik -->
+  <path class="w-power" d="M230,140 L352,140"/>
+  <text class="lb" x="291" y="130" text-anchor="middle">12 V, abgesichert</text>
+
+  <!-- 12 V Leistung zur Endstufe -->
+  <path class="w-power" d="M230,112 L265,112 L265,40 L1200,40 L1200,137"/>
+  <text class="lb" x="730" y="32" text-anchor="middle">12 V Leistung f&#252;r die Pumpe &#8211; eigene Sicherung, dicke Leitung</text>
+
+  <!-- 3,3/5 V zum Rechner -->
+  <path class="w-sup" d="M465,110 L465,86 L760,86 L760,96"/>
+  <text class="lb" x="612" y="80" text-anchor="middle">3,3 V / 5 V</text>
+
+  <!-- Speisung des RF300-Eingangs -->
+  <path class="w-sup" d="M465,240 L465,292"/>
+  <text class="lb s" x="476" y="262">feste, gefilterte</text>
+  <text class="lb s" x="476" y="274">Speisung</text>
+
+  <!-- RF300: zwei Adern -->
+  <path class="w-ana both" d="M238,370 L352,370"/>
+  <text class="lb s" x="295" y="334" text-anchor="middle">2 Adern,</text>
+  <text class="lb s" x="295" y="346" text-anchor="middle">polarit&#228;tsunabh&#228;ngig:</text>
+  <text class="lb s" x="295" y="358" text-anchor="middle">Speisung + Stromtakt</text>
+  <text class="lb s" x="295" y="388" text-anchor="middle">1600&#8211;5200 Hz</text>
+
+  <!-- Rechteck zum Rechner -->
+  <path class="w-digi" d="M570,400 L687,400"/>
+  <text class="lb s" x="630" y="382" text-anchor="middle">Rechteck,</text>
+  <text class="lb s" x="630" y="393" text-anchor="middle">1600&#8211;5200 Hz</text>
+
+  <!-- Kabelfehler-Meldung -->
+  <path class="w-digi" d="M570,520 L612,520 L612,710 L687,710"/>
+  <text class="lb s" x="620" y="596">Kabelbruch</text>
+  <text class="lb s" x="620" y="607">oder Kurzschluss</text>
+
+  <!-- Stellbefehl zur Endstufe -->
+  <path class="w-digi" d="M935,185 L1052,185"/>
+  <text class="lb s" x="995" y="167" text-anchor="middle">PWM, Richtung,</text>
+  <text class="lb s" x="995" y="178" text-anchor="middle">Freigabe</text>
+
+  <!-- Endstufe zum Motor -->
+  <path class="w-power" d="M1310,235 L1422,235"/>
+  <text class="lb" x="1366" y="214" text-anchor="middle">Klemme A</text>
+  <text class="lb" x="1366" y="226" text-anchor="middle">Klemme B</text>
+
+  <!-- Fehlerausgang der H-Bruecke -->
+  <path class="w-digi" d="M1060,245 L943,245"/>
+  <text class="lb s" x="1001" y="238" text-anchor="middle">Fehlerausgang</text>
+
+  <!-- Strommessung -->
+  <path class="w-ana" d="M1120,320 L1120,347"/>
+  <text class="lb s" x="1130" y="338">Strom im Motorpfad</text>
+  <path class="w-ana" d="M1060,405 L1010,405 L1010,270 L943,270"/>
+  <text class="lb s" x="1002" y="338" text-anchor="end">Motorstrom,</text>
+  <text class="lb s" x="1002" y="349" text-anchor="end">je Richtung</text>
+
+  <!-- Spannungsmessung an den Klemmen -->
+  <path class="w-ana" d="M1370,235 L1370,545 L1318,545"/>
+  <circle class="dot" cx="1370" cy="235" r="4.2"/>
+  <text class="lb s" x="1362" y="470" text-anchor="end">Klemme A</text>
+  <text class="lb s" x="1362" y="481" text-anchor="end">und B</text>
+  <path class="w-ana" d="M1060,545 L985,545 L985,300 L943,300"/>
+  <text class="lb s" x="993" y="400">Spannung an</text>
+  <text class="lb s" x="993" y="411">beiden Klemmen</text>
+
+  <!-- Ruderlage: der Weg, der immer laeuft -->
+  <path class="w-keep" d="M935,790 L1052,790"/>
+  <text class="lb s" x="995" y="772" text-anchor="middle">Ruderlage</text>
+  <text class="lb s" x="995" y="783" text-anchor="middle">als NMEA-Satz</text>
+  <path class="w-keep" d="M1310,790 L1422,790"/>
+  <text class="lb s" x="1366" y="772" text-anchor="middle">NMEA 0183 &#8211;</text>
+  <text class="lb s" x="1366" y="783" text-anchor="middle">l&#228;uft immer</text>
+
+  <!-- Warnung -->
+  <path class="w-digi" d="M935,710 L1000,710 L1000,910 L1052,910"/>
+  <text class="lb s" x="1008" y="856">St&#246;rsignal</text>
+  <path class="w-power" d="M1310,910 L1422,910"/>
+  <text class="lb" x="1366" y="898" text-anchor="middle">Schaltausgang 12 V</text>
+
+  <!-- Rechner - RS422 - TinyPilot -->
+  <path class="w-data both" d="M687,875 L578,875"/>
+  <text class="lb s" x="632" y="857" text-anchor="middle">Befehle hin,</text>
+  <text class="lb s" x="632" y="868" text-anchor="middle">Werte zur&#252;ck</text>
+  <path class="w-data both" d="M352,890 L238,890"/>
+  <text class="lb s" x="295" y="872" text-anchor="middle">RS422, im vorhandenen</text>
+  <text class="lb s" x="295" y="883" text-anchor="middle">8-adrigen Kabel</text>
+
+  <!-- Speicher -->
+  <path d="M935,513 L952,513 L952,935 L943,935" fill="none" stroke="#6b7280" stroke-width="1.8" marker-end="url(#m-sup)"/>
+  <path d="M935,612 L952,612" fill="none" stroke="#6b7280" stroke-width="1.8"/>
+  <circle class="dot" cx="952" cy="513" r="3.6"/>
+  <circle class="dot" cx="952" cy="612" r="3.6"/>
+</svg>
+</div>
+
+<div class="legend">
+  <div><span class="k" style="border-top-color:#c0392b;border-top-width:4px"></span>Leistung (12 V, Motorstrom)</div>
+  <div><span class="k" style="border-top-color:#1f6feb"></span>Logiksignal (Rechteck, PWM, Schaltbefehl)</div>
+  <div><span class="k" style="border-top-color:#d97706"></span>Messwert (Strom, Spannung, Stromtakt des Gebers)</div>
+  <div><span class="k" style="border-top-color:#7c3aed"></span>Daten, seriell (RS422)</div>
+  <div><span class="k" style="border-top-color:#6b7280;border-top-style:dashed"></span>Versorgung der Elektronik, Speicherzugriff</div>
+  <div><span class="k" style="border-top-color:#15803d;border-top-width:4px"></span>Ruderlagen-Weg, der auch bei Ausfall des TinyPilot weiterl&auml;uft (F5)</div>
+</div>
+<p class="note">
+  Pfeile zeigen die Richtung des Signals; ein Doppelpfeil bedeutet beide Richtungen.
+  Ein Punkt auf einer Linie ist ein Abzweig &ndash; kreuzende Linien <strong>ohne</strong> Punkt sind nicht verbunden.
+  Der gestrichelte Rahmen ist das Ger&auml;t; alles au&szlig;erhalb ist vorhandene Anlage.
+</p>
+</div>
+</body>
+</html>

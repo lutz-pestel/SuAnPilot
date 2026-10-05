@@ -1,0 +1,32 @@
+# Nur auf dem PC, nie nach GitHub
+CLAUDE.local.md
+.claude/settings.local.json
+
+# Zu groß für git: Messdaten, fremde Unterlagen, fertige Pakete
+Daten/
+Handbuecher/
+*.pdf
+*.PDF
+*.jpg
+*.JPG
+Hydraulic_Controller.fw.png
+*.tcz
+*.tcz-*
+*.img
+*.img.gz
+
+# KiCad: Sicherungen, Zwischenspeicher, 3D-Modell (82 MB, aus KiCad neu erzeugbar)
+*-backups/
+*.kicad_prl
+*-bak
+*.sch-bak
+*.kicad_pcb-bak
+fp-info-cache
+*.step
+
+# Automatisch erzeugt
+__pycache__/
+*.pyc
+
+# Windows-Verknüpfungen (zeigen auf Orte dieses PCs)
+*.lnk

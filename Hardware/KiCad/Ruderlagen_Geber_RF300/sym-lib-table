@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name General_Library)(type Legacy)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/MyLibrary/General_Library.lib")(options "")(descr ""))
+  (lib (name Amplifier_Operational)(type Legacy)(uri "D:/Users/SuAn/Cloud/My Apps/KiCad/Libraries/Amplifier_Operational/Amplifier_Operational.lib")(options "")(descr ""))
+)
