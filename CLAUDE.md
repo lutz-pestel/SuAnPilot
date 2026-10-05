@@ -13,7 +13,7 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 ## Einstieg für neue Sitzungen
 1. `TODO.md` lesen (was als Nächstes ansteht). 2. Heutiger Aufbau und Werte: `tinypilot/docs/system/Systembeschreibung.md`.
 3. Letzte Tests: `tinypilot/docs/tests/`, Ablauf und Sicherheit: `tinypilot/docs/system/Testplan_Autopilot.md`. 4. Lehren: `CHRONIK.md`.
-5. Nachfolger: `docs/anforderungen/` (Einstieg `gesamt.md`).
+5. Neues: `suanpilot-v01.00/docs/gesamt.md`, `motor-controller/hardware/konzeption/motorcontroller.md`.
 Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
@@ -26,38 +26,33 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `tinypilot/docs/
   `suanpilot-v01.00/docs/gesamt.md` und `suanpilot-v01.00/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `motor-controller/hardware/konzeption/motorcontroller.md`
 - 300: `motor-controller/hardware/konzeption/Bauteilauswahl.md`
-- 500: `docs/wissen/Wie funktioniert ein Autopilot.md`
+- 500: `wissen/Wie funktioniert ein Autopilot.md`
 
 ## Ablage
-- `Handbuecher/` (PyPilot, Andere Schiffe, Motor-Controller, Robertson; nicht in Git): PDFs zu Bedienung und Vorbildern.
-- **`tinypilot/` = im Betrieb** (nur Fehler beheben): `hardware/` (GPIO-Belegung, KiCad-Platinen), `rf300-interface/`
-  (eigenes Arduino-Programm, `Programmbeschreibung.md`), `coprozessor/`, `motorcontroller-hersteller/`
-  (gekaufter Controller: Code **nur als Reserve** in `firmware/`, Faktendokument).
-- **`suanpilot/` = Entwurf** (alles Neue, mit Versionsnummer): `motorcontroller/` (Bauteilauswahl, Blockschaltbild);
-  Fertigung bei JLCPCB: `fertigung/fertigungsstrategie-platinen.md`.
-- Gemeinsam für beide: `autopilot/`, `tinypilot/werkzeuge/`, `docs/`.
-- `tinypilot/werkzeuge/logger/`: Kopie von Aufzeichnung, Pumpenüberwachung, Leitstand (Master); `tinypilot/werkzeuge/auswertung/`.
-- `tinypilot/werkzeuge/versuche/`: eigenständige Probeprogramme, keine automatischen Tests.
-- `Software/pypilot_Fork/`: eigener Fork von 0.24; `tinypilot/regler/verbesserungen.md` = Liste zu testender Verbesserungen.
-- `tinypilot/autopilot/software/RPI/kern/` (pypilot-Kern mit Regler, auf jeder Plattform gleich) und `tinypilot/autopilot/software/RPI/plattform/` (`paket/` mit
-  Tasten und Anzeige `hat/`, `opt/` Startskripte, `dienste/`, `einstellungen/`). `tinypilot/autopilot/software/RPI/bauen.sh` setzt daraus den
-  Paketbaum zusammen; das Paket selbst wird auf dem TinyPilot gebaut.
-- `tinypilot/regler/`: eigener Kursregler (Neuentwicklung, nur SuAns eigene Werte) samt Messprogrammen; Entwurf in `tinypilot/regler/entwurf.md`.
-- `docs/anforderungen/`: Nachfolger. `gesamt.md` (Gesamtbeschreibung), `bedieneinheit.md` (Pi mit Standard-Betriebssystem),
-  `motorcontroller.md` (Controller + Interface); `docs/wissen/`: Hintergrund und Marktrecherche.
-- Beide Zukunftsprojekte sind Ideensammlungen: **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.**
-- `tinypilot/autopilot/software/Arduino/TinyPilot_Coprocessor/`: **veralteter** Code des Tasten-/Display-Arduinos (Pro Mini 3,3 V
-  auf PyPilot_Main_RS422). Der aufgespielte Code ist verschollen; Verhalten weicht nachweislich ab.
-- KiCad: Das alte Original (Platinen, Gerber, Verdrahtungspläne) liegt außerhalb, nicht Teil des Projekts:
-  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `tinypilot/autopilot/hardware/kicad/` ist eine Kopie (Stand 05.10.2026);
-  Netzlisten dort, z. B. `PyPilot_Main.net`.
+Drei gleichberechtigte Projekte im Hauptordner. Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
+`bom/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einem Projekt enthalten nur dessen Inhalt.
+- **`tinypilot/` = im Betrieb** (nur Fehler beheben). Baugruppen: `autopilot/` (Software `RPI/` mit `kern/`, `plattform/`,
+  `bauen.sh`; `Arduino/` mit dem **veralteten** Coprozessor-Code, der aufgespielte Stand ist verschollen), `rf300-interface/`
+  (Platine, Arduino-Code, `Programmbeschreibung.md`), `motor-controller/` (gekauft, **problematisch**: einseitiger Förderausfall,
+  überschreibt Einstellungen; läuft noch, wird durch `motor-controller/` ersetzt; Firmware nur als Reserve).
+  Dazu `regler/` (eigener Kursregler, nur SuAns Werte; hier wird programmiert), `docs/`, `daten/`, `handbuecher/` und
+  `werkzeuge/` (`logger/` Kopie vom Master, `auswertung/`, `versuche/`).
+- **`motor-controller/`** (Neubau, ersetzt auch den am TinyPilot): Entwurf, Anforderungen in `hardware/konzeption/`.
+- **`suanpilot-v01.00/`** (künftig, nicht begonnen): `autopilot/`, `docs/`. Beide Zukunftsprojekte sind Ideensammlungen:
+  **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.**
+- Übergreifend: `wissen/` (Hintergrund, Marktrecherche), `handbuecher/` (Andere Schiffe, Robertson; nicht in Git),
+  `fertigung/` (JLCPCB-Strategie).
+- Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.
+- KiCad: Das alte Original (Platinen, Gerber, Pläne) liegt außerhalb, nicht Teil des Projekts:
+  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `tinypilot/autopilot/hardware/kicad/` ist eine Kopie
+  (Stand 05.10.2026); Netzlisten dort, z. B. `PyPilot_Main.net`.
 - Karten-Images und Sicherungen: `...\uC_Raspberry\Projects\PyPilot\PyPilot_2021\PyPilot_Imgage\`.
 
 ## Versionen (alles Neue)
 - Jedes neue Dokument, jede Platine, Firmware und Software trägt ihre Versionsnummer **sichtbar bei sich**, auch mit Git.
   Format immer `NN.NN` (major.minor, beide zweistellig): `v00.01`, `v01.00`. Dokument: Kopfzeile „Version NN.NN, Stand TT.MM.JJJJ"
-  (Datum der letzten Änderung). Platine: Ordner `vNN.NN/` und Siebdruck. Quellen und Lieferstücke (Regler, Firmware, Pakete):
-  Version im Dateinamen (`suan_v00.03.py`); technische Namen im Paket bleiben, dort Versionskonstante (Display/Log).
+  (Datum der letzten Änderung). Platine: Ordner `vNN.NN/` und Siebdruck. Quellen und Lieferstücke (Firmware, Pakete):
+  Version im Dateinamen; technische Namen im Paket bleiben, dort Versionskonstante (Display/Log).
 - Gibt es mehrere Versionen und keinen genauen Verweis, gilt immer die **letzte**.
 - Dieselbe Nummer als Git-Etikett je Baugruppe: `ap-vNN.NN` Autopilot · `mc-fw-vNN.NN` Controller-Firmware · `tp-hw-vNN.NN` TinyPilot-Platinen ·
   `mc-hw-vNN.NN` Controller-Platine · `proto-vNN.NN` Protokoll. Jede Änderung zählt die Nummer hoch.
