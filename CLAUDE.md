@@ -54,10 +54,13 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `docs/system/Sys
 - Karten-Images und Sicherungen: `...\uC_Raspberry\Projects\PyPilot\PyPilot_2021\PyPilot_Imgage\`.
 
 ## Versionen (alles Neue)
-- Jedes neue Dokument, jede Platine, Firmware und Software trägt ihre Versionsnummer **sichtbar bei sich**, auch mit Git:
-  Dokument: Kopfzeile „Version X.Y, Datum"; Platine: Ordner `vX.Y/` und Siebdruck; Code: Versionskonstante (Display/Log).
-- Dieselbe Nummer als Git-Etikett je Baugruppe: `ap-vX.Y` Autopilot · `mc-fw-vX.Y` Controller-Firmware · `tp-hw-vX.Y` TinyPilot-Platinen ·
-  `mc-hw-vX.Y` Controller-Platine · `proto-vX.Y` Protokoll. Jede Änderung zählt die Nummer hoch.
+- Jedes neue Dokument, jede Platine, Firmware und Software trägt ihre Versionsnummer **sichtbar bei sich**, auch mit Git.
+  Format immer `NN.NN` (major.minor, beide zweistellig): `v00.01`, `v01.00`. Dokument: Kopfzeile „Version NN.NN, Stand TT.MM.JJJJ"
+  (Datum der letzten Änderung). Platine: Ordner `vNN.NN/` und Siebdruck. Quellen und Lieferstücke (Regler, Firmware, Pakete):
+  Version im Dateinamen (`suan_v00.03.py`); technische Namen im Paket bleiben, dort Versionskonstante (Display/Log).
+- Gibt es mehrere Versionen und keinen genauen Verweis, gilt immer die **letzte**.
+- Dieselbe Nummer als Git-Etikett je Baugruppe: `ap-vNN.NN` Autopilot · `mc-fw-vNN.NN` Controller-Firmware · `tp-hw-vNN.NN` TinyPilot-Platinen ·
+  `mc-hw-vNN.NN` Controller-Platine · `proto-vNN.NN` Protokoll. Jede Änderung zählt die Nummer hoch.
 
 ## TinyPilot (im Betrieb)
 - Master (OpenPlotter): `ssh pi@10.10.10.1`. Cockpit-Kartenplotter (RPi, OpenCPN): `ssh pi@10.10.10.187`.

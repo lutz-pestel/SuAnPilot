@@ -1,7 +1,7 @@
 # Projekt SuAnPilot – Gesamtbeschreibung
 
 **Ideensammlung.** Noch nicht gestartet; jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 0.1, Stand: 01.10.2026. Grundlage sind die Erfahrungen mit dem heutigen TinyPilot (pypilot 0.24),
+Version 00.01, Stand: 05.10.2026. Grundlage sind die Erfahrungen mit dem heutigen TinyPilot (pypilot 0.24),
 beschrieben in `docs/system/Systembeschreibung.md` und `docs/tests/` des Hauptprojekts.
 
 ## 1. Ziel

@@ -1,6 +1,6 @@
 # Fertigungsstrategie Platinen (KiCad, JLCPCB)
 
-Version 0.1, Stand: 05.10.2026. Gilt für alle neuen Platinen (Motor-Controller-Neubau, SuAnPilot). Zahlen und Lagerbestände
+Version 00.01, Stand: 05.10.2026. Gilt für alle neuen Platinen (Motor-Controller-Neubau, SuAnPilot). Zahlen und Lagerbestände
 stammen von der JLCPCB-Webseite vom 05.10.2026 und ändern sich; vor jeder Bestellung neu prüfen.
 
 ## 1. Ziel und zwei Linien

@@ -1,7 +1,7 @@
 # Projekt SuAnPilot – neuer Autopilot
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 0.1, Stand: 05.10.2026.
+Version 00.01, Stand: 05.10.2026.
 
 ## 1. Ziel und Abgrenzung
 - Bedien- und Recheneinheit am Steuerstand: Kursregler, Sensoren, Anzeige, Tasten, Weboberfläche.

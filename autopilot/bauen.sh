@@ -1,5 +1,5 @@
 #!/bin/sh
-# Version 0.1 (05.10.2026)
+# Version 00.01 (05.10.2026)
 # Setzt den Paketbaum von pypilot aus kern/ und plattform/tinypilot/paket/ zusammen.
 # Aufruf: sh bauen.sh ZIELORDNER   (Zielordner darf nicht existieren oder muss leer sein)
 # Das Paket selbst (mksquashfs) wird auf dem TinyPilot gebaut, siehe CLAUDE.md, Abschnitt TinyPilot.
