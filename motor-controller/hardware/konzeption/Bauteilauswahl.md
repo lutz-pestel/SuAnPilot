@@ -2,7 +2,7 @@
 
 Version 00.01, Stand 05.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
-Abschnitt 1 und 6 sind **festgelegt**, der Rest ist Vorschlag und wird einzeln besprochen.
+Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
 wird eine Festlegung unbeschaffbar, wird neu gesucht, nicht in alten Listen nachgeschlagen.
 
@@ -116,14 +116,25 @@ Messteiler die freien Klemmen in Ruhe nach Masse — „alles 0 V" wäre dann so
 ein durchgebrannter unterer Schalter, ununterscheidbar. Mit dem Widerstand stellt sich in Ruhe eine mittlere,
 berechenbare Spannung ein; 0 V oder volle Bordspannung heißt dann eindeutig: ein Schalter ist dauerhaft leitend.
 
-## 4. RF300-Eingang (Zweidraht-Stromschnittstelle) — Vorschlag
+## 4. RF300-Eingang (Zweidraht-Stromschnittstelle) — **festgelegt 05.10.2026**
 
-**LM393N (DIP-8) nach Philips AN98087**, ~2 €
-(Conrad 155603): feste gefilterte Speisung des Gebers, kleiner Messwiderstand in der
-Masseleitung, Vergleicher mit Hysterese und mitlaufender Schwelle (lernt den Ruhestrom), Störfilter, Schutz.
-Die Fehlererkennung (Kabelbruch, Kurzschluss) macht die Software: Sensorstrom mitlesen und auf Grenzen prüfen.
-**Vor dem Bau zu messen:** die zwei Stromwerte des RF300, seine Mindestspannung für stabile Frequenz, das
-Tastverhältnis. Ohne diese drei Zahlen lässt sich die Schwelle nicht auslegen.
+**LM393N (DIP-8) nach Philips AN98087**, ~2 € (Conrad 155603): feste gefilterte Speisung des Gebers,
+**Messwiderstand 47 Ω in der Masseleitung**, Vergleicher mit Hysterese und mitlaufender Schwelle (lernt den
+Ruhestrom), Störfilter, Schutz gegen Verpolung und Überspannung.
+
+**Auslegung aus dem gemessenen Arbeitspunkt** (05.10.2026, Einzelheiten in `motorcontroller.md` 3.4): Der Geber
+zieht an unserer Platine 14 mA bei 6,89 V; am Robertson-Originalgerät bekommt er **10,8 V**, das ist der Sollwert
+des Herstellers. Wir legen **bis 25 mA** aus — reichlich über jedem plausiblen Wert, da der Strom mit der
+Spannung steigt. Über 47 Ω fallen dann höchstens 1,2 V ab, der Geber bekommt bei 12,7 V Bordspannung also
+**mindestens 11,5 V** und damit mehr als am Original; bei den wahrscheinlicheren 18 mA sind es 11,9 V. Der
+Spannungshub über 47 Ω ist in beiden Fällen groß genug für den Vergleicher. Der große Vorwiderstand der alten
+Platine entfällt ersatzlos — er war die Ursache der Unterversorgung.
+
+**Vier Strombereiche statt zwei, nach dem Vorbild NAMUR** (DIN EN 60947-5-6, dort 0,2 / 1,2 / 2,1 / 7,0 mA):
+zu wenig Strom = **Kabelbruch**, dann „aus", dann „ein", zu viel = **Kurzschluss**. Die Grenzen setzen wir auf
+unseren Geber, abgeleitet vom laufend gelernten Ruhestrom — die Zahlen der Norm passen nicht, ihr Aufbau schon.
+Das erledigt S2 in Software. Dass der Hersteller es ebenso hält, ist belegt: Das Robertson-Gerät schaltet ab,
+sobald die Sensorleitung unterbrochen wird.
 
 *Verworfen:* MAX9921 — fachlich ideal (speist zwei Zweidraht-Sensoren, erkennt Bruch und Kurzschluss selbst),
 aber nur in SMD. Es gibt ihn als fertig bestückte Vorführplatine MAX9921EVKIT (6–18 V, verträgt 60 V,
@@ -248,7 +259,7 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
   (F13, höchstens 3 m).
 
 ## 10. Offen — vor dem Kauf zu messen oder zu klären
-1. RF300: die zwei Stromwerte, Mindestspannung für stabile Frequenz, Tastverhältnis (Messaufbau, vorher ansagen).
+1. *(erledigt 05.10.2026 – Arbeitspunkt des RF300 gemessen, Auslegung steht in Abschnitt 4.)*
 2. RPU160: Anlauf- und Blockierstrom messen, und ob die Pumpe ein Überdruckventil hat. Beides entscheidet über
    Sicherung, Kupferquerschnitt, Kühlfläche — und darüber, wie sich ein Anschlag überhaupt bemerkbar macht.
 3. Widerstandswert für die Strombegrenzung des G2 bei Pololu erfragen (Ziel 15 A).

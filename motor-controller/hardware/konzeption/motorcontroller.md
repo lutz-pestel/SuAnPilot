@@ -108,20 +108,33 @@ Version 00.01, Stand: 05.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 - RF300 (`tinypilot/rf300-interface/hardware/datenblaetter/RF 300 Ruderlagensensor.xls`): Mitte 3400 Hz, 20 Hz je Grad, ±90° = 1600–5200 Hz,
   Versorgung und Signal auf denselben zwei Adern, **polaritätsunabhängig** (Robertson-Handbücher AP300CX/AP11: Klemmen
   RF+/RF–, „non polarized“); keine Ader an Schiffsmasse (gemessen). Linearität ±3° bis 45°. Kabel 10 m verdrillt,
-  geschirmt; Schirm an die Masse des Geräts. Gemessen 04.10.2026: Bordspannung 13,3 V, am RF300 7,3 V → im Mittel
-  ~17 mA (gerechnet über 360 Ω) – der RF300 läuft weit unter 10–15 V (Forum) bzw. 12–16 V (Simrad, neuere Geräte).
+  geschirmt; Schirm an die Masse des Geräts.
+- **Arbeitspunkt gemessen 05.10.2026** (Multimeter, Bordspannung 12,73 V), an der eigenen Interfaceplatine:
+
+  | Ruderlage | Spannung am RF300 | Strom | daraus Vorwiderstand |
+  |---|---|---|---|
+  | mittschiffs | 6,89 V | 14,05 mA | 416 Ω |
+  | Backbord | 6,62 V | 14,8 mA | 413 Ω |
+  | Steuerbord | 7,23 V | 13,5 mA | 407 Ω |
+
+  **Zum Vergleich am Robertson-Originalgerät: 10,8 V am selben Geber.** Der Hersteller gibt damit den Sollwert
+  vor – unsere Platine versorgt ihn auf gut halber Spannung. Der Strom ändert sich mit der Ruderlage um knapp
+  10 % (13,5–14,8 mA); eine feste Schwelle arbeitet deshalb an den Anschlägen anders als mittschiffs.
+  **Das Robertson-Gerät schaltet ab, sobald die Sensorleitung unterbrochen wird** – es hat eine
+  Kabelbrucherkennung, wie wir sie in S2 fordern. Deshalb war dort kein Strom zu messen.
 - Prinzip „Stromschnittstelle über zwei Adern“: Der Sensor schaltet seine Stromaufnahme im Takt zwischen zwei Werten
   um. Bewährt bei ABS-Drehzahlsensoren (7/14 mA, Frequenz als Messwert), PSI5 (Airbag-Sensoren), M-Bus (Zähler).
-- Heutige Lösung (Interfaceplatine, auch Netz-Nachbauten): großer Widerstand (360 Ω) in der Zuleitung, Kondensator-
-  Kopplung, Transistor – ausprobiert, nicht ausgelegt. Faustregel (Allegro): Versorgung ≥ Mindestspannung des Sensors
-  + Höchststrom × Widerstand; hier verletzt (siehe Messung oben).
+- Heutige Lösung (Interfaceplatine): Widerstand in der Zuleitung, Kondensator-Kopplung, Transistor (BC337) auf den
+  Interrupt-Eingang des Arduino. **Gezeichnet sind 100 Ω (R1 in der Netzliste), verbaut sind rund 410 Ω** – daher
+  die halbe Spannung. Faustregel (Allegro): Versorgung ≥ Mindestspannung des Sensors + Höchststrom × Widerstand;
+  hier verletzt.
 - Anforderung (Lehrbuch-Schaltung nach Philips AN98087, Abschnitt 7): feste, gefilterte Versorgung; **kleiner
   Messwiderstand in der Masseleitung**; Komparator mit Hysterese und **mitlaufender Schwelle** (lernt den Ruhestrom,
   wie M-Bus); Filter gegen Störungen; Schutz gegen Verpolung, Überspannung und Spitzen; Kurzschluss und Unterbrechung
   erkennen und melden (S2). Ausgang direkt mit der Logikspannung des Mikrocontrollers. Fertiger Baustein: MAX9921.
-- Offen – zu messen: (1) die zwei Stromwerte, (2) Mindestspannung für stabile Frequenz und Einfluss der Bordspannung
-  (12,4 / 14 V), (3) Tastverhältnis – mit Messaufbau (Messwiderstand + Arduino, vor Bau angesagt); (4) Frequenzen
-  Mitte/Anschläge am Menü der Interfaceplatine ablesen (für die Kalibrierung).
+- **Erledigt** (05.10.2026): Strom und Spannung sind gemessen, die Kalibrierfrequenzen stehen im Datenblatt.
+  Die beiden einzelnen Stromstufen und das Tastverhältnis bleiben unbekannt – mit mitlaufender Schwelle brauchen
+  wir sie nicht, und ohne Oszilloskop sind sie nicht zu trennen.
 - Quellen: Allegro AN296233 „Two-wire and three-wire sensor interfaces“; Philips/NXP AN98087 (KMI15/16, komplette
   Schaltung mit LM393, 115 Ω); m-bus.com „Physical Layer“; Datenblatt MAX9921.
 

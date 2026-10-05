@@ -43,3 +43,10 @@ vom 01.10. hatte Ruderlage-Regelung als Standard belegt, „absolute“ wurde we
 Rückwärts zeitweise nur ~1,4 A und Brummen; gedeutet als „Motor dreht frei, Pumpe fördert nicht“, dann als Rampe.
 Das Multimeter an den Motorklemmen zeigte 1,9 V statt 11 V: Der Motor steht, die Endstufe liefert nicht.
 **Lehre:** Erst an den Motorklemmen messen, dann deuten. Strom allein unterscheidet Pumpe und Endstufe nicht.
+
+## 2026-10-05 – Platine nicht nach ihrem eigenen Schaltplan bestückt
+Der RF300 bekommt an der Interfaceplatine 6,89 V, am Robertson-Originalgerät dagegen 10,8 V – gut die doppelte
+Spannung. Aus Strom und Spannung gerechnet sitzt in der Zuleitung ein Widerstand von rund 410 Ω; gezeichnet sind
+im eigenen Schaltplan 100 Ω. Über Jahre unbemerkt, gefunden erst beim Vergleich mit dem Gerät des Herstellers.
+**Lehre:** Der Schaltplan beweist nicht, was auf der Platine sitzt. Wo ein Messwert nicht passt, zuerst das
+Bauteil nachmessen – und wenn ein Vorbild des Herstellers an Bord ist, daran vergleichen.
