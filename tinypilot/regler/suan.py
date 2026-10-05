@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
-# SuAn-Regler, erste Fassung (PyPilot-AI, 02.10.2026). Entwurf: Software/SuAn_Regler/Entwurf.md
+# SuAn-Regler, Version 00.03, Stand 05.10.2026 (an Bord: 00.02). Entwurf: tinypilot/regler/entwurf.md
 # Regelt die Ruderlage:  Soll = Trimm + k(Fahrt) x (Kursfehler + Tg x (Drehrate - Soll-Drehrate)) + Drehruder
 # Die Pumpe wird ueber eine geschaetzte Ruderlage gefuehrt (Laufzeit x Rudergeschwindigkeit), die mit der um
 # 'delay' verspaeteten Ruderanzeige abgeglichen wird. Alle Schiffswerte kommen aus SuAns Vermessung; solange
 # Pflichtwerte fehlen (0), schaltet der Regler sofort auf 'basic' zurueck.
 # Im TinyPilot: Datei nach pypilot/pilots/suan.py; am PC: SuanCore direkt (sim.py). Python 3.6.
 import math, time
+
+VERSION = '00.03'
 
 def resolv(a):
     """Winkel auf -180..180."""
