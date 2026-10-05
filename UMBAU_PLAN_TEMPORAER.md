@@ -47,8 +47,7 @@ PyPilot-AI/
     Daten/                         Messdaten, Sicherungen, fertige Pakete – nicht in git (zu groß)
     Handbuecher/                   fremde Unterlagen (PDF, Fotos) – nicht in git
 ```
-- **KiCad:** Das Original außerhalb bleibt Arbeitsort. Je neuer Platinenversion wird es nach `tinypilot/hardware/`
-  kopiert und mit Etikett gespeichert (`tp-hw-vX.Y`); so hat Claude immer die letzte Version.
+- **KiCad:** Das alte Original außerhalb gehört nicht zum Projekt. `tinypilot/hardware/` ist eine Kopie (Stand 05.10.2026).
 
 ## 3. Versionsregeln
 - git überschreibt nie: Jeder gespeicherte Stand bleibt abrufbar.

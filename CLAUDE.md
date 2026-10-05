@@ -48,15 +48,16 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `docs/system/Sys
 - Beide Zukunftsprojekte sind Ideensammlungen: **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.**
 - `tinypilot/coprozessor/TinyPilot_Coprocessor/`: **veralteter** Code des Tasten-/Display-Arduinos (Pro Mini 3,3 V
   auf PyPilot_Main_RS422). Der aufgespielte Code ist verschollen; Verhalten weicht nachweislich ab.
+- KiCad: Das alte Original (Platinen, Gerber, Verdrahtungspläne) liegt außerhalb, nicht Teil des Projekts:
+  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `tinypilot/hardware/` ist eine Kopie (Stand 05.10.2026);
+  Netzlisten dort, z. B. `PyPilot_Main.net`.
+- Karten-Images und Sicherungen: `...\uC_Raspberry\Projects\PyPilot\PyPilot_2021\PyPilot_Imgage\`.
 
 ## Versionen (alles Neue)
 - Jedes neue Dokument, jede Platine, Firmware und Software trägt ihre Versionsnummer **sichtbar bei sich**, auch mit Git:
   Dokument: Kopfzeile „Version X.Y, Datum"; Platine: Ordner `vX.Y/` und Siebdruck; Code: Versionskonstante (Display/Log).
 - Dieselbe Nummer als Git-Etikett je Baugruppe: `ap-vX.Y` Autopilot · `mc-fw-vX.Y` Controller-Firmware · `tp-hw-vX.Y` TinyPilot-Platinen ·
   `mc-hw-vX.Y` Controller-Platine · `proto-vX.Y` Protokoll. Jede Änderung zählt die Nummer hoch.
-- KiCad-Dateien (Platinen mit Gerber-Dateien, Verdrahtungspläne) liegen außerhalb:
-  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\` (Verbindungen am schnellsten aus `PyPilot_Main.net`).
-- Karten-Images und Sicherungen: `...\uC_Raspberry\Projects\PyPilot\PyPilot_2021\PyPilot_Imgage\`.
 
 ## TinyPilot (im Betrieb)
 - Master (OpenPlotter): `ssh pi@10.10.10.1`. Cockpit-Kartenplotter (RPi, OpenCPN): `ssh pi@10.10.10.187`.
