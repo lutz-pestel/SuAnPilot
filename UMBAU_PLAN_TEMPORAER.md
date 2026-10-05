@@ -29,17 +29,15 @@ PyPilot-AI/
       kern/                        pypilot mit allen eigenen Änderungen + SuAn-Regler, ohne Plattform-Teile
       plattform/tinypilot/         Tasten, Anzeige, Startskripte, gpsdate.py, Paketbau Tiny Core, einstellungen/
       plattform/suanpilot/         später (Standard-System)
-    motorcontroller/
-      hersteller-pypilot/          gekaufte Firmware (motor.ino), unverändert, Reserve
-      test-nano/                   später: Test-Controller Arduino Nano + IBT-2
-      esp32/                       später: Endgerät
-      docs/                        Fakten zum gekauften Controller
-    rf300-interface/               eigener Arduino-Code, läuft heute an Bord
-    coprozessor/                   Tasten-Arduino, veralteter Code (aufgespielter verschollen)
-    hardware/
-      tinypilot/                   KiCad: PyPilot_Main_RS422, General_Dual_Display, General_Basic, Ruderlagen_Geber_RF300;
+    tinypilot/                     IM BETRIEB (nur Fehler beheben)
+      motorcontroller-hersteller/  gekaufter Controller: firmware/ (motor.ino, unverändert, Reserve), Fakten
+      rf300-interface/             eigener Arduino-Code, läuft heute an Bord
+      coprozessor/                 Tasten-Arduino, veralteter Code (aufgespielter verschollen)
+      hardware/                    KiCad: PyPilot_Main_RS422, General_Dual_Display, General_Basic, Ruderlagen_Geber_RF300;
                                    GPIO-Liste, Kabelverbindung
-      motorcontroller/             Bauteilauswahl, Blockschaltbild, später KiCad
+    suanpilot/                     ENTWURF (alles Neue mit Versionsnummer)
+      motorcontroller/             Bauteilauswahl, Blockschaltbild; später test-nano/, esp32/, KiCad
+      fertigungsstrategie-platinen.md   JLCPCB, Linie A (THT) und B (SMD)
     werkzeuge/
       logger/                      aplog, pumpwatch, guete, leitstand, wache, ruder (laufen am Master)
       messung/                     diagnose, messlauf 1–3, rampe, rueckw_test, kalib, ident, live, fehlertest, diag_mock
@@ -49,7 +47,7 @@ PyPilot-AI/
     Daten/                         Messdaten, Sicherungen, fertige Pakete – nicht in git (zu groß)
     Handbuecher/                   fremde Unterlagen (PDF, Fotos) – nicht in git
 ```
-- **KiCad:** Das Original außerhalb bleibt Arbeitsort. Je neuer Platinenversion wird es nach `hardware/tinypilot/`
+- **KiCad:** Das Original außerhalb bleibt Arbeitsort. Je neuer Platinenversion wird es nach `tinypilot/hardware/`
   kopiert und mit Etikett gespeichert (`tp-hw-vX.Y`); so hat Claude immer die letzte Version.
 
 ## 3. Versionsregeln
@@ -90,7 +88,7 @@ PyPilot-AI/
 | `Projekt SuAnPilot/Docs/Marktrecherche.md` | `docs/wissen/` |
 | `Projekt SuAnPilot/SuAnPilot/Projektdokument.md` | `docs/anforderungen/bedieneinheit.md` |
 | `Projekt SuAnPilot/Motor_Controller_Neubau/Projektdokument.md` | `docs/anforderungen/motorcontroller.md` |
-| `…/Motor_Controller_Neubau/Bauteilauswahl.md`, `Blockschaltbild_Controller-V2.0.html` | `hardware/motorcontroller/` |
+| `…/Motor_Controller_Neubau/Bauteilauswahl.md`, `Blockschaltbild_Controller-V2.0.html` | `suanpilot/motorcontroller/` |
 | `Software/SuAn_Regler/Entwurf.md` | `docs/regler/entwurf.md` |
 | `Software/SuAn_Regler/suan.py` | `autopilot/kern/` (im Gerät `pilots/suan.py`) – erst Stand v3, dann heutiger Stand |
 | `Software/SuAn_Regler/` Messprogramme | `werkzeuge/messung/` |
@@ -99,19 +97,19 @@ PyPilot-AI/
 | `Software/pypilot_Fork/Verbesserungen.md` | `docs/regler/verbesserungen.md` |
 | `Software/pypilot_Fork/pypilot.tcz-2026-10-01` | `Daten/Pakete/` |
 | `Software/Autopilot_Logger/` (mit `Auswertung/`) | `werkzeuge/logger/`, `werkzeuge/auswertung/` |
-| `Software/Motor_Controller_pypilot/` | `motorcontroller/hersteller-pypilot/` (Fakten-Dokument nach `motorcontroller/docs/`) |
-| `Software/RF300_Interface/` | `rf300-interface/` (`.doc`, `.xls` dort mit) |
-| `Software/TinyPilot_Coprocessor/` | `coprozessor/` |
+| `Software/Motor_Controller_pypilot/` | `tinypilot/motorcontroller-hersteller/firmware/` (Fakten-Dokument nach `motorcontroller/docs/`) |
+| `Software/RF300_Interface/` | `tinypilot/rf300-interface/` (`.doc`, `.xls` dort mit) |
+| `Software/TinyPilot_Coprocessor/` | `tinypilot/coprozessor/` |
 | `Software/Tests/` | `werkzeuge/versuche/` |
-| `Hardware/GPIO for TinyPilot.xls` | `hardware/tinypilot/` |
+| `Hardware/GPIO for TinyPilot.xls` | `tinypilot/hardware/` |
 | `Hardware/Motor Controller/*.pdf`, `*.png` (26 MB) | `Handbuecher/Motor-Controller/` |
-| `Hardware/KiCad/` + externes Original | `hardware/tinypilot/` (Abschnitt 6) |
+| `Hardware/KiCad/` + externes Original | `tinypilot/hardware/` (Abschnitt 6) |
 | `Robertson/`, `Operating PyPilot in General/`, `Implementationen auf anderen Schiffen/` | `Handbuecher/` |
 | `Daten/` | bleibt |
 
 ## 6. Löschliste (erst nach Sicherung, Schritt 1)
 - `Hardware/KiCad/` (Kopie): Inhalt gleich dem Original außerhalb, bis auf 10 Dateien (Projektdateien, Sicherungs-
-  ordner, Verknüpfung). Übernommen wird die Vereinigung beider nach `hardware/tinypilot/`, dann Kopie löschen.
+  ordner, Verknüpfung). Übernommen wird die Vereinigung beider nach `tinypilot/hardware/`, dann Kopie löschen.
 - `Software/SuAn_Regler/suan_v3_vor_2026-10-04.py`, `rampe_original.txt`: werden als früherer git-Stand gespeichert,
   danach gelöscht.
 - `__pycache__/` (automatisch erzeugt), Verknüpfungen `*.lnk` (3 Stück, zeigen auf alte Orte).

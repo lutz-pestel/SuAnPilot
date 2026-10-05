@@ -1,6 +1,6 @@
 # Fahrtest Autopilot 30.09.2026
 
-Test abgeschlossen. Planung: `Doc/Testplan_Autopilot.md`. Folgetag: `2026-10-01_Fahrtest_Autopilot.md`.
+Test abgeschlossen. Planung: `docs/system/Testplan_Autopilot.md`. Folgetag: `2026-10-01_Fahrtest_Autopilot.md`.
 
 ## 1. Rahmen
 - Schlag durch Dänemark nach Norden (um 55°02' N, 9°38' O), Ziel ist Vorwärtskommen, Test nebenbei.

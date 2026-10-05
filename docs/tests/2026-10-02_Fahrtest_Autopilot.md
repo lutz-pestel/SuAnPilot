@@ -1,7 +1,7 @@
 # Fahrtest Autopilot 02.10.2026 – Leichtwind, Pendeln, Kurswechsel, Ruder-Trimm, Böen
 
 Daten: Master `/home/pi/aplog/data/signals_2026-10-02_081628.csv`, `marks.csv`, ab 11:38 `guete_2026-10-02.csv`.
-Gütemaß und Bedingungsraster: `Doc/Testplan_Autopilot.md`, Abschnitt „Auswertung“ (heute festgelegt).
+Gütemaß und Bedingungsraster: `docs/system/Testplan_Autopilot.md`, Abschnitt „Auswertung“ (heute festgelegt).
 Ausgangswerte (Stand 01.10.): P 0,02 · PR 0,0199 · D 0,27 · DD 0,05 · I 0,05 · H 0,5 · FF 1,61 · servo.gain 0,7.
 
 ## 1. Pendeln bei Leichtwind (09:34–09:50)

@@ -1,7 +1,7 @@
 # Hafen 04.10.2026 – Pendeln ab 6 kn (Auswertung 03.10.), Pumpen-Diagnose rückwärts
 
 Daten: Master `signals_2026-10-03_112946.csv`; PC `Daten/diagnose/` (`diagnose_2026-10-04_085423_*`, `rueckw_*`,
-`messlauf*_roh.csv`); Werkzeuge `Software/SuAn_Regler/` (`diagnose.py --auto`, `rueckw_test.py`, `messlauf*.py`, `rampe.py`).
+`messlauf*_roh.csv`); Werkzeuge `autopilot/suan-regler/` (`diagnose.py --auto`, `rueckw_test.py`, `messlauf*.py`, `rampe.py`).
 
 ## 1. Pendeln ab 6 kn (Fahrt 03.10., „basic“ P 0,005 · I 0,08 · D 0,22, raumschots/halber Wind, Wind von BB)
 | SOG | Abschnitte à 2 min | Streuung Kursfehler | max | Ruderspanne | Pumpe an | Wind | Krängung |

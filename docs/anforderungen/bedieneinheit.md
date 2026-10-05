@@ -6,8 +6,8 @@ Stand: 01.10.2026.
 ## 1. Ziel und Abgrenzung
 - Bedien- und Recheneinheit am Steuerstand: Kursregler, Sensoren, Anzeige, Tasten, Weboberfläche.
 - Motor-Controller (mit RF300-Interface) und Stromversorgung sitzen im Motorraum und sind ein eigenes
-  Projekt: `Projekt SuAnPilot/Motor_Controller_Neubau/Projektdokument.md`. Verbindung RS422 im vorhandenen Kabel.
-- Wunsch: auf einem Mikrocontroller (z. B. ESP32). Eine einzige, größere Anzeige statt zwei.
+  Projekt: `docs/anforderungen/motorcontroller.md`. Verbindung RS422 im vorhandenen Kabel.
+- Baut auf einem Pi mit Standard-Betriebssystem. Eine einzige, größere Anzeige statt zwei.
 
 ## 2. Erfahrungen mit dem TinyPilot (Ausgangslage)
 - Zwei Anzeigen; die zweite samt Tasten hängt an einem Coprozessor, dessen Code verschollen ist und
@@ -21,7 +21,7 @@ Stand: 01.10.2026.
 - Beim Tausch des Motor-Controllers wurden Einstellungen im TinyPilot überschrieben.
 - Keine eingebaute Aufzeichnung; Auswertung erst mit eigenem Programm auf dem Master.
 - Rechenleistung knapp: etwa 50 % frei, 42 % mit Aufzeichnung.
-Einzelheiten: `Doc/Tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
+Einzelheiten: `docs/tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
 
 ## 3. Anforderungen (Ideen)
 ### 3.1 Bedienung
@@ -43,7 +43,7 @@ Einzelheiten: `Doc/Tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
 - R2 Ruder-Trimmlage aus der gemessenen (geglätteten) Krängung; in der Böe vorausschauend Ruder geben,
   bevor das Schiff anluvt. Bei Geschwindigkeitsbefehlen: Glied auf die Änderung der Krängung.
 - R3 Wertebereiche groß genug; kein Regelglied am Anschlag (heute P).
-- R4 Mehrere Profile nach dem Bedingungsraster und Gütemaß in `Doc/Testplan_Autopilot.md` (Hauptprojekt), umschaltbar
+- R4 Mehrere Profile nach dem Bedingungsraster und Gütemaß in `docs/system/Testplan_Autopilot.md` (Hauptprojekt), umschaltbar
   per Taste und Weboberfläche; später selbsttätige Wahl nach Seegang, Wind und Kurs zum Wind.
   Je Profil wird mitgeschrieben, wie gut es war (Kursabweichung, Pumpenzeit, Strom). Anlass: Werte vom
   30.09. (gegen defekte Pumpe erhöht) ließen das Schiff am 01.10. mit 14–17 s Periode pendeln.
@@ -88,8 +88,6 @@ Einzelheiten: `Doc/Tests/2026-09-30_Fahrtest_Autopilot.md`, `CHRONIK.md`.
   ihre Richtung passte nur in 49 % zum Trend.
 
 ## 4. Offene Punkte
-- Reicht ein ESP32 für Sensorauswertung, Regler, Weboberfläche und Aufzeichnung? pypilot lässt sich
-  nicht übernehmen, der Regler wäre neu zu schreiben.
 - Welcher Lage- und Kompasssensor? Anzeige (Typ, Größe) – später.
 - Protokoll zum neuen Motor-Controller.
 

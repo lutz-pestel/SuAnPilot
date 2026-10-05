@@ -14,14 +14,14 @@ Stand: 04.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 - Heute: RF300 (Frequenz) → RF300-Interface (Arduino, Mittel über 30 Messungen, PWM, Glättung) →
   0–5 V → fertig gekaufter „pypilot hydraulic motor controller“ (Arduino Nano, H-Brücke aus vier
   N-Kanal-Transistoren) → Pumpe; seriell zum TinyPilot, NMEA-Ruderlage über das Interface zur Anzeige.
-- Schwächen, belegt in `Doc/Tests/2026-09-30_Fahrtest_Autopilot.md`:
+- Schwächen, belegt in `docs/tests/2026-09-30_Fahrtest_Autopilot.md`:
   - Ruderlage kommt etwa 1 s verzögert an (Mittelung, Glättung, zweifache Umwandlung).
   - 30.09.2026: Vorwärtsrichtung fiel im Lauf des Tages aus (Befehl kam an, Strom 1,3 A statt 4–6 A),
     **ohne jede Meldung**; Controller am 01.10.2026 getauscht, Ersatz arbeitet in beide Richtungen.
   - Beim Tausch überschrieb der neue Controller Einstellungen im TinyPilot mit Werkswerten
     (Ruder-Nullpunkt und -Maßstab mit falschem Vorzeichen, Stromgrenze 10 A, servo.gain).
   - Überstrom sperrt in pypilot 0.24 eine Richtung, bis das Ruder zurückgefahren ist.
-  - **Einseitiger Förderausfall, auch beim Ersatzgerät** (`Doc/Tests/2026-10-04_Hafen_Pumpendiagnose.md`): rückwärts
+  - **Einseitiger Förderausfall, auch beim Ersatzgerät** (`docs/tests/2026-10-04_Hafen_Pumpendiagnose.md`): rückwärts
     zeitweise nur **1,9 V am Motor** statt 11 V, 1,1–1,9 A, Motor steht und brummt; Befehl voll, keine Meldung. Im Hafen
     reproduzierbar, kommt und geht; nach einem Vorwärtslauf oft wieder gut. Anlauf-Rampe als Ursache ausgeschlossen.
     Altgerät fiel vorwärts aus, Ersatzgerät rückwärts – Verdacht: Hilfsspannung des oberen Transistors (Bootstrap
@@ -102,7 +102,7 @@ Stand: 04.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
   gleiche Anschlüsse wie das alte Gerät.
 - Der ESP32 mit direkter Frequenzmessung (F3) bleibt dem Endgerät vorbehalten.
 - Offen: Signalbereich der Ruderlage (hier 0–5 V, `TODO.md` fragt noch 0–1,1 V), Art der Verbindung zum TinyPilot.
-- Prüfung am Steg mit `Software/SuAn_Regler/diagnose.py`.
+- Prüfung am Steg mit `autopilot/suan-regler/diagnose.py`.
 
 ### 3.4 Anschluss des RF300 (Endgerät)
 - RF300 (`Robertson/Ruderlagengeber/RF 300 Ruderlagensensor.xls`): Mitte 3400 Hz, 20 Hz je Grad, ±90° = 1600–5200 Hz,
@@ -147,4 +147,4 @@ Jeder Schritt wird einzeln vorgelegt.
 
 ## 6. Pflege
 - Jede Schwäche und jedes Problem des TinyPilot wird als Anforderung hier oder in
-  `Projekt SuAnPilot/SuAnPilot/Projektdokument.md` aufgenommen (vorher angesagt, Regel 1).
+  `docs/anforderungen/bedieneinheit.md` aufgenommen (vorher angesagt, Regel 1).

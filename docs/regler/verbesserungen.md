@@ -1,10 +1,10 @@
 # Verbesserungen für den pypilot-Fork (Basis 0.24 an Bord)
 
 Stand: 01.10.2026. Ablauf: Idee → im Fork einbauen und auf See testen → **wirkt**: als Anforderung nach
-`Projekt SuAnPilot/` übernehmen und hier löschen; **verworfen**: löschen (Lehre ggf. in `CHRONIK.md`).
+`docs/anforderungen/` übernehmen und hier löschen; **verworfen**: löschen (Lehre ggf. in `CHRONIK.md`).
 Jeder Einbau wird einzeln vorgelegt. GPL v3: Vermerke des Entwicklers bleiben, eigene werden ergänzt.
 Code: `pypilot/` = Paket an Bord vom 01.10. (Kopie `pypilot.tcz-2026-10-01`); pypilot 0.71 bei Bedarf neu
-von GitHub holen (verglichen: Stand 09.09.2026). Herkunft: M = eigene Messung, H = Hersteller (`Docs/Marktrecherche.md`), P = pypilot 0.71, B = Betreiber.
+von GitHub holen (verglichen: Stand 09.09.2026). Herkunft: M = eigene Messung, H = Hersteller (`docs/wissen/Marktrecherche.md`), P = pypilot 0.71, B = Betreiber.
 Priorität P1/P2/P3 = Reihenfolge des Einbaus (Sicherheit → Nutzen/Aufwand → Abhängigkeiten); eingebaut im Hafen, getestet unterwegs.
 
 ## Im Test

@@ -2,10 +2,11 @@
 
 **Ideensammlung.** Noch nicht gestartet; jede Anforderung wird vor Projektstart einzeln geprüft.
 Stand: 01.10.2026. Grundlage sind die Erfahrungen mit dem heutigen TinyPilot (pypilot 0.24),
-beschrieben in `Doc/Systembeschreibung.md` und `Doc/Tests/` des Hauptprojekts.
+beschrieben in `docs/system/Systembeschreibung.md` und `docs/tests/` des Hauptprojekts.
 
 ## 1. Ziel
-Ein eigener Autopilot für das 15-t-Schiff mit Hydrauliksteuerung, der den TinyPilot ablöst:
+SuAnPilot ist die künftige Hardware; die Autopilot-Software läuft auf TinyPilot und später auf SuAnPilot.
+Ein eigener Autopilot für das 15-t-Schiff mit Hydrauliksteuerung:
 - steuert wie ein guter Rudergänger – nach dem Trend, nicht nach jeder Welle; um eine Trimmlage, die
   sich aus der Krängung ergibt; mit möglichst wenig Pumpenarbeit;
 - ist fehlertolerant: erkennt jede Abweichung vom Soll, hilft sich selbst, meldet, führt Buch;
@@ -15,8 +16,8 @@ Ein eigener Autopilot für das 15-t-Schiff mit Hydrauliksteuerung, der den TinyP
 | Komponente | Ort | Aufgabe | Teilprojekt |
 |---|---|---|---|
 | SuAnPilot-Bedieneinheit | Steuerstand (im Freien) | Kursregler, Lage-/Kompasssensor, eine größere Anzeige, ≥ 4 Tasten, Weboberfläche, Aufzeichnung | `SuAnPilot/` |
-| Motor-Controller mit Interface | Motorraum | H-Brücke (handelsüblich), Pumpenansteuerung, Strommessung, RF300-Frequenz → Ruderlage, NMEA-Ruderlage | `Motor_Controller_Neubau/` |
-| Stromversorgung | Motorraum | 12-V-Bordnetz für Pumpe und Elektronik | `Motor_Controller_Neubau/` |
+| Motor-Controller mit Interface | Motorraum | H-Brücke (handelsüblich), Pumpenansteuerung, Strommessung, RF300-Frequenz → Ruderlage, NMEA-Ruderlage | `docs/anforderungen/motorcontroller.md` |
+| Stromversorgung | Motorraum | 12-V-Bordnetz für Pumpe und Elektronik | `docs/anforderungen/motorcontroller.md` |
 | Hydraulikpumpe | Motorraum | vorhanden, seit Jahren mit Robertson J300 bewährt | – |
 | Ruderlagengeber RF300 | Ruder | vorhanden (Robertson), liefert Frequenz | – |
 | Ruderlagenanzeige | Steuerstand | vorhanden, empfängt NMEA-Ruderlage – **vorrangig** | – |
@@ -47,7 +48,7 @@ Welche Prüfungen im Controller liegen (Strom, Ruderbewegung, Verbindungsverlust
 Bedieneinheit (Kurs, Sensor-Plausibilität, Selbsthilfe, Buchführung), ist noch festzulegen.
 
 ## 5. Dokumente
-- `SuAnPilot/Projektdokument.md` – Anforderungen an die Bedieneinheit (B, U, R, L, Z, W) und Nachbesserungsbedarf gegenüber pypilot 0.24.
-- `Motor_Controller_Neubau/Projektdokument.md` – Anforderungen an Controller und Interface (F, S).
-- Kursregler (Kern von V1.0, läuft vorher schon im TinyPilot): `Software/SuAn_Regler/Entwurf.md` im Hauptprojekt.
+- `docs/anforderungen/bedieneinheit.md` – Anforderungen an die Bedieneinheit (B, U, R, L, Z, W) und Nachbesserungsbedarf gegenüber pypilot 0.24.
+- `docs/anforderungen/motorcontroller.md` – Anforderungen an Controller und Interface (F, S).
+- Kursregler (Kern von V1.0, läuft vorher schon im TinyPilot): `docs/regler/entwurf.md` im Hauptprojekt.
 - Lehren des Hauptprojekts: `CHRONIK.md`; Aufgaben am heutigen TinyPilot: `TODO.md`.

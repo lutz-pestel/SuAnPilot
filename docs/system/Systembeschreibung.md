@@ -62,7 +62,7 @@ braun NMEA-Ruderlage, blau frei. 5 V kommen getrennt (rot/schwarz). Unbenutzt am
 - Krängungs-Glied H in `pilots/basic.py` und dauerhaft gespeicherte Filter in `boatimu.py` (01.10.2026).
   Paket davor: `pypilot.tcz.bak-2026-10-01-heel`.
 - Eigener Regler **adaptive** (im Gerät noch „suan“, `pilots/suan.py`, 03.10.2026): regelt die Ruderlage, wählbar neben
-  basic. Pakete davor: `pypilot.tcz.bak-2026-10-03-vor-suan`, `…-suan-v1`, `…-suan-v2`. Code `Software/SuAn_Regler/`.
+  basic. Pakete davor: `pypilot.tcz.bak-2026-10-03-vor-suan`, `…-suan-v1`, `…-suan-v2`. Code `autopilot/suan-regler/`.
 - Laut Bedienungsanleitung wurde früher das Vorzeichen der NMEA-Ruderausgabe (`nmea.py`)
   geändert; im heutigen Paket nicht nachgeprüft.
 
@@ -100,21 +100,21 @@ Herleitung: Testberichte 01.10. (Starkwind: P 0,02, D 0,27, gain 0,7) und 02.10.
 - **Motor-Controller:** fertig gekauft; Code des Herstellers liegt nur als Reserve im Projekt.
   Welcher Stand aufgespielt ist, ist unbekannt. Neu aufspielen ist nicht vorgesehen. Seit 01.10.2026
   Ersatzgerät (altes: Vorwärtsrichtung ausgefallen); er überschrieb beim Verbinden Werte im TinyPilot.
-- **RF300-Interface:** eigener Code im Projekt (`Software/RF300_Interface`), Kalibrierung im EEPROM.
+- **RF300-Interface:** eigener Code im Projekt (`tinypilot/rf300-interface/RF300_Interface`), Kalibrierung im EEPROM.
 - **Coprozessor:** der aufgespielte Code ist verschollen; der Code im Projekt ist veraltet.
   Kein Programmierzugang vorhanden.
 
 ## 7. Schwachstellen (offene Fragen stehen nur in `TODO.md`)
 - **Pumpe rückwärts zeitweise schwach** (1,9 V statt 11 V am Motor, Motor steht, brummt; Endstufe des Controllers; Testbericht 04.10.).
 - Ruderlage etwa 1 s verzögert: für basic unerheblich, für adaptive eingerechnet (Chronik).
-- Handsteuerung per Taste nur als Notlösung (A2); Ziel siehe `Projekt SuAnPilot/SuAnPilot/Projektdokument.md`, B3.
+- Handsteuerung per Taste nur als Notlösung (A2); Ziel siehe `docs/anforderungen/bedieneinheit.md`, B3.
 - **AIS-Gerät sendet `$GPRMC` mit Datum 14.02.2007** (vermutlich Überlauf des GPS-Wochenzählers;
   nachgewiesen 30.09.2026 durch Ab-/Einschalten). Die Signal-K-Erweiterung „set-system-time“
   übernahm es ungeprüft, die Master-Uhr sprang 2007↔2026; seit 30.09. abgeschaltet, Uhr stabil.
 
 ## 8. Aufzeichnung und Überwachung
 Läuft auf dem Master, unabhängig von Claude; startet beim Hochfahren selbst (`crontab` pi, `@reboot`, 90 s).
-Programme `/home/pi/aplog/` (`aplog.py`, `pumpwatch.py`, `aplog.sh`; Kopie `Software/Autopilot_Logger/`).
+Programme `/home/pi/aplog/` (`aplog.py`, `pumpwatch.py`, `aplog.sh`; Kopie `werkzeuge/logger/`).
 | Datei in `/home/pi/aplog/data/` | Inhalt |
 |---|---|
 | `signals_<Datum>_<Zeit>.csv` | 5/s: Kurs, Soll, Fehler, Drehrate, Krängung, Roll/Stampf, Ruder, Pumpe, Strom, Spannung, Wind, GPS, Reglerglieder, Controller-Temperatur, Selbsthilfe; je Start neue Datei; Zeit = Unix-Zeit (UTC) |
@@ -137,8 +137,8 @@ Im TinyPilot: Selbsthilfe-Logbuch `/mnt/mmcblk0p2/servo_recovery.csv`.
 - Kopie im Projekt: `Daten/aplog/` (für Excel: Unix-Zeit umrechnen). Last: TinyPilot 49 % frei ohne, 42 % mit Aufzeichnung.
 
 ## 9. Weitere Dokumente
-- `Doc/Anforderungen.md` – Notlösung A2; künftige Systeme: `Projekt SuAnPilot/`
-- `Doc/Weiterentwicklung PyPilot 2020-2026.md` – Änderungen seit 0.24, Verdachtsstellen
-- `Software/Motor_Controller_pypilot/Motor_Controller_Fakten.md` – Motor-Controller
+- `docs/anforderungen/notloesung-A2.md` – Notlösung A2; künftige Systeme: `docs/anforderungen/`
+- `docs/wissen/Weiterentwicklung PyPilot 2020-2026.md` – Änderungen seit 0.24, Verdachtsstellen
+- `tinypilot/motorcontroller-hersteller/Motor_Controller_Fakten.md` – Motor-Controller
 - `CHRONIK.md` – Lehren
 - `CLAUDE.md` – Arbeitshinweise (Zugang, Paket ändern, Ablage)
