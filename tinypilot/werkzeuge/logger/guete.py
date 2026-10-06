@@ -18,7 +18,7 @@ FIELDS = ['zeit', 'n', 'ap_anteil', 'manoever', 'trend', 'ausreisser', 'wh_h', '
           'P', 'I', 'D', 'DD', 'PR', 'H', 'gain', 'filter', 'pilot', 'satz']
 SETTING_KEYS = {'P': 'ap.pilot.basic.P', 'I': 'ap.pilot.basic.I', 'D': 'ap.pilot.basic.D', 'DD': 'ap.pilot.basic.DD',
                 'PR': 'ap.pilot.basic.PR', 'H': 'ap.pilot.basic.H', 'gain': 'servo.gain',
-                'filter': 'imu.headingrate_lowpass_constant', 'pilot': 'ap.pilot', 'satz': 'ap.pilot.suan.sparsam'}
+                'filter': 'imu.headingrate_lowpass_constant', 'pilot': 'ap.pilot', 'satz': 'ap.pilot.adaptive.sparsam'}
 
 def fl(x):
     try:

@@ -1,6 +1,6 @@
 # Systembeschreibung Autopilot
 
-Stand: 03.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
+Stand: 05.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
 
 ## 1. Überblick
 - Selbstgebauter Autopilot für ein 15-Tonnen-Schiff mit Hydrauliksteuerung.
@@ -61,8 +61,8 @@ braun NMEA-Ruderlage, blau frei. 5 V kommen getrennt (rot/schwarz). Unbenutzt am
   Pakete davor: `pypilot.tcz.bak-2026-09-30`, `pypilot.tcz.bak-2026-10-02-vor-abhilfe-aus`.
 - Krängungs-Glied H in `pilots/basic.py` und dauerhaft gespeicherte Filter in `boatimu.py` (01.10.2026).
   Paket davor: `pypilot.tcz.bak-2026-10-01-heel`.
-- Eigener Regler **adaptive** (im Gerät noch „suan“, `pilots/suan.py`, 03.10.2026): regelt die Ruderlage, wählbar neben
-  basic. Pakete davor: `pypilot.tcz.bak-2026-10-03-vor-suan`, `…-suan-v1`, `…-suan-v2`. Code `tinypilot/regler/`.
+- Eigener Regler **adaptive** (`pilots/adaptive.py`, 05.10.2026): regelt die Ruderlage, wählbar neben basic.
+  Paket davor: `pypilot.tcz.bak-2026-10-05-vor-00.05`. Code `tinypilot/regler/`.
 - Laut Bedienungsanleitung wurde früher das Vorzeichen der NMEA-Ruderausgabe (`nmea.py`)
   geändert; im heutigen Paket nicht nachgeprüft.
 
@@ -120,7 +120,7 @@ Programme `/home/pi/aplog/` (`aplog.py`, `pumpwatch.py`, `aplog.sh`; Kopie `tiny
 | `signals_<Datum>_<Zeit>.csv` | 5/s: Kurs, Soll, Fehler, Drehrate, Krängung, Roll/Stampf, Ruder, Pumpe, Strom, Spannung, Wind, GPS, Reglerglieder, Controller-Temperatur, Selbsthilfe; je Start neue Datei; Zeit = Unix-Zeit (UTC) |
 | `events_<…>.csv` / `marks.csv` | jede Wertänderung mit Uhrzeit / Markierungen |
 | `pumpruns_<…>.csv` / `pumpstatus.txt` | jeder Pumpenlauf ≥ 0,6 s mit Strom, Ruderweg, Befund / Zusammenfassung 10 min |
-| `aplog.log` | Verbindungsprotokoll |
+| `aplog.log` / `verbindung.json` | Verbindungsprotokoll / Zustand je Sekunde; `aplog.py` 00.01 verbindet nach 6 s ohne Daten neu |
 Im TinyPilot: Selbsthilfe-Logbuch `/mnt/mmcblk0p2/servo_recovery.csv`.
 - Ansehen am Master (Bildschirm oder VNC): Dateimanager, oder im Terminal `~/aplog/aplog.sh status` (läuft alles?),
   `~/aplog/aplog.sh pumpe [n]` (Pumpe, Auffälligkeiten), `~/aplog/aplog.sh mark "Text"`, `cat ~/aplog/data/marks.csv`,
@@ -131,9 +131,12 @@ Im TinyPilot: Selbsthilfe-Logbuch `/mnt/mmcblk0p2/servo_recovery.csv`.
   je Tag eine Datei; Speichergrenze Datenordner 2 GB, älteste Rohdaten werden zuerst gelöscht.
   Dazu je Minute mit Autopilot ohne Manöver: `bug` (Wind von BB/StB), `geradeaus_ruder` (mittlere Ruderanzeige,
   Anzeige-Fehler +2,9° nicht abgezogen), `drehung` (°/s). Ändern sich die Spalten, wird die alte Tagesdatei `…-1.csv`.
-- **Leitstand** (`leitstand.py`, Desktop-Symbol „Leitstand Autopilot“ am Master): Seite 1 Lage, Ruderbalken, Verlauf
-  10 min in Ampelfarben; Seite 2 „Güte“ (AP-Health, Umwelt, Ruder-Trimm, Gesamtampel 60 min); Seite 3 schaltet Regler
-  und Satz (Rückfrage, Bestätigung) und zeigt alle Meldungen; Statuszeile auf jeder Seite. ~15–20 % eines Kerns, ohne Summer.
+- **Leitstand** (`leitstand.py` 00.01, Desktop-Symbol „Leitstand Autopilot“ am Master, Tasten 1–4): Seite 1 Lage, Ruderbalken, Verlauf
+  10 min in Ampelfarben; Seite 2 „Güte“ (AP-Health, Umwelt, Ruder-Trimm, Gesamtampel 60 min); Seite 3 schaltet Regler und Satz
+  (Rückfrage, Bestätigung) und zeigt alle Meldungen; Seite 4 „Geräte“: oben Internet (alle 3 s geprüft), darunter alle Geräte
+  des Netzes 10.10.10.0/24 mit IP (grün online, rot offline, gelb neu) nach `geraete.csv` (Kennung = MAC-Adresse oder Anfang, IP, Name, Funktion).
+  Bekannte Geräte werden alle 5 s angepingt, die Suche nach neuen (254 Rundrufe) läuft nur bei offener Seite 4: einmal im Stoß, dann alle 60 s verteilt.
+  Daten älter als 10 s: alles grau, roter Balken „NICHT VERBUNDEN“ mit Ursache auf jeder Seite. ~10 % eines Kerns, ohne Summer.
 - Kopie im Projekt: `tinypilot/daten/aplog/` (für Excel: Unix-Zeit umrechnen). Last: TinyPilot 49 % frei ohne, 42 % mit Aufzeichnung.
 
 ## 9. Weitere Dokumente

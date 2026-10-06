@@ -1,25 +1,32 @@
 # Versionen – was läuft wo
 
-Version 00.02, Stand 05.10.2026. Format der Nummern und Regeln: `CLAUDE.md`, Abschnitt „Versionen".
+Version 00.04, Stand 06.10.2026. Format der Nummern und Regeln: `CLAUDE.md`, Abschnitt „Versionen".
 
 ## An Bord (TinyPilot)
 | Baugruppe | Version | Beleg |
 |---|---|---|
-| Autopilot-Software (Paket `pypilot.tcz`) | `ap-v00.02` | Git-Etikett `ap-v00.02`; Prüfsumme (md5) 4e92d81c8ca35d80b283edbf94c35251; aufgespielt am 05.10.2026 im Hafen, Ruder frei |
-| darin Regler `suan` | 00.04 | Datei `tinypilot/regler/suan.py` |
+| Autopilot-Software (Paket `pypilot.tcz`) | `ap-v00.03` | Prüfsumme (md5) 5093ed0ad1c92d3f3252704d052d6966; aufgespielt am 05.10.2026 im Hafen, Autopilot aus; Git-Etikett `ap-v00.03` |
+| darin Regler `adaptive` | 00.05 | Datei `tinypilot/regler/adaptive.py` |
 | Platinen (Main, General, RF300-Interface) | keine Version vergeben | Betreiber nennt die Stände |
 | Motor-Controller (gekauft) | Firmware-Stand unbekannt | Faktendokument: `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md` |
 | RF300-Interface (Arduino-Code) | keine Version vergeben | `tinypilot/rf300-interface/software/` |
 
+## Am Master (Aufzeichnung und Leitstand)
+| Programm | Version | Beleg |
+|---|---|---|
+| Aufzeichnung `aplog.py` | 00.01 | `tinypilot/werkzeuge/logger/`, am Master seit 06.10.2026; Version in `aplog.log` |
+| Leitstand `leitstand.py` | 00.01 | wie oben; Version im Fenstertitel |
+
 ## Reglerfassungen und Pakete
 - 00.01 = Paket `bak-2026-10-03-suan-v1` · 00.02 = `bak-2026-10-03-suan-v2` · 00.03 = bis 05.10.2026 an Bord (Paket `ap-v00.01`)
-  · 00.04 = an Bord seit 05.10.2026 (Paket `ap-v00.02`).
-- Gespeicherte Reglerwerte an Bord blieben beim Aufspielen unverändert (`delay` 0,4, `db` 1,5, `lern` 0,4); neu ist `t_lern` mit Standardwert 1,0.
+  · 00.04 = Paket `ap-v00.02` (Regler hieß noch `suan`) · 00.05 = an Bord seit 05.10.2026 (Paket `ap-v00.03`, Regler heißt `adaptive`).
+- Die 34 gespeicherten Reglerwerte wurden am 05.10.2026 von `ap.pilot.suan.*` nach `ap.pilot.adaptive.*` kopiert und einzeln geprüft;
+  die alten Zeilen stehen noch in der Einstellungsdatei und sind ohne Wirkung. Sicherung: `tinypilot/daten/sicherung/`.
 - Alle Paketstände liegen in Git (`tinypilot/autopilot/software/RPI/kern/`, Geschichte der Datei) und als Dateien in
   `tinypilot/daten/Pakete/2026-10-05_TinyPilot/optional/`.
 
 ## Rückweg
-- Zurück auf `ap-v00.01`: Auf dem TinyPilot liegt `pypilot.tcz.bak-2026-10-05-vor-00.04` (md5 e528fdce66f957e201d6b75a6c7ca597)
+- Zurück auf `ap-v00.02`: Auf dem TinyPilot liegt `pypilot.tcz.bak-2026-10-05-vor-00.05` (md5 4e92d81c8ca35d80b283edbf94c35251)
   unter `/mnt/mmcblk0p2/tce/optional/`. Aufspielen über Kopie und Umbenennen (nicht die laufende Datei überschreiben), `.md5.txt` erneuern, neu starten.
 - Original pypilot 0.24: `pypilot.tcz.orig-2026-09-29` (md5 870560c74e2947e34ef703448d86de1f).
 

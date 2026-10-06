@@ -1,6 +1,6 @@
 # Wie funktioniert ein Autopilot
 
-Stand: 03.10.2026. Geschrieben nach dem Programmcode und den Fahrtests vom 30.09.–02.10.2026; Weboberfläche und
+Stand: 05.10.2026. Geschrieben nach dem Programmcode und den Fahrtests vom 30.09.–02.10.2026; Weboberfläche und
 Werte am 03.10. am Gerät geprüft. Was „nach Code“ heißt, ist am Gerät nicht nachgesehen. Werte: `Systembeschreibung.md`.
 
 # Teil 1 – Der Autopilot
@@ -30,7 +30,7 @@ Beobachtung reagieren soll. Gute Werte machen das Schiff ruhig, schlechte lassen
 - **absolute** (vorhanden, nie gefahren): befiehlt eine **Ruderlage**: „Ruder auf 8° Backbord“. Ein zweiter, kleiner
   Regler fährt die Pumpe, bis der Ruderlagengeber diese Lage meldet. So arbeitet der Robertson an Bord.
 
-Dazu kommt ein dritter, eigener Regler, **adaptive** (Abschnitt 7; im Gerät bis zur Umbenennung noch „suan“).
+Dazu kommt ein dritter, eigener Regler, **adaptive** (Abschnitt 7).
 
 ## 3. Der wichtigste Unterschied zwischen basic und absolute
 Bei **basic** wirkt jeder Befehl, solange er anliegt, und das Ruder wandert immer weiter. Das hat Folgen:
@@ -151,7 +151,7 @@ rechnet aber ein, was SuAn ausmacht:
   Übergabe an basic.
 - **Werte** nur aus Messungen an SuAn (`ident.py`, Simulation `sim.py`). Geplant: zwei Sätze „ruhig“ und „sparsam“.
 - **Noch nicht drin:** Dauer-Ruderlage direkt aus der Krängung, Windmodus; Filter für Wellengieren vorhanden, aber aus.
-- Wählen: Weboberfläche, Reiter Gain, Pilot „adaptive“ (heute noch „suan“). Rückweg: „basic“. Werte: `setzen.py`.
+- Wählen: Weboberfläche, Reiter Gain, Pilot „adaptive“. Rückweg: „basic“. Werte: `setzen.py`.
 
 # Teil 2 – Die Weboberfläche des TinyPilot
 Aufruf im Browser: `http://10.10.10.164` (Adresse per DHCP, kann wechseln; Name `box`). Am 03.10. am Gerät durchgesehen.
@@ -163,7 +163,7 @@ Fünf Reiter; unten steht immer die Statuszeile. **Jede Änderung wirkt sofort**
 - Vier große Knöpfe: Sollkurs um 10° bzw. 2° nach Backbord (links) oder Steuerbord (rechts).
 
 **Gain** – Reglerwerte
-- Oben die Auswahl **Pilot**: absolute, basic, simple, adaptive (heute noch „suan“). Hier wechselt man den Regler.
+- Oben die Auswahl **Pilot**: absolute, basic, simple, adaptive. Hier wechselt man den Regler.
 - Darunter je Glied ein Schieberegler mit Zahl, nur die Glieder des gewählten Reglers
   (bei basic: P, I, D, DD, PR, FF, R, H; bei adaptive über 30 Werte, dort besser `setzen.py`).
 - Schieberegler lassen sich schlecht fein stellen. Für genaue Werte besser über den pypilot-Server setzen

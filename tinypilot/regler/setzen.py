@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Werte des SuAn-Reglers im TinyPilot setzen und zurücklesen (Goldene Regel). PyPilot-AI, 02.10.2026.
-#   python setzen.py                      -> alle ap.pilot.suan.* anzeigen
+# Werte des Reglers adaptive im TinyPilot setzen und zurücklesen (Goldene Regel). PyPilot-AI, 02.10.2026.
+#   python setzen.py                      -> alle ap.pilot.adaptive.* anzeigen
 #   python setzen.py k_ref=1.2 Tg=3 ...   -> setzen, danach jeden Wert prüfen
 import socket, sys, time
 
@@ -38,23 +38,23 @@ def lesen(namen, warte=2.0):
 if __name__ == '__main__':
     import os
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-    from suan import PARAMS
-    namen = ['ap.pilot.suan.' + n for n, *_ in PARAMS] + ['ap.pilot', 'ap.pilot.suan.status']
+    from adaptive import PARAMS
+    namen = ['ap.pilot.adaptive.' + n for n, *_ in PARAMS] + ['ap.pilot', 'ap.pilot.adaptive.status']
     neu = dict(a.split('=', 1) for a in sys.argv[1:])
     if neu:
         s = socket.create_connection((HOST, 23322), timeout=5)
         for n, x in neu.items():
-            s.sendall(('ap.pilot.suan.%s=%s\n' % (n, float(x))).encode())
+            s.sendall(('ap.pilot.adaptive.%s=%s\n' % (n, float(x))).encode())
         time.sleep(1); s.close()
     v = lesen(namen)
     fehler = 0
     for n, *_ in PARAMS:
-        ist = v.get('ap.pilot.suan.' + n)
+        ist = v.get('ap.pilot.adaptive.' + n)
         mark = ''
         if n in neu:
             ok = ist is not None and abs(float(ist) - float(neu[n])) < 1e-3
             mark = 'gesetzt OK' if ok else 'FEHLER: soll %s' % neu[n]
             fehler += not ok
         print('%-11s %10s  %s' % (n, ist, mark))
-    print('Regler:', v.get('ap.pilot'), ' Zustand:', v.get('ap.pilot.suan.status'))
+    print('Regler:', v.get('ap.pilot'), ' Zustand:', v.get('ap.pilot.adaptive.status'))
     if neu: print('ALLE WERTE GEPRÜFT' if not fehler else '%d WERT(E) FALSCH' % fehler)

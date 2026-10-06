@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Wellengieren der Simulation an SuANs Messung anpassen (PyPilot-AI, 03.10.2026).
-# Ziel (gemessen 03.10. 10:10-10:21, suan db 2,5, ~5 kn, fast vor dem Wind): Drehrate-Streuung 0,41 Grad/s,
+# Ziel (gemessen 03.10. 10:10-10:21, adaptive db 2,5, ~5 kn, fast vor dem Wind): Drehrate-Streuung 0,41 Grad/s,
 # Pumpenlaeufe 12,5/min, Umkehr < 0,7 s 0,27/min.
 import sys
 from sim import Schiff, lauf, guete

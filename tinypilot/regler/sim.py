@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-# Simulation fuer den SuAn-Regler (PyPilot-AI, 02.10.2026). Nur am PC.
+# Simulation fuer den Regler adaptive (PyPilot-AI, 02.10.2026). Nur am PC.
 #   python sim.py test               -> Programmpruefung mit TESTSCHIFF (keine SuAn-Werte!)
 #   python sim.py tune K T up down   -> Startwerte fuer ruhig/sparsam aus SuAns vermessenem K, T, Rudergeschw.
 #   python sim.py sprungdaten DATEI  -> erzeugt Rudersprung-Daten zum Pruefen von sprung.py
 # Schiffsmodell: Nomoto 1. Ordnung  T*dr/dt + r = -K*(Ruder + Luvgierigkeit) + Wellen;  Ruder per Pumpe mit
 # Geschwindigkeit je Richtung, Anzeige um 'delay' verspaetet. Alle Groessen in Grad, Grad/s, s.
 import csv, math, random, sys
-from suan import SuanCore, resolv
+from adaptive import AdaptiveCore, resolv
 
 # Nur zur Pruefung des Programms. NICHT als Werte fuer SuAn verwenden (CLAUDE: nur eigene Messungen).
 TESTSCHIFF = dict(K=0.3, T=6.0, rate_up=6.0, rate_down=3.5, delay=1.0)
@@ -41,7 +41,7 @@ class Schiff(object):
             if t >= ta: return r + self.rng.gauss(0, 0.2)
         return self.hist[0][1] if self.hist else self.rud
 
-def lauf(params, schiff, dauer=300.0, ereignisse=(), dt=0.1, start_ruder=None, sog=5.0, kern=SuanCore):
+def lauf(params, schiff, dauer=300.0, ereignisse=(), dt=0.1, start_ruder=None, sog=5.0, kern=AdaptiveCore):
     """ereignisse: Liste (Zeit, Art, Wert): 'kurs' (+/- Grad), 'luv' (neuer Wert), 'anzeige_aus' (Dauer s)."""
     c = kern(params)
     if start_ruder is not None: schiff.rud = start_ruder

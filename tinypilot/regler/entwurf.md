@@ -1,6 +1,6 @@
-# SuAn-Regler – Entwurf
+# Regler adaptive – Entwurf
 
-Version 00.01, Stand: 05.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
+Version 00.02, Stand: 05.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
 TinyPilot; wird der Kern von SuAnPilot V1.0 auf derselben Hardware. Hardware bleibt vorerst unverändert
 (RPi Zero 2 W nur, falls die Rechenleistung nicht reicht). Grundlagen: `wissen/Marktrecherche.md`
 (Bauart der Hersteller), Testberichte `tinypilot/docs/tests/`.
@@ -109,13 +109,13 @@ und Luvgierigkeit stecken beide im Trimm und werden mitgelernt):
 ## 6. Umsetzung im TinyPilot
 - **Erste Stufe:** nur der neue Reglerbaustein im heutigen Paket, sonst nichts ändern (Rückweg: Regler „basic“ wählen).
   Bestandsaufnahme „übernehmen oder neu“ und Wahl des Betriebssystems erst danach. Reihenfolge: Vermessung → Modell und
-  Simulation am PC → `suan.py` am PC testen → einbauen, Hafen, unterwegs.
-- Neuer Reglerbaustein `pilots/suan.py` im Paket `pypilot.tcz` (Verfahren wie bei den bisherigen Paketänderungen,
+  Simulation am PC → `adaptive.py` am PC testen → einbauen, Hafen, unterwegs.
+- Neuer Reglerbaustein `pilots/adaptive.py` im Paket `pypilot.tcz` (Verfahren wie bei den bisherigen Paketänderungen,
   `CLAUDE.md`). Messung, Servo, Bedienung und „basic“ von pypilot bleiben unverändert.
-- Werte als eigene pypilot-Werte (`ap.pilot.suan.*`, gespeichert); Satz „ruhig“/„sparsam“ als ein Wert.
+- Werte als eigene pypilot-Werte (`ap.pilot.adaptive.*`, gespeichert); Satz „ruhig“/„sparsam“ als ein Wert.
 - Zusätzliche Aufzeichnung: Soll-Ruder, geschätzte Ruderlage, Trimm-Anteile, k, Gierband.
 - Rechenlast prüfen (TinyPilot heute 42 % frei mit Aufzeichnung, gemessen); Zero 2 W nur bei Bedarf.
-- Code im Projekt `tinypilot/regler/`: `suan.py` (Regler, erste Fassung ohne Krängung/Gierband/Fahrtwerte), `sim.py`
+- Code im Projekt `tinypilot/regler/`: `adaptive.py` (Regler, erste Fassung ohne Krängung/Gierband/Fahrtwerte), `sim.py`
   (Simulation, Startwerte), `sprung.py` (Auswertung Rudersprünge), `setzen.py` (Werte setzen und prüfen).
 - **Bedienung V1.0:** Tasten und Display an der Steuersäule bleiben genau wie heute (über den Arduino-Coprozessor):
   Autopilot ein/aus und Kurs ändern. Einzige Änderung: Taste 3 (Menü) entfällt – alle Einstellungen in der
@@ -123,7 +123,7 @@ und Luvgierigkeit stecken beide im Trimm und werden mitgelernt):
 
 ## 7. Prüfung
 1. **Am PC:** Modell aus 5.2 mit 1 s Anzeigeverzögerung und aufgezeichneten Störungen (Wellengieren, Böen-Krängung);
-   Vergleich „basic“ / SuAn-Regler; Sicherheitsfälle durchspielen (Anzeige fällt aus, Ausnahme im Programm).
+   Vergleich „basic“ / adaptive; Sicherheitsfälle durchspielen (Anzeige fällt aus, Ausnahme im Programm).
 2. **Im Hafen:** Ruderantrieb und Pumpenmodell, Rückfall auf „basic“.
 3. **Unterwegs:** nur in freiem Wasser, Betreiber am Ruder bereit; je Schritt Gütemaß und Bedingungsraster.
 

@@ -72,8 +72,12 @@ Messwiderstand mit einzelnem Verstärkerbaustein (nur in SMD).
 
 ## 3. Messwerterfassung und Spannungsmessung — **festgelegt 04.10.2026**
 
-**Wandler: MCP3208-CI/P** (DIP-16, im Sockel, <https://de.rs-online.com/web/p/ad-wandler/8895657>) mit Referenz
+**Wandler: MCP3208-CI/P** (DIP-16, im Sockel, 
+<https://de.rs-online.com/web/p/ad-wandler/8895657>
+<https://www.mouser.de/en/ProductDetail/Microchip-Technology/MCP3208-CI-P?qs=9y3LFqDLL8IuAGJEebQX9g%3D%3D>) mit Referenz
 **LM4040DIZ-2.5, TO-92** (RS 534-3059 bei de.rs-online.com);
+<https://de.rs-online.com/web/c/?searchType=MPN&searchTerm=LM4040DIZ-2.5>
+<https://www.mouser.de/en/c/?q=LM4040DIZ-2.5>
 zusammen ~3–7 €. 12 Bit, 8 Eingänge, SPI.
 **Betrieb mit 3,3 V**, weil der ESP32 an seinen Eingängen keine 5 V verträgt und umgekehrt ein 5-V-Wandler an
 seinen Eingängen 3,5 V erwarten würde, die der ESP32 nicht liefert. Daraus folgt die Referenz von 2,5 V — sie
