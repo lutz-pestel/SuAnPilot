@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Leitstand Autopilot (Autostart)
+Comment=Startet den Leitstand 60 s nach der Anmeldung, hoechstens einmal
+Exec=bash -c "sleep 60; exec flock -n /tmp/leitstand.lock python3 /home/pi/aplog/leitstand.py >>/tmp/leitstand.log 2>&1"
+Path=/home/pi/aplog
+Terminal=false
