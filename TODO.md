@@ -27,9 +27,9 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
    Aufzeichnungsprogramm: Takt nach nicht springendem Zähler.
 10. **Pumpe rückwärts schwach** (Testbericht 04.10.): im Fehlerfall Klemme A und B gegen Masse messen (`messlauf3.py`);
     dann entscheiden: Testgerät ESP32 + IBT-2 oder neuer pypilot-Controller (`motor-controller/hardware/konzeption/motorcontroller.md`).
-11. **Master-Netz:** Leitstand startet nach einem Neustart nicht von selbst (Autostart einrichten); Samsung-Handy
-    (USB-Tethering, 192.168.42.129, Weg ins Internet) in Seite 4 aufnehmen; die Geräte `30:83:98` (10.10.10.159/.160,
-    Espressif, ohne offene Ports) zuordnen: an Bord nachsehen oder nacheinander ausschalten.
+11. **Master-Netz:** Autostart des Leitstands (`Leitstand-Autostart.desktop`) nach einem Neustart des Masters prüfen (eingerichtet,
+    ungeprüft); die Geräte `30:83:98` (10.10.10.159/.160, Espressif, ohne offene Ports) zuordnen: an Bord nachsehen
+    oder nacheinander ausschalten.
 12. **WLAN des Masters beobachten** (06.10.: PC konnte sich 40 min nicht anmelden, Neustart half): Seite 4 eine Stunde offen
     lassen, melden sich Geräte ab? Master an der Drosselgrenze (60 °C), Dateimanager `pcmanfm` 87 % Last prüfen.
 
