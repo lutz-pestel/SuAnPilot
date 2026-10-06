@@ -4,6 +4,7 @@
 # events_*.csv:  settings, written whenever one of them changes
 import csv, json, os, socket, sys, time
 
+VERSION = '00.01'      # Version der Aufzeichnung (Format NN.NN, jede Aenderung zaehlt hoch)
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 PERIOD = float(os.environ.get('APLOG_PERIOD', '0.2'))
 
@@ -16,8 +17,8 @@ SIGNALS = ['ap.enabled', 'ap.mode', 'ap.heading', 'ap.heading_command', 'ap.head
            'ap.pilot.basic.Pgain', 'ap.pilot.basic.Igain', 'ap.pilot.basic.Dgain',
            'ap.pilot.basic.DDgain', 'ap.pilot.basic.PRgain', 'ap.pilot.basic.FFgain',
            'ap.pilot.basic.Hgain', 'ap.pilot.basic.heelrate', 'servo.controller_temp', 'servo.recovery',
-           'ap.pilot.suan.soll', 'ap.pilot.suan.est', 'ap.pilot.suan.trim', 'ap.pilot.suan.k',
-           'ap.pilot.suan.fehler', 'ap.pilot.suan.status', 'ap.pilot.suan.v_up', 'ap.pilot.suan.v_down']
+           'ap.pilot.adaptive.soll', 'ap.pilot.adaptive.est', 'ap.pilot.adaptive.trim', 'ap.pilot.adaptive.k',
+           'ap.pilot.adaptive.fehler', 'ap.pilot.adaptive.status', 'ap.pilot.adaptive.v_up', 'ap.pilot.adaptive.v_down']
 SETTINGS = ['ap.pilot', 'ap.pilot.basic.P', 'ap.pilot.basic.I', 'ap.pilot.basic.D',
             'ap.pilot.basic.DD', 'ap.pilot.basic.PR', 'ap.pilot.basic.FF', 'ap.pilot.basic.R',
             'servo.period', 'servo.gain', 'servo.speed.min', 'servo.speed.max',
@@ -25,64 +26,102 @@ SETTINGS = ['ap.pilot', 'ap.pilot.basic.P', 'ap.pilot.basic.I', 'ap.pilot.basic.
             'rudder.offset', 'rudder.scale', 'rudder.range',
             'servo.controller', 'nmea.client', 'ap.pilot.basic.H', 'imu.heading_lowpass_constant',
             'imu.headingrate_lowpass_constant', 'imu.headingraterate_lowpass_constant',
-            'ap.pilot.suan.k_ref', 'ap.pilot.suan.Tg', 'ap.pilot.suan.v_ref', 'ap.pilot.suan.n_v',
-            'ap.pilot.suan.v_min', 'ap.pilot.suan.fk_min', 'ap.pilot.suan.fk_max', 'ap.pilot.suan.K_ref',
-            'ap.pilot.suan.T_I', 'ap.pilot.suan.T_S', 'ap.pilot.suan.r_max_stb', 'ap.pilot.suan.r_max_bb',
-            'ap.pilot.suan.T_ramp', 'ap.pilot.suan.rate_up', 'ap.pilot.suan.rate_down', 'ap.pilot.suan.delay',
-            'ap.pilot.suan.db', 'ap.pilot.suan.T_corr', 'ap.pilot.suan.hub', 'ap.pilot.suan.e_freeze',
-            'ap.pilot.suan.t_blind', 'ap.pilot.suan.jump_lim', 'ap.pilot.suan.t_bad', 'ap.pilot.suan.speed',
-            'ap.pilot.suan.sparsam', 'ap.pilot.suan.db_sparsam', 'ap.pilot.suan.TS_sparsam',
-            'ap.pilot.suan.T_D', 'ap.pilot.suan.T_acc', 'ap.pilot.suan.t_rev',
-            'ap.pilot.suan.lern', 'ap.pilot.suan.schwach', 'ap.pilot.suan.n_tot']
+            'ap.pilot.adaptive.k_ref', 'ap.pilot.adaptive.Tg', 'ap.pilot.adaptive.v_ref', 'ap.pilot.adaptive.n_v',
+            'ap.pilot.adaptive.v_min', 'ap.pilot.adaptive.fk_min', 'ap.pilot.adaptive.fk_max', 'ap.pilot.adaptive.K_ref',
+            'ap.pilot.adaptive.T_I', 'ap.pilot.adaptive.T_S', 'ap.pilot.adaptive.r_max_stb', 'ap.pilot.adaptive.r_max_bb',
+            'ap.pilot.adaptive.T_ramp', 'ap.pilot.adaptive.rate_up', 'ap.pilot.adaptive.rate_down', 'ap.pilot.adaptive.delay',
+            'ap.pilot.adaptive.db', 'ap.pilot.adaptive.T_corr', 'ap.pilot.adaptive.hub', 'ap.pilot.adaptive.e_freeze',
+            'ap.pilot.adaptive.t_blind', 'ap.pilot.adaptive.jump_lim', 'ap.pilot.adaptive.t_bad', 'ap.pilot.adaptive.speed',
+            'ap.pilot.adaptive.sparsam', 'ap.pilot.adaptive.db_sparsam', 'ap.pilot.adaptive.TS_sparsam',
+            'ap.pilot.adaptive.T_D', 'ap.pilot.adaptive.T_acc', 'ap.pilot.adaptive.t_rev',
+            'ap.pilot.adaptive.lern', 'ap.pilot.adaptive.schwach', 'ap.pilot.adaptive.n_tot']
 
-def tinypilot_address():
+STALE = 6.0            # s ohne jede Zeile vom TinyPilot: Verbindung gilt als tot, neu verbinden
+STATUS = os.path.join(DATA, 'verbindung.json')
+
+def tinypilot_addresses():
+    """Adressen, die der Reihe nach probiert werden: Lease am Master, feste Adresse, Name."""
+    out = []
     try:
         for line in open('/var/lib/misc/dnsmasq.leases'):
             f = line.split()
             if len(f) > 3 and f[3] == 'box':
-                return f[2]
+                out.append(f[2])
     except OSError:
         pass
-    return '10.10.10.163'
+    out.append('10.10.10.164')
+    out.append('box')
+    return list(dict.fromkeys(out))
+
+def status_schreiben(zustand, host='', letzte_daten=0.0, ursache=''):
+    """Zustand fuer den Leitstand (atomar ersetzen, damit er nie eine halbe Datei liest)."""
+    try:
+        tmp = STATUS + '.tmp'
+        with open(tmp, 'w') as f:
+            json.dump({'zeit': time.time(), 'zustand': zustand, 'host': host,
+                       'letzte_daten': letzte_daten, 'ursache': ursache}, f)
+        os.replace(tmp, STATUS)
+    except OSError:
+        pass
+
+def verbinden():
+    """Erste erreichbare Adresse; wirft OSError mit allen Einzelfehlern, wenn keine antwortet."""
+    fehler = []
+    for host in tinypilot_addresses():
+        try:
+            s = socket.create_connection((host, 23322), timeout=4)
+            s.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+            return s, host
+        except OSError as e:
+            fehler.append('%s: %s' % (host, e))
+    raise OSError('; '.join(fehler))
 
 def record(sig_writer, ev_writer, files):
-    host = tinypilot_address()
-    s = socket.create_connection((host, 23322), timeout=5)
+    s, host = verbinden()
     watch = {n: PERIOD for n in SIGNALS}
     watch.update({n: 1 for n in SETTINGS})
     s.sendall(('watch=' + json.dumps(watch) + '\n').encode())
     s.settimeout(0.05)
     print(time.strftime('%H:%M:%S'), 'verbunden mit', host, flush=True)
     latest, settings, buf = {}, {}, b''
-    next_row = time.time()
-    while True:
-        try:
-            data = s.recv(65536)
-            if not data:
-                raise OSError('Verbindung geschlossen')
-            buf += data
-        except socket.timeout:
-            pass
-        while b'\n' in buf:
-            line, buf = buf.split(b'\n', 1)
-            text = line.decode(errors='replace')
-            if '=' not in text:
-                continue
-            name, value = text.split('=', 1)
+    next_row = last_rx = last_status = time.time()
+    try:
+        while True:
             try:
-                value = json.loads(value)
-            except ValueError:
+                data = s.recv(65536)
+                if not data:
+                    raise OSError('Verbindung vom TinyPilot geschlossen')
+                buf += data
+                last_rx = time.time()
+            except socket.timeout:
                 pass
-            if name in SETTINGS and settings.get(name) != value:
-                settings[name] = value
-                ev_writer.writerow([time.strftime('%Y-%m-%dT%H:%M:%S'), name, value])
-                files[1].flush()
-            latest[name] = value
-        now = time.time()
-        if now >= next_row:
-            sig_writer.writerow(['%.2f' % now] + [latest.get(n, '') for n in SIGNALS])
-            next_row = max(next_row + PERIOD, now)
-            files[0].flush()
+            while b'\n' in buf:
+                line, buf = buf.split(b'\n', 1)
+                text = line.decode(errors='replace')
+                if '=' not in text:
+                    continue
+                name, value = text.split('=', 1)
+                try:
+                    value = json.loads(value)
+                except ValueError:
+                    pass
+                if name in SETTINGS and settings.get(name) != value:
+                    settings[name] = value
+                    ev_writer.writerow([time.strftime('%Y-%m-%dT%H:%M:%S'), name, value])
+                    files[1].flush()
+                latest[name] = value
+            now = time.time()
+            if now - last_rx > STALE:
+                raise OSError('seit %.0f s keine Daten vom TinyPilot (Verbindung steht, pypilot sendet nicht)' % (now - last_rx))
+            if now >= next_row:
+                sig_writer.writerow(['%.2f' % now] + [latest.get(n, '') for n in SIGNALS])
+                next_row = max(next_row + PERIOD, now)
+                files[0].flush()
+            if now - last_status >= 1:
+                status_schreiben('verbunden', host, last_rx)
+                last_status = now
+    finally:
+        s.close()
 
 def main():
     os.makedirs(DATA, exist_ok=True)
@@ -92,12 +131,20 @@ def main():
     sig_w, ev_w = csv.writer(sig_f), csv.writer(ev_f)
     sig_w.writerow(['time'] + SIGNALS)
     ev_w.writerow(['time', 'name', 'value'])
-    while True:
+    print(time.strftime('%H:%M:%S'), 'aplog Version', VERSION, flush=True)
+    pause = 2.0
+    while True:                                   # gibt nie auf: jeder Fehler fuehrt zu neuem Versuch
+        start = time.time()
         try:
             record(sig_w, ev_w, (sig_f, ev_f))
-        except OSError as e:
+        except Exception as e:
             print(time.strftime('%H:%M:%S'), 'keine Verbindung:', e, flush=True)
-            time.sleep(5)
+            letzte = time.time()
+            pause = 2.0 if letzte - start > 30 else min(pause * 1.5, 10.0)   # hielt sie lange, sofort wieder schnell
+            ende = time.time() + pause
+            while time.time() < ende:             # Pause, dabei weiter melden (der Leitstand prueft das Alter)
+                status_schreiben('getrennt', '', 0.0, str(e))
+                time.sleep(1)
 
 if __name__ == '__main__':
     main()

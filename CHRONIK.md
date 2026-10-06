@@ -50,3 +50,16 @@ Spannung. Aus Strom und Spannung gerechnet sitzt in der Zuleitung ein Widerstand
 im eigenen Schaltplan 100 Ω. Über Jahre unbemerkt, gefunden erst beim Vergleich mit dem Gerät des Herstellers.
 **Lehre:** Der Schaltplan beweist nicht, was auf der Platine sitzt. Wo ein Messwert nicht passt, zuerst das
 Bauteil nachmessen – und wenn ein Vorbild des Herstellers an Bord ist, daran vergleichen.
+
+## 2026-10-06 – Der Leitstand zeigte eingefrorene Werte als echt
+Nach einem Neustart des TinyPilot blieb die Verbindung der Aufzeichnung am Master „offen“, lieferte aber nichts mehr.
+Die Aufzeichnung schrieb weiter jede Zeile mit frischer Uhrzeit und den alten Werten; der Leitstand prüfte nur diese Uhrzeit
+und zeigte Kurs 259° statt 289°, Autopilot AUS statt AN. Gemessen: 400 Zeilen mit demselben Kurs.
+**Lehre:** Bei einem Zeitstempel zählt, wann der Wert ankam, nicht wann er aufgeschrieben wurde. Eine Verbindung ohne
+Daten ist tot, auch wenn sie noch „offen“ heißt: nach 6 s Stille neu verbinden, im Leitstand alles grau.
+
+## 2026-10-06 – WLAN des Masters nahm einen PC 40 Minuten lang nicht an
+Seit 12:47 kam keine Anmeldung des PCs mehr im Zugangspunkt an; das Systemprotokoll des Masters war von 12:47 bis zum
+Neustart um 13:27 leer, die Aufzeichnung lief weiter. Vorher hatte der PC sich ab 12:22 ständig neu angemeldet.
+Gleichzeitig suchte der Leitstand alle 30 s das ganze Netz ab (254 Rundrufe); ob das die Ursache war, ist **nicht bewiesen**.
+**Lehre:** Der eingebaute WLAN-Chip des Pi 3B+ ist empfindlich: keine Rundruf-Suche im Dauerbetrieb. Netzsuche nur auf Anforderung.

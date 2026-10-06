@@ -1,15 +1,14 @@
 # Aufgabenliste TinyPilot (aktuelles Projekt)
 
-Stand: 04.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `CHRONIK.md`.
+Stand: 06.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `CHRONIK.md`.
 Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `suanpilot-v01.00/docs/gesamt.md`.
 Einteilung nach Ort: **Im Hafen** (entwickeln, einrichten) und **Unterwegs** (messen, testen); Reihenfolge
 innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `tinypilot/regler/verbesserungen.md`.
 
 ## Im Hafen
-1. **Leitstand erweitern** (läuft seit 01.10. am Master, `leitstand.py`): Seite 2 „Güte“ aus `guete_<Datum>.csv`
-   (läuft seit 02.10.) mit Umschalter; auf den Cockpit-Kartenplotter bringen
+1. **Leitstand erweitern** (Seiten 1–4 laufen am Master, `leitstand.py`): auf den Cockpit-Kartenplotter bringen
    (dort live vom TinyPilot, höchstens 1 Abfrage/s, Desktop-Symbol); Summer zuschalten (Master GPIO 24, Plotter
-   GPIO 23, Konflikt mit NMEA_Monitor/ePaper prüfen); weitere Prüfungen ergänzen.
+   GPIO 23, Konflikt mit NMEA_Monitor/ePaper prüfen); weitere Prüfungen ergänzen; Diagramme in Seite 1 nur bei Änderung neu zeichnen.
 2. **Ruderlage in Signal K:** Signal K liest die NMEA-Ausgabe des TinyPilot (TCP 10.10.10.163:20220, sendet
    `$APRSA` 4/s, dazu Kurs, Roll, Stampf) als Datenquelle → `steering.rudderAngle`. Vorzeichen prüfen.
    Signal K dafür nur bei ausgeschaltetem Autopiloten neu starten. Alternative: pypilot-eigener
@@ -28,6 +27,11 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
    Aufzeichnungsprogramm: Takt nach nicht springendem Zähler.
 10. **Pumpe rückwärts schwach** (Testbericht 04.10.): im Fehlerfall Klemme A und B gegen Masse messen (`messlauf3.py`);
     dann entscheiden: Testgerät ESP32 + IBT-2 oder neuer pypilot-Controller (`motor-controller/hardware/konzeption/motorcontroller.md`).
+11. **Master-Netz:** Leitstand startet nach einem Neustart nicht von selbst (Autostart einrichten); Samsung-Handy
+    (USB-Tethering, 192.168.42.129, Weg ins Internet) in Seite 4 aufnehmen; die Geräte `30:83:98` (10.10.10.159/.160,
+    Espressif, ohne offene Ports) zuordnen: an Bord nachsehen oder nacheinander ausschalten.
+12. **WLAN des Masters beobachten** (06.10.: PC konnte sich 40 min nicht anmelden, Neustart half): Seite 4 eine Stunde offen
+    lassen, melden sich Geräte ab? Master an der Drosselgrenze (60 °C), Dateimanager `pcmanfm` 87 % Last prüfen.
 
 ## Unterwegs
 1. **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).

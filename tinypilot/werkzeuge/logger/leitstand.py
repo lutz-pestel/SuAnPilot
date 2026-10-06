@@ -7,10 +7,16 @@
 # vorrangig die Leistung, dazu ausgewaehlte Einstellungen redundant zur Weboberflaeche): Regler basic/adaptive und Satz
 # ruhig/sparsam umschalten - mit Rueckfrage, Rueckmeldung aus dem TinyPilot und Markierung in marks.csv.
 # Python 3.7, nur Tkinter. Aufruf: python3 leitstand.py   (Desktop-Symbol: Leitstand.desktop)
-import csv, glob, io, json, os, socket, statistics, time, tkinter as tk
+import csv, glob, io, json, os, socket, subprocess, threading, time, tkinter as tk
+from concurrent.futures import ThreadPoolExecutor
 from tkinter import messagebox
 
+VERSION = '00.01'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
+STATUS = os.path.join(DATA, 'verbindung.json')       # schreibt aplog.py jede Sekunde
+GERAETE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'geraete.csv')   # bekannte Geraete: ip,name,funktion
+NETZ = '10.10.10.'     # Master-Netz (/24)
+DATEN_ALT = 10         # s: aelter als das = nicht verbunden
 HISTORY = 600          # s Verlauf in den Grafiken
 TREND = 20             # s Mittel fuer den Trend des Kursfehlers
 RUDDER_LIMIT = 30
@@ -22,7 +28,7 @@ RUDER_MITTE = 2.9      # °: Ruderanzeige bei Ruder mittig (gemessen 02.10.2026 
 LIMITS = {'trend': (2, 5), 'rudder.angle': (25, RUDDER_LIMIT - 1), 'imu.heel': (20, 28), 'servo.current': (10, 15)}
 DEAD_CURRENT = 2.0     # A: Pumpe laeuft >= 1,2 s mit weniger Strom = steht (rot)
 AMPEL = {'trend': (2, 4), 'wh_h': (10, 25), 'wechsel': (8, 20), 'ausreisser': (2, 10)}   # wie guete.py
-ANZEIGE = {'suan': 'adaptive'}  # Pilotname im Geraet -> Name fuer den Betreiber (Umbenennung geplant)
+ANZEIGE = {}  # Pilotname im Geraet -> Anzeigename, falls abweichend
 GERAET = {v: k for k, v in ANZEIGE.items()}
 
 def tinypilot_address():
@@ -55,6 +61,255 @@ def pypilot_setzen(name, wert):
         s.close()
     return None
 
+def ping(ip, warte=1):
+    """(antwortet, Ausgabe) eines einzelnen Pings."""
+    try:
+        r = subprocess.run(['ping', '-c', '1', '-n', '-W', str(warte), ip], stdout=subprocess.PIPE,
+                           stderr=subprocess.STDOUT, timeout=warte + 4)
+        return r.returncode == 0, r.stdout.decode(errors='replace')
+    except Exception as e:
+        return False, str(e)
+
+def pypilot_probe(host):
+    """(ok, Grund): nimmt der pypilot-Server an und sendet er Messwerte?"""
+    try:
+        s = socket.create_connection((host, 23322), timeout=3)
+    except ConnectionRefusedError:
+        return False, 'der pypilot-Dienst nimmt keine Verbindung an (abgestürzt oder startet noch).'
+    except socket.timeout:
+        return False, 'der pypilot-Dienst antwortet nicht (hängt oder startet noch).'
+    except OSError as e:
+        return False, 'Verbindung zum pypilot-Dienst nicht möglich (%s).' % e
+    try:
+        s.sendall(b'watch={"ap.heading":0.2,"imu.heading":0.2,"rudder.angle":0.2}\n')
+        s.settimeout(0.5); buf, ende = '', time.time() + 3.5
+        while time.time() < ende:
+            try:
+                data = s.recv(65536)
+            except socket.timeout:
+                continue
+            if not data:
+                return False, 'der pypilot-Dienst hat die Verbindung sofort geschlossen.'
+            buf += data.decode(errors='replace')
+            if any('=' in z and not z.startswith('watch') for z in buf.split('\n')):
+                return True, ''
+        return False, 'der pypilot-Dienst nimmt die Verbindung an, sendet aber keine Messwerte (Sensoren oder Dienst gestört).'
+    except OSError as e:
+        return False, 'der pypilot-Dienst bricht die Verbindung ab (%s).' % e
+    finally:
+        s.close()
+
+class Verbindung:
+    """Prueft im Hintergrund, ob die Aufzeichnung frische Daten vom TinyPilot hat; wenn nicht, wird die Ursache
+    stufenweise ermittelt: Master-Netz -> TinyPilot im Netz -> pypilot-Dienst -> Aufzeichnung (aplog)."""
+    def __init__(self):
+        self.ok, self.text = False, 'wird geprüft …'
+        threading.Thread(target=self.lauf, daemon=True).start()
+
+    def lauf(self):
+        while True:
+            try:
+                self.pruefen()
+            except Exception as e:
+                self.ok, self.text = False, 'Verbindungsprüfung selbst fehlgeschlagen: %s' % e
+            time.sleep(2)
+
+    def pruefen(self):
+        try:
+            d = json.load(open(STATUS))
+        except (OSError, ValueError):
+            d = None
+        now = time.time()
+        aplog_da = d is not None and abs(now - d.get('zeit', 0)) <= 5
+        if aplog_da and d.get('zustand') == 'verbunden' and now - d.get('letzte_daten', 0) <= DATEN_ALT:
+            self.ok, self.text = True, ''
+            return
+        host = tinypilot_address()
+        antwortet, aus = ping(host)
+        if not antwortet:
+            if 'unreachable' in aus.lower():
+                t = 'Der Master hat kein Netz zum TinyPilot (%s) – Netzwerk (br0) des Masters prüfen.' % host
+            else:
+                t = 'Der TinyPilot (%s) antwortet nicht im Netz – ausgeschaltet, startet noch oder Kabel/WLAN gestört.' % host
+        else:
+            ok, grund = pypilot_probe(host)
+            if not ok:
+                t = 'Der TinyPilot (%s) ist im Netz, aber %s' % (host, grund)
+            elif not aplog_da:
+                t = 'TinyPilot und pypilot sind in Ordnung. Die Aufzeichnung (aplog) am Master läuft nicht – „aplog.sh start“.'
+            elif d.get('zustand') != 'verbunden':
+                t = 'TinyPilot und pypilot sind in Ordnung. Die Aufzeichnung verbindet sich gerade neu (%s).' % (d.get('ursache') or '–')
+            else:
+                t = ('TinyPilot und pypilot sind in Ordnung. Die Aufzeichnung bekommt seit %.0f s nichts und verbindet sich neu.'
+                     % (now - d.get('letzte_daten', now)))
+        if not aplog_da and not t.endswith('„aplog.sh start“.'):
+            t += ' Außerdem läuft die Aufzeichnung (aplog) nicht.'
+        self.ok, self.text = False, t
+
+def internet_pruefen():
+    """(ja/nein, Text): erreicht der Master das Internet, und wenn nicht, woran liegt es?"""
+    best = None
+    try:
+        for z in subprocess.run(['ip', '-4', 'route', 'show', 'default'], stdout=subprocess.PIPE, timeout=3).stdout.decode().splitlines():
+            f = z.split()
+            metric = int(f[f.index('metric') + 1]) if 'metric' in f else 0
+            via = f[f.index('via') + 1] if 'via' in f else ''
+            dev = f[f.index('dev') + 1] if 'dev' in f else ''
+            if best is None or metric < best[0]:
+                best = (metric, via, dev)
+    except Exception:
+        pass
+    if best is None:
+        return False, 'NEIN – kein Weg nach außen eingerichtet (Handy-Tethering am USB-Anschluss prüfen)'
+    _, via, dev = best
+    weg = '%s%s' % ('USB-Handy' if dev == 'usb0' else dev, ' – Gateway %s' % via if via else '')
+    for host, port in (('1.1.1.1', 443), ('8.8.8.8', 53)):
+        try:
+            socket.create_connection((host, port), timeout=2).close()
+            return True, 'ja – über %s' % weg
+        except OSError:
+            pass
+    if via and not ping(via)[0]:
+        return False, 'NEIN – das Gateway (%s) antwortet nicht (Handy aus, Tethering beendet oder Kabel)' % weg
+    return False, 'NEIN – das Gateway (%s) antwortet, aber dahinter kein Internet (Handy ohne Mobilfunk oder Datenvolumen?)' % weg
+
+def bekannte_geraete():
+    """Zeilen aus geraete.csv (kennung,ip,name,funktion). Kennung = MAC-Adresse oder ihr Anfang (Hersteller/Geraet),
+    wirkt auf jedes Geraet mit dieser Kennung; ohne Kennung zaehlt die IP. Die IP dient sonst nur zur Anzeige,
+    wenn das Geraet nicht da ist."""
+    out = []
+    try:
+        for r in csv.DictReader(open(GERAETE, newline='', encoding='utf-8')):
+            z = dict((k, (r.get(k) or '').strip()) for k in ('kennung', 'ip', 'name', 'funktion'))
+            z['kennung'] = z['kennung'].lower()
+            if z['kennung'] or z['ip']:
+                out.append(z)
+    except OSError:
+        pass
+    return out
+
+class Geraete:
+    """Drei Hintergrundlaeufe: Internet alle 3 s; bekannte Geraete direkt anpingen (alle 5 s, solange Bild 4 offen ist,
+    sonst alle 30 s); volle Suche im ganzen /24 (254 Rundrufe, findet neue Geraete) nur bei offenem Bild 4: einmal im Stoss beim Oeffnen, dann alle 60 s verteilt.
+    Grund: Die Rundrufe belasten den eingebauten WLAN-Chip des Masters (06.10.2026 Anmeldungen am Zugangspunkt ausgefallen)."""
+    def __init__(self):
+        self.zeilen = [dict(ip=b['ip'], name=b['name'], funktion=b['funktion'], online=False, neu=False)
+                       for b in bekannte_geraete() if b['ip']]
+        self.stand, self.voll, self.fehler, self.version, self.aktiv = None, None, '', 0, False
+        self.internet = (None, 'wird geprüft …', None)       # (ja/nein/None, Text, Zeit)
+        for ziel in (self.lauf_suche, self.lauf_schnell, self.lauf_internet):
+            threading.Thread(target=ziel, daemon=True).start()
+
+    def lauf_suche(self):
+        zuletzt = 0
+        while True:
+            if not self.aktiv:
+                zuletzt = 0                                  # beim naechsten Oeffnen sofort suchen
+            elif time.time() - zuletzt >= 60:
+                beginn = time.time()
+                try:
+                    self.suchen(zuletzt == 0); self.fehler = ''    # erste Suche nach dem Oeffnen im Stoss, danach verteilt
+                except Exception as e:
+                    self.fehler = str(e)
+                zuletzt = beginn
+            time.sleep(1)
+
+    def lauf_schnell(self):
+        while True:
+            try:
+                self.auffrischen()
+            except Exception as e:
+                self.fehler = str(e)
+            warte, aktiv = 0, self.aktiv
+            while warte < (5 if aktiv else 30) and self.aktiv == aktiv:   # Wechsel des Bildes beendet das Warten
+                time.sleep(1); warte += 1
+
+    def lauf_internet(self):
+        while True:
+            try:
+                ok, text = internet_pruefen()
+            except Exception as e:
+                ok, text = None, 'Prüfung fehlgeschlagen: %s' % e
+            self.internet = (ok, text, time.time())
+            self.version += 1
+            time.sleep(3)
+
+    @staticmethod
+    def nachbarn():
+        """(MAC-Adressen, Adressen mit ARP-Zustand REACHABLE) aus der Nachbartabelle des Masters."""
+        mac, da = {}, set()
+        try:
+            for z in subprocess.run(['ip', 'neigh', 'show'], stdout=subprocess.PIPE, timeout=5).stdout.decode().splitlines():
+                f = z.split()
+                if f and f[0].startswith(NETZ):
+                    if 'lladdr' in f:
+                        mac[f[0]] = f[f.index('lladdr') + 1].lower()
+                    if 'REACHABLE' in f:
+                        da.add(f[0])
+        except Exception:
+            pass
+        return mac, da
+
+    @staticmethod
+    def zuordnen(bekannt, ip, mac):
+        """Passende Zeile der Liste: laengste passende Kennung, sonst gleiche IP ohne Kennung."""
+        best = None
+        for b in bekannt:
+            if b['kennung'] and mac.startswith(b['kennung']) and (best is None or len(b['kennung']) > len(best['kennung'])):
+                best = b
+        if best is None:
+            best = next((b for b in bekannt if not b['kennung'] and b['ip'] == ip), None)
+        return best
+
+    def auffrischen(self):
+        """Nur die Zeilen der letzten Suche neu anpingen (schnell); neue Geraete findet erst die volle Suche."""
+        basis = self.zeilen
+        if not basis:
+            return
+        with ThreadPoolExecutor(16) as pool:
+            antwort = list(pool.map(lambda r: ping(r['ip'])[0], basis))
+        _, da = self.nachbarn()
+        neu = [dict(r, online=a or r['ip'] in da) for r, a in zip(basis, antwort)]
+        if self.zeilen is basis:                            # nicht, wenn die volle Suche inzwischen neu geliefert hat
+            self.zeilen, self.stand = neu, time.time()
+            self.version += 1
+
+    def suchen(self, stoss=False):
+        """Ping ueber das ganze /24. stoss: alle fast gleichzeitig (schnell, einmal beim Oeffnen); sonst mit 5 Pings
+        gleichzeitig, das verteilt die Rundrufe ueber knapp eine Minute und schont den WLAN-Chip."""
+        bekannt = bekannte_geraete()
+        ips = [NETZ + str(i) for i in range(1, 255)]
+        with ThreadPoolExecutor(48 if stoss else 5) as pool:
+            antwort = dict(zip(ips, pool.map(lambda ip: ping(ip)[0], ips)))
+        mac, arp = self.nachbarn()
+        namen = {}
+        try:
+            for z in open('/var/lib/misc/dnsmasq.leases'):
+                f = z.split()
+                if len(f) > 3:
+                    namen[f[2]] = f[3] if f[3] != '*' else ''
+        except OSError:
+            pass
+        zeilen, gefunden = [], set()
+        for ip in ips:
+            if not (antwort[ip] or ip in arp):
+                continue
+            b = self.zuordnen(bekannt, ip, mac.get(ip, ''))
+            if b:
+                gefunden.add(id(b))
+                zeilen.append(dict(ip=ip, name=b['name'], funktion=b['funktion'], online=True, neu=False))
+            else:
+                zeilen.append(dict(ip=ip, name=namen.get(ip) or '?', funktion='nicht in der Liste (Kennung %s)' % (mac.get(ip) or '?'),
+                                   online=True, neu=True))
+        for b in bekannt:                                  # in der Liste, aber nicht da: offline (nur mit IP darstellbar)
+            if id(b) not in gefunden and b['ip']:
+                ausserhalb = not b['ip'].startswith(NETZ)  # andere Netze (z. B. Handy am USB) werden gezielt angepingt
+                zeilen.append(dict(ip=b['ip'], name=b['name'], funktion=b['funktion'],
+                                   online=ausserhalb and ping(b['ip'])[0], neu=False))
+        zeilen.sort(key=lambda r: (r['neu'], [int(x) if x.isdigit() else 0 for x in r['ip'].split('.')]))
+        self.zeilen, self.stand, self.voll = zeilen, time.time(), time.time()
+        self.version += 1
+
 def markieren(text):
     with open(os.path.join(DATA, 'marks.csv'), 'a') as f:
         f.write('%s,%.2f,"%s"\n' % (time.strftime('%Y-%m-%dT%H:%M:%S'), time.time(), text))
@@ -69,6 +324,19 @@ def fl(x):
     except (TypeError, ValueError):
         return None
 
+def mittel(v):
+    """Mittelwert fuer Gleitkommazahlen; statistics.mean rechnet exakt mit Bruechen und war auf dem Pi ein Viertel der Last."""
+    return sum(v) / len(v)
+
+_CACHE = {}
+def gecacht(key, sekunden, fn):
+    """Ergebnis von fn() hoechstens alle <sekunden> neu berechnen (Dateisuche und -lesen nicht jede Sekunde)."""
+    t, w = _CACHE.get(key, (0, None))
+    if time.time() - t >= sekunden:
+        w = fn()
+        _CACHE[key] = (time.time(), w)
+    return w
+
 class Source:
     """Folgt der neuesten signals-Datei und haelt die letzten HISTORY Sekunden."""
     def __init__(self):
@@ -76,8 +344,10 @@ class Source:
         self.rows = []
 
     def newest(self):
-        files = glob.glob(os.path.join(DATA, 'signals_*.csv'))
-        return max(files, key=os.path.getmtime) if files else None
+        def suche():
+            files = glob.glob(os.path.join(DATA, 'signals_*.csv'))
+            return max(files, key=os.path.getmtime) if files else None
+        return gecacht('signals', 10, suche)
 
     def update(self):
         p = self.newest()
@@ -97,49 +367,64 @@ class Source:
         for row in csv.reader(lines):
             if len(row) == len(self.fields):
                 r = dict(zip(self.fields, row))
-                if fl(r.get('time')):
+                r['_t'] = fl(r.get('time'))                  # einmal umrechnen, nicht bei jedem Durchlauf
+                if r['_t']:
                     self.rows.append(r)
         if self.rows:
-            t = fl(self.rows[-1]['time'])
-            self.rows = [r for r in self.rows if fl(r['time']) > t - HISTORY]
+            grenze, i = self.rows[-1]['_t'] - HISTORY, 0
+            while i < len(self.rows) and self.rows[i]['_t'] <= grenze:   # Zeilen sind nach Zeit geordnet
+                i += 1
+            if i:
+                del self.rows[:i]
 
 def last_settings():
-    vals = {}
-    files = glob.glob(os.path.join(DATA, 'events_*.csv'))
-    if files:
-        for r in csv.reader(open(max(files, key=os.path.getmtime), newline='')):
-            if len(r) == 3:
-                vals[r[1]] = r[2]
-    return vals
+    def lesen():
+        vals = {}
+        files = glob.glob(os.path.join(DATA, 'events_*.csv'))
+        if files:
+            for r in csv.reader(open(max(files, key=os.path.getmtime), newline='')):
+                if len(r) == 3:
+                    vals[r[1]] = r[2]
+        return vals
+    return gecacht('events', 5, lesen)
 
 def recent_findings(now):
-    out = []
-    files = glob.glob(os.path.join(DATA, 'pumpruns_*.csv'))
-    if files:
-        for r in csv.DictReader(open(max(files, key=os.path.getmtime), newline='')):
-            if r.get('befund'):
-                out.append('%s Pumpe %s %s s: %s' % (r['start'], r['richtung'], r['dauer_s'], r['befund']))
-    return out[-5:]
+    def lesen():
+        out = []
+        files = glob.glob(os.path.join(DATA, 'pumpruns_*.csv'))
+        if files:
+            for r in csv.DictReader(open(max(files, key=os.path.getmtime), newline='')):
+                if r.get('befund'):
+                    out.append('%s Pumpe %s %s s: %s' % (r['start'], r['richtung'], r['dauer_s'], r['befund']))
+        return out[-5:]
+    return gecacht('befunde', 10, lesen)
 
 class Leitstand:
     def __init__(self, root):
         self.root, self.src = root, Source()
-        root.title('Leitstand Autopilot')
+        root.title('Leitstand Autopilot %s' % VERSION)
         root.configure(bg=BG)
         root.geometry('1024x600')
         big = ('DejaVu Sans', 16, 'bold'); mid = ('DejaVu Sans', 12); small = ('DejaVu Sans', 9)
         nav = tk.Frame(root, bg=BG); nav.pack(fill='x', padx=6)
         self.btn = {}
-        for key, txt in (('lage', '1  Lage'), ('guete', '2  Güte'), ('einst', '3  Einstellungen & Meldungen')):
+        for key, txt in (('lage', '1  Lage'), ('guete', '2  Güte'), ('einst', '3  Einstellungen & Meldungen'),
+                         ('geraete', '4  Geräte')):
             b = tk.Button(nav, text=txt, font=small, relief='flat', bd=0, padx=10,
                           command=lambda k=key: self.show(k))
             b.pack(side='left', padx=2); self.btn[key] = b
         root.bind('1', lambda e: self.show('lage')); root.bind('2', lambda e: self.show('guete'))
-        root.bind('3', lambda e: self.show('einst'))
+        root.bind('3', lambda e: self.show('einst')); root.bind('4', lambda e: self.show('geraete'))
         self.status = tk.Label(nav, text='', bg=BG, font=('DejaVu Sans', 10, 'bold'), anchor='e')
         self.status.pack(side='right', padx=6)
         self.ctl, self.settings, self.unseen = {}, {}, False
-        self.pages = {'lage': tk.Frame(root, bg=BG), 'guete': tk.Frame(root, bg=BG), 'einst': tk.Frame(root, bg=BG)}
+        self.kopf = tk.Frame(root, bg=BG); self.kopf.pack(fill='x', padx=6)      # Platz fuer den Hinweis „nicht verbunden“
+        self.banner = tk.Label(self.kopf, text='', bg=RED, fg='#ffffff', font=('DejaVu Sans', 11, 'bold'),
+                               anchor='w', justify='left', wraplength=990, padx=8, pady=3)
+        self.verbunden = None
+        self.pages = {'lage': tk.Frame(root, bg=BG), 'guete': tk.Frame(root, bg=BG), 'einst': tk.Frame(root, bg=BG),
+                      'geraete': tk.Frame(root, bg=BG)}
+        self.verb, self.net, self.net_version = Verbindung(), Geraete(), -1
         self.g2 = tk.Canvas(self.pages['guete'], width=1012, height=480, bg=BG, highlightthickness=0)
         self.g2.pack(padx=6, pady=4)
         page = self.pages['lage']
@@ -156,6 +441,7 @@ class Leitstand:
         self.foot = tk.Label(root, text='', fg=DIM, bg=BG, font=small, anchor='w', justify='left')
         self.foot.pack(fill='x', padx=6)
         self.seite3(self.pages['einst'], mid, small)
+        self.seite4(self.pages['geraete'])
         self.mid, self.small = mid, small
         self.n = 0
         self.page = None
@@ -191,6 +477,42 @@ class Leitstand:
         self.active = {}           # Schluessel -> (Farbe, Text) der aktuell bestehenden Probleme
         self.seen = set()          # Einzelereignisse, die schon im Protokoll stehen
 
+    def seite4(self, page):
+        self.net_kopf = tk.Label(page, text='Geräte werden gesucht …', fg=BLU, bg=BG, font=('DejaVu Sans', 12, 'bold'), anchor='w')
+        self.net_kopf.pack(fill='x', padx=8, pady=(8, 2))
+        self.net_text = tk.Text(page, bg='#181d22', fg=FG, font=('DejaVu Sans Mono', 11), relief='flat',
+                                height=18, state='disabled')
+        self.net_text.pack(fill='both', expand=True, padx=8, pady=(0, 6))
+        for c, col in (('gruen', GRN), ('rot', RED), ('gelb', YEL), ('dim', DIM)):
+            self.net_text.tag_configure(c, foreground=col)
+
+    def geraete_anzeigen(self):
+        n = self.net
+        if n.version == self.net_version:
+            return
+        self.net_version = n.version
+        z = n.zeilen or []
+        bek = [r for r in z if not r['neu']]; neu = [r for r in z if r['neu']]
+        if n.voll is None:
+            self.net_kopf.config(text='Geräte im Master-Netz %s0/24 – bekannt %d (online %d) – Suche nach neuen Geräten läuft …' % (
+                NETZ, len(bek), sum(1 for r in bek if r['online'])))
+        else:
+            self.net_kopf.config(text='Geräte im Master-Netz %s0/24 – bekannt %d (online %d), neu %d – volle Suche %s' % (
+                NETZ, len(bek), sum(1 for r in bek if r['online']), len(neu), time.strftime('%H:%M:%S', time.localtime(n.voll))))
+        t = self.net_text
+        t.config(state='normal'); t.delete('1.0', 'end')
+        ok, text, zeit = n.internet                          # erste Zeile: Internet, alle 3 s geprüft
+        t.insert('end', '● Internet-Zugang des Netzes: %s%s\n\n' % (text, '   (geprüft %s)' % time.strftime('%H:%M:%S', time.localtime(zeit)) if zeit else ''),
+                 'dim' if ok is None else 'gruen' if ok else 'rot')
+        t.insert('end', '   %-16s %-18s %-52s %s\n' % ('IP-Adresse', 'Name', 'Funktion', 'Zustand'), 'dim')
+        for r in z:
+            col = 'gelb' if r['neu'] else 'gruen' if r['online'] else 'rot'
+            zustand = ('NEU, ' if r['neu'] else '') + ('online' if r['online'] else 'offline')
+            t.insert('end', '● %-16s %-18s %-52s %s\n' % (r['ip'], r['name'][:18], r['funktion'][:52], zustand), col)
+        if n.fehler:
+            t.insert('end', '\nSuche gestört: %s\n' % n.fehler, 'rot')
+        t.config(state='disabled')
+
     def show(self, key):
         if self.page == key:
             return
@@ -201,8 +523,12 @@ class Leitstand:
         self.page = key
         self.knoepfe()
         self.pages[key].pack(before=self.foot, fill='both', expand=True)
-        if key == 'guete':
+        if key == 'guete' and self.verb.ok:
             self.draw_guete()
+        elif key == 'geraete':
+            self.net_version = -1
+            self.geraete_anzeigen()
+        self.net.aktiv = key == 'geraete'                  # volle Netzsuche nur, solange Bild 4 offen ist
 
     def knoepfe(self):
         for k, b in self.btn.items():
@@ -213,6 +539,8 @@ class Leitstand:
         try:
             self.src.update()
             self.draw()
+            if self.page == 'geraete':
+                self.geraete_anzeigen()
         except Exception as e:
             self.log(time.time(), 'rot', 'Leitstand-Fehler: %s' % e)
         self.root.after(1000, self.tick)
@@ -235,6 +563,16 @@ class Leitstand:
 
     def draw(self):
         rows, now = self.src.rows, time.time()
+        if not self.verb.ok:
+            self.getrennt(now)
+            return
+        if self.verbunden is not True:
+            self.verbunden = True
+            self.banner.pack_forget()
+            for lb in self.lbl.values():
+                lb.config(fg=FG)
+            self.foot.config(fg=DIM)
+            self.n = 0                                 # Grafiken und Güte sofort neu zeichnen
         if not rows:
             self.report([('daten', 'rot', 'Keine Aufzeichnung gefunden – läuft aplog? (aplog.sh status)')], [], now)
             return
@@ -249,7 +587,7 @@ class Leitstand:
         self.lbl['ist'].config(text='%.0f°' % g('ap.heading') if g('ap.heading') is not None else '–')
         e = [fl(x['ap.heading_error']) for x in rows
              if fl(x['time']) > fl(r['time']) - TREND and fl(x['ap.heading_error']) is not None]
-        fe, tr = g('ap.heading_error'), (statistics.mean(e) if e else None)
+        fe, tr = g('ap.heading_error'), (mittel(e) if e else None)
         if not on:                                     # Standby: es gibt keinen Kursfehler
             fe = tr = None
         self.lbl['fehl'].config(text='%+.1f°' % fe if fe is not None else '–')
@@ -269,18 +607,41 @@ class Leitstand:
         self.report(cond, events, fl(r['time']))
         self.footer(self.settings)
 
+    def getrennt(self, now):
+        """Keine frischen Daten: nichts Altes anzeigen, alles grau, auf jeder Seite der Hinweis mit Ursache."""
+        text = 'NICHT VERBUNDEN – ' + self.verb.text
+        self.banner.config(text=text)
+        if self.verbunden is not False:
+            self.verbunden = False
+            self.banner.pack(fill='x', pady=(2, 0))
+        for lb in self.lbl.values():
+            lb.config(text='–', fg=DIM)
+        for k in list(self.active):                    # Zustaende aus alten Daten verwerfen, nicht als „behoben“ melden
+            if k != 'verbindung':
+                del self.active[k]
+        for b in self.ctl.values():
+            b.config(state='disabled', bg=GRID, fg=DIM)
+        self.info_pilot.config(text='nicht verbunden', fg=DIM)
+        self.info_satz.config(text='', fg=DIM)
+        for c, h in ((self.rud, 100), (self.graphs, 376), (self.g2, 480)):
+            c.delete('all')
+            c.create_text(506, h / 2, text='nicht verbunden – keine aktuellen Daten', fill=DIM, font=self.mid)
+        self.foot.config(text='Nicht verbunden – keine Reglerwerte', fg=DIM)
+        self.report([('verbindung', 'rot', text)], [], now)
+        self.status.config(text='✗ NICHT VERBUNDEN', fg=RED)
+
     def regler_anzeigen(self, r):
         s = self.settings
         pilot = ANZEIGE.get(s.get('ap.pilot', ''), s.get('ap.pilot', '–'))
-        satz = 'sparsam' if (fl(s.get('ap.pilot.suan.sparsam')) or 0) >= 0.5 else 'ruhig'
-        zust = r.get('ap.pilot.suan.status', '')
+        satz = 'sparsam' if (fl(s.get('ap.pilot.adaptive.sparsam')) or 0) >= 0.5 else 'ruhig'
+        zust = r.get('ap.pilot.adaptive.status', '')
         text, farbe = pilot, FG
         if pilot == 'adaptive':
             text = 'adaptive · %s' % satz
             farbe = GRN if zust in ('ok', 'abgleich', 'blind', '') else YEL if zust.startswith('Pumpe') else RED
         self.lbl['regler'].config(text=text, fg=farbe)
         if pilot == 'adaptive':
-            vu, vd = fl(r.get('ap.pilot.suan.v_up')), fl(r.get('ap.pilot.suan.v_down'))
+            vu, vd = fl(r.get('ap.pilot.adaptive.v_up')), fl(r.get('ap.pilot.adaptive.v_down'))
             ruder = ('   gelernte Rudergeschwindigkeit vorw. %.1f / rückw. %.1f °/s' % (vu, vd)) if vu and vd else ''
             zt = zust.replace('Rueckfall', 'Rückfall').replace('rueckw', 'rückwärts').replace('vorw', 'vorwärts')
             if zt.startswith('Pumpe'):
@@ -289,7 +650,7 @@ class Leitstand:
         else:
             self.info_pilot.config(text='basic regelt die Pumpengeschwindigkeit; Werte unten in der Fußzeile', fg=DIM)
         # Satz sparsam erst waehlbar, wenn er eingestellt ist (groesseres Totband als ruhig)
-        sparsam_ok = (fl(s.get('ap.pilot.suan.db_sparsam')) or 0) > (fl(s.get('ap.pilot.suan.db')) or 0)
+        sparsam_ok = (fl(s.get('ap.pilot.adaptive.db_sparsam')) or 0) > (fl(s.get('ap.pilot.adaptive.db')) or 0)
         self.info_satz.config(text='nur bei adaptive' if pilot != 'adaptive' else '' if sparsam_ok else
                               '„sparsam“ gesperrt: Satz noch nicht eingestellt (Totband nicht größer als bei „ruhig“)', fg=DIM)
         for (g, w), b in self.ctl.items():
@@ -303,7 +664,7 @@ class Leitstand:
             if wahl != 'basic':
                 frage += '\n\nNur in freiem Wasser, Steuermann bereit. Rückweg: „basic“.'
         else:
-            name, wert, frage = 'ap.pilot.suan.sparsam', 1.0 if wahl == 'sparsam' else 0.0, 'Satz „%s“ einstellen?' % wahl
+            name, wert, frage = 'ap.pilot.adaptive.sparsam', 1.0 if wahl == 'sparsam' else 0.0, 'Satz „%s“ einstellen?' % wahl
         if not messagebox.askyesno('Leitstand', frage):
             return
         try:
@@ -372,7 +733,7 @@ class Leitstand:
         for j in range(len(rows)):
             if j % 5 == 0 or j == len(rows) - 1:
                 w = [v for v in ev[max(0, j - TREND * 5):j + 1] if v is not None]
-                last = statistics.mean(w) if w and ev[j] is not None else None
+                last = mittel(w) if w and ev[j] is not None else None
             trend.append(last)
         dead = self.dead_runs(rows)
         step = max(1, len(rows) // 485)
@@ -426,7 +787,7 @@ class Leitstand:
                     j += 1
                 d = fl(rows[j]['time']) - fl(rows[i]['time']) + 0.2
                 cs = [fl(x.get('servo.current')) for x in rows[i + 1:j + 1] if fl(x.get('servo.current')) is not None]
-                if d >= 1.2 and cs and statistics.mean(cs) < DEAD_CURRENT:
+                if d >= 1.2 and cs and mittel(cs) < DEAD_CURRENT:
                     out.update(range(i, j + 1))
                 i = j + 1
             else:
@@ -461,13 +822,13 @@ class Leitstand:
             rec = x.get('servo.recovery', '')
             if rec and rec != a.get('servo.recovery', ''):
                 ev.append((t, 'rot' if ('steht' in rec or 'ohne Erfolg' in rec) else 'gelb', 'Selbsthilfe: ' + rec))
-        if self.settings.get('ap.pilot') == 'suan':
-            zust = r.get('ap.pilot.suan.status', '')
+        if self.settings.get('ap.pilot') == 'adaptive':
+            zust = r.get('ap.pilot.adaptive.status', '')
             if zust.startswith('Pumpe'):
                 zust = zust.replace('vorw', 'vorwärts').replace('rueckw', 'rückwärts')
                 p.append(('adaptive', 'gelb', 'adaptive: %s °/s – meldet und steuert weiter' % zust))
         for a, x in zip(rows, rows[1:]):
-            za, zx = a.get('ap.pilot.suan.status', ''), x.get('ap.pilot.suan.status', '')
+            za, zx = a.get('ap.pilot.adaptive.status', ''), x.get('ap.pilot.adaptive.status', '')
             if zx.startswith('Rueckfall') and not za.startswith('Rueckfall'):
                 ev.append((fl(x['time']), 'rot', 'adaptive übergibt an basic: ' + zx.split(':', 1)[-1].strip()))
         for f in recent_findings(time.time()):
@@ -521,7 +882,7 @@ class Leitstand:
         def tendenz(v, eps):
             if len(v) < 4:
                 return ''
-            d = statistics.mean(v[-3:]) - statistics.mean(v)
+            d = mittel(v[-3:]) - mittel(v)
             return '↗' if d > eps else '↘' if d < -eps else '→'
         def box(x, y, w, h, title, cur, curcol, sub, avg, arrow, big=26):
             c.create_rectangle(x, y, x + w, y + h, outline=GRID, width=2)
@@ -544,7 +905,7 @@ class Leitstand:
             cur = '–' if v is None else (fmt % v) + unit
             col = AMP.get(r.get('ampel_' + key), DIM)
             av = vals(key, rated=True)
-            avs = '–' if not av else (fmt % statistics.mean(av)) + unit
+            avs = '–' if not av else (fmt % mittel(av)) + unit
             box(6 + k * (w + 8), y, w, h, title, cur, col, '', avs, tendenz(av, eps))
         # Gesamtampel: je Minute die schlechteste der vier Farben
         X0, BW, yA = 150, 14, 136
@@ -576,7 +937,7 @@ class Leitstand:
         def u(key, fmt):
             v = fl(r.get(key)); return '–' if v is None else fmt % v
         def ua(key, fmt):
-            v = vals(key); return ('–' if not v else fmt % statistics.mean(v)), v
+            v = vals(key); return ('–' if not v else fmt % mittel(v)), v
         ws, wsv = ua('wind', '%.1f kn')
         kw, kwv = ua('kurs_zum_wind', '%.0f°')
         st_, stv = ua('stampfen', '%.2f')
@@ -602,7 +963,7 @@ class Leitstand:
         for k, (bg, name, col) in enumerate((('BB', 'Ruder-Trimm, Wind von BB', RED), ('StB', 'Ruder-Trimm, Wind von StB', GRN))):
             v = tr[bg][-10:]
             cur = '–' if not v else '%+.1f°' % v[-1]
-            avs = '–' if not v else '%+.1f° (%d min)' % (statistics.mean(v), len(v))
+            avs = '–' if not v else '%+.1f° (%d min)' % (mittel(v), len(v))
             box(6 + k * 340, y, 330, h, name, cur, FG if v else DIM, '', avs, tendenz(v, 0.5))
             c.create_rectangle(6 + k * 340 + 2, y + 2, 6 + k * 340 + 7, y + h - 2, fill=col, outline='')   # Seitenfarbe
         # Letzte Wertänderung

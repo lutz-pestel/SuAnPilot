@@ -1,0 +1,12 @@
+kennung,ip,name,funktion
+,10.10.10.1,Master,OpenPlotter-Rechner mit Netz und Leitstand
+b8:27:eb:2a:f6:12,10.10.10.164,Autopilot,TinyPilot (Autopilot mit pypilot)
+dc:a6:32:47:81:36,10.10.10.186,Cockpit Plotter,OpenCPN im Cockpit - Kabel (Wackelkontakt)
+dc:a6:32:47:81:37,10.10.10.187,Cockpit Plotter,OpenCPN im Cockpit - WLAN
+e4:5f:01,10.10.10.20,Audio Output,akustische Meldungen
+00:e0:4c:0f:c3:db,10.10.10.74,Bord PC,Navigation und Kommunikation
+f8:3d:c6:30:18:3e,10.10.10.81,ASUS-TUF,Laptop von Lutz
+30:83:98,,unbekannt,unbekannt
+44:1d:64:bc:33:74,10.10.10.196,Kompass,elektronischer Kompass (WLAN geht von selbst aus)
+06:f6:ff:68:47:ea,10.10.10.100,iPhone Gabi,
+9e:b6:b1:32:d8:31,10.10.10.79,iPhone Lutz,
