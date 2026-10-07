@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.06, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.07, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -25,9 +25,9 @@ Durchschalten, weil die Bootstrap-Kondensatoren keine Ladezeit bekommen — und 
 Ladungspumpe** ein, mit der die oberen Transistoren unbegrenzt eingeschaltet bleiben. Fehler verriegeln nicht:
 Nach Wegfall der Ursache läuft das Modul selbst wieder an (S5).
 
-**Einbau: gesteckt und mechanisch verschraubt.** Steuersignale über Stift-/Buchsenleiste, Leistung über
-steckbare Klemmen mit Schraubflansch (je Pol zwei Klemmstellen parallel), Modul zusätzlich auf Abstandsbolzen
-geschraubt — gesteckt für den schnellen Tausch, verschraubt gegen Vibration und Übergangswiderstand.
+**Einbau: gesteckt und mechanisch verschraubt.** Steuersignale über Stift-/Buchsenleiste, Leistung über Phoenix
+MSTBA 2,5 wie alle Anschlüsse (Abschnitt 9; die mitgelieferten Pololu-Klemmen, 5 mm, 16 A, entfallen), Modul
+zusätzlich auf Abstandsbolzen geschraubt — gesteckt für den schnellen Tausch, verschraubt gegen Vibration.
 **Der Widerstand für die Strombegrenzung sitzt auf unserer Platine, nicht auf dem Modul**: Ein Ersatzmodul ist
 dann ohne Nacharbeit einsatzbereit und bringt keine eigenen Werte mit (S7) — anders als der gekaufte Controller
 am 01.10. Ein Ersatzmodul gehört trocken verpackt an Bord.
