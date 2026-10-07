@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.06, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.07, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -59,8 +59,8 @@ Version 00.06, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 - F10 **Spannung an beiden Motorklemmen messen** (nicht nur Strom und Bordspannung) – nur so ist ein Ausfall der
   Endstufe von einem der Pumpe zu unterscheiden.
 - F11 **Übertemperatur der Endstufe über deren Fehlerausgang erkennen**; das Gerät schaltet die Pumpe dann selbst
-  ab und meldet es (das Modul meldet nur, es schaltet nicht ab). Kein eigener Temperaturfühler: Betrieb 4–6 A bei
-  25 A Belastbarkeit ohne Kühlkörper; schleichende Probleme zeigen sich am gemessenen Strom (F2).
+  ab und meldet es (das Modul meldet nur, es schaltet nicht ab). Zusätzlich **Vorwarnung über einen eigenen
+  Temperaturfühler** an der Endstufe: Aufzeichnung und Meldung „wärmer als sonst bei gleicher Arbeit".
 - F12 **WLAN für Fernprogrammierung und Zugriff.** Nach dem Einschalten 60 min aktiv, jede Nutzung verlängert;
   ein Taster schaltet es wieder ein; **blaue Leuchtdiode** zeigt an, dass es läuft. Das Gerät meldet sich zuerst
   bei „master" an; schlägt das fehl, baut es einen eigenen Zugangspunkt auf. **Programmieren nur bei stehender
