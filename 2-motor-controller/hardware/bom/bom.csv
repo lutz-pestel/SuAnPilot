@@ -1,4 +1,4 @@
-# Version 00.08, Stand 07.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Menge nur, wo die Bauteilauswahl sie nennt.
+# Version 00.09, Stand 07.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Menge nur, wo die Bauteilauswahl sie nennt.
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
 Endstufe;1;Pololu G2 18v25 (Modul, gesteckt);-;-;-;-;-;-;-;-;-;Modul mit eigener Platine, nicht bei JLCPCB bestückbar, Bezug Eckstein/TME;Bauteilauswahl 1
 Strommessung (Hall);1;ACS758LCB-050B-PFF-T (Drahtform, Gehäuse CB-5);C73426;Extended;474;6.30;kein SMD-Gegenstück gefunden (nur Gehäuse CB);-;-;-;-;Katalog nennt nur Schraubfahnen-Gehäuse, ob JLCPCB es bestückt, ungeklärt;Bauteilauswahl 2
@@ -17,4 +17,10 @@ Spannungsteiler Messstellen 100 kΩ 1 %;offen;Metallschicht axial;nicht geprüft
 Spannungsteiler Messstellen 18 kΩ 1 %;offen;Metallschicht axial;nicht geprüft;-;-;-;0603WAF1802T5E (0603);C25810;Basic;826606;0.004;wie oben;Bauteilauswahl 3
 Selbsttest-Widerstand 100 kΩ;1;Metallschicht axial;nicht geprüft;-;-;-;0603WAF1003T5E (0603);C25803;Basic;22051367;0.003;wie oben;Bauteilauswahl 3
 Temperaturfühler Endstufe (NTC mit Öse);1;TDK B57703M0103A017 (10 kΩ, 115 mm);-;-;-;-;-;-;-;-;-;bei JLCPCB nicht geprüft, Bezug DigiKey.de 3,29 €, Teiler 12 kΩ 1 %, Öse unter M2-Schraube mit Scheibe;Bauteilauswahl 1
-Noch ohne Katalogprüfung;;Schottky-Diode Verpolschutz, Klemmdioden, Sicherungen 20 A und 2 A mit Haltern, Klemmen Phoenix MSTBA 2,5 …-G-5,08 mit Stecker MSTB 2,5 …-ST-5,08 (alle Anschlüsse, wie RF300-Interface), OLED SSD1306 (Modul), Taster, Drossel und Kondensatoren, Abschlusswiderstände;-;-;-;-;-;-;-;-;-;Typen teils noch offen (Bauteilauswahl 10);Bauteilauswahl 7 bis 9
+Verpolschutz Elektronikzweig;1;Vishay SB540-E3/54 (Schottky 5 A 40 V, DO-201AD);-;-;-;-;-;-;-;-;-;Bezug Farnell 9550399 / RS 7000915, bei JLCPCB nicht geprüft;Bauteilauswahl 7
+Halter Hauptsicherung 20 A (ATO);1;Keystone 3557-2;C352820;-;-;-;-;-;-;-;-;Bezug Farnell 2292904, LCSC-Nummer laut Suche, Lager nicht geprüft;Bauteilauswahl 7
+Halter Sicherung 2 A je 5-V-Zweig;2;Schurter OG/OGN 5 × 20 mm (Leiterplatte);-;-;-;-;-;-;-;-;-;genaue Nummer und Händler noch prüfen;Bauteilauswahl 7
+Drossel 10 µH je 5-V-Zweig;2;Bourns RLB0914-100KL (10 µH, 2,7 A, radial);-;-;-;-;-;-;-;-;-;Bezug RS 8118799 / Mouser;Bauteilauswahl 7
+Kondensator 4,7 µF 50 V X7R (3 je 5-V-Zweig);6;KEMET C320C475K5R5TA (radial, 2,54 mm);-;-;-;-;-;-;-;-;-;10 µF als 2 × 4,7 µF parallel, Bezug Mouser / RS;Bauteilauswahl 7
+Elko an der Endstufe;1;Panasonic EEU-FR1V102 (1000 µF 35 V, 105 °C, 10 000 h);-;-;-;-;-;-;-;-;-;Bezug Farnell 2508152 / RS 7083841;Bauteilauswahl 7
+Noch ohne Katalogprüfung;;Klemmdioden, Sicherungseinsätze 20 A (ATO) und 2 A träge (5 × 20 mm), Klemmen Phoenix MSTBA 2,5 …-G-5,08 mit Stecker MSTB 2,5 …-ST-5,08 (alle Anschlüsse, wie RF300-Interface), OLED SSD1306 (Modul), Taster, Abschlusswiderstände;-;-;-;-;-;-;-;-;-;Typen teils noch offen (Bauteilauswahl 10);Bauteilauswahl 7 bis 9

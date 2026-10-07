@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.12, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.13, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -128,19 +128,13 @@ berechenbare Spannung ein; 0 V oder volle Bordspannung heißt dann eindeutig: ei
 ## 4. RF300-Eingang (Zweidraht-Stromschnittstelle) — **festgelegt 07.10.2026, Versuch steht aus**
 
 **Prinzip der alten RF300-Interfaceplatine, mit kleinerem Vorwiderstand** (Schaltplan `kicad/v00.01/RF300-Eingang`):
-+12 V → **R1 220 Ω, 2 W** → RF+ → Geber → RF− → Masse. R1 speist den Geber, begrenzt bei Kurzschluss (höchstens
-~58 mA) und macht die Stromsprünge als Spannungssprünge sichtbar. **C1 100 nF + BC337** werten nur die Sprünge aus
-(Grundspannung abgetrennt): Die unbekannten Stromstufen und ihre Drift spielen keine Rolle. An der Klemme 10 nF gegen
-Masse; keine eigene TVS-Diode, weil das Kabel an Bord höchstens 3 m lang, geschirmt (Schirm an Masse) und fern von
-Lichtmaschine und Starter verlegt ist (Betreiber) und Bordnetzspitzen schon die 1.5KE20A am Geräteeingang abfängt
-(Abschnitt 7). Versorgung über eigene Anschlüsse am Blatt (+12 V geschützter Zweig, +3,3 V, Masse).
-Alles Drahtbauteile, zusammen unter 2 €. Gerechnet bei 12,73 V und 14 mA:
-Geber ~9,6 V (heute 6,89 V gemessen, Robertson 10,8 V); im Dauerkurzschluss ~0,9 W in R1 (bei 14,4 V), daher 2 W.
-**Fehlererkennung über die Frequenz:** kein Takt oder außerhalb 1600–5200 Hz = Störung (S2). Welcher Fehler
-(Bruch, Kurzschluss) vorliegt, klärt im Fehlerfall ein Multimeter. Eine Mindestspannung des Gebers ist nirgends
-angegeben; mit 6,89 V arbeitet er.
-Industriepraxis bestätigt den Aufbau: NAMUR-Eingänge (EN 60947-5-6) speisen über einen festen Widerstand (1 kΩ an
-8,2 V), der zugleich der Kurzschlussschutz ist.
++12 V → **R1 220 Ω, 2 W** → RF+ → Geber → RF− → Masse. R1 speist den Geber, begrenzt bei Kurzschluss (~58 mA) und
+macht die Stromsprünge sichtbar; **C1 100 nF + BC337** werten nur die Sprünge aus, die unbekannten Stromstufen spielen
+keine Rolle. An der Klemme 10 nF; keine eigene TVS-Diode (Kabel höchstens 3 m, geschirmt, fern von Lichtmaschine und
+Starter; Bordnetzspitzen fängt die 1.5KE20A ab). Gerechnet bei 12,73 V und 14 mA: Geber ~9,6 V (heute 6,89 V gemessen,
+Robertson 10,8 V; eine Mindestspannung nennt kein Datenblatt); Dauerkurzschluss ~0,9 W in R1, daher 2 W.
+**Fehlererkennung über die Frequenz:** kein Takt oder außerhalb 1600–5200 Hz = Störung (S2); welcher Fehler, klärt ein
+Multimeter. Industriepraxis (NAMUR, EN 60947-5-6): Speisung über festen Widerstand, der zugleich schützt.
 **Offen:** Reicht der Sprung bei 220 Ω (heute ~360–410 Ω)? Versuch an der alten Platine.
 
 ## 5. Rechner — **festgelegt 04.10.2026**
@@ -198,9 +192,10 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
   Verpolung (Datenblatt REV 1/2017, <https://www.recom-power.com/pdf/Innoline/R-78B-2.0.pdf>). Gleicher Typ in beiden
   Zweigen: ein Ersatzteil passt überall, ein Schaltplanblatt (`kicad/v00.01/5V-Zweig`, zweimal eingesetzt), Reserve
   für Sendespitzen des ESP32. 3,3 V liefert das ESP32-Modul selbst.
-  **Teile je 5-V-Zweig** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge, 5 × 20 mm im Halter; rote
-  Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung; Eingangsfilter nach Herstellervorschlag: 10 µF 50 V keramisch,
-  Drossel 10 µH (mindestens 2 A), 4,7 µF 50 V keramisch. Typen von Halter, Drossel und Kondensatoren noch zu wählen. *Verworfen:* Traco TSR 1-2450 für die
+  **Teile je 5-V-Zweig** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OG/OGN
+  (Händler noch prüfen); rote Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung; Filter nach Herstellervorschlag:
+  10 µF (2 × KEMET C320C475K5R5TA, 4,7 µF 50 V X7R) – Drossel **Bourns RLB0914-100KL** (10 µH, 2,7 A, RS 8118799;
+  Zweig zieht am Eingang höchstens ~1,6 A bei 7 V, gerechnet) – 4,7 µF (C320C475K5R5TA). *Verworfen:* Traco TSR 1-2450 für die
   Elektronik (billiger, aber zweiter Typ und zweites Schaltplanblatt, nur 1 A).
   Der Eingangsbereich entscheidet, nicht die Stromstärke: Beim Anlassen des Diesels bricht die Bordspannung
   kurz ein — ein Regler, der erst ab 10 V arbeitet (z. B. Traco TSR 3-2450 mit 3 A), ließe den Pi neu starten.
@@ -209,7 +204,9 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
   ist kein Platz für einen eigenen Regler. Der Zweig versorgt in Phase 3 auch den SuAnPilot.
 - **Schutz gegen Überspannung aus dem Bordnetz: Schutzdiode 1.5KE20A**, unidirektional, 1500 W, DO-201,
   Drahtform, unter 1 € (<https://www.digikey.de/de/products/detail/littelfuse-inc/1-5KE20A/688017>), direkt
-  hinter der Sicherung; dazu Drossel und Kondensator am Eingang.
+  hinter der Sicherung. Keine Drossel am Geräteeingang (müsste 15 A tragen; die 5-V-Zweige filtern selbst). An der
+  Endstufe Elko **Panasonic EEU-FR1V102** (1000 µF, 35 V, 105 °C, 10 000 h, Ø 12,5 × 20 mm; Farnell 2508152) auf
+  unserer Platine, nicht auf dem Modul. Pololu: „at least a few hundred µF", auf dem Modul nur 3 × 150 µF.
   **Die Spannungsklasse ist durch zwei Grenzen eingeklemmt, 20 V ist die einzige dazwischen:** Nach unten darf
   sie im Betrieb nicht leiten — die Lichtmaschine lädt bis 15 V, diese Diode sperrt bis **17,1 V**. Nach oben
   muss sie unter der Grenze der Endstufe klemmen — der G2 verträgt **30 V**, diese Diode klemmt bei **27,7 V**.
@@ -221,12 +218,13 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
   Begrenzung auf über 100 V. **Ehrlich dazu:** Für ein so langes Ereignis ist die Diode nicht ausgelegt. Sie
   stirbt dann, fast immer als Kurzschluss — und die Sicherung fällt. Das ist ihr Wert: Sie macht aus einem
   Totalschaden einen Wechsel von Diode und Sicherung für zwei Euro.
-- **Verpolschutz nur für den Elektronikzweig: Schottky-Diode in Reihe** (festgelegt 07.10.2026, Typ noch zu wählen,
-  etwa 3 A / 40 V). Ein Bauteil; Verlust typisch 0,4–0,5 V, die Regler arbeiten damit bis etwa 7 V Bordspannung.
+- **Verpolschutz nur für den Elektronikzweig: Schottky-Diode Vishay SB540-E3/54 in Reihe** (5 A, 40 V, DO-201AD;
+  Farnell 9550399, RS 7000915; 5 A, weil beide Zweige bei 7 V zusammen über 3 A ziehen können). Ein Bauteil; Verlust typisch 0,4–0,5 V, die Regler arbeiten damit bis etwa 7 V Bordspannung.
   Beleg: Mit der Silizium-Diode der alten Interfaceplatine ist der TinyPilot in allen Feldversuchen nie neu gestartet
   (Betreiber, 07.10.2026); die Schottky-Diode verliert weniger. *Verworfen:* P-Kanal-MOSFET (nicht nötig). Der G2 bringt
   seinen eigenen Verpolschutz mit — damit entfällt ein Bauteil im Hochstrompfad.
-- **Drei Sicherungen, aufeinander abgestimmt:** Leistung **20 A** träge (KFZ-Flachsicherung im Halter, Leitung
+- **Drei Sicherungen, aufeinander abgestimmt:** Leistung **20 A** träge (KFZ-Flachsicherung ATO im Halter **Keystone 3557-2**,
+  30 A, Leiterplatte; Farnell 2292904, LCSC C352820; Leitung
   2,5 mm²) — dazu passend wird die **Strombegrenzung der Endstufe auf 15 A** gesetzt, damit zuerst die
   Elektronik begrenzt und erst danach die Sicherung fällt. Elektronik 2 A, TinyPilot-Zweig 2 A (F13).
 - **Rote Leuchtdiode „Sicherung durch"**, mit Widerstand **parallel zur Sicherung**: Ist die Sicherung heil,
@@ -269,16 +267,15 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
   Ruderlage A+, B−, Z−, Y+), 5 V über MSTBA 2,5/2.
 
 ## 10. Offen — vor dem Kauf zu messen oder zu klären
-1. *(erledigt 05.10.2026 – Arbeitspunkt des RF300 gemessen, Auslegung steht in Abschnitt 4.)*
-2. RPU160: Anlauf- und Blockierstrom messen, und ob die Pumpe ein Überdruckventil hat. Beides entscheidet über
+1. RPU160: Anlauf- und Blockierstrom messen, und ob die Pumpe ein Überdruckventil hat. Beides entscheidet über
    Sicherung, Kupferquerschnitt, Kühlfläche — und darüber, wie sich ein Anschlag überhaupt bemerkbar macht.
-3. Widerstandswert für die Strombegrenzung des G2 bei Pololu erfragen (Ziel 15 A).
-4. Temperaturklasse der RS422-Treiber festlegen: 0…+70 °C oder −40…+85 °C. Für den Motorraum die Industrie-
+2. Widerstandswert für die Strombegrenzung des G2 bei Pololu erfragen (Ziel 15 A).
+3. Temperaturklasse der RS422-Treiber festlegen: 0…+70 °C oder −40…+85 °C. Für den Motorraum die Industrie-
    Ausführung. Welche heute im TinyPilot sitzt, steht im Schaltplan nicht.
-5. Genauigkeitsklasse der Referenz wählen: ±1 % (LM4040**D**IZ-2.5) reicht, ±0,1 % (LM4040**A**IZ-2.5) kostet
+4. Genauigkeitsklasse der Referenz wählen: ±1 % (LM4040**D**IZ-2.5) reicht, ±0,1 % (LM4040**A**IZ-2.5) kostet
    kaum mehr. Die Klasse bestimmt den Fehler aller Spannungs- und Strommessungen gleichermaßen.
-6. Wann darf der Selbsttest (S10) laufen? Am Steg bewegt sich das Ruder gefahrlos, im engen Fahrwasser nicht.
-7. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
+5. Wann darf der Selbsttest (S10) laufen? Am Steg bewegt sich das Ruder gefahrlos, im engen Fahrwasser nicht.
+6. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
    Motorraum legen und prüfen, ob es den Master erreicht und wie stark. Entscheidet über -32E oder -32UE.
 
 ## Quellen
