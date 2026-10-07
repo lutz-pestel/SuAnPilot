@@ -24,7 +24,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`
-- 300: `2-motor-controller/hardware/konzeption/Bauteilauswahl.md`
+- 350: `2-motor-controller/hardware/konzeption/Bauteilauswahl.md`
 - 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
 
 ## Ablage

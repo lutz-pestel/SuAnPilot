@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.14, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.15, Stand 07.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -170,7 +170,8 @@ Teensy 4.1 (mehr als nötig).
 <https://de.farnell.com/analog-devices/max488cpa/transceiver-rs-485-422-dip8-488/dp/2519464>.
 Die Familie steckt bereits zweimal auf der vorhandenen Platine
 `1-tinypilot/autopilot/hardware/kicad/PyPilot_Main_RS422`: U6 für die Strecke zum Motor-Controller, U7 für die Ruderlage, beide an
-3,3 V, je ein Abschlusswiderstand am Empfangspaar — an Bord erprobt und beschaffbar. Eigenschaften: Vollduplex
+3,3 V, je ein Abschlusswiderstand am Empfangspaar (bei uns 2 × 120 Ω, 1 %, 0,25 W, wie R25/R26 der
+RF300-Interfaceplatine) — an Bord erprobt und beschaffbar. Eigenschaften: Vollduplex
 (getrennte Sende- und Empfangsadern, keine Umschaltung in Software), 250 kbit/s bei weichen Flanken (wenig
 Störstrahlung), Treiber kurzschluss- und übertemperaturfest, Empfänger mit Fail-Safe (Kabelbruch ergibt sicheren
 Ruhepegel statt Zeichensalat), ±15 kV Schutz gegen statische Entladung.
@@ -240,8 +241,10 @@ steckbar, ohne Hintergrundlicht; Anzeige nach einer Minute
 abschalten, damit kein Bild einbrennt. **Pflicht sind vier Leuchtdioden** (Betrieb, Pumpe läuft, Störung, blau für
 aktives WLAN nach F12) — sie fallen nicht aus wie ein Display. Dazu die **rote Leuchtdiode „Sicherung durch"**
 aus Abschnitt 7, die nicht am Rechner hängt und auch bei totem Gerät noch anzeigt.
-**Ein Taster mit zwei Aufgaben:** Anzeige wecken und WLAN wieder einschalten (F12). Er muss von außen
-bedienbar sein, ohne das Gehäuse zu öffnen.
+**Ein Taster mit zwei Aufgaben:** Anzeige wecken und WLAN wieder einschalten (F12). **Leiterplattentaster Omron
+B3F-4055** mit Kappe Typ B32 (12 × 12 mm, Drahtbauteil, 1 Mio. Schaltspiele, −25…+70 °C; Bürklin 13G7563, Mouser,
+LCSC C84931), aufgelötet. Ob er von außen durch eine nachgiebige Stelle im Deckel bedient wird oder bei geöffnetem
+Gehäuse, wird später entschieden (Abschnitt 10).
 *Verworfen:* Zeichen-LCD 16×2 mit I²C — Hintergrundlicht nötig, engerer Temperaturbereich, größer.
 
 ## 9. Leiterplatte, Klemmen, Gehäuse — Vorschlag
@@ -279,6 +282,7 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
 5. Wann darf der Selbsttest (S10) laufen? Am Steg bewegt sich das Ruder gefahrlos, im engen Fahrwasser nicht.
 6. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
    Motorraum legen und prüfen, ob es den Master erreicht und wie stark. Entscheidet über -32E oder -32UE.
+7. Taster: von außen bedienbar (nachgiebige Stelle im Deckel) oder nur bei geöffnetem Gehäuse?
 
 ## Quellen
 **Die Bezugsquelle jedes Bauteils steht im jeweiligen Abschnitt.** Hier nur, was nicht an einem Bauteil hängt:
