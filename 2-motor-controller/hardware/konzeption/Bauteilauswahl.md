@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.08, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.09, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -217,7 +217,8 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
   Totalschaden einen Wechsel von Diode und Sicherung für zwei Euro.
 - **Verpolschutz nur für den Elektronikzweig: Schottky-Diode in Reihe** (festgelegt 07.10.2026, Typ noch zu wählen,
   etwa 3 A / 40 V). Ein Bauteil; Verlust typisch 0,4–0,5 V, die Regler arbeiten damit bis etwa 7 V Bordspannung.
-  P-Kanal-MOSFET (fast verlustfrei) nur, falls der Unterspannungsversuch Einbrüche nahe 7 V zeigt. Der G2 bringt
+  Beleg: Mit der Silizium-Diode der alten Interfaceplatine ist der TinyPilot in allen Feldversuchen nie neu gestartet
+  (Betreiber, 07.10.2026); die Schottky-Diode verliert weniger. *Verworfen:* P-Kanal-MOSFET (nicht nötig). Der G2 bringt
   seinen eigenen Verpolschutz mit — damit entfällt ein Bauteil im Hochstrompfad.
 - **Drei Sicherungen, aufeinander abgestimmt:** Leistung **20 A** träge (KFZ-Flachsicherung im Halter, Leitung
   2,5 mm²) — dazu passend wird die **Strombegrenzung der Endstufe auf 15 A** gesetzt, damit zuerst die
