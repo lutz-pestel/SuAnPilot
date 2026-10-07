@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.02, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.03, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -86,9 +86,8 @@ Begründung der Wahl:
 - **Das Messtempo bestimmen wir selbst.** Eine Anlauf- oder Blockierspitze dauert wenige Millisekunden; mit
   5 000–10 000 Messungen je Sekunde liegen 100–200 Messpunkte darüber (F2, Spitzen erfassen). Im ruhigen Betrieb
   wird langsam gemessen, bei Verdacht schnell. Die Grenze setzt unsere Software, nicht das Bauteil.
-- **Acht Eingänge, acht Messstellen:** Klemme A, Klemme B, Bordspannung, Motorstrom, Stromrückmeldung des
-  Leistungsmoduls, Temperatur am Kühlwinkel (F11), Sensorstrom des RF300 (Bruch/Kurzschluss, S2) und die
-  3,3-V-Versorgung selbst (siehe unten).
+- **Acht Eingänge, sieben Messstellen:** Klemme A, Klemme B, Bordspannung, Motorstrom, Stromrückmeldung des
+  Leistungsmoduls, Temperatur am Kühlwinkel (F11) und die 3,3-V-Versorgung selbst (siehe unten). Ein Eingang ist frei.
 - **Steckbar im Sockel**, ohne Lötkolben tauschbar.
 **Anschluss über Hardware-SPI, nicht nachgebildet in Software.** Der Wandler hält die Messspannung in einem
 Kondensator von 20 pF, der während der Wandlung Ladung verliert; unter 10 000 Takten je Sekunde leidet die
@@ -120,32 +119,23 @@ Messteiler die freien Klemmen in Ruhe nach Masse — „alles 0 V" wäre dann so
 ein durchgebrannter unterer Schalter, ununterscheidbar. Mit dem Widerstand stellt sich in Ruhe eine mittlere,
 berechenbare Spannung ein; 0 V oder volle Bordspannung heißt dann eindeutig: ein Schalter ist dauerhaft leitend.
 
-## 4. RF300-Eingang (Zweidraht-Stromschnittstelle) — **festgelegt 05.10.2026**
+## 4. RF300-Eingang (Zweidraht-Stromschnittstelle) — **festgelegt 07.10.2026, Versuch steht aus**
 
-**LM393N (DIP-8) nach Philips AN98087**, ~2 € (Conrad 155603): feste gefilterte Speisung des Gebers,
-**Messwiderstand 47 Ω in der Masseleitung**, Vergleicher mit Hysterese und mitlaufender Schwelle (lernt den
-Ruhestrom), Störfilter, Schutz gegen Verpolung und Überspannung.
-
-**Auslegung aus dem gemessenen Arbeitspunkt** (05.10.2026, Einzelheiten in `motorcontroller.md` 3.3): Der Geber
-zieht an unserer Platine 14 mA bei 6,89 V; am Robertson-Originalgerät bekommt er **10,8 V**, das ist der Sollwert
-des Herstellers. Wir legen **bis 25 mA** aus — reichlich über jedem plausiblen Wert, da der Strom mit der
-Spannung steigt. Über 47 Ω fallen dann höchstens 1,2 V ab, der Geber bekommt bei 12,7 V Bordspannung also
-**mindestens 11,5 V** und damit mehr als am Original; bei den wahrscheinlicheren 18 mA sind es 11,9 V. Der
-Spannungshub über 47 Ω ist in beiden Fällen groß genug für den Vergleicher. Der große Vorwiderstand der alten
-Platine entfällt ersatzlos — er war die Ursache der Unterversorgung.
-
-**Vier Strombereiche statt zwei, nach dem Vorbild NAMUR** (DIN EN 60947-5-6, dort 0,2 / 1,2 / 2,1 / 7,0 mA):
-zu wenig Strom = **Kabelbruch**, dann „aus", dann „ein", zu viel = **Kurzschluss**. Die Grenzen setzen wir auf
-unseren Geber, abgeleitet vom laufend gelernten Ruhestrom — die Zahlen der Norm passen nicht, ihr Aufbau schon.
-Das erledigt S2 in Software. Dass der Hersteller es ebenso hält, ist belegt: Das Robertson-Gerät schaltet ab,
-sobald die Sensorleitung unterbrochen wird.
-
-*Verworfen:* MAX9921 — fachlich ideal (speist zwei Zweidraht-Sensoren, erkennt Bruch und Kurzschluss selbst),
-aber nur in SMD. Es gibt ihn als fertig bestückte Vorführplatine MAX9921EVKIT (6–18 V, verträgt 60 V,
-Status-Leuchtdioden); die ist jedoch kein Einbauteil, Preis und Lieferbarkeit waren nicht zu ermitteln, und
-solche Platinen werden ohne Vorwarnung eingestellt. Vor allem aber: Seine Hauptleistung — Bruch und Kurzschluss
-erkennen — macht bei uns die Software über die Sensorstrom-Messung (Messstelle 7), und sie kann dabei melden,
-welcher der beiden Fehler vorliegt, statt nur abzuschalten.
+**Prinzip der alten RF300-Interfaceplatine, mit kleinerem Vorwiderstand** (Schaltplan `kicad/v00.01/RF300-Eingang`):
++12 V → **R1 220 Ω, 2 W** → RF+ → Geber → RF− → Masse. R1 speist den Geber, begrenzt bei Kurzschluss (höchstens
+~58 mA) und macht die Stromsprünge als Spannungssprünge sichtbar. **C1 100 nF + BC337** werten nur die Sprünge aus
+(Grundspannung abgetrennt): Die unbekannten Stromstufen und ihre Drift spielen keine Rolle. An der Klemme 10 nF gegen
+Masse; keine eigene TVS-Diode, weil das Kabel an Bord höchstens 3 m lang, geschirmt (Schirm an Masse) und fern von
+Lichtmaschine und Starter verlegt ist (Betreiber) und Bordnetzspitzen schon die 1.5KE20A am Geräteeingang abfängt
+(Abschnitt 7). Versorgung über eigene Anschlüsse am Blatt (+12 V geschützter Zweig, +3,3 V, Masse).
+Alles Drahtbauteile, zusammen unter 2 €. Gerechnet bei 12,73 V und 14 mA:
+Geber ~9,6 V (heute 6,89 V gemessen, Robertson 10,8 V); im Dauerkurzschluss ~0,9 W in R1 (bei 14,4 V), daher 2 W.
+**Fehlererkennung über die Frequenz:** kein Takt oder außerhalb 1600–5200 Hz = Störung (S2). Welcher Fehler
+(Bruch, Kurzschluss) vorliegt, klärt im Fehlerfall ein Multimeter. Eine Mindestspannung des Gebers ist nirgends
+angegeben; mit 6,89 V arbeitet er.
+Industriepraxis bestätigt den Aufbau: NAMUR-Eingänge (EN 60947-5-6) speisen über einen festen Widerstand (1 kΩ an
+8,2 V), der zugleich der Kurzschlussschutz ist.
+**Offen:** Reicht der Sprung bei 220 Ω (heute ~360–410 Ω)? Versuch an der alten Platine.
 
 ## 5. Rechner — **festgelegt 04.10.2026**
 

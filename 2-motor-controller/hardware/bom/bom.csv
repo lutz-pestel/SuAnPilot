@@ -1,10 +1,11 @@
-# Version 00.01, Stand 05.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Menge nur, wo die Bauteilauswahl sie nennt.
+# Version 00.02, Stand 07.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Menge nur, wo die Bauteilauswahl sie nennt.
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
 Endstufe;1;Pololu G2 18v25 (Modul, gesteckt);-;-;-;-;-;-;-;-;-;Modul mit eigener Platine, nicht bei JLCPCB bestückbar, Bezug Eckstein/TME;Bauteilauswahl 1
 Strommessung (Hall);1;ACS758LCB-050B-PFF-T (Drahtform, Gehäuse CB-5);C73426;Extended;474;6.30;kein SMD-Gegenstück gefunden (nur Gehäuse CB);-;-;-;-;Katalog nennt nur Schraubfahnen-Gehäuse, ob JLCPCB es bestückt, ungeklärt;Bauteilauswahl 2
 A/D-Wandler;1;MCP3208-CI/P (DIP-16, Sockel);C1543277;Extended;10;4.27;MCP3208T-CI/SL (SOIC-16, Rolle);C626764;Extended;1088;3.32;Selbstlöten und Sockel, DIP nur 10 Stück auf Lager, SOIC reichlich;Bauteilauswahl 3
 Spannungsreferenz 2,5 V;1;LM4040DIZ-2.5 (TO-92);C1575317;Extended;0 (nur Vorbestellung ab 32);0.28;LM4040D25FTA (SOT-23, ±1 %);C107244;Extended;30475;0.48;TO-92 nicht auf Lager, SOT-23 gleiche Klasse D (±1 %);Bauteilauswahl 3
-Vergleicher RF300-Eingang;1;LM393N (DIP-8);nicht geprüft;-;-;-;LM393DR2G (SOIC-8);C7955;Basic;232930;0.07;THT-Teil nicht im Katalog geprüft, SMD ist Basic (ohne Aufschlag);Bauteilauswahl 4
+Vorwiderstand RF300-Eingang 220 Ω 2 W;1;Metalloxid axial 2 W;nicht geprüft;-;-;-;nicht geprüft;-;-;-;-;2 W wegen Dauerkurzschluss (gerechnet ~0,9 W);Bauteilauswahl 4
+Auswertung RF300-Eingang;1 Satz;BC337 (TO-92), 100 nF, 10 nF, 22 kΩ, 10 kΩ, 1 kΩ;nicht geprüft;-;-;-;nicht geprüft;-;-;-;-;Werte vorläufig bis zum Versuch an der alten Platine;Bauteilauswahl 4
 Rechner;1;ESP32-DevKitC-32E (Modul, gesteckt);-;-;-;-;ESP32-WROOM-32E-N4 (Funkmodul, SMD);C701341;Extended;7337;3.60;Platine trägt in B das Funkmodul statt des Entwicklungsboards, Antenne an der Kante (Bauteilauswahl 5);Bauteilauswahl 5
 RS422-Treiber (2 Strecken);2;MAX3488EEPA-TUDI (DIP-8, -40..+85 °C, 3,3 V);C53286052;Extended;200;1.62;MAX3488ESA-TUDI (SOP-8, -40..+85 °C);C53286186;Extended;208;0.68;Auf der getrennten Seite ist laut Bauteilauswahl das 5-V-Modell MAX488E vorgesehen, hier nur 3,3-V-Typen geprüft;Bauteilauswahl 6
 Optokoppler (je Strecke 2);4;6N137M (DIP-8);C5344;Extended;22795;0.67;6N137S(TA) (SOP-8);C16496;Extended;49900;0.27;Selbstlöten, Sockel;Bauteilauswahl 6

@@ -44,8 +44,8 @@
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Motor-Controller V2.0 (Endger&auml;t)</h1>
   <p class="sub">Ein Ger&auml;t im Motorraum ersetzt den gekauften Motor-Controller <em>und</em> die
-  RF300-Interfaceplatine. Ideensammlung, Stand 04.10.2026. Die K&uuml;rzel F&hellip; und S&hellip; in den
-  K&auml;sten verweisen auf die Anforderungen in <code>Projektdokument.md</code>, Abschnitt&nbsp;3.</p>
+  RF300-Interfaceplatine. Ideensammlung, Stand 07.10.2026. Die K&uuml;rzel F&hellip; und S&hellip; in den
+  K&auml;sten verweisen auf die Anforderungen in <code>motorcontroller.md</code>, Abschnitt&nbsp;3.</p>
 
 <div class="sheet">
 <svg viewBox="0 0 1700 1030" role="img" aria-label="Blockschaltbild des neuen Motor-Controllers">
@@ -82,7 +82,7 @@
   <foreignObject x="21" y="91" width="208" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>12-V-Bordnetz</b>Batterie, Hauptschalter, Sicherungen. <i>Spannung schwankt 12,4&#8211;14 V.</i></div></foreignObject></g>
 
   <g><rect x="20" y="300" width="210" height="140" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
-  <foreignObject x="21" y="301" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RF300 Ruderlagengeber</b>Am Ruderschaft. Mitte 3400 Hz, 20 Hz je Grad, &#177;90&#176; = 1600&#8211;5200 Hz. 10 m geschirmtes Kabel.</div></foreignObject></g>
+  <foreignObject x="21" y="301" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RF300 Ruderlagengeber</b>Am Ruderschaft. Mitte 3400 Hz, 20 Hz je Grad, &#177;90&#176; = 1600&#8211;5200 Hz. Kabel an Bord h&#246;chstens 3 m, geschirmt.</div></foreignObject></g>
 
   <g><rect x="20" y="820" width="210" height="140" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
   <foreignObject x="21" y="821" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>TinyPilot (PyPilot-Einheit)</b>Kursregler, Bedientasten, Display. Steht im Steuerhaus.</div></foreignObject></g>
@@ -92,7 +92,7 @@
   <foreignObject x="361" y="111" width="208" height="128"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Versorgung der Elektronik</b>12 V &#8594; 5 V und 3,3 V. Schutz gegen Verpolung und &#220;berspannung, Filter.<span class="ref">F8</span></div></foreignObject></g>
 
   <g><rect x="360" y="300" width="210" height="250" rx="8" fill="#ffffff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="361" y="301" width="208" height="248"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RF300-Eingang (Stromschnittstelle)</b>Feste, gefilterte Speisung des Gebers. Kleiner Messwiderstand in der Masseleitung. Vergleicher mit Hysterese und <i>mitlaufender Schwelle</i> (lernt den Ruhestrom). St&#246;rfilter, Schutz. Erkennt Kurzschluss und Kabelbruch. Macht aus dem Stromtakt ein sauberes Rechtecksignal.<span class="ref">F3, S2</span></div></foreignObject></g>
+  <foreignObject x="361" y="301" width="208" height="248"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RF300-Eingang (Stromschnittstelle)</b>Speisung &#252;ber einen Widerstand (220&nbsp;&#937;), der zugleich bei Kurzschluss begrenzt. Kondensator und Transistor machen aus den Stromspr&#252;ngen ein Rechtecksignal, wie die alte Interfaceplatine. St&#246;rungen erkennt der Rechner an der Frequenz: kein Takt oder au&#223;erhalb 1600&#8211;5200&nbsp;Hz.<span class="ref">F3, S2</span></div></foreignObject></g>
 
   <g><rect x="360" y="820" width="210" height="140" rx="8" fill="#ffffff" stroke="#2d6cdf" stroke-width="1.6"/>
   <foreignObject x="361" y="821" width="208" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>RS422-Sender und -Empf&#228;nger</b>Nutzt das vorhandene 8-adrige Kabel zur PyPilot-Einheit.<span class="ref">F7</span></div></foreignObject></g>
@@ -166,8 +166,8 @@
 
   <!-- Speisung des RF300-Eingangs -->
   <path class="w-sup" d="M465,240 L465,292"/>
-  <text class="lb s" x="476" y="262">feste, gefilterte</text>
-  <text class="lb s" x="476" y="274">Speisung</text>
+  <text class="lb s" x="476" y="262">12 V, gesch&#252;tzter</text>
+  <text class="lb s" x="476" y="274">Zweig</text>
 
   <!-- RF300: zwei Adern -->
   <path class="w-ana both" d="M238,370 L352,370"/>
@@ -180,11 +180,6 @@
   <path class="w-digi" d="M570,400 L687,400"/>
   <text class="lb s" x="630" y="382" text-anchor="middle">Rechteck,</text>
   <text class="lb s" x="630" y="393" text-anchor="middle">1600&#8211;5200 Hz</text>
-
-  <!-- Kabelfehler-Meldung -->
-  <path class="w-digi" d="M570,520 L612,520 L612,710 L687,710"/>
-  <text class="lb s" x="620" y="596">Kabelbruch</text>
-  <text class="lb s" x="620" y="607">oder Kurzschluss</text>
 
   <!-- Stellbefehl zur Endstufe -->
   <path class="w-digi" d="M935,185 L1052,185"/>

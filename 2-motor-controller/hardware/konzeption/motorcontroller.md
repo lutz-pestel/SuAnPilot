@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.02, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.03, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -111,8 +111,8 @@ Version 00.02, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 ### 3.3 Anschluss des RF300
 - RF300 (`1-tinypilot/rf300-interface/hardware/datenblaetter/RF 300 Ruderlagensensor.xls`): Mitte 3400 Hz, 20 Hz je Grad, ±90° = 1600–5200 Hz,
   Versorgung und Signal auf denselben zwei Adern, **polaritätsunabhängig** (Robertson-Handbücher AP300CX/AP11: Klemmen
-  RF+/RF–, „non polarized“); keine Ader an Schiffsmasse (gemessen). Linearität ±3° bis 45°. Kabel 10 m verdrillt,
-  geschirmt; Schirm an die Masse des Geräts.
+  RF+/RF–, „non polarized“); keine Ader an Schiffsmasse (gemessen). Linearität ±3° bis 45°. Kabel an Bord höchstens
+  3 m, geschirmt, Schirm an Masse, fern von Lichtmaschine und Starter (Betreiber; geliefert wird der Geber mit 10 m).
 - **Arbeitspunkt gemessen 05.10.2026** (Multimeter, Bordspannung 12,73 V), an der eigenen Interfaceplatine:
 
   | Ruderlage | Spannung am RF300 | Strom | daraus Vorwiderstand |
@@ -121,26 +121,20 @@ Version 00.02, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   | Backbord | 6,62 V | 14,8 mA | 413 Ω |
   | Steuerbord | 7,23 V | 13,5 mA | 407 Ω |
 
-  **Zum Vergleich am Robertson-Originalgerät: 10,8 V am selben Geber.** Der Hersteller gibt damit den Sollwert
-  vor – unsere Platine versorgt ihn auf gut halber Spannung. Der Strom ändert sich mit der Ruderlage um knapp
-  10 % (13,5–14,8 mA); eine feste Schwelle arbeitet deshalb an den Anschlägen anders als mittschiffs.
-  **Das Robertson-Gerät schaltet ab, sobald die Sensorleitung unterbrochen wird** – es hat eine
-  Kabelbrucherkennung, wie wir sie in S2 fordern. Deshalb war dort kein Strom zu messen.
+  Am Robertson-Originalgerät liegen 10,8 V am selben Geber. Das ist, was der Robertson liefert, **kein belegter
+  Sollwert**: Eine Mindestspannung steht weder im Datenblatt noch in den Handbüchern, und mit 6,89 V arbeitet der
+  Geber. Der Strom ändert sich mit der Ruderlage um knapp 10 % (13,5–14,8 mA). Das Robertson-Gerät schaltet ab,
+  sobald die Sensorleitung unterbrochen wird; deshalb war dort kein Strom zu messen.
 - Prinzip „Stromschnittstelle über zwei Adern“: Der Sensor schaltet seine Stromaufnahme im Takt zwischen zwei Werten
-  um. Bewährt bei ABS-Drehzahlsensoren (7/14 mA, Frequenz als Messwert), PSI5 (Airbag-Sensoren), M-Bus (Zähler).
+  um. Bewährt bei ABS-Drehzahlsensoren (7/14 mA, Frequenz als Messwert) und NAMUR-Sensoren (Industrie).
 - Heutige Lösung (Interfaceplatine): Widerstand in der Zuleitung, Kondensator-Kopplung, Transistor (BC337) auf den
-  Interrupt-Eingang des Arduino. **Gezeichnet sind 100 Ω (R1 in der Netzliste), verbaut sind rund 410 Ω** – daher
-  die halbe Spannung. Faustregel (Allegro): Versorgung ≥ Mindestspannung des Sensors + Höchststrom × Widerstand;
-  hier verletzt.
-- Anforderung (Lehrbuch-Schaltung nach Philips AN98087, Abschnitt 7): feste, gefilterte Versorgung; **kleiner
-  Messwiderstand in der Masseleitung**; Komparator mit Hysterese und **mitlaufender Schwelle** (lernt den Ruhestrom,
-  wie M-Bus); Filter gegen Störungen; Schutz gegen Verpolung, Überspannung und Spitzen; Kurzschluss und Unterbrechung
-  erkennen und melden (S2). Ausgang direkt mit der Logikspannung des Mikrocontrollers. Fertiger Baustein: MAX9921.
-- **Erledigt** (05.10.2026): Strom und Spannung sind gemessen, die Kalibrierfrequenzen stehen im Datenblatt.
-  Die beiden einzelnen Stromstufen und das Tastverhältnis bleiben unbekannt – mit mitlaufender Schwelle brauchen
-  wir sie nicht, und ohne Oszilloskop sind sie nicht zu trennen.
-- Quellen: Allegro AN296233 „Two-wire and three-wire sensor interfaces“; Philips/NXP AN98087 (KMI15/16, komplette
-  Schaltung mit LM393, 115 Ω); m-bus.com „Physical Layer“; Datenblatt MAX9921.
+  Interrupt-Eingang des Arduino. Gezeichnet sind 100 Ω (R1 in der Netzliste), aus der Messung ergeben sich rund
+  360–410 Ω (je nachdem, ob die Verpolschutzdiode mitzählt). Mit dem großen Widerstand werden die Sprünge groß.
+- Anforderung: Speisung über einen Widerstand, der zugleich bei Kurzschluss und Masseschluss begrenzt; Auswertung
+  nur der Sprünge (mitlaufend, ohne Kenntnis der Stromstufen); Schutz gegen Überspannung und Störspitzen; Störung
+  erkennen über die Frequenz (kein Takt oder außerhalb 1600–5200 Hz, S2). Lösung: `Bauteilauswahl.md` Abschnitt 4.
+- Unbekannt: die beiden einzelnen Stromstufen und das Tastverhältnis (ohne Oszilloskop nicht zu trennen), und ob die
+  Sensorspannung die Messung beeinflusst (Frequenz mittschiffs an der Interfaceplatine und am Robertson vergleichen).
 
 ## 4. Offene Punkte
 - Pumpe RPU160: Anlauf- und Blockierstrom messen; hat sie ein Überdruckventil? (Typenschild: 12 V, 7,5 A,

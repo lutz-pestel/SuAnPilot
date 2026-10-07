@@ -65,7 +65,7 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 18. Einbauort der PyPilot-Einheit (Kompass): Abstand zu Eisen und Stromkabeln? (N)
 19. Unterlagen: Motor_Controller_Fakten nennt 0,25 s Verzögerung (geschätzt), gemessen ~1 s – berichtigen.
 20. Verdrahtungsplan: orange Ader und Masse am Wandler fehlen, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
-21. **RF300 unterversorgt (05.10.2026 gemessen):** 6,89 V statt 10,8 V am Robertson-Original. In der Zuleitung
-    der Interfaceplatine sitzen rund 410 Ω, gezeichnet sind 100 Ω. R1 nachmessen und auf den geplanten Wert
-    bringen — ein Widerstand, könnte die Ruderlage sofort verbessern. (N, M)
+21. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
+    auf 220 Ω: zählt die Platine noch sauber? Dazu Frequenz mittschiffs an der Platine (6,89 V) und am Robertson (10,8 V)
+    vergleichen: beeinflusst die Sensorspannung die Messung? (M)
 Ebenfalls offen, steht oben: Ruder-Kalibrierung (Hafen 8), Hartruder (Hafen 7), AIS (Hafen 9), Kompass, Windgeber (Unterwegs 5).

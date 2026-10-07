@@ -50,6 +50,8 @@ Spannung. Aus Strom und Spannung gerechnet sitzt in der Zuleitung ein Widerstand
 im eigenen Schaltplan 100 Ω. Über Jahre unbemerkt, gefunden erst beim Vergleich mit dem Gerät des Herstellers.
 **Lehre:** Der Schaltplan beweist nicht, was auf der Platine sitzt. Wo ein Messwert nicht passt, zuerst das
 Bauteil nachmessen – und wenn ein Vorbild des Herstellers an Bord ist, daran vergleichen.
+Danach wurden die 10,8 V ohne Beleg zum Sollwert erklärt; es folgten eine riskante Abhilfe (R1 auf 100 Ω, schwächt
+das Signal) und eine unnötig aufwendige Neuschaltung. **Lehre:** Ein Vorbild liefert Vergleichswerte, keine Sollwerte.
 
 ## 2026-10-06 – Der Leitstand zeigte eingefrorene Werte als echt
 Nach einem Neustart des TinyPilot blieb die Verbindung der Aufzeichnung am Master „offen“, lieferte aber nichts mehr.
