@@ -1,50 +1,51 @@
 # CLAUDE.md
 
 ## Projekt
-Selbstgebauter Autopilot für ein 15-Tonnen-Schiff mit Hydrauliksteuerung, auf Basis von
-TinyPilot mit pypilot 0.24 (Stand 14.03.2020, eigene Änderungen siehe unten). Die Anlage ist eingebaut.
-Seit dem Controllertausch und der Optimierung am 01.10.2026 steuert sie deutlich besser (Testbericht); Ziel ist,
-sie weiter zu verbessern und daraus die künftige Hardware SuAnPilot abzuleiten.
+**SuAn-Autopilot-Projekt** (`0-gesamtprojekt/SuAn-Autopilot-Projekt.md`): neues Autopilot-System für die SuAn (15 t, Hydraulik), ersetzt
+den alten Robertson AP300CX. Ein Projekt, drei Phasen: 1 TinyPilot-Ersatzsystem testen, 2 neuer Motor-Controller, 3 SuAnPilot.
+Eingebaut ist heute der TinyPilot mit pypilot 0.24 (Stand 14.03.2020, eigene Änderungen siehe unten).
 Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen Tests.
 
 ## Goldene Regel (gilt für alle Projektteile)
 **Ein Kommando ist erst beendet, wenn seine Ausführung überprüft wurde.**
 
 ## Einstieg für neue Sitzungen
-1. `TODO.md` lesen (was als Nächstes ansteht). 2. Heutiger Aufbau und Werte: `tinypilot/docs/system/Systembeschreibung.md`.
-3. Letzte Tests: `tinypilot/docs/tests/`, Ablauf und Sicherheit: `tinypilot/docs/system/Testplan_Autopilot.md`. 4. Lehren: `CHRONIK.md`.
-5. Neues: `suanpilot-v01.00/docs/gesamt.md`, `motor-controller/hardware/konzeption/motorcontroller.md`.
-Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
+1. Gesamtprojekt: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`. 2. `0-gesamtprojekt/TODO.md` (was als Nächstes ansteht). 3. Heutiger Aufbau und Werte:
+`1-tinypilot/docs/system/Systembeschreibung.md`. 4. Letzte Tests: `1-tinypilot/docs/tests/`, Ablauf und Sicherheit:
+`1-tinypilot/docs/system/Testplan_Autopilot.md`. 5. Lehren: `0-gesamtprojekt/CHRONIK.md`. 6. Phasen 2 und 3: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `3-suanpilot/docs/gesamt.md`.
+Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
-- 60: `tinypilot/rf300-interface/software/Programmbeschreibung.md`, `VERSIONEN.md`
-- 80: `CLAUDE.md`, `TODO.md`, `tinypilot/regler/verbesserungen.md`, `tinypilot/docs/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
-  `tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
-- 90: `fertigung/fertigungsstrategie-platinen.md`
-- 100: `tinypilot/docs/anforderungen/notloesung-A2.md`, `tinypilot/docs/system/Testplan_Autopilot.md`
-- 150: `CHRONIK.md` (einzige Chronik), `tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `tinypilot/docs/tests/*.md`, `tinypilot/regler/entwurf.md`,
-  `suanpilot-v01.00/docs/gesamt.md` und `suanpilot-v01.00/autopilot/hardware/konzeption/bedieneinheit.md`
-- 200: `motor-controller/hardware/konzeption/motorcontroller.md`
-- 300: `motor-controller/hardware/konzeption/Bauteilauswahl.md`
-- 500: `wissen/Wie funktioniert ein Autopilot.md`
+- 60: `1-tinypilot/rf300-interface/software/Programmbeschreibung.md`, `0-gesamtprojekt/VERSIONEN.md`
+- 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `CLAUDE.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
+  `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
+- 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
+- 100: `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`
+- 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
+  `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
+- 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`
+- 300: `2-motor-controller/hardware/konzeption/Bauteilauswahl.md`
+- 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
 
 ## Ablage
-Drei gleichberechtigte Projekte im Hauptordner. Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
-`bom/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einem Projekt enthalten nur dessen Inhalt.
-- **`tinypilot/` = im Betrieb** (nur Fehler beheben). Baugruppen: `autopilot/` (Software `RPI/` mit `kern/`, `plattform/`,
+Ein Projekt, drei Phasen; je Phase ein Ordner, dazu `0-gesamtprojekt/`. Im Hauptordner sonst nur, was die Werkzeuge dort
+erwarten (`CLAUDE.md`, `CLAUDE.local.md`, `.gitignore`, `.mcp.json`, `.claude/`). Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
+`bom/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einer Phase enthalten nur deren Inhalt.
+- **`1-tinypilot/` = Phase 1, im Betrieb** (nur Fehler beheben). Baugruppen: `autopilot/` (Software `RPI/` mit `kern/`, `plattform/`,
   `bauen.sh`; `Arduino/` mit dem **veralteten** Coprozessor-Code, der aufgespielte Stand ist verschollen), `rf300-interface/`
   (Platine, Arduino-Code, `Programmbeschreibung.md`), `motor-controller/` (gekauft, **problematisch**: einseitiger Förderausfall,
-  überschreibt Einstellungen; läuft noch, wird durch `motor-controller/` ersetzt; Firmware nur als Reserve).
-  Dazu `regler/` (eigener Kursregler, nur SuAns Werte; hier wird programmiert), `docs/`, `daten/`, `handbuecher/` und
+  überschreibt Einstellungen; läuft noch, wird durch `2-motor-controller/` ersetzt; Firmware nur als Reserve).
+  Dazu `regler/` (eigener Kursregler, nur SuAns Werte; hier wird programmiert), `docs/`, `daten/` und
   `werkzeuge/` (`logger/` Kopie vom Master, `auswertung/`, `versuche/`).
-- **`motor-controller/`** (Neubau, ersetzt auch den am TinyPilot): Entwurf, Anforderungen in `hardware/konzeption/`.
-- **`suanpilot-v01.00/`** (künftig, nicht begonnen): `autopilot/`, `docs/`. Beide Zukunftsprojekte sind Ideensammlungen:
-  **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.**
-- Übergreifend: `wissen/` (Hintergrund, Marktrecherche), `handbuecher/` (Andere Schiffe, Robertson; nicht in Git),
+- **`2-motor-controller/`** (Phase 2, Neubau, ersetzt auch die RF300-Interfaceplatine): Anforderungen in `hardware/konzeption/`.
+- **`3-suanpilot/`** (Phase 3, nicht begonnen): `autopilot/`, `docs/`. Phasen 2 und 3 sind Ideensammlungen:
+  **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.** Versionsnummern erst im Unterordner `vNN.NN/`.
+- **`0-gesamtprojekt/`** (gilt für alle Phasen): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,
+  `wissen/` (Hintergrund, Marktrecherche, pypilot-Geschichte), `handbuecher/` (PyPilot, Andere Schiffe, Robertson; nicht in Git),
   `fertigung/` (JLCPCB-Strategie).
 - Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.
 - KiCad: Das alte Original (Platinen, Gerber, Pläne) liegt außerhalb, nicht Teil des Projekts:
-  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `tinypilot/autopilot/hardware/kicad/` ist eine Kopie
+  `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `1-tinypilot/autopilot/hardware/kicad/` ist eine Kopie
   (Stand 05.10.2026); Netzlisten dort, z. B. `PyPilot_Main.net`.
 - Karten-Images und Sicherungen: `...\uC_Raspberry\Projects\PyPilot\PyPilot_2021\PyPilot_Imgage\`.
 
