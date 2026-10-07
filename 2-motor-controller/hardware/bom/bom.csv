@@ -1,4 +1,4 @@
-# Version 00.09, Stand 07.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Menge nur, wo die Bauteilauswahl sie nennt.
+# Version 00.10, Stand 07.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Menge nur, wo die Bauteilauswahl sie nennt.
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
 Endstufe;1;Pololu G2 18v25 (Modul, gesteckt);-;-;-;-;-;-;-;-;-;Modul mit eigener Platine, nicht bei JLCPCB bestückbar, Bezug Eckstein/TME;Bauteilauswahl 1
 Strommessung (Hall);1;ACS758LCB-050B-PFF-T (Drahtform, Gehäuse CB-5);C73426;Extended;474;6.30;kein SMD-Gegenstück gefunden (nur Gehäuse CB);-;-;-;-;Katalog nennt nur Schraubfahnen-Gehäuse, ob JLCPCB es bestückt, ungeklärt;Bauteilauswahl 2
@@ -23,4 +23,5 @@ Halter Sicherung 2 A je 5-V-Zweig;2;Schurter OG/OGN 5 × 20 mm (Leiterplatte);-;
 Drossel 10 µH je 5-V-Zweig;2;Bourns RLB0914-100KL (10 µH, 2,7 A, radial);-;-;-;-;-;-;-;-;-;Bezug RS 8118799 / Mouser;Bauteilauswahl 7
 Kondensator 4,7 µF 50 V X7R (3 je 5-V-Zweig);6;KEMET C320C475K5R5TA (radial, 2,54 mm);-;-;-;-;-;-;-;-;-;10 µF als 2 × 4,7 µF parallel, Bezug Mouser / RS;Bauteilauswahl 7
 Elko an der Endstufe;1;Panasonic EEU-FR1V102 (1000 µF 35 V, 105 °C, 10 000 h);-;-;-;-;-;-;-;-;-;Bezug Farnell 2508152 / RS 7083841;Bauteilauswahl 7
-Noch ohne Katalogprüfung;;Klemmdioden, Sicherungseinsätze 20 A (ATO) und 2 A träge (5 × 20 mm), Klemmen Phoenix MSTBA 2,5 …-G-5,08 mit Stecker MSTB 2,5 …-ST-5,08 (alle Anschlüsse, wie RF300-Interface), OLED SSD1306 (Modul), Taster, Abschlusswiderstände;-;-;-;-;-;-;-;-;-;Typen teils noch offen (Bauteilauswahl 10);Bauteilauswahl 7 bis 9
+Klemmdioden Messeingänge (A, B, Bordspannung);6;BAT85 (Schottky 30 V 200 mA, DO-34);-;-;-;-;-;-;-;-;-;Bezug RS 0300978 (Nexperia) / Distrelec 30152079 (Vishay);Bauteilauswahl 3
+Noch ohne Katalogprüfung;;Sicherungseinsätze 20 A (ATO) und 2 A träge (5 × 20 mm), Klemmen Phoenix MSTBA 2,5 …-G-5,08 mit Stecker MSTB 2,5 …-ST-5,08 (alle Anschlüsse, wie RF300-Interface), OLED SSD1306 (Modul), Taster, Abschlusswiderstände;-;-;-;-;-;-;-;-;-;Typen teils noch offen (Bauteilauswahl 10);Bauteilauswahl 7 bis 9

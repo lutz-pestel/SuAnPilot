@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.13, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.14, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -109,8 +109,10 @@ Messwert mitverschiebt, **misst der achte Kanal diese Versorgung selbst** — di
 Damit hängt die Strommessung nicht mehr an der Güte des Spannungsreglers.
 
 **Messstellen:** je Stelle ein Spannungsteiler 100 kΩ / 18 kΩ, 1 % (16 V Bordspannung ergeben 2,44 V, unterhalb
-der Referenz), dazu zwei Klemmdioden; bei einem Spannungsstoß von 100 V fließt durch den Vorwiderstand nur
-1 mA. **Die Glättung ist je Kanal verschieden:** Klemmenspannungen mit ~10 ms, damit bei zerhackter Ansteuerung
+der Referenz), dazu zwei Klemmdioden **BAT85** (Schottky, 30 V, 200 mA, DO-34; RS 0300978, Distrelec 30152079) nach
++3,3 V und Masse, je an Klemme A, B und Bordspannung (6 Stück); sie leiten ab etwa 3,6 V, der Wandler verträgt 3,9 V.
+Bei einem Spannungsstoß von 100 V fließt durch den Vorwiderstand nur 1 mA. Sperrstrom wächst mit der Wärme: kleiner
+Fehler der Bordspannung, notfalls im Programm ausgleichen. **Die Glättung ist je Kanal verschieden:** Klemmenspannungen mit ~10 ms, damit bei zerhackter Ansteuerung
 der Mittelwert herauskommt (der Fall vom 04.10. — 1,9 V statt 11 V — wäre so sofort sichtbar); der Stromkanal
 **ohne** diese Glättung, sonst verschenkt man die Spitzen.
 
