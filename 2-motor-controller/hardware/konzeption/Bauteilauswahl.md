@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.07, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.08, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -215,8 +215,10 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
   Begrenzung auf über 100 V. **Ehrlich dazu:** Für ein so langes Ereignis ist die Diode nicht ausgelegt. Sie
   stirbt dann, fast immer als Kurzschluss — und die Sicherung fällt. Das ist ihr Wert: Sie macht aus einem
   Totalschaden einen Wechsel von Diode und Sicherung für zwei Euro.
-- **Verpolschutz nur für den Elektronikzweig**, mit P-Kanal-MOSFET in Reihe (fast verlustfrei). Der G2 bringt
-  seinen eigenen mit — damit entfällt ein Bauteil im Hochstrompfad, wo jedes Wärme und eine Fehlerstelle ist.
+- **Verpolschutz nur für den Elektronikzweig: Schottky-Diode in Reihe** (festgelegt 07.10.2026, Typ noch zu wählen,
+  etwa 3 A / 40 V). Ein Bauteil; Verlust typisch 0,4–0,5 V, die Regler arbeiten damit bis etwa 7 V Bordspannung.
+  P-Kanal-MOSFET (fast verlustfrei) nur, falls der Unterspannungsversuch Einbrüche nahe 7 V zeigt. Der G2 bringt
+  seinen eigenen Verpolschutz mit — damit entfällt ein Bauteil im Hochstrompfad.
 - **Drei Sicherungen, aufeinander abgestimmt:** Leistung **20 A** träge (KFZ-Flachsicherung im Halter, Leitung
   2,5 mm²) — dazu passend wird die **Strombegrenzung der Endstufe auf 15 A** gesetzt, damit zuerst die
   Elektronik begrenzt und erst danach die Sicherung fällt. Elektronik 2 A, TinyPilot-Zweig 2 A (F13).
