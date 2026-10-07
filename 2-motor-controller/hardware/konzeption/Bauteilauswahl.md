@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.11, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.12, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -44,7 +44,10 @@ den ESP32** (F11): Er meldet Kurzschluss, Unterspannung und Übertemperatur; das
 nicht selbst ab (Pololu), deshalb stoppt der ESP32 die Pumpe. Kein Kühlkörper. Zur Vorwarnung ein **NTC-Fühler mit
 Ringöse unter der Befestigungsschraube, die den Transistoren am nächsten liegt** (festgelegt 07.10.2026): nichts
 geklebt, beim Modultausch nur umsetzen; Anschluss über MSTBA 2,5/2, Spannungsteiler an einem freien Eingang des
-Messwandlers (Abschnitt 3). Typ, Ösengröße passend zum Befestigungsloch und Lage am Pololu-Maßbild noch zu prüfen.
+Messwandlers (Abschnitt 3). **Typ: TDK B57703M0103A017** (10 kΩ ±2 %, B 3988 K, −55…+125 °C, 115 mm PTFE-Litze AWG 26;
+DigiKey.de 3,29 €, Datenblatt Oktober 2025). Teiler: 12 kΩ 1 % von +3,3 V, Fühler nach Masse (0 °C → 2,44 V, 100 °C →
+0,18 V, gerechnet). Pololu-Löcher 2,18 mm für M2 (zwei Stück); Öse vermutlich M3, dann mit M2-Unterlegscheibe klemmen.
+Noch zu prüfen: Ösenmaß in der Maßzeichnung, welche Schraube den Transistoren am nächsten liegt.
 
 *Verworfen:* RoboClaw (teuer, Firmware verschlossen); VNH5019 (100 % nicht zugesichert); IBT-2/BTS7960 trotz
 Vorhandensein (belegte Entwurfs- und Fertigungsmängel); eigene Brücke (heikelste Baugruppe, ohne Vorteil).
