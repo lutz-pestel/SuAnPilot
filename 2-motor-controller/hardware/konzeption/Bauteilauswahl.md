@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.09, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.10, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -39,9 +39,9 @@ nicht, ihr Ansprechen wäre auch kein Fehlerzustand. **Die Blockade erkennt nur 
 Strom + stehender Ruderlage (S1, F6). Die Endstufe ist die letzte Verteidigungslinie, nicht die erste.
 
 **Zwei Auflagen:** (1) Strombegrenzung über einen Widerstand zwischen VREF und Masse auf **15 A** senken, unter
-den Wert der 20-A-Sicherung (Pololu nennt 100 kΩ → ca. 41 A; der Widerstand für 15 A ist zu erfragen). (2) **Temperatursensor am
-Kühlwinkel ist Pflicht** (F11): Das Modul hat keine Übertemperatur-Abschaltung, und seine Fehlerleitung meldet
-nur „Platine zu heiß", nicht die Transistoren, die zuerst sterben.
+den Wert der 20-A-Sicherung (Pololu nennt 100 kΩ → ca. 41 A; der Widerstand für 15 A ist zu erfragen). (2) **Fehlerausgang (FLT) an
+den ESP32** (F11): Er meldet Kurzschluss, Unterspannung und Übertemperatur; das Modul schaltet bei Übertemperatur
+nicht selbst ab (Pololu), deshalb stoppt der ESP32 die Pumpe. Kein eigener Temperaturfühler, kein Kühlkörper.
 
 *Verworfen:* RoboClaw (teuer, Firmware verschlossen); VNH5019 (100 % nicht zugesichert); IBT-2/BTS7960 trotz
 Vorhandensein (belegte Entwurfs- und Fertigungsmängel); eigene Brücke (heikelste Baugruppe, ohne Vorteil).
@@ -87,7 +87,7 @@ Begründung der Wahl:
   5 000–10 000 Messungen je Sekunde liegen 100–200 Messpunkte darüber (F2, Spitzen erfassen). Im ruhigen Betrieb
   wird langsam gemessen, bei Verdacht schnell. Die Grenze setzt unsere Software, nicht das Bauteil.
 - **Acht Eingänge, sieben Messstellen:** Klemme A, Klemme B, Bordspannung, Motorstrom, Stromrückmeldung des
-  Leistungsmoduls, Temperatur am Kühlwinkel (F11) und die 3,3-V-Versorgung selbst (siehe unten). Ein Eingang ist frei.
+  Leistungsmoduls und die 3,3-V-Versorgung selbst (siehe unten). Zwei Eingänge sind frei.
 - **Steckbar im Sockel**, ohne Lötkolben tauschbar.
 **Anschluss über Hardware-SPI, nicht nachgebildet in Software.** Der Wandler hält die Messspannung in einem
 Kondensator von 20 pF, der während der Wandlung Ladung verliert; unter 10 000 Takten je Sekunde leidet die
@@ -150,7 +150,7 @@ Stiftleisten, zwei Rechenkerne.
   Endstufe 4, Frequenzeingang 1, Gegenprobe 1, drei Leuchtdioden, ein Taster), vorhanden sind etwa 30.
 - **WLAN für die Fernprogrammierung** (F12). Zwei Auflagen an den Platinenentwurf, damit die Antenne auf dem
   Modul genügt: Das Modul sitzt **an der Kante unserer Platine, die Antenne ragt darüber hinaus**; darunter und
-  daneben kein Kupfer, keine Bauteile. Alles Metallische (Leistungsmodul, Kühlwinkel, Klemmen, dicke Kabel)
+  daneben kein Kupfer, keine Bauteile. Alles Metallische (Leistungsmodul, Klemmen, dicke Kabel)
   kommt ans andere Ende. Der Kunststoff des Gehäuses stört den Funk nicht, nahes Metall dagegen sehr.
 - **Rückweg, falls der Funk im Motorraum nicht reicht:** Die Ausführung **-32UE**
   (<https://www.digikey.de/de/products/detail/espressif-systems/ESP32-DEVKITC-32UE/12091813>) hat dieselbe
@@ -250,10 +250,9 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
   verhindert F6. *Verworfen:* eigene Leistungsklemmen 7,62 mm (zweiter Typ, im Normalbetrieb nicht nötig).
 - **Gehäuse 3D-Druck: ASA**, ersatzweise Polycarbonat; **PLA scheidet aus** (erweicht bei 55–60 °C), PETG ist
   grenzwertig. O-Ring in Nut, Verschraubungen M16/M20, Ziel IP 54 (die Pumpe selbst ist IP 44).
-- **Wärmeabfuhr:** Leistungsmodul auf einen Aluminiumwinkel durch die Gehäusewand nach außen; dort sitzt auch
-  der Temperatursensor (F11).
-- **Durchführungen in der Gehäusewand**, alle dicht: Taster, vier Leuchtdioden plus die rote für die Sicherung,
-  Kühlwinkel, Kabelverschraubungen. Für eine spätere Antennenbuchse wird eine Stelle **vorbereitet, aber nicht
+- **Wärmeabfuhr:** kein Kühlkörper; das Modul trägt 25 A ohne Kühlkörper, die Pumpe zieht 4–6 A (F11).
+- **Durchführungen in der Gehäusewand**, alle dicht: Taster, vier Leuchtdioden plus die roten für die Sicherungen,
+  Kabelverschraubungen. Für eine spätere Antennenbuchse wird eine Stelle **vorbereitet, aber nicht
   gebohrt** — jedes Loch ist eine mögliche Undichtigkeit, und gebraucht wird sie nur, falls der Funk aus dem
   Motorraum nicht reicht.
 - **Anschlüsse nach außen:** 12 V Leistung (2,5 mm², eigene Sicherung) und Motor A/B; RF300 zweiadrig geschirmt;
