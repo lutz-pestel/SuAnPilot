@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.04, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.05, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -40,7 +40,9 @@ Version 00.04, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   Manövrieren im Hafen, muss sie sofort angezeigt werden; heute etwa 1 s.
 - F5 **NMEA-Ruderlage für die Anzeige am Steuerstand – vorrangig.** Sie muss auch weiterlaufen, wenn
   TinyPilot, Verbindung oder Pumpenteil ausfallen.
-- F6 Endlagen per Software aus der Ruderlage (keine Endlagenschalter).
+- F6 Endlagen per Software aus der Ruderlage (keine Endlagenschalter), mit Sicherheitsabstand zum mechanischen
+  Anschlag. **Die Pumpe darf nie gegen den Anschlag laufen:** Läuft sie und bewegt sich das Ruder nicht, schaltet
+  das Gerät sie so schnell wie möglich ab und meldet es. Den Abstand legt der Versuch fest.
 - F7 Kommunikation mit dem TinyPilot über RS422. **Protokoll festgelegt 04.10.2026: pypilot-kompatibel**
   (38400 Baud, Pakete aus Befehl, 16-Bit-Wert und Prüfsumme). Es überträgt bereits Strom, Spannung, zwei
   Temperaturen, Ruderlage und Zustands-Flags. Zusätzliche Werte (Klemmenspannungen, Förderausfall mit Richtung,
@@ -50,6 +52,7 @@ Version 00.04, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   Dabei **nicht** übernehmen: (1) das Überschreiben der Kalibrierung im TinyPilot beim Verbinden (Anlass
   01.10.2026) – diese Pakete lässt unser Gerät weg (S7); (2) doppelte Umrechnung der Ruderlage – liegt die
   Kalibrierung im Gerät (F3), muss die Umrechnung im TinyPilot neutral gestellt werden (Nullpunkt 0, Maßstab 1).
+  Das Kabel zum Steuerstand bleibt unverändert: gleicher Stecker und gleiche Belegung wie an der RF300-Interfaceplatine.
 - F8 Betrieb am 12-V-Bordnetz im Motorraum (Feuchte, Wärme, Vibration).
 - F9 Endstufe muss in beiden Richtungen **dauerhaft 100 %** halten (keine knappe Bootstrap-Hilfsspannung,
   sondern eingebaute Ladungspumpe). Anlauf-Rampe einstellbar.

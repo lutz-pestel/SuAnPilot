@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.05, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.06, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -191,8 +191,10 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
 - **Zwei getrennte Regler, beide Recom R-78B5.0-2.0** (F13): SIP-3, 5 V / 2 A, Eingang **6,5–32 V**, kurzschlussfest, −40…+70 °C ohne Abschlag, verträgt keine
   Verpolung (Datenblatt REV 1/2017, <https://www.recom-power.com/pdf/Innoline/R-78B-2.0.pdf>). Gleicher Typ in beiden
   Zweigen: ein Ersatzteil passt überall, ein Schaltplanblatt (`kicad/v00.01/5V-Zweig`, zweimal eingesetzt), Reserve
-  für Sendespitzen des ESP32. Je Zweig: Sicherung 2 A mit Leuchtdiode, Eingangsfilter nach Herstellervorschlag
-  (10 µF 50 V – 10 µH – 4,7 µF 50 V). 3,3 V liefert das ESP32-Modul selbst. *Verworfen:* Traco TSR 1-2450 für die
+  für Sendespitzen des ESP32. 3,3 V liefert das ESP32-Modul selbst.
+  **Teile je 5-V-Zweig** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge, 5 × 20 mm im Halter; rote
+  Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung; Eingangsfilter nach Herstellervorschlag: 10 µF 50 V keramisch,
+  Drossel 10 µH (mindestens 2 A), 4,7 µF 50 V keramisch. Typen von Halter, Drossel und Kondensatoren noch zu wählen. *Verworfen:* Traco TSR 1-2450 für die
   Elektronik (billiger, aber zweiter Typ und zweites Schaltplanblatt, nur 1 A).
   Der Eingangsbereich entscheidet, nicht die Stromstärke: Beim Anlassen des Diesels bricht die Bordspannung
   kurz ein — ein Regler, der erst ab 10 V arbeitet (z. B. Traco TSR 3-2450 mit 3 A), ließe den Pi neu starten.
@@ -238,10 +240,11 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
 - **Hohe Ströme gehören nicht auf eine selbst entworfene Leiterbahn** (Praxiswert: 20 mm breite Außenbahn mit
   105 µm Kupfer wird bei etwa 70 A um 58 K wärmer). Leistungspfad als aufgelötete Kupferschiene oder dicker
   blanker Draht, Weg Klemme → Modul → Klemme so kurz wie möglich.
-- **Leistungsklemmen** steckbar mit Schraubflansch, Raster 7,62 mm, je Pol zwei Klemmstellen parallel (eine
-  trägt etwa 32 A, Bauart wie Phoenix FRONT 4-H-7.62,
-  RS 176-1210 bei de.rs-online.com); **Signalklemmen wie auf der RF300-Interfaceplatine: Phoenix Contact MSTBA 2,5
-  …-G-5,08** (Stiftleiste auf der Platine, steckbarer Schraubstecker, Raster 5,08 mm; festgelegt 07.10.2026).
+- **Alle Klemmen wie auf der RF300-Interfaceplatine: Phoenix Contact MSTBA 2,5/…-G-5,08** (festgelegt 07.10.2026):
+  Stiftleiste liegend auf der Platine, dazu steckbarer Schraubstecker MSTB 2,5/…-ST-5,08; Raster 5,08 mm, 12 A je
+  Kontakt, 320 V, Leiter bis 2,5 mm² (z. B. 2-polig: Stiftleiste 1757242, Stecker 1757019). Gilt auch für Pumpe und
+  12-V-Zuleitung: Im Normalbetrieb bleibt der Strom darunter (gemessen 4–6 A, Spitze 8,3 A); Dauerblockieren
+  verhindert F6. *Verworfen:* eigene Leistungsklemmen 7,62 mm (zweiter Typ, im Normalbetrieb nicht nötig).
 - **Gehäuse 3D-Druck: ASA**, ersatzweise Polycarbonat; **PLA scheidet aus** (erweicht bei 55–60 °C), PETG ist
   grenzwertig. O-Ring in Nut, Verschraubungen M16/M20, Ziel IP 54 (die Pumpe selbst ist IP 44).
 - **Wärmeabfuhr:** Leistungsmodul auf einen Aluminiumwinkel durch die Gehäusewand nach außen; dort sitzt auch
@@ -250,10 +253,11 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
   Kühlwinkel, Kabelverschraubungen. Für eine spätere Antennenbuchse wird eine Stelle **vorbereitet, aber nicht
   gebohrt** — jedes Loch ist eine mögliche Undichtigkeit, und gebraucht wird sie nur, falls der Funk aus dem
   Motorraum nicht reicht.
-- **Anschlüsse nach außen:** 12 V Leistung (2,5 mm², eigene Sicherung) und Motor A/B über die Leistungsklemmen;
-  RF300 zweiadrig geschirmt; zum Steuerhaus das vorhandene 8-adrige Kabel (grün Stellbefehle, orange Meldungen,
-  braun NMEA-Ruderlage, weiß Minus, blau frei) und getrennt davon rot/schwarz für die 5 V der PyPilot-Einheit
-  (F13, höchstens 3 m).
+- **Anschlüsse nach außen:** 12 V Leistung (2,5 mm², eigene Sicherung) und Motor A/B; RF300 zweiadrig geschirmt;
+  zum Steuerhaus **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
+  NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Stecker und Belegung wie an der
+  RF300-Interfaceplatine:** MSTBA 2,5/8 wie dort J9 (1–4 RS422 zum Motor-Controller A+, B−, Z−, Y+; 5–8 RS422
+  Ruderlage A+, B−, Z−, Y+), 5 V über MSTBA 2,5/2.
 
 ## 10. Offen — vor dem Kauf zu messen oder zu klären
 1. *(erledigt 05.10.2026 – Arbeitspunkt des RF300 gemessen, Auslegung steht in Abschnitt 4.)*
@@ -262,11 +266,10 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
 3. Widerstandswert für die Strombegrenzung des G2 bei Pololu erfragen (Ziel 15 A).
 4. Temperaturklasse der RS422-Treiber festlegen: 0…+70 °C oder −40…+85 °C. Für den Motorraum die Industrie-
    Ausführung. Welche heute im TinyPilot sitzt, steht im Schaltplan nicht.
-5. Typ der steckbaren Leistungsklemme auswählen (Strom je Klemmstelle, Schraubflansch, Raster).
-6. Genauigkeitsklasse der Referenz wählen: ±1 % (LM4040**D**IZ-2.5) reicht, ±0,1 % (LM4040**A**IZ-2.5) kostet
+5. Genauigkeitsklasse der Referenz wählen: ±1 % (LM4040**D**IZ-2.5) reicht, ±0,1 % (LM4040**A**IZ-2.5) kostet
    kaum mehr. Die Klasse bestimmt den Fehler aller Spannungs- und Strommessungen gleichermaßen.
-7. Wann darf der Selbsttest (S10) laufen? Am Steg bewegt sich das Ruder gefahrlos, im engen Fahrwasser nicht.
-8. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
+6. Wann darf der Selbsttest (S10) laufen? Am Steg bewegt sich das Ruder gefahrlos, im engen Fahrwasser nicht.
+7. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
    Motorraum legen und prüfen, ob es den Master erreicht und wie stark. Entscheidet über -32E oder -32UE.
 
 ## Quellen
