@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.03, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.05, Stand 07.10.2026, Obergrenze 300 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 7 sind **festgelegt**; 8 und 9 sind Vorschlag und werden noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -188,15 +188,17 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
 
 ## 7. Versorgung und Schutz — **festgelegt 04.10.2026**
 
-- **Zwei getrennte Regler** (F13). Für die eigene Elektronik **Traco TSR 1-2450** (SIP-3,
-  <https://tracopower.com/model/tsr-1-2450e>), ~7 €: 6,5–36 V ein, 5 V / 1 A aus, steckkompatibel zum alten
-  7805; 3,3 V liefert das ESP32-Modul selbst. Für die PyPilot-Einheit **Recom R-78B5.0-2.0** (SIP-3,
-  <https://recom-power.com/en/products/dc-dc-converters/rec-p-R-78B5.0-2.0.html>): 5 V / 2 A, Eingang **ab 6,5 V**.
+- **Zwei getrennte Regler, beide Recom R-78B5.0-2.0** (F13): SIP-3, 5 V / 2 A, Eingang **6,5–32 V**, kurzschlussfest, −40…+70 °C ohne Abschlag, verträgt keine
+  Verpolung (Datenblatt REV 1/2017, <https://www.recom-power.com/pdf/Innoline/R-78B-2.0.pdf>). Gleicher Typ in beiden
+  Zweigen: ein Ersatzteil passt überall, ein Schaltplanblatt (`kicad/v00.01/5V-Zweig`, zweimal eingesetzt), Reserve
+  für Sendespitzen des ESP32. Je Zweig: Sicherung 2 A mit Leuchtdiode, Eingangsfilter nach Herstellervorschlag
+  (10 µF 50 V – 10 µH – 4,7 µF 50 V). 3,3 V liefert das ESP32-Modul selbst. *Verworfen:* Traco TSR 1-2450 für die
+  Elektronik (billiger, aber zweiter Typ und zweites Schaltplanblatt, nur 1 A).
   Der Eingangsbereich entscheidet, nicht die Stromstärke: Beim Anlassen des Diesels bricht die Bordspannung
   kurz ein — ein Regler, der erst ab 10 V arbeitet (z. B. Traco TSR 3-2450 mit 3 A), ließe den Pi neu starten.
   Getrennte Regler heißen auch: Ein Kurzschluss im Steuerhaus nimmt die Ruderlagen-Ausgabe nicht mit (F5, S6).
-  Spannungsabfall auf 3 m Kabel bei 0,75 mm² und 1,5 A: etwa 0,2 V — der Pi bekäme 4,8 V bei 4,75 V Mindestwert,
-  also ohne Reserve. Querschnitt prüfen; notfalls die freie blaue Ader dazunehmen.
+  Zum Steuerstand gehen 5 V über das **vorhandene Kabel** (Festlegung des Betreibers 07.10.2026); im Steuerstand
+  ist kein Platz für einen eigenen Regler. Der Zweig versorgt in Phase 3 auch den SuAnPilot.
 - **Schutz gegen Überspannung aus dem Bordnetz: Schutzdiode 1.5KE20A**, unidirektional, 1500 W, DO-201,
   Drahtform, unter 1 € (<https://www.digikey.de/de/products/detail/littelfuse-inc/1-5KE20A/688017>), direkt
   hinter der Sicherung; dazu Drossel und Kondensator am Eingang.
@@ -238,7 +240,8 @@ bedienbar sein, ohne das Gehäuse zu öffnen.
   blanker Draht, Weg Klemme → Modul → Klemme so kurz wie möglich.
 - **Leistungsklemmen** steckbar mit Schraubflansch, Raster 7,62 mm, je Pol zwei Klemmstellen parallel (eine
   trägt etwa 32 A, Bauart wie Phoenix FRONT 4-H-7.62,
-  RS 176-1210 bei de.rs-online.com); **Signalklemmen** steckbar, Raster 5,08 mm.
+  RS 176-1210 bei de.rs-online.com); **Signalklemmen wie auf der RF300-Interfaceplatine: Phoenix Contact MSTBA 2,5
+  …-G-5,08** (Stiftleiste auf der Platine, steckbarer Schraubstecker, Raster 5,08 mm; festgelegt 07.10.2026).
 - **Gehäuse 3D-Druck: ASA**, ersatzweise Polycarbonat; **PLA scheidet aus** (erweicht bei 55–60 °C), PETG ist
   grenzwertig. O-Ring in Nut, Verschraubungen M16/M20, Ziel IP 54 (die Pumpe selbst ist IP 44).
 - **Wärmeabfuhr:** Leistungsmodul auf einen Aluminiumwinkel durch die Gehäusewand nach außen; dort sitzt auch

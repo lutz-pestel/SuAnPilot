@@ -604,10 +604,149 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:+5V"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "+5V"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"+5V\""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "+5V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "+5V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
-	(text "zum RF300 (Kabel max. 3 m, geschirmt,\nSchirm an Masse)\nJ1: Klemmentyp vorläufig"
+	(text "zum RF300 (Kabel max. 3 m, geschirmt,\nSchirm an Masse)\nJ1: Phoenix MSTBA 2,5 (wie RF300-Interface)"
 		(exclude_from_sim no)
-		(at 15.24 106.68 0)
+		(at 51.308 95.504 0)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -628,7 +767,7 @@
 	)
 	(wire
 		(pts
-			(xy 50.8 86.36) (xy 45.72 86.36)
+			(xy 50.8 81.28) (xy 46.99 81.28)
 		)
 		(stroke
 			(width 0)
@@ -668,7 +807,7 @@
 	)
 	(wire
 		(pts
-			(xy 45.72 86.36) (xy 45.72 88.9)
+			(xy 46.99 81.28) (xy 46.99 83.82)
 		)
 		(stroke
 			(width 0)
@@ -698,7 +837,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 60.96) (xy 102.87 60.96)
+			(xy 76.2 60.96) (xy 81.28 60.96)
 		)
 		(stroke
 			(width 0)
@@ -862,7 +1001,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 45.72 88.9 0)
+		(at 46.99 83.82 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -872,7 +1011,7 @@
 		(dnp no)
 		(uuid "848c0daf-592d-4995-97d8-ba6eb695347f")
 		(property "Reference" "#PWR03"
-			(at 45.72 86.36 0)
+			(at 46.99 81.28 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -883,7 +1022,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 45.72 91.44 0)
+			(at 46.99 86.36 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -893,7 +1032,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 45.72 88.9 0)
+			(at 46.99 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -904,7 +1043,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 45.72 88.9 0)
+			(at 46.99 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -915,7 +1054,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 45.72 88.9 0)
+			(at 46.99 83.82 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -971,7 +1110,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "TerminalBlock_Phoenix:TerminalBlock_Phoenix_MKDS-1,5-2-5.08_1x02_P5.08mm_Horizontal"
+		(property "Footprint" "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal"
 			(at 30.48 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -1004,7 +1143,7 @@
 				)
 			)
 		)
-		(property "Hinweis" "Klemmentyp vorläufig (Bauteilauswahl Abschnitt 10, Punkt 5)"
+		(property "Hinweis" "Phoenix MSTBA 2,5/2-G-5,08 mit Stecker, wie RF300-Interfaceplatine"
 			(at 30.48 60.96 0)
 			(hide yes)
 			(show_name no)
@@ -1031,8 +1170,8 @@
 		)
 	)
 	(sheet
-		(at 50.8 50.8)
-		(size 50.8 40.64)
+		(at 50.8 57.15)
+		(size 25.4 26.67)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
@@ -1047,7 +1186,7 @@
 		)
 		(uuid "3f5e2d60-b48e-461a-af85-9b8e13392e28")
 		(property "Sheetname" "RF300-Eingang"
-			(at 53.34 49.53 0)
+			(at 50.8 56.5143 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1058,7 +1197,7 @@
 			)
 		)
 		(property "Sheetfile" "RF300-Eingang.kicad_sch"
-			(at 53.34 92.71 0)
+			(at 50.8 84.3287 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1069,7 +1208,7 @@
 			)
 		)
 		(pin "RF_TAKT" output
-			(at 101.6 60.96 0)
+			(at 76.2 60.96 0)
 			(uuid "c0501142-263e-46de-8b17-951b9c62893c")
 			(effects
 				(font
@@ -1119,7 +1258,7 @@
 			)
 		)
 		(pin "GND" input
-			(at 50.8 86.36 180)
+			(at 50.8 81.28 180)
 			(uuid "706f57a3-82dc-439e-8ebd-d58f454f58f6")
 			(effects
 				(font
@@ -1135,6 +1274,647 @@
 				)
 			)
 		)
+	)
+	(sheet
+		(at 50.8 127.0)
+		(size 30.48 20.32)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.0006)
+			(type default)
+		)
+		(fill
+			(color 0 0 0 0.0)
+		)
+		(uuid "308cdea6-e3ed-4042-bab9-d5931def5bc5")
+		(property "Sheetname" "5V Elektronik"
+			(at 53.34 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "5V-Zweig.kicad_sch"
+			(at 53.34 148.59 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(page "3")
+				)
+			)
+		)
+		(pin "+12V" input
+			(at 50.8 132.08 180)
+			(uuid "c4665a8e-3cb8-433c-9260-59169b095c67")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" input
+			(at 50.8 142.24 180)
+			(uuid "33d9f4d7-04fc-429e-832a-855986f3d643")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+5V" output
+			(at 81.28 132.08 0)
+			(uuid "bd332889-40fb-48be-9e02-ac476c0dc4ba")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(sheet
+		(at 50.8 157.48)
+		(size 30.48 20.32)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.0006)
+			(type default)
+		)
+		(fill
+			(color 0 0 0 0.0)
+		)
+		(uuid "6e08cac9-0d96-4a68-acc9-44be3610c2a8")
+		(property "Sheetname" "5V PyPilot"
+			(at 53.34 156.21 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "5V-Zweig.kicad_sch"
+			(at 53.34 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(page "4")
+				)
+			)
+		)
+		(pin "+12V" input
+			(at 50.8 162.56 180)
+			(uuid "76a3a549-2ab0-4c4d-8a7f-7a5c5fee065b")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "GND" input
+			(at 50.8 172.72 180)
+			(uuid "a10d343f-ba1b-4aac-8606-3aefbefc5cf1")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(pin "+5V" output
+			(at 81.28 162.56 0)
+			(uuid "9f28c382-bd22-4689-889a-11870399160e")
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 45.72 129.54 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a403524b-c72f-49fa-be03-a1195cf3ad35")
+		(property "Reference" "#PWR04"
+			(at 45.72 127.0 0)
+      (hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+12V"
+			(at 45.72 125.73 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.72 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 45.72 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f0ae00de-b117-4909-a219-dab0689cad11")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(reference "#PWR04")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 45.72 144.78 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "ed53a11f-6698-47ee-9495-9b07bf74138c")
+		(property "Reference" "#PWR05"
+			(at 45.72 142.24 0)
+      (hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 45.72 147.32 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.72 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 45.72 144.78 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8565c544-55a4-479c-aabf-f3b62f8e8f83")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+12V")
+		(at 45.72 160.02 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "600c2242-ebab-4db7-bb50-dba37416e93a")
+		(property "Reference" "#PWR06"
+			(at 45.72 157.48 0)
+      (hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+12V"
+			(at 45.72 156.21 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.72 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+12V\""
+			(at 45.72 160.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "a3882fdc-818b-42fb-bd88-d220871d50e2")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(reference "#PWR06")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 45.72 175.26 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "80cde189-08c2-4168-91b4-f7857cb9da6f")
+		(property "Reference" "#PWR07"
+			(at 45.72 172.72 0)
+      (hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "GND"
+			(at 45.72 177.8 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 45.72 175.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 45.72 175.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 45.72 175.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5bf74f3c-e69e-4eb1-bccb-6c02a97f9b43")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 86.36 129.54 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "99d54bf8-7ca1-4181-83af-1a3e4c368b58")
+		(property "Reference" "#PWR08"
+			(at 86.36 127.0 0)
+      (hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 86.36 125.73 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 86.36 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 86.36 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"+5V\""
+			(at 86.36 129.54 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "6b212513-7aab-4dfe-b5c4-c98786143289")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
+					(reference "#PWR08")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 50.8 132.08) (xy 45.72 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a70f464a-97fa-4044-a773-381f70a49723")
+	)
+	(wire
+		(pts
+			(xy 45.72 132.08) (xy 45.72 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8dc1756-06b7-49ac-a5fb-f768d4a1082f")
+	)
+	(wire
+		(pts
+			(xy 50.8 142.24) (xy 45.72 142.24)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "150ed7d9-dd44-48f3-9f76-0127c0130137")
+	)
+	(wire
+		(pts
+			(xy 45.72 142.24) (xy 45.72 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1c209afb-9ed4-4d36-bd47-cd58d2cafedb")
+	)
+	(wire
+		(pts
+			(xy 50.8 162.56) (xy 45.72 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a7ba0989-3e3b-47c8-9891-6b68e2913d4e")
+	)
+	(wire
+		(pts
+			(xy 45.72 162.56) (xy 45.72 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8224631-fb00-4366-b7d0-f6647d153ee2")
+	)
+	(wire
+		(pts
+			(xy 50.8 172.72) (xy 45.72 172.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ffc4a1f8-2be8-469c-808c-9a9192b24179")
+	)
+	(wire
+		(pts
+			(xy 45.72 172.72) (xy 45.72 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc9dad6d-2c34-4526-8eb1-9420107fdb1e")
+	)
+	(wire
+		(pts
+			(xy 81.28 132.08) (xy 86.36 132.08)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2498849a-06a3-446c-a5ff-c3b7db96d115")
+	)
+	(wire
+		(pts
+			(xy 86.36 132.08) (xy 86.36 129.54)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f0846241-7b54-449d-a759-a14c709d4cf3")
+	)
+	(wire
+		(pts
+			(xy 81.28 162.56) (xy 91.44 162.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad490d2f-762f-4501-8808-1053016e502e")
+	)
+	(label "+5V_PYPILOT"
+		(at 91.44 162.56 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "96d7cdf1-e533-4335-a434-29e7d599390a")
 	)
 	(sheet_instances
 		(path "/"

@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.03, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.04, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -64,7 +64,8 @@ Version 00.03, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   Pumpe.** Im Motorraum (Metall, geschlossenes Gehäuse) ist eine äußere Antenne nötig.
 - F13 **Gemeinsame Stromversorgung:** Das Gerät erzeugt auch die 5 V für die PyPilot-Einheit (heute Aufgabe des
   RF300-Interface) – über einen **eigenen zweiten Regler**, damit ein Kurzschluss dort nicht die Ruderlagen-
-  Ausgabe und die Pumpensteuerung mitnimmt (F5, S6). Kabellänge zur Steuersäule höchstens 3 m.
+  Ausgabe und die Pumpensteuerung mitnimmt (F5, S6). Kabellänge zur Steuersäule höchstens 3 m. Es bleibt beim
+  vorhandenen Kabel und 5 V zum Steuerstand; der Zweig versorgt in Phase 3 auch den SuAnPilot.
 - F14 **Unterspannungsfest (Pflicht).** Anlass: einseitiger Förderausfall bei tiefer Spannung am Gerät (Abschnitt 2).
   Maßstab: mindestens so unempfindlich wie der Robertson an derselben Versorgung.
   a) Hilfsspannung der Treiber unabhängig von der Bordspannung (Aufwärtswandler oder Treiber mit Ladungspumpe, vgl. F9).
