@@ -1,6 +1,7 @@
 # Nur auf dem PC, nie nach GitHub
 CLAUDE.local.md
 .claude/settings.local.json
+.mcp.json
 
 # Zu groß für git: Messdaten, fremde Unterlagen, fertige Pakete
 Daten/
