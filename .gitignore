@@ -23,6 +23,7 @@ Hydraulic_Controller.fw.png
 *.sch-bak
 *.kicad_pcb-bak
 fp-info-cache
+*.lck
 *.step
 
 # Automatisch erzeugt
