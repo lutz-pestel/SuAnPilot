@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Motor-Controller")(type "KiCad")(uri "${KIPRJMOD}/Motor-Controller.pretty")(options "")(descr "Eigene Bauformen Motor-Controller"))
+)

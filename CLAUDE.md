@@ -20,7 +20,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `CLAUDE.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `1-tinypilot/regler/entwurf_pumpenleistung.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
   `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
-- 100: `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`
+- 100: `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`
 - 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`
@@ -28,10 +28,11 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
 
 ## Ablage
-Ein Projekt, drei Phasen; je Phase ein Ordner, dazu `0-gesamtprojekt/`. Im Hauptordner sonst nur, was die Werkzeuge dort
+Ein Projekt, drei Phasen; je Phase ein Ordner, dazu `0-gesamtprojekt/` und `99-tools/`. Im Hauptordner sonst nur, was die Werkzeuge dort
 erwarten (`CLAUDE.md`, `CLAUDE.local.md`, `.gitignore`, `.mcp.json`, `.claude/`). Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
-`bom/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einer Phase enthalten nur deren Inhalt.
-Datenblätter als PDF in `datenblaetter/` (nicht in Git), Name `Hersteller_Teilnummer_Ausgabe.pdf`; keine eigene Liste, die Links stehen in der Bauteilauswahl.
+`bom/`, `3d-modelle/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einer Phase enthalten nur deren Inhalt.
+Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git), Name `Hersteller_Teilnummer_Ausgabe.pdf`; keine eigene Liste, die Links stehen in der Bauteilauswahl.
+3D-Modelle der Hersteller (STEP) in `3d-modelle/` (nicht in Git); Ziel: Gesamtmodell der Platine für das Gehäuse.
 - **`1-tinypilot/` = Phase 1, im Betrieb** (nur Fehler beheben). Baugruppen: `autopilot/` (Software `RPI/` mit `kern/`, `plattform/`,
   `bauen.sh`; `Arduino/` mit dem **veralteten** Coprozessor-Code, der aufgespielte Stand ist verschollen), `rf300-interface/`
   (Platine, Arduino-Code, `Programmbeschreibung.md`), `motor-controller/` (gekauft, **problematisch**: einseitiger Förderausfall,
@@ -44,6 +45,7 @@ Datenblätter als PDF in `datenblaetter/` (nicht in Git), Name `Hersteller_Teiln
 - **`0-gesamtprojekt/`** (gilt für alle Phasen): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,
   `wissen/` (Hintergrund, Marktrecherche, pypilot-Geschichte), `handbuecher/` (PyPilot, Andere Schiffe, Robertson; nicht in Git),
   `fertigung/` (JLCPCB-Strategie).
+- **`99-tools/`** (Werkzeuge für alle Phasen, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`).
 - Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.
 - KiCad: Das alte Original (Platinen, Gerber, Pläne) liegt außerhalb, nicht Teil des Projekts:
   `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `1-tinypilot/autopilot/hardware/kicad/` ist eine Kopie

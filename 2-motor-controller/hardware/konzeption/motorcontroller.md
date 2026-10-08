@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.08, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.09, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -34,11 +34,17 @@ Version 00.08, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 ### 3.1 Funktion
 - F1 Pumpe in beide Richtungen mit voller Drehzahl; beide Richtungen gleichwertig.
 - F2 Motorstrom je Richtung messen, Spitzen erfassen.
-- F3 RF300-Frequenz direkt messen und in Ruderlage umrechnen; Kalibrierung im Gerät. Anschluss: Abschnitt 3.3.
+- F3 RF300-Frequenz direkt messen und **im Gerät in Grad umrechnen**, für Display, NMEA (F5) und TinyPilot. **Eine
+  Kalibrierung** (heute zwei: RF300-Interface und pypilot): am TinyPilot wie heute; pypilot schreibt die Werte (Versatz,
+  Maßstab, Nichtlinearität, Bereich) über das Protokoll in den Speicher des Geräts, das Gerät rechnet damit. An pypilot
+  geht die Frequenz als Rohwert 0–65535. Vorher im pypilot-Quelltext prüfen: Ablage im Speicher, Zeitpunkt des
+  Schreibens, Formel. Anschluss: Abschnitt 3.3.
 - F4 **Ruderlage ohne spürbare Verzögerung** (vorher B1): Für den Steuermann, besonders beim
   Manövrieren im Hafen, muss sie sofort angezeigt werden; heute etwa 1 s.
 - F5 **NMEA-Ruderlage für die Anzeige am Steuerstand – vorrangig.** Sie muss auch weiterlaufen, wenn
-  TinyPilot, Verbindung oder Pumpenteil ausfallen.
+  TinyPilot, Verbindung oder Pumpenteil ausfallen. Empfänger ist der Coprozessor der PyPilot-Einheit (eigenes Display,
+  U7 → JP3 → A1); sein Code ist verschollen, deshalb **genau das heutige Format** (Code `rf300-interface`, `nmea.h`):
+  4800 Baud, `$GPRSA,<Grad ganzzahlig>.0,<A|V>,,V*hh` mit CR LF, V und Winkel 0 ohne RF300-Takt, etwa alle 200 ms.
 - F6 Endlagen per Software aus der Ruderlage (keine Endlagenschalter), mit Sicherheitsabstand zum mechanischen
   Anschlag. **Die Pumpe darf nie gegen den Anschlag laufen:** Läuft sie und bewegt sich das Ruder nicht, schaltet
   das Gerät sie so schnell wie möglich ab und meldet es. Den Abstand legt der Versuch fest.
@@ -52,7 +58,7 @@ Version 00.08, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   01.10.2026) – diese Pakete lässt unser Gerät weg (S7); (2) doppelte Umrechnung der Ruderlage – liegt die
   Kalibrierung im Gerät (F3), muss die Umrechnung im TinyPilot neutral gestellt werden (Nullpunkt 0, Maßstab 1).
   Das Kabel zum Steuerstand bleibt unverändert: gleicher Stecker und gleiche Belegung wie an der RF300-Interfaceplatine.
-- F8 Betrieb am 12-V-Bordnetz im Motorraum (Feuchte, Wärme, Vibration).
+- F8 Betrieb am 12-V-Bordnetz im Motorraum (Wärme, Vibration); Gehäuse nur als mechanischer Schutz.
 - F9 Endstufe muss in beiden Richtungen **dauerhaft 100 %** halten (keine knappe Bootstrap-Hilfsspannung,
   sondern eingebaute Ladungspumpe). Anlauf-Rampe einstellbar. **Belegt 08.10.2026:** Der gekaufte Controller versagt genau beim
   Wechsel auf Dauer-Ein (Befehl ≥ 0,90) bei 12,6 V (`1-tinypilot/docs/tests/2026-10-08_Hafen_Pumpe_Drehzahl_Spannung.md`).

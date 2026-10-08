@@ -32,6 +32,8 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
     oder nacheinander ausschalten.
 12. **WLAN des Masters beobachten** (06.10.: PC konnte sich 40 min nicht anmelden, Neustart half): Seite 4 eine Stunde offen
     lassen, melden sich Geräte ab? Master an der Drosselgrenze (60 °C), Dateimanager `pcmanfm` 87 % Last prüfen.
+13. **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung messen, per Netz abfragbar, für Versuche in allen
+    Phasen; Projektplan `99-tools/docs/messgeraet.md`; nächster Schritt: Entscheidungen dort, Abschnitt 3.
 
 ## Unterwegs
 1. **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).

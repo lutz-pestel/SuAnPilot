@@ -16,6 +16,10 @@ Hydraulic_Controller.fw.png
 *.img
 *.img.gz
 
+# Datenblätter und Zeichnungen der Hersteller: nur lokal
+**/datenblaetter/*
+!**/datenblaetter/.gitkeep
+
 # KiCad: Sicherungen, Zwischenspeicher, 3D-Modell (82 MB, aus KiCad neu erzeugbar)
 *-backups/
 *.kicad_prl

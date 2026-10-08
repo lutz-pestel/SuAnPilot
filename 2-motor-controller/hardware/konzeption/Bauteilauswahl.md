@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.17, Stand 08.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.20, Stand 08.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -12,7 +12,7 @@ wird eine Festlegung unbeschaffbar, wird neu gesucht, nicht in alten Listen nach
 - **Linie A (THT):** kein SMD-Löten auf unserer Platine: Einzelteile in Drahtform (DIP, TO-220) oder Module mit
   Stiftleiste. Je Teil SMD-Gegenstück prüfen, Abweichung begründen (`0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`).
 - Vor Preis gehen **Robustheit** und **Diagnosefähigkeit** (Strom *und* Klemmenspannung zurücklesen).
-- Motorraum: warm, feucht, Vibration. Bauteile möglichst −40…+85 °C.
+- Motorraum: warm, Vibration. Bauteile möglichst −40…+85 °C. Das Gehäuse dient nur dem mechanischen Schutz (Betreiber).
 
 ## 1. Endstufe (Leistungstreiber) — **festgelegt 04.10.2026**
 
@@ -25,13 +25,21 @@ Durchschalten, weil die Bootstrap-Kondensatoren keine Ladezeit bekommen — und 
 Ladungspumpe** ein, mit der die oberen Transistoren unbegrenzt eingeschaltet bleiben. Fehler verriegeln nicht:
 Nach Wegfall der Ursache läuft das Modul selbst wieder an (S5).
 
-**Einbau: gesteckt und verschraubt** (Betreiber, 08.10.2026). Modul auf **zwei Messing-Stehbolzen** über unserer Platine;
-Steuersignale über die mitgelieferte Stiftleiste in eine **Buchsenleiste** auf unserer Platine. Leistung über die
-**mitgelieferten Pololu-Schraubklemmen:** Pumpe direkt; 12 V über kurze Leitungen von **Schraubklemmen auf unserer
-Platine** darunter (dort Elko und Schutzdiode, Abschnitt 7). **Zwei dünne Messleitungen** führen von den Motorklemmen
-des Pololu zurück auf unsere Platine (Klemmenspannung A/B, Abschnitt 3; gelbe Leuchtdioden, Abschnitt 8); am Pololu
-sitzen sie mit der Pumpenader in derselben Klemme (Aderendhülse für zwei Leiter). Beim Tausch löst man nur Schrauben.
-Ist der Hall-Sensor bestückt (Abschnitt 2), läuft eine Pumpenader über unsere Platine statt direkt zum Pololu.
+**Einbau: gesteckt und verschraubt** (Betreiber, 08.10.2026). Modul **umgedreht** auf **zwei Messing-Stehbolzen** über unserer
+Platine: Kondensatoren zur Platine, Transistoren oben in freier Luft; Stiftleiste auf der Kondensatorseite eingelötet,
+**Buchsenleiste so hoch, dass Kondensatoren (8,0 mm) und Pololu-Klemmen (10,0 mm) darunter Platz haben**; die Fläche
+darunter ist für Bauteile gesperrt.
+**Am Pololu wird nur gesteckt und geschraubt, nie gelötet** (Betreiber, 08.10.2026); Leisten, Stifte und Klemmen sind
+vorher eingelötet, beim Ersatzmodul ebenso. An den **mitgelieferten Pololu-Schraubklemmen** hängen nur vier kurze Leitungen
+zu fest eingelöteten Klemmen auf unserer Platine (Degson DG301, Abschnitt 9): VIN und GND von unserer Eingangsseite,
+OUTA und OUTB zurück. **Die Pumpe wird an unserer Platine angeschlossen:** Dort misst sie die Klemmenspannung A/B
+(Abschnitt 3; gelbe Leuchtdioden, Abschnitt 8), Ader A läuft über den Hall-Sensor (Abschnitt 2). In keine Klemme kommt mehr
+als eine Ader. Zusätzlich je ein Stift in den Pololu-Lötpunkten **„+" (VM, hinter dem Verpolschutz des Pololu) und „−"**,
+gesteckt in Einzelbuchsen: Darüber hängt unser Elko (Abschnitt 7). „+" nie mit +12V verbinden, sonst ist der Verpolschutz
+umgangen. **Die Pololu-Klemmen sitzen auf der Kondensatorseite, also nach unten**; die vier Leitungen (mindestens 20 mm)
+treten an der Klemmenkante unter dem Pololu heraus, unsere zwei Klemmen sitzen direkt daneben. **Tausch:** die vier
+Schrauben an unserer Platine lösen, Stehbolzen lösen, Pololu samt Leitungen abziehen; das Ersatzmodul liegt fertig verdrahtet an Bord.
+Im Schaltplan: Pololu-Klemmen als Hilfslötaugen auf der Unterseite, die vier Leitungen als Brücken W1–W4 (nicht auf der Platine, in der Stückliste).
 **Der Widerstand für die Strombegrenzung sitzt auf unserer Platine, nicht auf dem Modul**: Ein Ersatzmodul ist
 dann ohne Nacharbeit einsatzbereit und bringt keine eigenen Werte mit (S7) — anders als der gekaufte Controller
 am 01.10. Ein Ersatzmodul gehört trocken verpackt an Bord.
@@ -56,7 +64,7 @@ Noch zu prüfen: Ösenmaß in der Maßzeichnung, welche Schraube den Transistore
 *Verworfen:* RoboClaw (teuer, Firmware verschlossen); VNH5019 (100 % nicht zugesichert); IBT-2/BTS7960 trotz
 Vorhandensein (belegte Entwurfs- und Fertigungsmängel); eigene Brücke (heikelste Baugruppe, ohne Vorteil).
 
-## 2. Strommessung — **festgelegt 08.10.2026: eingebaute Messung des G2, Hall-Sensor vorbereitet**
+## 2. Strommessung — **festgelegt 08.10.2026: eingebaute Messung des G2 und Hall-Sensor**
 
 Der G2 meldet den Strom selbst: **10 mV je Ampere plus etwa 50 mV Versatz** am Ausgang CS, gelesen über den MCP3208
 (Abschnitt 3). **An diesen Pin kein Kondensator** — der Treiber benutzt ihn selbst für seine Strombegrenzung.
@@ -68,11 +76,10 @@ Mittelwert durch den Tastgrad, die Richtung steht im Befehl. Förderausfall (1,5
 gefehlt haben die Klemmenspannung und eine Auswertung, nicht ein zweiter Sensor.
 **Am echten Modul einmal messen:** Ist der Versatz stabil? Wie schnell folgt die Messung einer Anlaufspitze?
 
-**Vorbereitet, zunächst nicht bestückt** (Betreiber, 08.10.2026): Hall-Sensor **ACS758LCB-050B-PFF-T** (±50 A, 40 mV/A
-bei 5 V, Farnell 1791392) mit Platz und zwei eigenen Schraubklemmen auf unserer Platine. Nur wenn die eingebaute Messung
-nicht reicht, wird er bestückt und **eine** Pumpenader über ihn geführt (Pololu → Klemme → Sensor → Klemme → Pumpe;
-in beiden Adern fließt derselbe Strom). Ohne Bestückung bleibt die Pumpe direkt am Pololu: Jede zusätzliche Klemme ist
-eine neue Fehlerstelle. Versorgung aus **5 V** (Elektronikzweig), weil der Hersteller ihn bei 5 V abgleicht
+**Zusätzlich auf unserer Platine** (Betreiber, 08.10.2026): Hall-Sensor **ACS758LCB-050B-PFF-T** (±50 A, 40 mV/A
+bei 5 V, Farnell 1791392) im Weg der Pumpenader A (Pololu OUTA → Klemme → Sensor → Pumpenklemme; in beiden Adern fließt
+derselbe Strom). Beide Pumpenadern laufen ohnehin über unsere Platine (Abschnitt 1), der Sensor bringt keine zusätzliche
+Klemme. **Er wird gleich bestückt** (Betreiber, 08.10.2026): Ein späterer Einbau hieße Löten an der Leistungsstrecke. Versorgung aus **5 V** (Elektronikzweig), weil der Hersteller ihn bei 5 V abgleicht
 (Datenblatt: 3,0–5,5 V zulässig, abseits von 5 V zusätzlicher Fehler ohne Zahlenangabe); Ausgang über einen
 Spannungsteiler auf einen freien Wandlerkanal (Abschnitt 3), Teiler mit dem Sensor bestücken.
 
@@ -93,7 +100,7 @@ Begründung der Wahl:
   5 000–10 000 Messungen je Sekunde liegen 100–200 Messpunkte darüber (F2, Spitzen erfassen). Im ruhigen Betrieb
   wird langsam gemessen, bei Verdacht schnell. Die Grenze setzt unsere Software, nicht das Bauteil.
 - **Acht Eingänge, fünf Messstellen:** Klemme A, Klemme B, Bordspannung, Stromrückmeldung der Endstufe
-  (Abschnitt 2) und Temperatur der Endstufe (NTC, F11); ein Kanal für den vorbereiteten Hall-Sensor (Abschnitt 2).
+  (Abschnitt 2) und Temperatur der Endstufe (NTC, F11); ein Kanal für den Hall-Sensor (Abschnitt 2).
   Zwei Eingänge sind frei.
 - **Steckbar im Sockel**, ohne Lötkolben tauschbar.
 **Anschluss über Hardware-SPI, nicht nachgebildet in Software.** Der Wandler hält die Messspannung in einem
@@ -202,7 +209,8 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
   Drahtform, unter 1 € (<https://www.digikey.de/de/products/detail/littelfuse-inc/1-5KE20A/688017>), direkt
   an der Eingangsklemme. Keine Drossel am Geräteeingang (müsste 15 A tragen; die 5-V-Zweige filtern selbst). An der
   Endstufe Elko **Panasonic EEU-FR1V102** (1000 µF, 35 V, 105 °C, 10 000 h, Ø 12,5 × 20 mm; Farnell 2508152) auf
-  unserer Platine, nicht auf dem Modul. Pololu: „at least a few hundred µF", auf dem Modul nur 3 × 150 µF.
+  unserer Platine, nicht auf dem Modul, angeschlossen über zwei Stifte an den Pololu-Lötpunkten „+" (VM) und „−"
+  (Abschnitt 1): hinter dem Verpolschutz des Pololu. Pololu: „at least a few hundred µF", auf dem Modul nur 3 × 150 µF.
   **Die Spannungsklasse ist durch zwei Grenzen eingeklemmt, 20 V ist die einzige dazwischen:** Nach unten darf
   sie im Betrieb nicht leiten — die Lichtmaschine lädt bis 15 V, diese Diode sperrt bis **17,1 V**. Nach oben
   muss sie unter der Grenze der Endstufe klemmen — der G2 verträgt **30 V**, diese Diode klemmt bei **27,7 V**.
@@ -236,8 +244,8 @@ Unterlagen nicht — beim Kauf prüfen.
 **Sieben Leuchtdioden** — sie fallen nicht aus wie ein Display:
 - vom Rechner: grün „Betrieb" (blinkt im Programmtakt; Dauerlicht oder dunkel = Programm hängt), **rot „Störung"**,
   blau „WLAN an" (F12);
-- ohne Rechner: zwei gelbe „A" und „B", gegeneinander mit Vorwiderstand an den Messleitungen der Motorklemmen
-  (Abschnitt 1). Sie zeigen, was an der Pumpe ankommt, nicht was befohlen ist; schwach heißt zu wenig Spannung (Fall
+- ohne Rechner: zwei gelbe „A" und „B", gegeneinander mit Vorwiderstand an den Pumpenklemmen auf unserer
+  Platine (Abschnitt 1). Sie zeigen, was an der Pumpe ankommt, nicht was befohlen ist; schwach heißt zu wenig Spannung (Fall
   04.10.). Noch nachrechnen: Einfluss auf den Selbsttest-Widerstand (Abschnitt 3);
 - je 5-V-Zweig rot „Sicherung durch" (Abschnitt 7), leuchtet auch bei totem Gerät.
 **Warnausgang:** rote Leuchtdiode, Fehlertext im Display, Meldung an den TinyPilot mit Anzeige dort und am Leitstand.
@@ -253,21 +261,25 @@ Gehäuse, wird später entschieden (Abschnitt 10).
 
 - **Hohe Ströme gehören nicht auf eine selbst entworfene Leiterbahn** (Praxiswert: 20 mm breite Außenbahn mit
   105 µm Kupfer wird bei etwa 70 A um 58 K wärmer). Leistungspfad als aufgelötete Kupferschiene oder dicker
-  blanker Draht, Weg Eingangsklemme → Elko → Klemmen zum Pololu so kurz wie möglich.
+  blanker Draht; Wege Eingangsklemme → Klemme zum Pololu und Klemme vom Pololu → Hall-Sensor → Pumpenklemme so kurz
+  wie möglich.
+- **Klemmen für die vier kurzen Leitungen zum Pololu: Degson DG301-5.0-02P** (festgelegt 08.10.2026), fest eingelötet,
+  baugleich zu den Pololu-Klemmen (Pololu Nr. 2440, ohne Maße und 3D-Modell); 5,0 mm, IEC 17,5 A / 250 V, Leiter
+  0,75–1,5 mm², Höhe 10,0 mm; Datenblatt und 3D-Modell über LCSC C5371917. Eine Kontaktstelle weniger als steckbar.
 - **Alle Klemmen wie auf der RF300-Interfaceplatine: Phoenix Contact MSTBA 2,5/…-G-5,08** (festgelegt 07.10.2026):
   Stiftleiste liegend auf der Platine, dazu steckbarer Schraubstecker MSTB 2,5/…-ST-5,08; Raster 5,08 mm, 12 A je
   Kontakt, 320 V, Leiter bis 2,5 mm² (z. B. 2-polig: Stiftleiste 1757242, Stecker 1757019). Gilt auch für die
   12-V-Zuleitung und die Klemmen zum Pololu: 12 A sind ein Dauerwert; im Betrieb fließen 4–6 A (Spitze 8,3 A), die
-  15 A der Begrenzung nur kurz bis zur Abschaltung (F6). Die Pumpe hängt direkt am Pololu (Abschnitt 1), außer bei bestücktem Hall-Sensor (Abschnitt 2). *Verworfen:* eigene Leistungsklemmen 7,62 mm (zweiter Typ, im Normalbetrieb nicht nötig).
+  15 A der Begrenzung nur kurz bis zur Abschaltung (F6). Die Pumpe wird an unserer Platine angeschlossen (Abschnitt 1). *Verworfen:* eigene Leistungsklemmen 7,62 mm (zweiter Typ, im Normalbetrieb nicht nötig).
 - **Gehäuse 3D-Druck: ASA**, ersatzweise Polycarbonat; **PLA scheidet aus** (erweicht bei 55–60 °C), PETG ist
-  grenzwertig. O-Ring in Nut, Verschraubungen M16/M20, Ziel IP 54 (die Pumpe selbst ist IP 44).
+  grenzwertig. **Nur mechanischer Schutz, nicht dicht.** Lüftungsschlitze über den Transistoren des
+  Pololu (Abschnitt 1).
 - **Wärmeabfuhr:** kein Kühlkörper; das Modul trägt 25 A ohne Kühlkörper, die Pumpe zieht 4–6 A. Temperaturfühler
   an der Endstufe siehe Abschnitt 1 (F11).
-- **Durchführungen in der Gehäusewand**, alle dicht: Taster, sieben Leuchtdioden (Abschnitt 8), Display,
-  Kabelverschraubungen. Für eine spätere Antennenbuchse wird eine Stelle **vorbereitet, aber nicht
-  gebohrt** — jedes Loch ist eine mögliche Undichtigkeit, und gebraucht wird sie nur, falls der Funk aus dem
-  Motorraum nicht reicht.
-- **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B am Pololu; RF300 zweiadrig geschirmt;
+- **Durchführungen in der Gehäusewand:** Taster, sieben Leuchtdioden (Abschnitt 8), Display, Kabel mit
+  Zugentlastung. Für eine spätere Antennenbuchse wird eine Stelle vorbereitet; gebraucht wird sie nur, falls der Funk
+  aus dem Motorraum nicht reicht.
+- **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B an unserer Platine (MSTBA 2,5/2); RF300 zweiadrig geschirmt;
   zum Steuerhaus **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
   NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Stecker und Belegung wie an der
   RF300-Interfaceplatine:** MSTBA 2,5/8 wie dort J9 (1–4 RS422 zum Motor-Controller A+, B−, Z−, Y+; 5–8 RS422
@@ -285,6 +297,8 @@ Gehäuse, wird später entschieden (Abschnitt 10).
 6. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
    Motorraum legen und prüfen, ob es den Master erreicht und wie stark. Entscheidet über -32E oder -32UE.
 7. Taster: von außen bedienbar (nachgiebige Stelle im Deckel) oder nur bei geöffnetem Gehäuse?
+8. Buchsen- und Stiftleiste für den umgedrehten Pololu wählen: Abstand der Platinen größer als die Pololu-Klemmen
+   (10,0 mm laut Degson-Datenblatt) plus Luft (Abschnitt 1).
 
 ## Quellen
 **Die Bezugsquelle jedes Bauteils steht im jeweiligen Abschnitt.** Hier nur, was nicht an einem Bauteil hängt:
