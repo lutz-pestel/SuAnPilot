@@ -440,6 +440,14 @@
     [
       "3f5e2d60-b48e-461a-af85-9b8e13392e28",
       "RF300-Eingang"
+    ],
+    [
+      "308cdea6-e3ed-4042-bab9-d5931def5bc5",
+      "5V Elektronik"
+    ],
+    [
+      "6e08cac9-0d96-4a68-acc9-44be3610c2a8",
+      "5V PyPilot"
     ]
   ],
   "text_variables": {},

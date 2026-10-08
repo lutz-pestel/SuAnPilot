@@ -31,6 +31,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 Ein Projekt, drei Phasen; je Phase ein Ordner, dazu `0-gesamtprojekt/`. Im Hauptordner sonst nur, was die Werkzeuge dort
 erwarten (`CLAUDE.md`, `CLAUDE.local.md`, `.gitignore`, `.mcp.json`, `.claude/`). Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
 `bom/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einer Phase enthalten nur deren Inhalt.
+Datenblätter als PDF in `datenblaetter/` (nicht in Git), Name `Hersteller_Teilnummer_Ausgabe.pdf`; keine eigene Liste, die Links stehen in der Bauteilauswahl.
 - **`1-tinypilot/` = Phase 1, im Betrieb** (nur Fehler beheben). Baugruppen: `autopilot/` (Software `RPI/` mit `kern/`, `plattform/`,
   `bauen.sh`; `Arduino/` mit dem **veralteten** Coprozessor-Code, der aufgespielte Stand ist verschollen), `rf300-interface/`
   (Platine, Arduino-Code, `Programmbeschreibung.md`), `motor-controller/` (gekauft, **problematisch**: einseitiger Förderausfall,
