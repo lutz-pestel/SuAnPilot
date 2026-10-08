@@ -1,6 +1,6 @@
 # Systembeschreibung Autopilot
 
-Stand: 05.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
+Stand: 08.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
 
 ## 1. Überblick
 - Selbstgebauter Autopilot für ein 15-Tonnen-Schiff mit Hydrauliksteuerung.
@@ -61,8 +61,8 @@ braun NMEA-Ruderlage, blau frei. 5 V kommen getrennt (rot/schwarz). Unbenutzt am
   Pakete davor: `pypilot.tcz.bak-2026-09-30`, `pypilot.tcz.bak-2026-10-02-vor-abhilfe-aus`.
 - Krängungs-Glied H in `pilots/basic.py` und dauerhaft gespeicherte Filter in `boatimu.py` (01.10.2026).
   Paket davor: `pypilot.tcz.bak-2026-10-01-heel`.
-- Eigener Regler **adaptive** (`pilots/adaptive.py`, 05.10.2026): regelt die Ruderlage, wählbar neben basic.
-  Paket davor: `pypilot.tcz.bak-2026-10-05-vor-00.05`. Code `1-tinypilot/regler/`.
+- Eigener Regler **adaptive** (`pilots/adaptive.py`, Version 00.06 seit 06.10.2026): regelt die Ruderlage, wählbar neben basic.
+  Paket davor: `pypilot.tcz.bak-2026-10-06-vor-00.06`. Code `1-tinypilot/regler/`.
 - Laut Bedienungsanleitung wurde früher das Vorzeichen der NMEA-Ruderausgabe (`nmea.py`)
   geändert; im heutigen Paket nicht nachgeprüft.
 
@@ -105,7 +105,7 @@ Herleitung: Testberichte 01.10. (Starkwind: P 0,02, D 0,27, gain 0,7) und 02.10.
   Kein Programmierzugang vorhanden.
 
 ## 7. Schwachstellen (offene Fragen stehen nur in `0-gesamtprojekt/TODO.md`)
-- **Pumpe rückwärts zeitweise schwach** (1,9 V statt 11 V am Motor, Motor steht, brummt; Endstufe des Controllers; Testbericht 04.10.).
+- **Pumpe rückwärts versagt bei Befehl ≥ 0,90 und Ruhe ~12,6 V** (Designfehler der Endstufe; unter 0,90 und bei 14 V normal; Testbericht 08.10.).
 - Ruderlage etwa 1 s verzögert: für basic unerheblich, für adaptive eingerechnet (Chronik).
 - Handsteuerung per Taste nur als Notlösung (A2); Ziel siehe `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`, B3.
 - **AIS-Gerät sendet `$GPRMC` mit Datum 14.02.2007** (vermutlich Überlauf des GPS-Wochenzählers;

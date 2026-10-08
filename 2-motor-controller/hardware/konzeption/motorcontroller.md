@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.07, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.08, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -24,11 +24,10 @@ Version 00.07, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   - **Einseitiger Förderausfall, auch beim Ersatzgerät** (`1-tinypilot/docs/tests/2026-10-04_Hafen_Pumpendiagnose.md`): rückwärts
     zeitweise nur **1,9 V am Motor** statt 11 V, 1,1–1,9 A, Motor steht und brummt; Befehl voll, keine Meldung. Im Hafen
     reproduzierbar, kommt und geht; nach einem Vorwärtslauf oft wieder gut. Anlauf-Rampe als Ursache ausgeschlossen.
-    Altgerät fiel vorwärts aus, Ersatzgerät rückwärts – Verdacht: Hilfsspannung des oberen Transistors (Bootstrap
-    0,22 µF, Diode 1N4001). Neue pypilot-Controller (2022/2024): 10 µF, schnelle Diode, 2–4 Transistoren parallel.
-    Auslöser vermutlich Spannungsabfall in Zuleitung und Kontakten (Korrosion, Querschnitt): 06.10. am Controller 1,5–1,7 V
-    weniger bei 4,5 A, mit und ohne Ladung gleich (~0,35 Ω, berechnet); unter Last 10 V und darunter (Betreiber). Ohne
-    Ladung (Segel) 25 von 26 Rückwärtsläufen gestört, mit Lichtmaschine 3 von 62.
+    Altgerät fiel vorwärts aus, Ersatzgerät rückwärts. **Ursache (08.10.2026, Hafen):** Designfehler der Endstufe – ab
+    Befehl 0,90 Dauer-Ein mit kurzem Ladepuls für die Hilfsspannung des oberen Transistors (Bootstrap 0,22 µF, Diode 1N4001);
+    bei Ruhe 12,6 V versagt die schwächere Seite, bei 14 V und unter 0,90 läuft sie. Leitungswiderstände sind nicht die
+    Ursache. Neue pypilot-Controller (2022/2024): 10 µF, schnelle Diode, 2–4 Transistoren parallel.
     Der Robertson an derselben Versorgung zeigt die Symptome nicht: Der gekaufte Controller ist zu empfindlich.
 
 ## 3. Anforderungen
@@ -55,7 +54,8 @@ Version 00.07, Stand: 07.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   Das Kabel zum Steuerstand bleibt unverändert: gleicher Stecker und gleiche Belegung wie an der RF300-Interfaceplatine.
 - F8 Betrieb am 12-V-Bordnetz im Motorraum (Feuchte, Wärme, Vibration).
 - F9 Endstufe muss in beiden Richtungen **dauerhaft 100 %** halten (keine knappe Bootstrap-Hilfsspannung,
-  sondern eingebaute Ladungspumpe). Anlauf-Rampe einstellbar.
+  sondern eingebaute Ladungspumpe). Anlauf-Rampe einstellbar. **Belegt 08.10.2026:** Der gekaufte Controller versagt genau beim
+  Wechsel auf Dauer-Ein (Befehl ≥ 0,90) bei 12,6 V (`1-tinypilot/docs/tests/2026-10-08_Hafen_Pumpe_Drehzahl_Spannung.md`).
 - F10 **Spannung an beiden Motorklemmen messen** (nicht nur Strom und Bordspannung) – nur so ist ein Ausfall der
   Endstufe von einem der Pumpe zu unterscheiden.
 - F11 **Übertemperatur der Endstufe über deren Fehlerausgang erkennen**; das Gerät schaltet die Pumpe dann selbst

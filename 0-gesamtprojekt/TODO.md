@@ -1,6 +1,6 @@
 # Aufgabenliste TinyPilot (aktuelles Projekt)
 
-Stand: 07.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
+Stand: 08.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
 Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `3-suanpilot/docs/gesamt.md`.
 Einteilung nach Ort: **Im Hafen** (entwickeln, einrichten) und **Unterwegs** (messen, testen); Reihenfolge
 innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `1-tinypilot/regler/verbesserungen.md`.
@@ -25,8 +25,8 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
 8. Ruder-Kalibrierung genau (Endpunkte am 01.10. nicht am Anschlag, Grad ~20 % zu groß).
 9. AIS-Positionsmeldungen mit Datum 2007 abstellen; Signal-K-Passwort zurücksetzen;
    Aufzeichnungsprogramm: Takt nach nicht springendem Zähler.
-10. **Pumpe rückwärts schwach** (Testbericht 04.10.): im Fehlerfall Klemme A und B gegen Masse messen (`messlauf3.py`);
-    dann entscheiden: neuer pypilot-Controller (`2-motor-controller/hardware/konzeption/motorcontroller.md`).
+10. **Pumpe rückwärts** (Testbericht 08.10.): an Bord feste Höchstdrehzahl 80 %. Offen: Erkennung für kurze Stöße des Autopiloten
+    (`1-tinypilot/regler/entwurf_pumpenleistung.md`); Fehlalarm „Pumpe steht“ der alten Selbsthilfe bei halber Geschwindigkeit abstellen.
 11. **Master-Netz:** Autostart des Leitstands (`Leitstand-Autostart.desktop`) nach einem Neustart des Masters prüfen (eingerichtet,
     ungeprüft); die Geräte `30:83:98` (10.10.10.159/.160, Espressif, ohne offene Ports) zuordnen: an Bord nachsehen
     oder nacheinander ausschalten.
@@ -57,15 +57,14 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 10. Endlagenschalter am Motor-Controller angeschlossen? Kabel vorhanden, in keinem Plan. (N)
 11. Ursache der 57 Servo-Störungen? (Aufzeichnung auswerten)
 12. Altes Gerät (Ausfall vorwärts): welches Bauteil? Als Reserve reparieren? (M, F)
-13. Pumpe rückwärts zeitweise schwach (1,4 statt 4 A, Brummen): Spannung an den Motorklemmen beim Brummen, Klopftest; `1-tinypilot/regler/diagnose.py`. (M)
-14. Pumpendaten: Typ, Nennspannung, Lauf- und Anlaufstrom, Fördermenge. (N Typenschild)
-15. Ruder von Anschlag zu Anschlag: Zeit? pypilot nimmt 2,14 s an. (M)
-16. Anzeige-Fehler +2,9° bei Ruder mittig: Einbau RF300, Kalibrierung Interface oder pypilot? (N, M)
-17. Verzögerung der Ruderlage ~1 s: welcher Teil wie viel (Mittelwert, Glättung, Controller, pypilot)? Für SuAnPilot. (M)
-18. Einbauort der PyPilot-Einheit (Kompass): Abstand zu Eisen und Stromkabeln? (N)
-19. Unterlagen: Motor_Controller_Fakten nennt 0,25 s Verzögerung (geschätzt), gemessen ~1 s – berichtigen.
-20. Verdrahtungsplan: orange Ader und Masse am Wandler fehlen, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
-21. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
+13. Pumpendaten: Typ, Nennspannung, Lauf- und Anlaufstrom, Fördermenge. (N Typenschild)
+14. Ruder von Anschlag zu Anschlag: Zeit? pypilot nimmt 2,14 s an. (M)
+15. Anzeige-Fehler +2,9° bei Ruder mittig: Einbau RF300, Kalibrierung Interface oder pypilot? (N, M)
+16. Verzögerung der Ruderlage ~1 s: welcher Teil wie viel (Mittelwert, Glättung, Controller, pypilot)? Für SuAnPilot. (M)
+17. Einbauort der PyPilot-Einheit (Kompass): Abstand zu Eisen und Stromkabeln? (N)
+18. Unterlagen: Motor_Controller_Fakten nennt 0,25 s Verzögerung (geschätzt), gemessen ~1 s – berichtigen.
+19. Verdrahtungsplan: orange Ader und Masse am Wandler fehlen, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
+20. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
     auf 220 Ω: zählt die Platine noch sauber? Dazu Frequenz mittschiffs an der Platine (6,89 V) und am Robertson (10,8 V)
     vergleichen: beeinflusst die Sensorspannung die Messung? (M)
 Ebenfalls offen, steht oben: Ruder-Kalibrierung (Hafen 8), Hartruder (Hafen 7), AIS (Hafen 9), Kompass, Windgeber (Unterwegs 5).

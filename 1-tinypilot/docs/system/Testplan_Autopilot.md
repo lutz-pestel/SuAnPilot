@@ -61,17 +61,5 @@ Dazu bei Bedarf: Pendelperiode, Stromspitzen, neue Servo-Störungen, Selbsthilfe
 - Ist der PC an Bord im WLAN des Masters? Fahrt unter Motor oder Segel?
 
 ## Hafenversuch Unterspannung (Pumpe rückwärts)
-Ziel: nachweisen, dass Spannungseinbrüche am Controller den Förderausfall rückwärts verursachen (Abfall in Zuleitung und
-Kontakten, 06.10. ~1,5 V bei 4,5 A; Controller: `Motor_Controller_Fakten.md`, 2a). Robertson an derselben Versorgung: ohne Symptome.
-- Sicherheit: Hafen, Autopilot im Standby, Ruder frei, niemand am Steuerrad. Programm `1-tinypilot/regler/unterspannung.py`;
-  es fährt das Ruder höchstens bis 25° (Schutz im Programm), Strg+C hält die Pumpe sofort an.
-- Ablauf je Durchgang: lange Läufe Backbord → Steuerbord (rückwärts) und zurück (vorwärts); vor jedem Rückwärtslauf eine
-  Pause von 1, 10 oder 30 s, gemischt, je 10 Läufe. Das Programm sagt jeden Rückwärtslauf an, zeichnet Ruhe- und Laufspannung auf.
-- Durchgänge, sonst alles gleich: 1 mit Ladung (Motor oder Landstrom); 2 ohne Ladung; 3 ohne Ladung, Controller über eine
-  kurze, dicke Behelfsleitung direkt von den Batteriepolen versorgt (eigene Sicherung nahe der Batterie; falls machbar).
-- Multimeter 2–3 s nach Laufbeginn: Controller-Eingang +12 V gegen Masse; bei gestörtem Lauf Motor A und B gegen Masse.
-- Deutung: Ausfälle in 1 wenige, in 2 viele, in 3 wieder wenige → Ursache nachgewiesen; überall gleich häufig → These falsch.
-  Nach langer Pause mehr Ausfälle als nach kurzer → Hilfsspannung (Bootstrap) entlädt sich in der Pause. Eine Klemme zeigt
-  bei gestörtem Lauf ~2 V statt 11 V → oberer Transistor dieser Seite.
-- Nachrangig, nur bei bestätigter Ursache: Spannungsabfall je Verbindung (Plus- und Minuszweig) messen, Versorgung verbessern.
-- Ergebnis: Ausfallrate je Durchgang und Pause mit Spannungen; Bericht in `1-tinypilot/docs/tests/`.
+Durchgeführt am 08.10.2026 mit Drehzahlstufen statt Spannungsstufen; Ergebnis und Programme:
+`1-tinypilot/docs/tests/2026-10-08_Hafen_Pumpe_Drehzahl_Spannung.md` (`kurzversuch.py`, `unterspannung.py` in `1-tinypilot/regler/`).

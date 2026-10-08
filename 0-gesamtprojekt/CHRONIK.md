@@ -65,3 +65,10 @@ Seit 12:47 kam keine Anmeldung des PCs mehr im Zugangspunkt an; das Systemprotok
 Neustart um 13:27 leer, die Aufzeichnung lief weiter. Vorher hatte der PC sich ab 12:22 ständig neu angemeldet.
 Gleichzeitig suchte der Leitstand alle 30 s das ganze Netz ab (254 Rundrufe); ob das die Ursache war, ist **nicht bewiesen**.
 **Lehre:** Der eingebaute WLAN-Chip des Pi 3B+ ist empfindlich: keine Rundruf-Suche im Dauerbetrieb. Netzsuche nur auf Anforderung.
+
+## 2026-10-08 – Zwei Tage die Stromversorgung verdächtigt, die Drehzahl klärte es in einer Stunde
+Nach den Fahrdaten (06.10.) galten Spannungseinbrüche in Leitungen und Kontakten als Auslöser des Rückwärtsausfalls.
+Im Hafen zeigte ein einziger Lauf mit 60 % statt 100 %: Die Pumpe läuft, obwohl die Spannung dabei am tiefsten war.
+Die Grenze (Befehl 0,88 läuft, 0,92 versagt) traf genau den Wechsel der Firmware auf Dauer-Ein bei 0,90.
+**Lehre:** Bei einem Leistungsfehler zuerst die eigene Stellgröße (Drehzahl, Richtung) stufenweise ändern und mit dem
+Code der Gegenseite vergleichen. Höhere Spannung in gestörten Läufen ist Folge des kleinen Stroms, kein Gegenbeweis.

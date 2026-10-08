@@ -1,6 +1,6 @@
 # Motor-Controller – Fakten
 
-Version 00.01, Stand 07.10.2026
+Version 00.02, Stand 08.10.2026
 
 ## Status
 Der Code liegt hier **nur als Reserve**. Er wird gebraucht, falls der Controller
@@ -26,15 +26,13 @@ Welcher Programmstand auf dem eingebauten Controller läuft, ist unbekannt.
 - Kabel Ruderlagengeber: schwarz = Masse, gelb = Winkelspannung, rot = +5 V.
 - Stecker für die serielle Verbindung zum TinyPilot.
 
-## 2a. Leistungsteil laut Plan (`hydraulic_controller.pdf`, Blatt 1) und vermutete Fehler
+## 2a. Leistungsteil laut Plan (`hydraulic_controller.pdf`, Blatt 1) und Fehler (Testbericht 08.10.2026)
 - H-Brücke: Q1 oben / Q2 unten an Klemme A, Q3 oben / Q4 unten an Klemme B, je Schalter ein Transistor. Treiber NCP5106B U2 (A),
   U3 (B); Bootstrap (Hilfsspannung der oberen Transistoren) C5/C6 je 0,22 µF, Ladedioden D2/D1 1N4001. Strom über 0,5 mΩ/INA180.
-- **Fehler Ersatzgerät:** rückwärts (= Ruder nach Steuerbord) zeitweise 1,9 V statt 11 V am Motor, 1,1–1,9 A, Brummen, keine
-  Meldung (Testbericht 04.10.); 06.10. unter Segel 11 von 12 Läufen gestört, unter Motor 2 von 29 (Master,
-  `signals_2026-10-06_140402.csv`). Bordspannung dabei 12,5 V (04.10.) und 13,0 V (06.10.), Zusammenhang ungeprüft.
-- **Verdacht:** ein oberer Transistor schaltet zeitweise nur halb durch; Bootstrap klein, Diode langsam (neuere Bauformen 10 µF,
-  schnelle Diode). Unbelegt (eigene Schlussfolgerung): Bei voller Drehzahl lädt der Bootstrap schlecht nach; die Firmware änderte
-  das 2020, der Stand auf dem Gerät ist unbekannt. Bestückung nach Plan nicht geprüft. Altes Gerät: Ausfall vorwärts (30.09.).
+- **Fehler Ersatzgerät:** rückwärts (Ruder nach Steuerbord; Seite B oben: Q3, U3, C6, D1) versagt ab Befehl 0,90 bei Ruhe
+  12,6 V: 1,5 V am Motor, 1,1 A, Brummen, keine Meldung. Unter 0,90 (Einstellung 85 %) und bei 14 V läuft es; vorwärts immer.
+- **Ursache:** Firmware (Reserve) schaltet ab 0,90 auf Dauer-Ein mit 62,5 Hz und kurzem Ladepuls; Bootstrap klein, Diode
+  langsam → **Designfehler**, die schwächere Seite B fällt zuerst aus (Streuung/Alterung). Altgerät: vorwärts (30.09.).
 
 ## 3. Verbindung zu TinyPilot und RF300-Interface
 - TinyPilot und Controller sind seriell verbunden, laut Makefile-Monitor mit 38400 Baud.
