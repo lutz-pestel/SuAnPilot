@@ -4,6 +4,12 @@
 	(generator_version "10.0")
 	(uuid "8e693c0f-f303-48eb-9919-afe779c7243c")
 	(paper "A4")
+	(title_block
+		(title "Motor-Controller V2.0 – Messwerterfassung")
+		(date "2026-10-09")
+		(rev "00.01")
+		(company "SuAn-Autopilot-Projekt")
+	)
 	(lib_symbols
 		(symbol "Analog_ADC:MCP3208"
 			(pin_names
