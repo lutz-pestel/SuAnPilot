@@ -72,3 +72,10 @@ Im Hafen zeigte ein einziger Lauf mit 60 % statt 100 %: Die Pumpe läuft, obwohl
 Die Grenze (Befehl 0,88 läuft, 0,92 versagt) traf genau den Wechsel der Firmware auf Dauer-Ein bei 0,90.
 **Lehre:** Bei einem Leistungsfehler zuerst die eigene Stellgröße (Drehzahl, Richtung) stufenweise ändern und mit dem
 Code der Gegenseite vergleichen. Höhere Spannung in gestörten Läufen ist Folge des kleinen Stroms, kein Gegenbeweis.
+
+## 2026-10-09 – Schaltplan Motor-Controller: zwei Fehler, die erst die Prüfung fand
+Ein Spannungszeichen (PWR_FLAG) lag mitten auf einer Leitung und war **nicht** verbunden — KiCad verbindet nur an
+Leitungsenden; erst die Regelprüfung meldete die Referenz als unversorgt. Eine Notiz im Plan behauptete, bestimmte
+ESP32-Anschlüsse gäben beim Start nichts aus; Espressif sagt das nicht, erst der Abgleich mit dem Herstellerdokument fand es.
+**Lehre:** Ein Schaltplan ist erst fertig, wenn die Regelprüfung ohne Fehler ist, jede Verbindung des Blockschaltbilds in
+der Netzliste nachgewiesen ist und jede Aussage über Anschlüsse einen Herstellerbeleg hat.

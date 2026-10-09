@@ -40,6 +40,7 @@ Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git),
   Dazu `regler/` (eigener Kursregler, nur SuAns Werte; hier wird programmiert), `docs/`, `daten/` und
   `werkzeuge/` (`logger/` Kopie vom Master, `auswertung/`, `versuche/`).
 - **`2-motor-controller/`** (Phase 2, Neubau, ersetzt auch die RF300-Interfaceplatine): Anforderungen in `hardware/konzeption/`.
+  Schaltplan `hardware/kicad/v00.01/` (KiCad 10): Dateien nur bei geschlossenem KiCad ändern; danach `kicad-cli sch erc` und `pruefung_blockschaltbild.py`.
 - **`3-suanpilot/`** (Phase 3, nicht begonnen): `autopilot/`, `docs/`. Phasen 2 und 3 sind Ideensammlungen:
   **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.** Versionsnummern erst im Unterordner `vNN.NN/`.
 - **`0-gesamtprojekt/`** (gilt für alle Phasen): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,

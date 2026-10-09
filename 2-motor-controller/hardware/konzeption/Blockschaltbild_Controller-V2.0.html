@@ -41,7 +41,7 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Motor-Controller V2.0</h1>
-  <p class="sub">Version 00.05, Stand 09.10.2026. Ein Ger&auml;t im Motorraum ersetzt den gekauften Motor-Controller
+  <p class="sub">Version 00.06, Stand 09.10.2026. Ein Ger&auml;t im Motorraum ersetzt den gekauften Motor-Controller
   <em>und</em> die RF300-Interfaceplatine. Jeder Kasten im Rahmen ist ein Blatt oder ein Teil des Hauptblatts im
   KiCad-Schaltplan (<code>kicad/v00.01</code>); die Beschriftungen der Pfeile sind die Netznamen dort.
   Bauteile: <code>Bauteilauswahl.md</code>. Die K&uuml;rzel F&hellip; und S&hellip; verweisen auf die Anforderungen in
@@ -126,7 +126,7 @@
 
   <!-- ======== Spalte 3: Leistung und Messung ======== -->
   <g><rect x="980" y="100" width="260" height="200" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="981" y="101" width="258" height="198"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Endstufe Pololu G2 18v25</b><span class="bl u">Unterblatt Endstufe &#8211; gezeichnet</span>Umgedreht auf zwei Messing-Stehbolzen, Steuerleitungen &#252;ber Stift-/Buchsenleiste; Klemmen nach unten, vier kurze Leitungen zu unserer Platine. Am Pololu nur stecken und schrauben. Ladungspumpe: dauerhaft 100&nbsp;% in beiden Richtungen. Strombegrenzung 15&nbsp;A (Widerstand an VREF auf unserer Platine). Fehlerausgang FLT, Stromr&#252;ckmeldung CS 10&nbsp;mV/A, Temperaturf&#252;hler unter der Befestigungsschraube. Elko 1000&nbsp;&#181;F am Pololu-&#8222;+&#8220; (hinter dessen Verpolschutz).<span class="ref">F1, F9, F11, S8</span></div></foreignObject></g>
+  <foreignObject x="981" y="101" width="258" height="198"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Endstufe Pololu G2 18v25</b><span class="bl u">Unterblatt Endstufe &#8211; gezeichnet</span>Umgedreht auf zwei Messing-Stehbolzen, Steuerleitungen &#252;ber Stift-/Buchsenleiste; Klemmen nach unten, vier kurze Leitungen zu unserer Platine. Am Pololu nur stecken und schrauben. Ladungspumpe: dauerhaft 100&nbsp;% in beiden Richtungen. Strombegrenzung in der Software (Hall-Sensor), Platz f&#252;r Widerstand an VREF bleibt leer. Fehlerausgang FLT, Stromr&#252;ckmeldung CS 10&nbsp;mV/A, Temperaturf&#252;hler unter der Befestigungsschraube. Elko 1000&nbsp;&#181;F am Pololu-&#8222;+&#8220; (hinter dessen Verpolschutz).<span class="ref">F1, F9, F11, S8</span></div></foreignObject></g>
 
   <g><rect x="1030" y="330" width="210" height="90" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
   <foreignObject x="1031" y="331" width="208" height="88"><div xmlns="http://www.w3.org/1999/xhtml" class="bx"><b>Hall-Sensor und Pumpenklemme</b><span class="bl u">Unterblatt Endstufe &#8211; gezeichnet</span>ACS758 (best&#252;ckt) in Ader A; Pumpe an Klemme J5 (MSTBA&nbsp;2,5/2, Hauptblatt). Versorgung +5V.<span class="ref">F2, F10</span></div></foreignObject></g>

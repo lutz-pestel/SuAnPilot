@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
-**Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+**Ideensammlung.** Schaltplan `kicad/v00.01` gezeichnet (09.10.2026); jede Anforderung wird vor dem Bau einzeln geprüft.
+Version 00.11, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -47,7 +47,8 @@ Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   4800 Baud, `$GPRSA,<Grad ganzzahlig>.0,<A|V>,,V*hh` mit CR LF, V und Winkel 0 ohne RF300-Takt, etwa alle 200 ms.
 - F6 Endlagen per Software aus der Ruderlage (keine Endlagenschalter), mit Sicherheitsabstand zum mechanischen
   Anschlag. **Die Pumpe darf nie gegen den Anschlag laufen:** Läuft sie und bewegt sich das Ruder nicht, schaltet
-  das Gerät sie so schnell wie möglich ab und meldet es. Den Abstand legt der Versuch fest.
+  das Gerät sie so schnell wie möglich ab und meldet es. Den Abstand legt der Versuch fest. **Strombegrenzung in der
+  Software** (Betreiber, 09.10.2026): Grenze einstellbar, unter 20 A, nach Beobachtung im Betrieb (`Bauteilauswahl.md` 1).
 - F7 Kommunikation mit dem TinyPilot über RS422. **Protokoll festgelegt 04.10.2026: pypilot-kompatibel**
   (38400 Baud, Pakete aus Befehl, 16-Bit-Wert und Prüfsumme). Es überträgt bereits Strom, Spannung, zwei
   Temperaturen, Ruderlage und Zustands-Flags. Zusätzliche Werte (Klemmenspannungen, Förderausfall mit Richtung,
@@ -70,7 +71,7 @@ Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 - F12 **WLAN für Fernprogrammierung und Zugriff.** Nach dem Einschalten 60 min aktiv, jede Nutzung verlängert;
   ein Taster schaltet es wieder ein; **blaue Leuchtdiode** zeigt an, dass es läuft. Das Gerät meldet sich zuerst
   bei „master" an; schlägt das fehl, baut es einen eigenen Zugangspunkt auf. **Programmieren nur bei stehender
-  Pumpe.** Im Motorraum (Metall, geschlossenes Gehäuse) ist eine äußere Antenne nötig.
+  Pumpe.** Reicht der Funk im Motorraum nicht, kommt der Laptop dorthin (Betreiber, 09.10.2026).
 - F13 **Gemeinsame Stromversorgung:** Das Gerät erzeugt auch die 5 V für die PyPilot-Einheit (heute Aufgabe des
   RF300-Interface) – über einen **eigenen zweiten Regler**, damit ein Kurzschluss dort nicht die Ruderlagen-
   Ausgabe und die Pumpensteuerung mitnimmt (F5, S6). Kabellänge zur Steuersäule höchstens 3 m. Es bleibt beim
@@ -112,11 +113,12 @@ Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   | niedrig (z. B. 1,9 V statt 11 V) | – | steht | Endstufe |
   | voll | keiner | steht | Kabel, Motorkohlen |
   | voll | normal | steht | Pumpe oder Hydraulik |
-- S10 **Selbsttest beim Einschalten**, bevor der Autopilot gebraucht wird: erst in Ruhe (Brücke hochohmig) die
-  Klemmenspannungen prüfen – ein dauerhaft leitender, also durchgebrannter Schalter verrät sich hier –, dann je
-  Richtung ein kurzer Antippimpuls mit Prüfung von Klemmenspannung, Strom und Ruderbewegung. Ergebnis melden.
+- S10 **Selbsttest läuft ständig und bewegt das Ruder nie** (Betreiber, 09.10.2026): in jeder Ruhepause (Brücke
+  hochohmig) die Klemmenspannungen prüfen – ein dauerhaft leitender, also durchgebrannter Schalter verrät sich hier –,
+  dazu Fehlerausgang der Endstufe, Bordspannung, Strom-Nullpunkt (beide Strommessungen) und RF300-Takt. Ob die Pumpe wirkt,
+  prüft S1 bei jedem echten Befehl. Ergebnis melden.
 - Anlass S1–S3: 30.09.2026, Pumpe lief vorwärts nach vorwärts oft nicht an, ohne jede Meldung.
-  Anlass S10: Derselbe Ausfall wäre vor dem Ablegen sichtbar gewesen statt mitten auf dem Wasser.
+  Anlass S10: Ein durchgebrannter Schalter soll vor dem Ablegen sichtbar sein, nicht erst mitten auf dem Wasser.
 
 ### 3.3 Anschluss des RF300
 - RF300 (`1-tinypilot/rf300-interface/hardware/datenblaetter/RF 300 Ruderlagensensor.xls`): Mitte 3400 Hz, 20 Hz je Grad, ±90° = 1600–5200 Hz,
@@ -147,8 +149,8 @@ Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   Sensorspannung die Messung beeinflusst (Frequenz mittschiffs an der Interfaceplatine und am Robertson vergleichen).
 
 ## 4. Offene Punkte
-- Pumpe RPU160: Anlauf- und Blockierstrom messen; hat sie ein Überdruckventil? (Typenschild: 12 V, 7,5 A,
-  3500 min⁻¹, 1,6 l/min, IP 44. Gemessen: Betrieb 4–6 A, Spitzen 8,3 A ohne Last.)
+- Pumpe RPU160: Strom im Betrieb weiter beobachten; Anlauf unter 15 A (Betreiber, 09.10.2026), Blockierstrom und
+  Überdruckventil unbekannt. (Typenschild: 12 V, 7,5 A, 3500 min⁻¹, 1,6 l/min, IP 44. Gemessen: Betrieb 4–6 A, Spitzen 8,3 A ohne Last.)
 - Stromaufnahme der PyPilot-Einheit auf der 5-V-Leitung und Querschnitt des rot/schwarzen Paares messen.
 - Welche Befehlsnummern des pypilot-Protokolls frei sind (Quelltext `servo.py` und `motor.ino` nachsehen).
 - Doppelung (S8) ja oder nein; Gehäuse und Steckverbinder.
@@ -162,10 +164,10 @@ Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 
 ## 5. Nächste Schritte
 Schaltplan `kicad/v00.01` vollständig (09.10.2026: Regelprüfung von KiCad ohne Fehler, alle Verbindungen des
-Blockschaltbilds in der Verbindungsliste nachgewiesen). Bauteile: `Bauteilauswahl.md`, Stückliste `bom/bom.csv`.
-1. Offene Punkte der Bauteilauswahl (Abschnitt 10) klären, vor allem Widerstand für 15 A und Leisten für den Pololu.
-2. Lötbilder (Footprints) zuordnen, dann Platine entwerfen.
-3. Prototyp am Tisch, dann Test an der Pumpe im Hafen.
+Blockschaltbilds in der Verbindungsliste nachgewiesen). Bauteile gewählt: `Bauteilauswahl.md`, Stückliste `bom/bom.csv`;
+offen nur der RF300-Versuch (`0-gesamtprojekt/TODO.md`).
+1. Lötbilder (Footprints) zuordnen, dann Platine entwerfen.
+2. Prototyp am Tisch, dann Test an der Pumpe im Hafen.
 Jeder Schritt wird einzeln vorgelegt.
 
 ## 6. Pflege

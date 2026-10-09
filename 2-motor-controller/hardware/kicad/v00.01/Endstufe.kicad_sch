@@ -2226,7 +2226,7 @@
 		)
 		(uuid "d44d4e6b-d2d4-4d9f-9920-bae61216be70")
 	)
-	(text "Kondensatoren und Pololu-Klemmen zeigen zur Platine;\nFläche darunter gesperrt. Am Pololu nur stecken und schrauben.\nC+ = VM hinter dem Verpolschutz: nie mit +12V verbinden.\nR10: Strombegrenzung 15 A, Wert offen (Kennlinie grob 17 kOhm).\nR11: FLT zieht nur nach Masse."
+	(text "Kondensatoren und Pololu-Klemmen zeigen zur Platine;\nFläche darunter gesperrt. Am Pololu nur stecken und schrauben.\nC+ = VM hinter dem Verpolschutz: nie mit +12V verbinden.\nR10: nicht bestückt, Strombegrenzung in der Software.\nR11: FLT zieht nur nach Masse."
 		(exclude_from_sim no)
 		(at 74.93 93.98 0)
 		(effects
@@ -3857,28 +3857,28 @@
 		(in_bom yes)
 		(on_board yes)
 		(in_pos_files yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "b8e653d7-10b2-4692-8098-9ee385986101")
 		(property "Reference" "R10"
-			(at 92.71 69.85 0)
+			(at 99.06 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
-		(property "Value" "offen"
-			(at 92.71 72.39 0)
+		(property "Value" "nicht bestückt"
+			(at 99.06 72.39 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
+				(justify right)
 			)
 		)
 		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"

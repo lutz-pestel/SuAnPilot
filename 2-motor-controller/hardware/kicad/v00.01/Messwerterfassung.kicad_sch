@@ -6106,7 +6106,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "LM4040DIZ-2.5"
+		(property "Value" "LM4040AIZ-2.5"
 			(at 216.53 62.23 0)
 			(show_name no)
 			(do_not_autoplace no)

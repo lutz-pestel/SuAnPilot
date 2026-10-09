@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.21, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.22, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -29,6 +29,12 @@ Nach Wegfall der Ursache läuft das Modul selbst wieder an (S5).
 Platine: Kondensatoren zur Platine, Transistoren oben in freier Luft; Stiftleiste auf der Kondensatorseite eingelötet,
 **Buchsenleiste so hoch, dass Kondensatoren (8,0 mm) und Pololu-Klemmen (10,0 mm) darunter Platz haben**; die Fläche
 darunter ist für Bauteile gesperrt.
+**Leisten und Bolzen** (gewählt 09.10.2026): auf unserer Platine Buchsenleiste **Würth WR-PHD 61302011821** (1 × 20,
+2,54 mm, Körper 8,5 mm, vergoldet, −40…+105 °C, 3 A; Datenblatt 002.001 vom 10.04.2024), am Pololu Stiftleiste
+**Würth 61302011121** (1 × 20, Kunststoff 2,54 mm, Steckstift 6,0 mm); beide mit dem Seitenschneider geteilt in 8 + 2 + 1 + 1.
+Zwei Stehbolzen **Würth WA-SBRII 970120244** (M2 innen/innen, 12 mm, Messing vernickelt, −55…+150 °C; 11 mm gibt es in M2
+nicht). Gerechnet: Leisten ganz gesteckt 11,0 mm; beim Bolzen 12 mm stecken die Stifte 5,0 mm tief, über den
+Pololu-Klemmen (10,0 mm) bleiben 2,0 mm Luft.
 **Am Pololu wird nur gesteckt und geschraubt, nie gelötet** (Betreiber, 08.10.2026); Leisten, Stifte und Klemmen sind
 vorher eingelötet, beim Ersatzmodul ebenso. An den **mitgelieferten Pololu-Schraubklemmen** hängen nur vier kurze Leitungen
 zu fest eingelöteten Klemmen auf unserer Platine (Degson DG301, Abschnitt 9): VIN und GND von unserer Eingangsseite,
@@ -40,8 +46,8 @@ umgangen. **Die Pololu-Klemmen sitzen auf der Kondensatorseite, also nach unten*
 treten an der Klemmenkante unter dem Pololu heraus, unsere zwei Klemmen sitzen direkt daneben. **Tausch:** die vier
 Schrauben an unserer Platine lösen, Stehbolzen lösen, Pololu samt Leitungen abziehen; das Ersatzmodul liegt fertig verdrahtet an Bord.
 Im Schaltplan: Pololu-Klemmen als Hilfslötaugen auf der Unterseite, die vier Leitungen als Brücken W1–W4 (nicht auf der Platine, in der Stückliste).
-**Der Widerstand für die Strombegrenzung sitzt auf unserer Platine, nicht auf dem Modul**: Ein Ersatzmodul ist
-dann ohne Nacharbeit einsatzbereit und bringt keine eigenen Werte mit (S7) — anders als der gekaufte Controller
+**Die Strombegrenzung steckt in unserer Software, nicht im Modul**: Ein Ersatzmodul ist
+ohne Nacharbeit einsatzbereit und bringt keine eigenen Werte mit (S7) — anders als der gekaufte Controller
 am 01.10. Ein Ersatzmodul gehört trocken verpackt an Bord.
 
 **Blockiertes Ruder meldet das Modul nicht.** Öffnet das Überdruckventil, steigt der Strom nur mäßig: nichts
@@ -50,8 +56,12 @@ greift, nichts wird gemeldet, das Ruder steht trotzdem. Steht der Motor still, s
 nicht, ihr Ansprechen wäre auch kein Fehlerzustand. **Die Blockade erkennt nur die Software** aus Befehl +
 Strom + stehender Ruderlage (S1, F6). Die Endstufe ist die letzte Verteidigungslinie, nicht die erste.
 
-**Zwei Auflagen:** (1) Strombegrenzung über einen Widerstand zwischen VREF und Masse auf **15 A** senken, unter
-den Wert der 20-A-Sicherung im Schiff (Pololu nennt 100 kΩ → ca. 41 A; der Widerstand für 15 A ist zu erfragen). (2) **Fehlerausgang (FLT) an
+**Zwei Auflagen:** (1) **Strombegrenzung in der Software** (Betreiber, 09.10.2026): Der ESP32 misst über den
+Hall-Sensor (CS schweigt in den Bremspausen), nimmt über einer einstellbaren Grenze unter 20 A die Leistung zurück und
+schaltet bei stehendem Ruder ab (F6); die Grenze folgt der Beobachtung im Betrieb. Ohne Software schützen die
+Kurzschlussabschaltung und Werksgrenze des Pololu, die Überwachung (Watchdog) des ESP32 — beim Neustart hält R601 die
+Ansteuerung aus — und die 20-A-Sicherung im Schiff. Der Platz für einen Widerstand VREF–Masse bleibt leer (Pololu nennt
+nur eine Kurve: 100 kΩ ≈ 41 A, bei kleinen Werten ungenau). (2) **Fehlerausgang (FLT) an
 den ESP32** (F11): Er meldet Kurzschluss, Unterspannung und Übertemperatur; das Modul schaltet bei Übertemperatur
 nicht selbst ab (Pololu), deshalb stoppt der ESP32 die Pumpe. Kein Kühlkörper. Zur Vorwarnung ein **NTC-Fühler mit
 Ringöse unter der Befestigungsschraube, die den Transistoren am nächsten liegt** (festgelegt 07.10.2026): nichts
@@ -71,7 +81,7 @@ Der G2 meldet den Strom selbst: **10 mV je Ampere plus etwa 50 mV Versatz** am A
 Er misst nur, solange die Brücke treibt; bei zerhackter Ansteuerung zeigt er in den Bremspausen null. Wesentliches
 geht dabei nicht verloren: Bei voller Ansteuerung treibt die Brücke ständig, in der Rampe teilt das Programm den
 Mittelwert durch den Tastgrad, die Richtung steht im Befehl. Förderausfall (1,5 statt 5 A, also etwa 15 statt 50 mV
-über dem Versatz; ein Wandlerschritt ist 0,61 mV) und Blockade (Begrenzung 15 A plus stehendes Ruder) bleiben erkennbar.
+über dem Versatz; ein Wandlerschritt ist 0,61 mV) und Blockade (hoher Strom plus stehendes Ruder) bleiben erkennbar.
 **Beleg:** Am 04.10. hat die eingebaute Messung des gekauften Controllers den Fehler gezeigt (1,1–1,9 A statt 5–6 A);
 gefehlt haben die Klemmenspannung und eine Auswertung, nicht ein zweiter Sensor.
 **Am echten Modul einmal messen:** Ist der Versatz stabil? Wie schnell folgt die Messung einer Anlaufspitze?
@@ -88,9 +98,8 @@ Spannungsteiler 1:2 (2 × 10 kΩ, 1 %; ±50 A ergeben 0,25–2,25 V, gerechnet) 
 **Wandler: MCP3208-CI/P** (DIP-16, im Sockel, 
 <https://de.rs-online.com/web/p/ad-wandler/8895657>
 <https://www.mouser.de/en/ProductDetail/Microchip-Technology/MCP3208-CI-P?qs=9y3LFqDLL8IuAGJEebQX9g%3D%3D>) mit Referenz
-**LM4040DIZ-2.5, TO-92** (RS 534-3059 bei de.rs-online.com);
-<https://de.rs-online.com/web/c/?searchType=MPN&searchTerm=LM4040DIZ-2.5>
-<https://www.mouser.de/en/c/?q=LM4040DIZ-2.5>
+**LM4040AIZ-2.5/NOPB, TO-92, ±0,1 %** (Betreiber, 09.10.2026; TI fertigt sie laut Datenblatt SNOS633N; RS 534-3037,
+bei LCSC C544355 kaum Lager) <https://de.rs-online.com/web/c/?searchType=MPN&searchTerm=LM4040AIZ-2.5>
 zusammen ~3–7 €. 12 Bit, 8 Eingänge, SPI.
 **Betrieb mit 3,3 V**, weil der ESP32 an seinen Eingängen keine 5 V verträgt und umgekehrt ein 5-V-Wandler an
 seinen Eingängen 3,5 V erwarten würde, die der ESP32 nicht liefert. Daraus folgt die Referenz von 2,5 V — sie
@@ -155,10 +164,8 @@ Stiftleisten, zwei Rechenkerne.
   Modul genügt: Das Modul sitzt **an der Kante unserer Platine, die Antenne ragt darüber hinaus**; darunter und
   daneben kein Kupfer, keine Bauteile. Alles Metallische (Leistungsmodul, Klemmen, dicke Kabel)
   kommt ans andere Ende. Der Kunststoff des Gehäuses stört den Funk nicht, nahes Metall dagegen sehr.
-- **Rückweg, falls der Funk im Motorraum nicht reicht:** Die Ausführung **-32UE**
-  (<https://www.digikey.de/de/products/detail/espressif-systems/ESP32-DEVKITC-32UE/12091813>) hat dieselbe
-  Platine und Anschlussbelegung, aber statt der Leiterbahn eine Buchse für eine äußere Antenne. Weil das Modul
-  in einer Buchsenleiste steckt, ist der Wechsel Steckarbeit — die Platine bleibt unverändert.
+- **Reicht der Funk im Motorraum nicht, kommt der Laptop dorthin** (Betreiber, 09.10.2026); keine äußere Antenne.
+- Gesteckt in zwei Buchsenleisten Würth 61302011821 (Abschnitt 1), je auf 19 gekürzt.
 - Versorgung aus unserem eigenen Regler statt über USB. **Seine 3,3-V-Logik bestimmt die Betriebsspannung des
   Wandlers** (Abschnitt 3).
 
@@ -167,7 +174,7 @@ Teensy 4.1 (mehr als nötig).
 
 ## 6. Datenverbindung — **festgelegt 08.10.2026**
 
-**MAX3488E (3,3 V, DIP-8), je Strecke einer, direkt am Rechner** — Datenblatt <https://www.analog.com/en/products/max3488e.html>.
+**MAX3488EEPA (3,3 V, DIP-8, −40…+85 °C), je Strecke einer, direkt am Rechner** — Datenblatt <https://www.analog.com/en/products/max3488e.html>.
 Die Familie (MAX488E/MAX3488E) steckt bereits zweimal auf der vorhandenen Platine
 `1-tinypilot/autopilot/hardware/kicad/PyPilot_Main_RS422`: U6 für die Strecke zum Motor-Controller, U7 für die Ruderlage, beide an
 3,3 V, je ein Abschlusswiderstand am Empfangspaar (bei uns 2 × 120 Ω, 1 %, 0,25 W, wie R25/R26 der
@@ -190,8 +197,8 @@ Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kab
   Verpolung (Datenblatt REV 5/2021, <https://www.recom-power.com/pdf/Innoline/R-78B-2.0.pdf>). Gleicher Typ in beiden
   Zweigen: ein Ersatzteil passt überall, ein Schaltplanblatt (`kicad/v00.01/5V-Zweig`, zweimal eingesetzt), Reserve
   für Sendespitzen des ESP32. 3,3 V liefert das ESP32-Modul selbst.
-  **Teile je 5-V-Zweig** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OG/OGN
-  (Händler noch prüfen); rote Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung; Filter nach Herstellervorschlag:
+  **Teile je 5-V-Zweig** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OGN
+  0031.8201 (Bürklin 46G6020, Farnell 1162740); rote Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung; Filter nach Herstellervorschlag:
   10 µF (2 × KEMET C320C475K5R5TA, 4,7 µF 50 V X7R) – Drossel **Bourns RLB0914-100KL** (10 µH, 2,7 A, RS 8118799;
   Zweig zieht am Eingang höchstens ~1,6 A bei 7 V, gerechnet) – 4,7 µF (C320C475K5R5TA). *Verworfen:* Traco TSR 1-2450 für die
   Elektronik (billiger, aber zweiter Typ und zweites Schaltplanblatt, nur 1 A).
@@ -223,8 +230,8 @@ Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kab
   (Betreiber, 07.10.2026); die Schottky-Diode verliert weniger. *Verworfen:* P-Kanal-MOSFET (nicht nötig). Der G2 bringt
   seinen eigenen Verpolschutz mit — damit entfällt ein Bauteil im Hochstrompfad.
 - **Zwei Sicherungen auf der Platine:** Elektronik 2 A, TinyPilot-Zweig 2 A (F13). Die Leistung sichert die vorhandene
-  **20-A-Sicherung im Schiff** (Leitung 2,5 mm²), deshalb keine eigene (Betreiber, 08.10.2026). Die **Strombegrenzung der
-  Endstufe auf 15 A** bleibt, damit zuerst die Elektronik begrenzt und erst danach diese Sicherung fällt.
+  **20-A-Sicherung im Schiff** (Leitung 2,5 mm²), deshalb keine eigene (Betreiber, 08.10.2026). Die **Grenze der Software
+  liegt unter 20 A** (Abschnitt 1), damit zuerst die Elektronik abschaltet und erst danach diese Sicherung fällt.
 - **Rote Leuchtdiode „Sicherung durch"**, mit Widerstand **parallel zur Sicherung**: Ist die Sicherung heil,
   liegt über ihr keine Spannung und die Diode bleibt dunkel; ist sie durch, fließt ein kleiner Strom über die
   Diode zur Last und sie leuchtet. Zwei Bauteile, und man sucht nicht stundenlang.
@@ -234,23 +241,28 @@ Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kab
 **Grafik-LCD 128 × 64 mit Steuerbaustein ST7920**, Modul mit Stiftleiste, 3,3 V, SPI; beim Betreiber in anderen
 Projekten bewährt (Unterlagen: `E:\Users\SuAn\Cloud\My Computer\Hardware\Displays\ST7920 based 128x64 LCD`). Zeigt immer
 **Ruderwinkel, Status und Fehlertext**. Beleuchtung immer an und gedimmt, bei Störung hell; der ESP32 stellt die
-Helligkeit über einen Transistor. Gelb-grüne Ausführung (bei Umgebungslicht lesbar). Temperaturbereich steht in den
-Unterlagen nicht — beim Kauf prüfen.
-**Sieben Leuchtdioden** — sie fallen nicht aus wie ein Display:
+Helligkeit über einen Transistor. Gelb-grüne Ausführung (bei Umgebungslicht lesbar). **Beleuchtung aus +5 V über
+220 Ω** (Betreiber, 09.10.2026: hell genug, der ESP32 dimmt zusätzlich); der Strom bleibt unter 15 mA (gerechnet),
+der Strom des Moduls muss nicht gemessen werden. Temperaturbereich steht in keiner Unterlage.
+Gesteckt in eine Buchsenleiste Würth 61302011821 (1 × 20, Abschnitt 1).
+**Sieben Leuchtdioden** — sie fallen nicht aus wie ein Display. **Dialight 551** (3-mm-Leuchtdiode im schwarzen
+Winkelgehäuse, Betreiber 09.10.2026): an der **rechten Platinenkante**, sie schauen durch Löcher in der rechten
+Gehäusewand, keine Kabel. Grün 551-0207F, rot 551-0407F, gelb 551-0307F (−55…+100 °C), blau 551-0807F (−40…+85 °C;
+Datenblatt 551-xx07F, Kopie bei Arrow):
 - vom Rechner: grün „Betrieb" (blinkt im Programmtakt; Dauerlicht oder dunkel = Programm hängt), **rot „Störung"**,
-  blau „WLAN an" (F12). Je ein Transistor BC337 schaltet sie aus +5 V: Grün und Blau brauchen ca. 3 V, mehr als ein
-  3,3-V-Anschluss sicher liefert; Vorwiderstände für ca. 9–11 mA (gerechnet), an die gekauften Leuchtdioden anpassen;
-- ohne Rechner: zwei gelbe „A" und „B", gegeneinander mit Vorwiderstand an den Pumpenklemmen auf unserer
+  blau „WLAN an" (F12). Je ein Transistor BC337 schaltet sie aus +5 V (Blau braucht 3,2 V, mehr als ein
+  3,3-V-Anschluss sicher liefert); Vorwiderstände grün 270 Ω, rot 330 Ω, blau 180 Ω für ca. 9–10 mA (gerechnet);
+- ohne Rechner: zwei gelbe „A" und „B", gegeneinander mit 2,2 kΩ (ca. 4,5 mA bei 12 V, gerechnet) an den Pumpenklemmen auf unserer
   Platine (Abschnitt 1). Sie zeigen, was an der Pumpe ankommt, nicht was befohlen ist; schwach heißt zu wenig Spannung (Fall
   04.10.). Mit dem Selbsttest-Widerstand (Abschnitt 3) stellt sich in Ruhe A ca. 5 V, B ca. 3 V ein (gerechnet); die
   gelbe Leuchtdiode A glimmt dabei kaum sichtbar (ca. 30 µA, gerechnet);
 - je 5-V-Zweig rot „Sicherung durch" (Abschnitt 7), leuchtet auch bei totem Gerät.
 **Warnausgang:** rote Leuchtdiode, Fehlertext im Display, Meldung an den TinyPilot mit Anzeige dort und am Leitstand.
 Kein Summer.
-**Ein Taster mit zwei Aufgaben:** Beleuchtung hell und WLAN wieder einschalten (F12). **Leiterplattentaster Omron
-B3F-4055** mit Kappe Typ B32 (12 × 12 mm, Drahtbauteil, 1 Mio. Schaltspiele, −25…+70 °C; Bürklin 13G7563, Mouser,
-LCSC C84931), aufgelötet. Ob er von außen durch eine nachgiebige Stelle im Deckel bedient wird oder bei geöffnetem
-Gehäuse, wird später entschieden (Abschnitt 10).
+**Ein Taster mit zwei Aufgaben:** Beleuchtung hell und WLAN wieder einschalten (F12). **Winkeltaster E-Switch
+TL1105NF250Q** (Betreiber, 09.10.2026): 6 × 6 mm, Drahtbauteil, Stößel 11,85 mm lang, ragt an der Platinenkante
+**seitlich aus dem Gehäuse**; 2,5 N, 100 000 Schaltspiele, −20…+70 °C (Datenblatt E-Switch 28.02.2018); DigiKey,
+Lieferzeit laut Liste 15 Wochen.
 *Verworfen:* OLED 0,96" (zu klein für Ruderwinkel und Status, brennt bei Daueranzeige ein); blaue LCD-Ausführung
 (ohne Beleuchtung unlesbar).
 
@@ -266,16 +278,15 @@ Gehäuse, wird später entschieden (Abschnitt 10).
 - **Alle Klemmen wie auf der RF300-Interfaceplatine: Phoenix Contact MSTBA 2,5/…-G-5,08** (festgelegt 07.10.2026):
   Stiftleiste liegend auf der Platine, dazu steckbarer Schraubstecker MSTB 2,5/…-ST-5,08; Raster 5,08 mm, 12 A je
   Kontakt, 320 V, Leiter bis 2,5 mm² (z. B. 2-polig: Stiftleiste 1757242, Stecker 1757019). Gilt auch für die
-  12-V-Zuleitung und die Klemmen zum Pololu: 12 A sind ein Dauerwert; im Betrieb fließen 4–6 A (Spitze 8,3 A), die
-  15 A der Begrenzung nur kurz bis zur Abschaltung (F6). Die Pumpe wird an unserer Platine angeschlossen (Abschnitt 1). *Verworfen:* eigene Leistungsklemmen 7,62 mm (zweiter Typ, im Normalbetrieb nicht nötig).
+  12-V-Zuleitung und die Klemmen zum Pololu: 12 A sind ein Dauerwert; im Betrieb fließen 4–6 A (Spitze 8,3 A), mehr
+  nur kurz bis zur Abschaltung durch die Software (F6). Die Pumpe wird an unserer Platine angeschlossen (Abschnitt 1). *Verworfen:* eigene Leistungsklemmen 7,62 mm (zweiter Typ, im Normalbetrieb nicht nötig).
 - **Gehäuse 3D-Druck: ASA**, ersatzweise Polycarbonat; **PLA scheidet aus** (erweicht bei 55–60 °C), PETG ist
   grenzwertig. **Nur mechanischer Schutz, nicht dicht.** Lüftungsschlitze über den Transistoren des
   Pololu (Abschnitt 1).
 - **Wärmeabfuhr:** kein Kühlkörper; das Modul trägt 25 A ohne Kühlkörper, die Pumpe zieht 4–6 A. Temperaturfühler
   an der Endstufe siehe Abschnitt 1 (F11).
-- **Durchführungen in der Gehäusewand:** Taster, sieben Leuchtdioden (Abschnitt 8), Display, Kabel mit
-  Zugentlastung. Für eine spätere Antennenbuchse wird eine Stelle vorbereitet; gebraucht wird sie nur, falls der Funk
-  aus dem Motorraum nicht reicht.
+- **Durchführungen in der Gehäusewand:** Taster (seitlich), sieben Leuchtdioden (rechte Seitenwand, Abschnitt 8), Display, Kabel mit
+  Zugentlastung.
 - **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B an unserer Platine (MSTBA 2,5/2); RF300 zweiadrig geschirmt;
   zum Steuerhaus **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
   NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Stecker und Belegung wie an der
@@ -283,20 +294,7 @@ Gehäuse, wird später entschieden (Abschnitt 10).
   Ruderlage A+, B−, Z−, Y+), 5 V über MSTBA 2,5/2.
 
 ## 10. Offen — vor dem Kauf zu messen oder zu klären
-1. RPU160: Anlauf- und Blockierstrom messen, und ob die Pumpe ein Überdruckventil hat. Beides entscheidet über
-   Sicherung, Kupferquerschnitt, Kühlfläche — und darüber, wie sich ein Anschlag überhaupt bemerkbar macht.
-2. Widerstandswert für die Strombegrenzung des G2 bei Pololu erfragen (Ziel 15 A).
-3. Temperaturklasse der RS422-Treiber festlegen: 0…+70 °C oder −40…+85 °C. Für den Motorraum die Industrie-
-   Ausführung. Welche heute im TinyPilot sitzt, steht im Schaltplan nicht.
-4. Genauigkeitsklasse der Referenz wählen: ±1 % (LM4040**D**IZ-2.5) reicht, ±0,1 % (LM4040**A**IZ-2.5) kostet
-   kaum mehr. Die Klasse bestimmt den Fehler aller Spannungs- und Strommessungen gleichermaßen.
-5. Wann darf der Selbsttest (S10) laufen? Am Steg bewegt sich das Ruder gefahrlos, im engen Fahrwasser nicht.
-6. **Funkprobe vor dem Platinenentwurf:** ein Handy oder anderes WLAN-Gerät an die künftige Einbaustelle im
-   Motorraum legen und prüfen, ob es den Master erreicht und wie stark. Entscheidet über -32E oder -32UE.
-7. Taster: von außen bedienbar (nachgiebige Stelle im Deckel) oder nur bei geöffnetem Gehäuse?
-8. Buchsen- und Stiftleiste für den umgedrehten Pololu wählen: Abstand der Platinen größer als die Pololu-Klemmen
-   (10,0 mm laut Degson-Datenblatt) plus Luft (Abschnitt 1). Ebenso die Buchsenleisten für ESP32 (2 × 19) und Display (20).
-9. Leuchtdioden wählen (Farbe, Bauform, Fassung in der Gehäusewand); danach die Vorwiderstände (Abschnitt 8) anpassen.
+Nur noch der RF300-Versuch an der alten Platine (Abschnitt 4, `0-gesamtprojekt/TODO.md`).
 
 ## Quellen
 **Die Bezugsquelle jedes Bauteils steht im jeweiligen Abschnitt.** Hier nur, was nicht an einem Bauteil hängt:

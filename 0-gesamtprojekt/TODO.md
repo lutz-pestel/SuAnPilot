@@ -1,6 +1,6 @@
 # Aufgabenliste TinyPilot (aktuelles Projekt)
 
-Stand: 08.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
+Stand: 09.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
 Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `3-suanpilot/docs/gesamt.md`.
 Einteilung nach Ort: **Im Hafen** (entwickeln, einrichten) und **Unterwegs** (messen, testen); Reihenfolge
 innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `1-tinypilot/regler/verbesserungen.md`.
@@ -59,14 +59,13 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 10. Endlagenschalter am Motor-Controller angeschlossen? Kabel vorhanden, in keinem Plan. (N)
 11. Ursache der 57 Servo-Störungen? (Aufzeichnung auswerten)
 12. Altes Gerät (Ausfall vorwärts): welches Bauteil? Als Reserve reparieren? (M, F)
-13. Pumpendaten: Typ, Nennspannung, Lauf- und Anlaufstrom, Fördermenge. (N Typenschild)
-14. Ruder von Anschlag zu Anschlag: Zeit? pypilot nimmt 2,14 s an. (M)
-15. Anzeige-Fehler +2,9° bei Ruder mittig: Einbau RF300, Kalibrierung Interface oder pypilot? (N, M)
-16. Verzögerung der Ruderlage ~1 s: welcher Teil wie viel (Mittelwert, Glättung, Controller, pypilot)? Für SuAnPilot. (M)
-17. Einbauort der PyPilot-Einheit (Kompass): Abstand zu Eisen und Stromkabeln? (N)
-18. Unterlagen: Motor_Controller_Fakten nennt 0,25 s Verzögerung (geschätzt), gemessen ~1 s – berichtigen.
-19. Verdrahtungsplan: orange Ader und Masse am Wandler fehlen, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
-20. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
+13. Ruder von Anschlag zu Anschlag: Zeit? pypilot nimmt 2,14 s an. (M)
+14. Anzeige-Fehler +2,9° bei Ruder mittig: Einbau RF300, Kalibrierung Interface oder pypilot? (N, M)
+15. Verzögerung der Ruderlage ~1 s: welcher Teil wie viel (Mittelwert, Glättung, Controller, pypilot)? Für SuAnPilot. (M)
+16. Einbauort der PyPilot-Einheit (Kompass): Abstand zu Eisen und Stromkabeln? (N)
+17. Unterlagen: Motor_Controller_Fakten nennt 0,25 s Verzögerung (geschätzt), gemessen ~1 s – berichtigen.
+18. Verdrahtungsplan: orange Ader und Masse am Wandler fehlen, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
+19. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
     auf 220 Ω: zählt die Platine noch sauber? Dazu Frequenz mittschiffs an der Platine (6,89 V) und am Robertson (10,8 V)
     vergleichen: beeinflusst die Sensorspannung die Messung? (M)
 Ebenfalls offen, steht oben: Ruder-Kalibrierung (Hafen 8), Hartruder (Hafen 7), AIS (Hafen 9), Kompass, Windgeber (Unterwegs 5).

@@ -1,6 +1,6 @@
 # Projektplan Messgerät
 
-Version 00.02, Stand 08.10.2026, Obergrenze 100 Zeilen. Unterprojekt in `99-tools/` (Werkzeuge für alle Phasen),
+Version 00.03, Stand 09.10.2026, Obergrenze 100 Zeilen. Unterprojekt in `99-tools/` (Werkzeuge für alle Phasen),
 Baugruppe `99-tools/messgeraet/`. **Ideensammlung**; jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3).
 
 ## 1. Zweck
@@ -8,14 +8,14 @@ Ein eigenes, nicht fest eingebautes Gerät misst Strom und Spannung an Bord und 
 damit Claude die Werte direkt bekommt. Erste Aufgaben:
 - **Pumpenstrom** zwischen Pololu und Pumpe, verglichen mit der eingebauten Messung des G2: Ist der Versatz stabil,
   wie schnell folgt sie einer Anlaufspitze? (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, Abschnitt 2)
-- **Anlauf- und Blockierstrom der RPU160** (ebenda, Abschnitt 10, Punkt 1).
-- **Heute am TinyPilot:** Spannung an den Motorklemmen A/B beim Brummen (`0-gesamtprojekt/TODO.md`, offene Frage 13),
+- **Strom der RPU160 im Betrieb beobachten**, Blockierstrom (`2-motor-controller/hardware/konzeption/motorcontroller.md`, Abschnitt 4).
+- **Heute am TinyPilot:** Spannung an den Motorklemmen A/B beim Brummen (`motorcontroller.md`, Abschnitt 4, „Offene Messung“),
   Bordspannung während des Pumpenlaufs (Unterspannung, F14 in `motorcontroller.md`).
 - Später: Prüfung des Motor-Controller-Neubaus (Phase 2).
 
 ## 2. Anforderungen (Vorschlag)
 - M1 **Zwei Stromkanäle**, Gleichstrom, beide Richtungen. Pumpe 4–6 A, Spitzen bisher 8,3 A, bei Blockade bis zur
-  Begrenzung des Pololu (15 A).
+  Strombegrenzung (im Neubau in der Software, unter 20 A).
 - M2 **Mindestens vier Spannungskanäle bis 20 V** gegen Masse (Bordspannung, Klemme A, Klemme B, frei), geschützt gegen
   Spitzen aus dem Bordnetz.
 - M3 **Schnell genug für Anlaufspitzen** von wenigen Millisekunden: auf den Stromkanälen 5 000–10 000 Messungen je
@@ -55,5 +55,5 @@ Aufwand geschätzt, nicht gemessen; jeder Schritt wird vor Beginn mit Aufwand un
 1. Wie viele Spannungskanäle wirklich? Nur gegen Masse oder auch Spannungsfall über einer Leitung (zwei Punkte)?
 2. Muss das Gerät vom Bordnetz getrennt sein, wenn es an Stellen mit verschiedener Masse misst?
 3. Versorgung nur aus dem Bordnetz oder auch aus einem Akku?
-4. Messbereich der Zange: der kleinste, der die Blockade (15 A) noch abdeckt.
+4. Messbereich der Zange: der kleinste, der die Blockade (bis 20 A) noch abdeckt.
 5. Temperaturbereich des Rechners im Motorraum.

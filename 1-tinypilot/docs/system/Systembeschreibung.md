@@ -1,6 +1,6 @@
 # Systembeschreibung Autopilot
 
-Stand: 08.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
+Stand: 09.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
 
 ## 1. Überblick
 - Selbstgebauter Autopilot für ein 15-Tonnen-Schiff mit Hydrauliksteuerung.
@@ -15,6 +15,7 @@ Stand: 08.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Do
 | Hauptplatine PyPilot_Main_RS422 | PyPilot-Einheit | Tasten, Anzeige 2, RS422-Wandler, Lagesensor MPU9250, Infrarot-Empfänger (GPIO 4) |
 | Coprozessor-Arduino (Pro Mini 3,3 V) | auf der Hauptplatine | liest die 4 Folientasten, meldet sie an den Pi, Anzeige 2, Summer |
 | Motor-Controller (pypilot hydraulic) | Motorraum | treibt die Hydraulikpumpe, misst die Ruderlage |
+| Pumpe Robertson RPU160 | Motorraum | Typenschild 12 V, 7,5 A, 3500 min⁻¹, 1,6 l/min; gemessen Betrieb 4–6 A, Spitzen 8,3 A; Anlauf unter 15 A (Betreiber) |
 | RF300 (Robertson) | Ruder | Ruderlagengeber, liefert eine Frequenz (etwa 2,1–3,2 kHz) |
 | RF300-Interface (Arduino) | Motorraum | Frequenz → Spannung 0–5 V und NMEA-Satz `$GPRSA` |
 | Master (OpenPlotter, Raspberry Pi) | Navigation | WLAN „master“, GPS-Daten, Seekarte, Summer GPIO 24 |

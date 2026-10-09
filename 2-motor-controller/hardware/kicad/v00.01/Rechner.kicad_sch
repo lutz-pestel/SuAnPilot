@@ -2546,7 +2546,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "cb5b53ef-2a77-4a0f-af1a-98923ef18635")
+		(uuid "e7a7bab6-2310-4c2b-ae29-f0187f76c408")
 	)
 	(text "Rechner ESP32-DevKitC-32E (gesteckt)"
 		(exclude_from_sim no)
@@ -2558,11 +2558,11 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "4476eecc-c9fd-4f6b-ab82-f85d3021cce1")
+		(uuid "e9d81cbc-8dfc-4d12-93ef-c54d8e6603e7")
 	)
 	(no_connect
 		(at 73.66 50.8)
-		(uuid "85456c45-0202-49dd-9585-93508aab320c")
+		(uuid "bc864373-a7d1-4e96-bd0c-fcb1e0d6bbe3")
 	)
 	(wire
 		(pts
@@ -2573,7 +2573,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b19489b7-69c9-45ee-abc9-ce0ba60cb89b")
+		(uuid "86a2e8dd-843f-48ed-bebb-f6fb75f2fcc4")
 	)
 	(label "TASTER"
 		(at 43.18 53.34 180)
@@ -2583,11 +2583,11 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "5febd8df-8cd7-4254-b886-39986fc4bc34")
+		(uuid "bff2f891-7a9b-463d-8d9f-1be0f81a6f3f")
 	)
 	(no_connect
 		(at 73.66 55.88)
-		(uuid "75dbc929-407e-450e-8de7-da7487d2c4a8")
+		(uuid "4f3e6c97-6a30-471a-9398-de847203c7fa")
 	)
 	(wire
 		(pts
@@ -2598,7 +2598,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5d3ff19a-4577-4d7c-9606-a440ec276e81")
+		(uuid "46f1a3a9-44bd-4448-b771-aa1e4b8cd2ab")
 	)
 	(hierarchical_label "FLT"
 		(shape input)
@@ -2609,7 +2609,7 @@
 			)
 			(justify right)
 		)
-		(uuid "2b99f492-1f36-4617-be97-fd90387142dc")
+		(uuid "78d82f2e-1b1c-4691-a892-0af5516d9a7b")
 	)
 	(wire
 		(pts
@@ -2620,7 +2620,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "414fc781-b1cf-49f4-bae2-372ada520dcb")
+		(uuid "f458bb4e-f323-4072-b57f-063c2e263581")
 	)
 	(hierarchical_label "RF_TAKT"
 		(shape input)
@@ -2631,7 +2631,7 @@
 			)
 			(justify right)
 		)
-		(uuid "8862b2cb-a239-4587-9ae8-0b680ceb8d63")
+		(uuid "c27877a8-c4de-4d06-8f87-73bf64d5b9d5")
 	)
 	(wire
 		(pts
@@ -2642,7 +2642,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f0dbae37-0fcc-4880-b95b-6321954b5bed")
+		(uuid "5f11f81a-6338-448e-8d69-9119b4a9f5ed")
 	)
 	(hierarchical_label "NMEA_TX"
 		(shape output)
@@ -2653,7 +2653,7 @@
 			)
 			(justify right)
 		)
-		(uuid "baaa688f-4d04-49f3-83c7-39d5e94a9071")
+		(uuid "baaf2a69-3324-484c-9971-39d1a872db3d")
 	)
 	(wire
 		(pts
@@ -2664,7 +2664,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7fbd906c-1260-4d96-82d5-ffa2b5a16c7f")
+		(uuid "c9b70fae-9cb1-459c-ae18-cb20c0dc1806")
 	)
 	(label "WLAN"
 		(at 43.18 66.04 180)
@@ -2674,7 +2674,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "0e433c08-5fd0-4fc8-bf57-628041445e06")
+		(uuid "90a535bd-5d3f-43aa-9d6e-8f99e3640d28")
 	)
 	(wire
 		(pts
@@ -2685,7 +2685,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2bf217ca-32d4-4b5b-aea2-768f18c36a9d")
+		(uuid "f1cd1ffb-015d-4f01-ac11-13b6ef948558")
 	)
 	(hierarchical_label "DIR"
 		(shape output)
@@ -2696,7 +2696,7 @@
 			)
 			(justify right)
 		)
-		(uuid "553630ca-0b87-4959-a3d7-15e1bde9e567")
+		(uuid "be746503-6355-4e3f-9a50-cf9516a60f81")
 	)
 	(wire
 		(pts
@@ -2707,7 +2707,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "791cc3d0-b227-42e9-80c4-4b5dbf8ada88")
+		(uuid "5c39b57f-3094-4754-b4fe-ff47197a92ef")
 	)
 	(hierarchical_label "PWM"
 		(shape output)
@@ -2718,7 +2718,7 @@
 			)
 			(justify right)
 		)
-		(uuid "5358456a-be0d-432b-b9c1-f825563b69a2")
+		(uuid "9c41e347-8da3-4fba-a525-9a2b639314a7")
 	)
 	(wire
 		(pts
@@ -2729,7 +2729,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "346b02e3-7206-4347-a56d-9654e86227dc")
+		(uuid "3bd8edfd-feec-4b65-9b9f-c2d265a2f1db")
 	)
 	(hierarchical_label "SLP"
 		(shape output)
@@ -2740,7 +2740,7 @@
 			)
 			(justify right)
 		)
-		(uuid "3fb23790-d7eb-4093-9f61-4f876c55ef51")
+		(uuid "c7897cea-9904-4da9-911f-987f8c5502a0")
 	)
 	(wire
 		(pts
@@ -2751,7 +2751,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b7a6dae4-5341-491c-b72e-84ad3edf27b8")
+		(uuid "36121c2a-a108-4b02-b593-be8bcb108fa9")
 	)
 	(label "LCD_SCLK"
 		(at 43.18 76.2 180)
@@ -2761,11 +2761,11 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "f7699de2-0261-4a62-9b53-c960d29276b7")
+		(uuid "034c2a40-1733-4052-86ce-f90a4b51f371")
 	)
 	(no_connect
 		(at 73.66 78.74)
-		(uuid "fc190d42-8624-4749-8295-430027c1433c")
+		(uuid "8426046a-d8d2-4e86-9c0c-2b68498799cc")
 	)
 	(wire
 		(pts
@@ -2776,7 +2776,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ee1f2631-5987-4e0a-9444-266121c0f52c")
+		(uuid "6076583d-b7d8-4cc4-87a1-edfb57269c8d")
 	)
 	(label "LCD_SID"
 		(at 43.18 83.82 180)
@@ -2786,19 +2786,19 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "30de677b-9b3d-4a33-a65e-e38400f7c5c9")
+		(uuid "6a580a63-cf68-454c-8d31-da182420b9f8")
 	)
 	(no_connect
 		(at 73.66 86.36)
-		(uuid "8120e758-fdfe-45dc-b713-94c91c1104fc")
+		(uuid "86362eed-0281-4806-91df-0c7dfade4c1f")
 	)
 	(no_connect
 		(at 73.66 88.9)
-		(uuid "60f150ac-6486-4416-bae4-f2e4dd3dff0a")
+		(uuid "6bd30a78-44c7-421b-b7d6-4bfb79729696")
 	)
 	(no_connect
 		(at 73.66 91.44)
-		(uuid "b14c284d-a1c7-48ba-8fc7-2adbfa2e1e7e")
+		(uuid "fa82777a-f9f6-4147-8e5e-35ca232f4160")
 	)
 	(wire
 		(pts
@@ -2809,7 +2809,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "81720ce2-ed48-4ae2-ae79-022e8dd58fe1")
+		(uuid "29905329-e36c-4e36-866c-54b0366f4202")
 	)
 	(hierarchical_label "ADC_MOSI"
 		(shape output)
@@ -2820,7 +2820,7 @@
 			)
 			(justify left)
 		)
-		(uuid "f00bc396-cb3e-430a-b03f-780ab7a91ef1")
+		(uuid "b804193b-d0fa-4541-ac7a-2776e3f5e4f0")
 	)
 	(wire
 		(pts
@@ -2831,7 +2831,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "043d8815-5b7d-4bea-90c7-2f029d9dbe77")
+		(uuid "06d19e98-37b0-4373-b1a7-1c223e3494ba")
 	)
 	(label "STOERUNG"
 		(at 134.62 53.34 0)
@@ -2841,15 +2841,15 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8fd03634-550f-4b87-a90b-43140fcda3f0")
+		(uuid "cd6f4406-6b46-4ba6-bb4b-23f186972b41")
 	)
 	(no_connect
 		(at 104.14 55.88)
-		(uuid "58306c6c-0d23-4892-90ef-cc26dbec4fd7")
+		(uuid "1fc48d2a-c842-4f7c-b2ba-595859c3d736")
 	)
 	(no_connect
 		(at 104.14 58.42)
-		(uuid "cffd0f1a-81db-49ec-9705-2b62edc27128")
+		(uuid "2ca9e927-ae0e-4900-8897-0348b1be2cb8")
 	)
 	(wire
 		(pts
@@ -2860,7 +2860,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "54762595-389a-4596-8d91-d99cbc7a8645")
+		(uuid "b228455b-42b0-4ba5-af82-165a8491030c")
 	)
 	(label "BETRIEB"
 		(at 134.62 60.96 0)
@@ -2870,7 +2870,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "25f978b0-d472-4eb1-869f-8efaa398c928")
+		(uuid "1787c6be-90da-456f-a1c8-c7f52c6aa3b2")
 	)
 	(wire
 		(pts
@@ -2881,7 +2881,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4f315403-d173-4211-842f-0dd39cf2b8ba")
+		(uuid "a651e437-b930-4428-b83a-4dfd5afa12ef")
 	)
 	(hierarchical_label "ADC_MISO"
 		(shape input)
@@ -2892,7 +2892,7 @@
 			)
 			(justify left)
 		)
-		(uuid "082e35bd-f6a4-47ff-ad83-360e8143bb8c")
+		(uuid "2f051230-a114-4f49-8250-d10782dca138")
 	)
 	(wire
 		(pts
@@ -2903,7 +2903,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b4ad844c-25ea-4cff-a27f-b445a556cd49")
+		(uuid "ec0991d1-dce5-481d-afea-904b8f9012e2")
 	)
 	(hierarchical_label "ADC_SCK"
 		(shape output)
@@ -2914,7 +2914,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4b474bdf-47ac-4a32-8ef5-2f69a27ac774")
+		(uuid "418841a9-ff75-4399-baab-ebdd150fb74e")
 	)
 	(wire
 		(pts
@@ -2925,7 +2925,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6bd26374-74b6-47de-b381-a23f817e0c08")
+		(uuid "cd3619ed-defb-40d1-8e57-31854994a571")
 	)
 	(hierarchical_label "ADC_CS"
 		(shape output)
@@ -2936,7 +2936,7 @@
 			)
 			(justify left)
 		)
-		(uuid "64d6c154-a00b-4fd7-b151-25f87c469e27")
+		(uuid "459d761a-029f-4f63-8fe8-1032b9deb4d9")
 	)
 	(wire
 		(pts
@@ -2947,7 +2947,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "45b580c5-3fab-446b-92fa-e27b31712a47")
+		(uuid "7273453c-02ee-449a-94ea-138b6afb2468")
 	)
 	(hierarchical_label "TP_TX"
 		(shape output)
@@ -2958,7 +2958,7 @@
 			)
 			(justify left)
 		)
-		(uuid "e289d29e-8157-4633-bb19-94aa46c89e43")
+		(uuid "ca5434fc-0602-4808-b3e3-4b73aff36e39")
 	)
 	(wire
 		(pts
@@ -2969,7 +2969,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3c5b3de3-0f1e-4c88-8a5b-c618eaaa3f82")
+		(uuid "8ad40403-35cd-4c7a-a3fe-d6fcf8ff6a7b")
 	)
 	(hierarchical_label "TP_RX"
 		(shape input)
@@ -2980,7 +2980,7 @@
 			)
 			(justify left)
 		)
-		(uuid "2a45770a-5304-433b-b748-2c8aedd471ec")
+		(uuid "ef1a0a35-63a2-40e6-9c51-647d9d88462c")
 	)
 	(wire
 		(pts
@@ -2991,7 +2991,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "849c2740-633f-4f22-9c15-5900d8f32cfc")
+		(uuid "38137768-0cc5-4d06-9c61-8bb9d1cb9c05")
 	)
 	(label "LCD_LICHT"
 		(at 134.62 78.74 0)
@@ -3001,15 +3001,15 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7bf367eb-da7c-48df-b6c2-6f5413c08cd8")
+		(uuid "5bc395c7-a0df-4908-9e36-507de38fb64e")
 	)
 	(no_connect
 		(at 104.14 81.28)
-		(uuid "822e35c7-b5cc-438d-8111-9c000bd89395")
+		(uuid "362425d7-c00b-4bb3-a63a-35b0cb51d01e")
 	)
 	(no_connect
 		(at 104.14 83.82)
-		(uuid "24c7758e-3ab7-494e-8f4f-13b9ec9a1ff8")
+		(uuid "33bf20ab-0a4b-4481-9a14-e3896125b961")
 	)
 	(wire
 		(pts
@@ -3020,7 +3020,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "93c3cdf8-4f83-4333-98c5-aa98b9081ddb")
+		(uuid "03e130be-4f0d-4a86-a172-43a7bd943ac2")
 	)
 	(label "LCD_CS"
 		(at 134.62 86.36 0)
@@ -3030,19 +3030,19 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b48bd9eb-eac9-44a4-8bbb-18c004674cb0")
+		(uuid "6bb70401-b75c-4032-8e4d-c380288fc889")
 	)
 	(no_connect
 		(at 104.14 88.9)
-		(uuid "8e6357a2-70ad-414b-9867-16dcbb171af5")
+		(uuid "5a98dee3-eec6-460d-8a13-e71c175ca31d")
 	)
 	(no_connect
 		(at 104.14 91.44)
-		(uuid "9d8567f1-8cea-4a2b-90f0-e38d7a20364a")
+		(uuid "8d173846-379c-42e6-a6c4-a8dba72be9db")
 	)
 	(no_connect
 		(at 104.14 93.98)
-		(uuid "3a64485a-05f4-4208-bcb2-6699468bab09")
+		(uuid "2fbfa3d8-536f-4e5c-8a45-f51c330393bd")
 	)
 	(wire
 		(pts
@@ -3053,7 +3053,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e6a6c07a-d72e-44ad-8b69-78258124e2be")
+		(uuid "c38c4aeb-5d7a-4d61-b0c7-4d123971b167")
 	)
 	(wire
 		(pts
@@ -3064,7 +3064,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d410d559-6761-4444-aa24-63595de91b7e")
+		(uuid "fd105fe9-d891-4679-a6bb-c3efccce041b")
 	)
 	(wire
 		(pts
@@ -3075,7 +3075,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9c8acafd-079b-459d-939c-0c2809c7f404")
+		(uuid "8393abb3-0a54-45c3-a5c8-de1266bf5b3c")
 	)
 	(wire
 		(pts
@@ -3086,7 +3086,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "dbef1512-63dc-4328-87a0-8a0672ba439e")
+		(uuid "378b3529-197c-47ea-8fab-6c99338cb1be")
 	)
 	(wire
 		(pts
@@ -3097,7 +3097,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f7602c6a-014e-4cd1-8933-4b426c9a8f88")
+		(uuid "7df7ee7c-ff4a-4648-88b4-baa7e15327b1")
 	)
 	(wire
 		(pts
@@ -3108,7 +3108,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d81cc3c1-cf30-4440-a8db-202f7fd0aca1")
+		(uuid "5d952a91-c0ad-4880-afc1-42c465af4db0")
 	)
 	(wire
 		(pts
@@ -3119,7 +3119,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "35df7cf6-2233-4a0a-a0ab-d1d0e71f0a7d")
+		(uuid "6961c011-d76a-4a9d-bc96-9859f7e8e4c5")
 	)
 	(label "PWM"
 		(at 55.88 107.95 0)
@@ -3129,7 +3129,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "deb4b247-0d91-4020-9a1e-1f669145f8c3")
+		(uuid "c8239963-31b0-40ce-be82-0d265d36ed00")
 	)
 	(wire
 		(pts
@@ -3140,7 +3140,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "cb6890d8-c94d-4ef0-bd42-f323d4705b2f")
+		(uuid "3b78bfd5-6ef9-44a0-a579-d833e701ea5e")
 	)
 	(text "R601 hält PWM auf 0, solange der Rechner startet\noder neu startet: Die Pumpe steht."
 		(exclude_from_sim no)
@@ -3151,7 +3151,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f2820c75-2d0a-411c-a469-f2131fd3cc34")
+		(uuid "599022e4-106b-4d87-acee-0767f0941599")
 	)
 	(text "Belegung (geprüft mit Espressif ESP-IDF, GPIO): Startanschlüsse IO0, IO2, IO12 frei;\nIO5 und IO15 nur als Auswahlleitung (beim Start hoch). Pumpe (IO25–27) an Anschlüssen\nohne Startfunktion. IO34–IO39 nur Eingang, ohne eigenen Widerstand: FLT (R11,\nBlatt Endstufe) und Taster (R609) ziehen nach +3,3 V. Taster abfragen, keinen Interrupt\n(Espressif: IO36/39 mit WLAN). IO16/17 frei nur ohne PSRAM (-32E, -32UE; nicht WROVER).\nFlash (D0–D3, CMD, CLK) und USB-Seriell (TX, RX) frei. Wandler über VSPI."
 		(exclude_from_sim no)
@@ -3162,7 +3162,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7fdfc536-11dd-45ef-84ba-0992a72f53f6")
+		(uuid "c2bc885a-1eb7-461c-a170-b0f1375cc551")
 	)
 	(rectangle
 		(start 157.48 17.78)
@@ -3174,7 +3174,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "b78bb52b-ebd2-40e0-92ea-0e5bb3419d96")
+		(uuid "fbcde73a-8385-4ad7-9a8f-55ddd7a97ed5")
 	)
 	(text "Display ST7920 (128 × 64)"
 		(exclude_from_sim no)
@@ -3186,7 +3186,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8f9dee1d-3b53-4285-a57c-9d79adebc066")
+		(uuid "181d73b8-4083-4a99-bff3-8bedfe93e06d")
 	)
 	(wire
 		(pts
@@ -3197,7 +3197,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7be58d0d-d8b2-4019-8293-320cae095300")
+		(uuid "4cf923aa-e776-4daa-8ab5-596eff982d9e")
 	)
 	(label "LCD_CS"
 		(at 228.6 53.34 180)
@@ -3207,7 +3207,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "1ac3151d-2e04-43d0-87a3-c3162cbfb1ae")
+		(uuid "98a91c3a-a01c-450b-b42e-d2e8030cfa62")
 	)
 	(wire
 		(pts
@@ -3218,7 +3218,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "30967822-918b-47d8-8d43-f4d9c551b993")
+		(uuid "bec87985-2ea3-4021-a010-2d64da75762b")
 	)
 	(label "LCD_SID"
 		(at 228.6 55.88 180)
@@ -3228,7 +3228,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "3ac74766-9c01-4470-b19b-186677d1baba")
+		(uuid "7f942023-1b2a-4dd0-949a-83e5462d1e93")
 	)
 	(wire
 		(pts
@@ -3239,7 +3239,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2f88264d-1bd3-4194-a9a7-e3a70923ea45")
+		(uuid "65c7ac1a-19ca-4402-8085-73f3cd2b96fe")
 	)
 	(label "LCD_SCLK"
 		(at 228.6 58.42 180)
@@ -3249,7 +3249,7 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "5c5e20aa-84ac-4bf4-9cbb-eafd91086846")
+		(uuid "7f101ea1-3305-418b-9af5-349cf94ac8cb")
 	)
 	(wire
 		(pts
@@ -3260,7 +3260,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c9aa5e0a-d889-45b7-94c0-7094a3a31e52")
+		(uuid "684c61df-2479-46bd-b79c-0b5937ad6594")
 	)
 	(wire
 		(pts
@@ -3271,7 +3271,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5d07814c-736a-43ef-886d-cce291ea892c")
+		(uuid "57a1bf99-632a-41a6-850b-f48d04328e90")
 	)
 	(wire
 		(pts
@@ -3282,35 +3282,29 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "daa536ce-e897-4914-ab26-eccec5315563")
+		(uuid "f12cb3c0-b0af-4f5f-8ed3-a87ed289c832")
 	)
 	(wire
 		(pts
+			(xy 269.24 36.83)
 			(xy 269.24 43.18)
-			(xy 269.24 40.64)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "d80c653b-fba8-4427-8738-d2ddc85c1006")
+		(uuid "e5e70eaf-9b85-40e9-9790-85c3920f032e")
 	)
 	(wire
 		(pts
-			(xy 269.24 40.64)
-			(xy 259.08 40.64)
+			(xy 269.24 29.21)
+			(xy 269.24 26.67)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "5de8459b-45a0-4e6b-bcdd-04ea16086732")
-	)
-	(junction
-		(at 259.08 40.64)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "30c096f3-a506-4ee8-a99f-922f1ecbf478")
+		(uuid "76017ef6-3bad-4182-ae48-ff758882435e")
 	)
 	(wire
 		(pts
@@ -3321,51 +3315,51 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "99d2c46d-c2fc-4ca1-8ffe-0afd5cc2e433")
+		(uuid "65a32cee-67aa-4370-bcdf-7d71fb83ca11")
 	)
 	(no_connect
 		(at 279.4 48.26)
-		(uuid "4e4da7ac-2b00-4e31-b490-6ebe652a4f83")
+		(uuid "7e8f2f56-1c2a-4e98-ba73-97cf17ffa54d")
 	)
 	(no_connect
 		(at 279.4 50.8)
-		(uuid "12b48b7f-e8ed-4a4a-9b56-1bc892bf87bb")
+		(uuid "d510b423-bfa9-456f-b39d-272dc6629e9d")
 	)
 	(no_connect
 		(at 279.4 53.34)
-		(uuid "a93fc0ad-8b05-4e1a-ba52-48e1ea626b04")
+		(uuid "32618ea1-fb34-4cc3-b991-62e1424b859d")
 	)
 	(no_connect
 		(at 279.4 55.88)
-		(uuid "a769ebdf-38e9-4f40-9d8d-19e907730517")
+		(uuid "325f7341-1ffd-4ad5-bdd4-d5ab1555283b")
 	)
 	(no_connect
 		(at 279.4 58.42)
-		(uuid "1e268b77-97a3-4871-ade4-d3e43605a9c7")
+		(uuid "03fc791c-cd89-4558-a8cd-e1d3683e93f5")
 	)
 	(no_connect
 		(at 279.4 60.96)
-		(uuid "db324c78-44b5-4654-9e65-a58ea6e50368")
+		(uuid "a05e69e2-275a-4d39-80db-34ea655ee58e")
 	)
 	(no_connect
 		(at 279.4 63.5)
-		(uuid "0de0b123-1b0f-4a8d-9d64-56e8c35402b2")
+		(uuid "2aef5fcc-7df4-4e24-b7ef-50dd6c366552")
 	)
 	(no_connect
 		(at 279.4 66.04)
-		(uuid "ffb48ca1-ebe3-4ecc-a5f9-8f9f10c311ac")
+		(uuid "3ddbcacd-0196-4a8a-9b6e-a48f912936b9")
 	)
 	(no_connect
 		(at 279.4 68.58)
-		(uuid "57662bc1-9a15-4ffc-8d2a-6a77d15a5b2f")
+		(uuid "f384d80a-c324-4b11-b82a-98d71f6de605")
 	)
 	(no_connect
 		(at 279.4 71.12)
-		(uuid "abbd70e6-7dff-4bba-badd-780ea388f5cc")
+		(uuid "3891e13f-b7d1-4346-874a-5c70d613fcc4")
 	)
 	(no_connect
 		(at 279.4 73.66)
-		(uuid "3852fbf2-9bb2-4fa3-ba57-fb94efb530a6")
+		(uuid "13e8c478-6bef-43c6-80b2-a340b5b49295")
 	)
 	(wire
 		(pts
@@ -3376,7 +3370,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0f23f338-ea65-40ad-941d-93f1c2f759b5")
+		(uuid "656aa4a8-b2da-4d9e-959a-d82f4736d7e5")
 	)
 	(wire
 		(pts
@@ -3387,7 +3381,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5874a272-1df0-4aff-8545-06ebd6b0c10f")
+		(uuid "fe9c7843-47d7-4bdb-a653-abe3261ef947")
 	)
 	(wire
 		(pts
@@ -3398,7 +3392,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3acf170e-714a-439b-bf63-1fc36c6bfdde")
+		(uuid "5cd04429-6aaf-42a5-a24b-089f44329864")
 	)
 	(wire
 		(pts
@@ -3409,7 +3403,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f883ca4c-3bb3-4470-9118-d75f379408b2")
+		(uuid "c5334dd6-bdc1-4d29-b366-f4362deea862")
 	)
 	(label "LCD_LICHT"
 		(at 233.68 91.44 180)
@@ -3419,9 +3413,9 @@
 			)
 			(justify right bottom)
 		)
-		(uuid "5e350ca9-3ffb-4141-9b28-9ff8bae5d3f1")
+		(uuid "c60a3ac4-e6e7-47d9-93ae-3abac6b47a81")
 	)
-	(text "Seriell (PSB an Masse): RS = Auswahl, R/W = Daten, E = Takt. RST fest an +3,3 V.\nBeleuchtung immer an und gedimmt, bei Störung hell: Q601 schaltet sie mit PWM von IO4.\nKontrast am Modul (Trimmer). DB0–DB7, V0, VOUT im seriellen Betrieb frei."
+	(text "Seriell (PSB an Masse): RS = Auswahl, R/W = Daten, E = Takt. RST fest an +3,3 V.\nBeleuchtung aus +5 V über R610 (220 Ω, Betreiber): immer an und gedimmt, bei Störung hell;\nQ601 schaltet sie mit PWM von IO4. Der Strom bleibt unter 15 mA (gerechnet).\nKontrast am Modul (Trimmer). DB0–DB7, V0, VOUT im seriellen Betrieb frei."
 		(exclude_from_sim no)
 		(at 158.75 104.14 0)
 		(effects
@@ -3430,7 +3424,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d40878c2-9ac9-4113-8eab-329ddafacae5")
+		(uuid "67a0bbf5-c1f1-4de2-9a4d-5626508e67bc")
 	)
 	(rectangle
 		(start 157.48 114.3)
@@ -3442,7 +3436,7 @@
 		(fill
 			(type none)
 		)
-		(uuid "3f4eeb4b-10d9-4e8e-b955-78f3fbcd1ea1")
+		(uuid "4fcfb3da-f819-4a59-99bf-c4883daf6908")
 	)
 	(text "Bedienung: Leuchtdioden und Taster"
 		(exclude_from_sim no)
@@ -3454,7 +3448,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9ab4d441-84ab-4151-898b-9956f38603de")
+		(uuid "370ae925-a43b-4110-84f6-f398537bc625")
 	)
 	(wire
 		(pts
@@ -3465,7 +3459,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a65cb38d-db84-487a-8098-60c7c855ac8f")
+		(uuid "5422f41f-d644-4540-91c7-48f994154227")
 	)
 	(wire
 		(pts
@@ -3476,7 +3470,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "82790ed9-29f4-4dff-8919-a430f67725b1")
+		(uuid "2f8e6323-f583-4725-98ac-bddead77c26f")
 	)
 	(wire
 		(pts
@@ -3487,7 +3481,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c71c625b-5f75-41f8-988d-0e634141d500")
+		(uuid "1e9c961b-83d9-4352-90aa-ef7296cce95b")
 	)
 	(wire
 		(pts
@@ -3498,7 +3492,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3c24e817-3fa2-4e9e-8a3c-62eb888e015c")
+		(uuid "b3ddb076-3ad6-4d2c-b979-3c417c7fa5be")
 	)
 	(wire
 		(pts
@@ -3509,7 +3503,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a4b42d08-e96c-4b90-9af7-04a52ea8452d")
+		(uuid "3799f994-eabb-4a92-92a8-6e3ac50a5731")
 	)
 	(wire
 		(pts
@@ -3520,7 +3514,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e0942eed-73de-490a-8397-b370062cba47")
+		(uuid "fefc192e-0a40-4b10-9c57-0d7d77c153d7")
 	)
 	(label "BETRIEB"
 		(at 170.18 167.64 0)
@@ -3530,7 +3524,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "9675e59c-65ee-42de-92d2-74b3ad3eae31")
+		(uuid "1d061704-963f-402f-abea-12065532195e")
 	)
 	(wire
 		(pts
@@ -3541,7 +3535,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "3764985c-8f79-415e-8f26-b3865875fa27")
+		(uuid "9e02b70c-781c-4d37-a389-90b5027d1bc9")
 	)
 	(wire
 		(pts
@@ -3552,7 +3546,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2bc692fc-2e9f-4c95-9137-dbc64eafe1de")
+		(uuid "8bac7e00-1bbc-4a58-a972-8011f6e13d8c")
 	)
 	(wire
 		(pts
@@ -3563,7 +3557,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1517475f-7fd7-40ca-a205-c49b461933b8")
+		(uuid "f228b29b-8827-4720-aee7-3e239e593c21")
 	)
 	(wire
 		(pts
@@ -3574,7 +3568,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "907a324a-4c0c-40b7-864a-a902fef8fd6c")
+		(uuid "d4f39cd9-8cbb-4454-b304-02392c5c90bd")
 	)
 	(wire
 		(pts
@@ -3585,7 +3579,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5c573bde-86ea-4454-b3ee-a2b202e28780")
+		(uuid "1390d64e-646f-4dcb-8589-5917ea0fdd67")
 	)
 	(wire
 		(pts
@@ -3596,7 +3590,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "214ce4ec-48da-4f65-8519-3a4c9900406d")
+		(uuid "0e8ed213-60f6-43d3-a8f4-5ab7bff94975")
 	)
 	(label "STOERUNG"
 		(at 220.98 167.64 0)
@@ -3606,7 +3600,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d380ed12-01ac-4963-8527-7b072a7f5b5b")
+		(uuid "6856e294-3905-43d1-9f57-72414eab443f")
 	)
 	(wire
 		(pts
@@ -3617,7 +3611,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a1b849f3-fb3b-4d1b-863a-117ff57ccb66")
+		(uuid "2cb1df59-69ea-4abb-89e9-aa7af5cc4a10")
 	)
 	(wire
 		(pts
@@ -3628,7 +3622,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4d9436d3-00e8-49b4-89ff-0fdc9324e12e")
+		(uuid "2b4afe47-ff48-46a3-96da-db29dcff356b")
 	)
 	(wire
 		(pts
@@ -3639,7 +3633,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1abcfc3a-612a-47ae-8f2d-31cb8bd01d52")
+		(uuid "44bef15c-06ba-4b1f-a236-b2b1aeda0a17")
 	)
 	(wire
 		(pts
@@ -3650,7 +3644,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d44520b1-2074-41ca-9ddc-b16f1e737be0")
+		(uuid "b5552692-afc4-4d62-a416-6ee5e8c39f4f")
 	)
 	(wire
 		(pts
@@ -3661,7 +3655,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c905998a-67bc-44f7-8472-9b340d842da9")
+		(uuid "b3641b88-2db4-444e-ba0d-506030f394b1")
 	)
 	(wire
 		(pts
@@ -3672,7 +3666,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1a152684-20a6-4750-87ef-ee3195ad30dc")
+		(uuid "a8a7f190-d310-498e-b3b9-e87226dc0c41")
 	)
 	(label "WLAN"
 		(at 271.78 167.64 0)
@@ -3682,7 +3676,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "612ca14a-029d-4cca-9be8-9c03ce8619fc")
+		(uuid "84cef8f1-c7cf-45de-b45a-203fbc02bae9")
 	)
 	(wire
 		(pts
@@ -3693,7 +3687,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "611a7bce-2d27-4b24-a169-1cea5b3c67ba")
+		(uuid "6015b5fa-86e2-4c8f-83f4-19cfcf027074")
 	)
 	(wire
 		(pts
@@ -3704,7 +3698,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d0d91c16-5e1f-4913-b619-369f2218c3bf")
+		(uuid "80d73946-b05f-4ab1-a85d-4f59451d2ff0")
 	)
 	(wire
 		(pts
@@ -3715,7 +3709,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ae5ccab1-2fc5-4d1d-b6b1-1f88286def10")
+		(uuid "084b0914-5530-405a-804e-9648736a7490")
 	)
 	(label "TASTER"
 		(at 340.36 152.4 0)
@@ -3725,7 +3719,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "3783d645-d2a5-4aa2-93ce-0be75df19f7c")
+		(uuid "c4466397-3995-469e-8925-6764760c3cc5")
 	)
 	(wire
 		(pts
@@ -3736,13 +3730,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "303ad5fa-5675-489b-a35c-b14267782cd9")
+		(uuid "2ffbdbdd-afc3-41c2-a857-2e5277126e1c")
 	)
 	(junction
 		(at 365.76 152.4)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "f7efc0a7-1ea0-4c01-8e93-a2e50aebef9e")
+		(uuid "7b9967ec-33d2-44e6-902f-961c2607e18f")
 	)
 	(wire
 		(pts
@@ -3753,7 +3747,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "32403944-458b-4879-9a44-75d056bb6e44")
+		(uuid "d52ffe2e-185e-4944-8423-c48cdf0742c9")
 	)
 	(wire
 		(pts
@@ -3764,7 +3758,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ee5caaf0-38bc-4add-8e95-5aee61a7d67a")
+		(uuid "7f9c08da-c2f4-4776-b2c6-a40797d56af8")
 	)
 	(wire
 		(pts
@@ -3775,7 +3769,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "655828d6-3812-484a-afd1-7fbadd10f30d")
+		(uuid "11c8e378-b955-4979-ac6f-d7c555a8dc3e")
 	)
 	(wire
 		(pts
@@ -3786,9 +3780,9 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a7502e8c-0e8b-4157-848d-59ec0ffa815f")
+		(uuid "bb94960c-9e62-461b-92b0-423960c0ec34")
 	)
-	(text "Leuchtdioden von +5 V über BC337 geschaltet: Grün und Blau brauchen ca. 3 V, mehr als ein\n3,3-V-Anschluss sicher liefert. Vorwiderstände für ca. 9–11 mA (gerechnet), an die gekauften\nLeuchtdioden anpassen. Leuchtdioden in der Gehäusewand, Taster auf der Platine.\nTaster: Beleuchtung hell und WLAN wieder ein. 10k nach +3,3 V, 100 nF entprellt."
+	(text "Leuchtdioden Dialight 551 (Winkelgehäuse, rechte Platinenkante) von +5 V über BC337: Blau braucht\nca. 3,2 V, mehr als ein 3,3-V-Anschluss sicher liefert. Ströme ca. 9–10 mA (gerechnet aus dem\nDatenblatt). Taster E-Switch TL1105 (Winkel, Stößel ragt seitlich aus dem Gehäuse).\nTaster: Beleuchtung hell und WLAN wieder ein. 10k nach +3,3 V, 100 nF entprellt."
 		(exclude_from_sim no)
 		(at 158.75 193.04 0)
 		(effects
@@ -3797,7 +3791,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7308627b-1801-40a2-9703-c3318a75b9d1")
+		(uuid "cb0b21b4-0978-485e-b1d9-df68a1495201")
 	)
 	(symbol
 		(lib_id "Motor-Controller:ESP32-DevKitC-32E")
@@ -3809,7 +3803,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "c41f6f01-0a41-4b9d-97e0-5c198d56af4c")
+		(uuid "5d65fa17-a641-4eb0-b13a-1341e0722e71")
 		(property "Reference" "U601"
 			(at 88.9 43.18 0)
 			(show_name no)
@@ -3864,118 +3858,118 @@
 			)
 		)
 		(pin "1"
-			(uuid "4394c514-1077-4cc1-9eb2-7885bda4fbcc")
+			(uuid "437ffead-fbc2-4243-be59-b2c60312ef46")
 		)
 		(pin "2"
-			(uuid "a0378de2-63fd-472f-8ca1-469755f53131")
+			(uuid "9cb99b7c-95eb-468a-b13b-1ead676f563e")
 		)
 		(pin "3"
-			(uuid "fbbe022a-804a-4e63-b662-65e4ce816157")
+			(uuid "66915eea-f1a8-4d6d-929e-83107108a57c")
 		)
 		(pin "4"
-			(uuid "de58540f-588c-461a-ba78-13fef301863a")
+			(uuid "d9a377eb-513e-466c-8749-87a84d439346")
 		)
 		(pin "5"
-			(uuid "fe1e992d-428d-4ce6-8bd2-57a3b9c0bfe8")
+			(uuid "048a7459-6b91-49fb-8b86-674ba4d03404")
 		)
 		(pin "6"
-			(uuid "fbf5c3d9-f602-4e6c-a357-187ff9bfe992")
+			(uuid "6667b5a2-e7dc-4f97-8933-8ffcc4fc0fe0")
 		)
 		(pin "7"
-			(uuid "8e725f28-fd3e-4d02-b09a-d99cf690173e")
+			(uuid "828441f8-f63f-4121-96bc-506ead6238ec")
 		)
 		(pin "8"
-			(uuid "6573f64b-7572-4886-9ba9-7a6c759ef787")
+			(uuid "0572498c-fde7-4bed-a21e-83bf3d69b2a8")
 		)
 		(pin "9"
-			(uuid "7db8d781-da2f-4b3f-a677-c21eb62af93b")
+			(uuid "70f7499a-79b8-4f3d-a80c-ac88d3eb3059")
 		)
 		(pin "10"
-			(uuid "ff0c5d8f-97a8-4ef5-bc7d-ec7f9911e5af")
+			(uuid "c7a733da-4ac2-47cb-8921-c283be27d5a2")
 		)
 		(pin "11"
-			(uuid "85d36bc7-b813-4522-9925-bea042659f40")
+			(uuid "b40c69c1-b533-4670-9bfd-81f5e49538ba")
 		)
 		(pin "12"
-			(uuid "aafc64cd-b1ef-4043-aa67-c482b51b903a")
+			(uuid "3c37abb0-4e82-4e23-abc4-892d79b81127")
 		)
 		(pin "13"
-			(uuid "b6e9f4b2-6725-4e30-b8c2-2b272393493c")
+			(uuid "beef96a8-719d-4247-a451-0f1a32fb75e6")
 		)
 		(pin "14"
-			(uuid "030656da-56ad-4008-a03e-50389db27202")
+			(uuid "d6575b92-2494-40a2-9bc2-0538a0f6b38c")
 		)
 		(pin "15"
-			(uuid "b9e7f17b-3153-4e0b-97e2-5fef9b3614d8")
+			(uuid "794119d6-9c8f-4612-9b22-4340d8b18a3e")
 		)
 		(pin "16"
-			(uuid "14aa0d20-ba0d-4135-978c-7084f040a90b")
+			(uuid "f2b4d931-89aa-49e5-9278-822394b712b3")
 		)
 		(pin "17"
-			(uuid "077e44ad-1d6b-4d75-9992-7ddd36cfb5b3")
+			(uuid "acabc6fb-7ccb-4546-af84-1bda7b9e2281")
 		)
 		(pin "18"
-			(uuid "92ed83ee-cf66-4bc9-bb05-9ed5deb0cf55")
+			(uuid "e701985b-e5d3-47e0-9e73-4c483080ed7d")
 		)
 		(pin "19"
-			(uuid "a60cf7f4-0d24-4ea0-8907-84f6b8cb76b6")
+			(uuid "1e3fd0b5-76de-4eb2-8e5c-5f1101b4227b")
 		)
 		(pin "20"
-			(uuid "7216b910-f190-4532-b1b5-0605b178a171")
+			(uuid "4e7eb56b-acbe-4f16-be5f-db7ded71f87d")
 		)
 		(pin "21"
-			(uuid "343e12c1-2ce2-49e1-845b-cc4cbf98d3e4")
+			(uuid "8fb04aa8-503b-49d6-888d-4ffeaebdb150")
 		)
 		(pin "22"
-			(uuid "012e1b98-652e-4700-a226-70d2640678f8")
+			(uuid "aee2ac8b-659f-45ff-85df-285cdf5086cc")
 		)
 		(pin "23"
-			(uuid "7e3f0694-8572-463b-9baf-b8874d3193c5")
+			(uuid "3f688df9-664f-42c2-b5a0-e418bda3b838")
 		)
 		(pin "24"
-			(uuid "4952eb1c-3315-4b44-b120-993e8b3edcaf")
+			(uuid "7b4ae360-afa7-44b0-8798-d1c1b0f45e82")
 		)
 		(pin "25"
-			(uuid "1917a74e-05e0-4b1f-a4e1-49418d16a567")
+			(uuid "fda40ada-f262-42aa-8859-ed22e5068128")
 		)
 		(pin "26"
-			(uuid "a0af9509-980d-402b-876b-dcb6fa0bc4d3")
+			(uuid "637c4583-f1c8-4d4f-ba2f-34fa1f4d5d5f")
 		)
 		(pin "27"
-			(uuid "a2c90bb9-46b6-453b-8695-846638fae68a")
+			(uuid "c1d1bf27-31ba-4bfc-933a-d6b0c3509522")
 		)
 		(pin "28"
-			(uuid "b59cddfa-b508-4e8b-bbc2-0700fb3b2e03")
+			(uuid "e1b1e15d-55d6-4925-8470-894f57a846f8")
 		)
 		(pin "29"
-			(uuid "4520f889-934a-49fd-833c-5b1f98972fea")
+			(uuid "d3182e72-eeb2-474b-a93c-de8b8a63a81e")
 		)
 		(pin "30"
-			(uuid "b9042bc1-2d22-419e-8006-f7c5eb074b05")
+			(uuid "8bda64c5-11c6-40a4-85c8-fac3d3d74b1c")
 		)
 		(pin "31"
-			(uuid "89f6c3a6-df0f-42f9-b8af-ed6a12f08ab1")
+			(uuid "2118a146-7fb0-4ff3-a7cd-09a711d5418f")
 		)
 		(pin "32"
-			(uuid "9376f6e8-36d4-4270-90eb-e447ac7cd233")
+			(uuid "1e3979bf-6d3a-4892-915f-75b89bf5974c")
 		)
 		(pin "33"
-			(uuid "1e22c403-2498-48dc-a8f5-91fd933e9faa")
+			(uuid "ec3a23da-81b4-48f9-b737-7febe4a9b8a8")
 		)
 		(pin "34"
-			(uuid "7b794e1e-408f-41ba-82ec-f0042507949b")
+			(uuid "00a36a01-e8b0-403f-8fd4-71fd7876d126")
 		)
 		(pin "35"
-			(uuid "c253a1f2-e31d-4df3-8c63-164c374722a5")
+			(uuid "881e1283-fe1d-4d19-8891-d179c5a84767")
 		)
 		(pin "36"
-			(uuid "de8d0435-a17d-4d0b-ba44-d4d526172a12")
+			(uuid "32dabc37-9323-4263-8dd0-67f2f3ed363d")
 		)
 		(pin "37"
-			(uuid "df037680-ce51-4878-b96f-5f467c4ea21d")
+			(uuid "ffde774a-0982-414e-a3e4-e7254a71b38e")
 		)
 		(pin "38"
-			(uuid "89cbcb4f-8e12-42c3-afab-9fa6036a2296")
+			(uuid "d3e39b5f-8691-4527-bd3c-6aa56bb095c8")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -3996,7 +3990,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "ee6b87e6-99b1-4c5e-b568-df04a5a5a78a")
+		(uuid "e8e29e6d-4d1c-4976-aa89-075e9e7b7f61")
 		(property "Reference" "#PWR601"
 			(at 66.04 43.18 0)
 			(hide yes)
@@ -4052,7 +4046,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "14071073-9e6c-474f-b73d-4289a50697fa")
+			(uuid "6d166636-e758-4085-ae7e-bc7426850c9e")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4073,7 +4067,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "6ebecc53-404d-4d82-808b-ac98af9ac28b")
+		(uuid "a45bc151-74ef-47fb-b61a-2039053c6d1b")
 		(property "Reference" "#PWR602"
 			(at 68.58 81.28 0)
 			(hide yes)
@@ -4130,7 +4124,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "63e4f7f9-3396-42f2-8ced-af863a9efee5")
+			(uuid "2a9e0272-96d1-4fae-a161-5bd17d9bb215")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4151,7 +4145,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "ffee1fcf-53c3-44ce-9204-9f70e43416c8")
+		(uuid "5fba743e-5fd7-4845-81bd-721093fee54f")
 		(property "Reference" "#PWR603"
 			(at 68.58 93.98 0)
 			(hide yes)
@@ -4208,7 +4202,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "fcb1dfd6-04f2-48a9-bd42-4d2e1896fa00")
+			(uuid "cd857407-cb63-46a4-b7a1-013de426c360")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4229,7 +4223,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "df68530f-2240-4c93-8bca-da48fe691ddd")
+		(uuid "9e3b5eec-a016-412d-8ba6-004adb1d1d52")
 		(property "Reference" "#PWR604"
 			(at 109.22 48.26 0)
 			(hide yes)
@@ -4286,7 +4280,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "45da36d0-81af-4aa5-972f-840a87a5e1bb")
+			(uuid "11320495-3050-492b-aa71-20ac1afca908")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4307,7 +4301,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "fcd44f68-5dd8-404f-9fbf-c07466bdd1f5")
+		(uuid "c62600fd-8cad-4210-8e3e-439c85d72725")
 		(property "Reference" "#PWR605"
 			(at 109.22 63.5 0)
 			(hide yes)
@@ -4364,7 +4358,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "0f0eecd9-dac9-4497-a0a7-5cd084c63585")
+			(uuid "3f9817c8-1638-4219-8aae-1a73b541e537")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4385,7 +4379,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "8366032c-1162-45e4-a67e-39436aa65106")
+		(uuid "2be03ba9-4906-47dd-999f-e4477f19b607")
 		(property "Reference" "R601"
 			(at 58.42 113.03 0)
 			(show_name no)
@@ -4442,10 +4436,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "ed92545b-7312-41ce-999f-497ed465cd49")
+			(uuid "d8ea8943-9d32-46b9-9e91-4b81059e02b9")
 		)
 		(pin "2"
-			(uuid "8c62afa7-4a13-4b15-9b89-a6349ab7567c")
+			(uuid "b3129a60-a0a2-4031-b588-20a83c1acd36")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4466,7 +4460,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "9e70bcc6-2b1a-40f7-8385-918835a9ae90")
+		(uuid "504fe1db-25a4-4ce2-b15a-e41e9415f4d1")
 		(property "Reference" "#PWR606"
 			(at 55.88 120.65 0)
 			(hide yes)
@@ -4522,7 +4516,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "55c674c8-e9d6-481b-96c5-46a3f7128494")
+			(uuid "e054a331-0a00-412a-b06c-ae7a8f98fe4c")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4543,7 +4537,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "e2b8e362-4c3c-4dac-b413-007183032e9c")
+		(uuid "1abb2911-03c9-4011-9297-fd98789e1d65")
 		(property "Reference" "DS601"
 			(at 251.46 41.91 0)
 			(show_name no)
@@ -4600,64 +4594,64 @@
 			)
 		)
 		(pin "1"
-			(uuid "9676f0e6-7673-4374-80eb-081fcc1dcd23")
+			(uuid "e3e02025-814c-4840-8f4f-5ae1eb0ed5da")
 		)
 		(pin "2"
-			(uuid "bd05054f-11f1-4600-b82d-1f6df549b3fb")
+			(uuid "6a0c41e3-a5bc-40ec-a18c-a6b8e665d45c")
 		)
 		(pin "3"
-			(uuid "eea329a5-5abb-4281-b723-b4734cda3589")
+			(uuid "5c9a070e-ba69-4c08-bede-5e4d34b92f7e")
 		)
 		(pin "4"
-			(uuid "c946088a-e48b-46ba-8f59-784148209060")
+			(uuid "f164997a-10a0-445c-b494-0548fac12436")
 		)
 		(pin "5"
-			(uuid "e26595c7-563c-45df-be5f-1cd05abd3856")
+			(uuid "a41fdda1-c04a-4967-b1fa-547c007e0dc5")
 		)
 		(pin "6"
-			(uuid "bd8ae88a-f68d-4ce5-aa69-d5110f0a1323")
+			(uuid "1662bf3c-1f1a-485a-8f84-bc7cf7379baf")
 		)
 		(pin "7"
-			(uuid "4f7030a7-0971-4287-aab5-3c428fc416ae")
+			(uuid "984abc17-b149-42b1-8595-c508fca8c0bd")
 		)
 		(pin "8"
-			(uuid "7b4e7e3a-8c82-475e-87db-39fa61552ac2")
+			(uuid "bd42aa44-1929-4f1c-9370-3cde5a17f60e")
 		)
 		(pin "9"
-			(uuid "42d103df-930b-43d4-9483-e44759375b7e")
+			(uuid "a312d4d6-33bf-4cbf-9f9a-be5be0036799")
 		)
 		(pin "10"
-			(uuid "4b46bb2a-0048-46f9-bded-2caff3b70825")
+			(uuid "6abd7b36-fc36-4600-8a74-bfd9396d2eb4")
 		)
 		(pin "11"
-			(uuid "f9d90672-b438-4ae8-9417-cc60cfd4d63c")
+			(uuid "8a6ad4c6-d30d-4deb-b27b-a445086733f4")
 		)
 		(pin "12"
-			(uuid "b31d9c8b-7bbd-4f15-9d99-d7d0da8b86bd")
+			(uuid "be089ce9-0bf1-4353-b4f6-09f4795f1820")
 		)
 		(pin "13"
-			(uuid "8ce79402-4605-44d9-98e3-765deffcef7a")
+			(uuid "c647b223-3428-402a-91a2-9e9181711285")
 		)
 		(pin "14"
-			(uuid "37b1fc52-0925-49b5-925a-c7b99369eedf")
+			(uuid "3eeb2b14-7fbe-4971-834b-32bf13de9d06")
 		)
 		(pin "15"
-			(uuid "1528f44d-3eb0-4f7a-99c9-4b10bb8bb565")
+			(uuid "638fd6eb-f08b-4e31-804d-a5865ef37992")
 		)
 		(pin "16"
-			(uuid "30330c8e-b73b-4d67-8212-92d4790d7a1f")
+			(uuid "33288004-3da6-4786-abf7-1fa799002c8a")
 		)
 		(pin "17"
-			(uuid "eb9f2a3e-a1b5-439f-a378-f59cce6ed4a9")
+			(uuid "1cfa0411-cc25-4673-82ff-98eda4a10940")
 		)
 		(pin "18"
-			(uuid "530412e5-c428-41d5-86fd-5f7c9a3a58e8")
+			(uuid "8c858975-1652-49c3-b58c-8d962d1e88fc")
 		)
 		(pin "19"
-			(uuid "a3be4835-30f9-4eb9-983f-e851bc8d7f70")
+			(uuid "ab238cbf-397b-491d-b05c-ce60e646c891")
 		)
 		(pin "20"
-			(uuid "06491f0e-eeee-4453-9284-62feb3c8a38a")
+			(uuid "31695a52-11cd-4ded-9c69-19d4209c14ad")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4678,7 +4672,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "30358602-e276-4a75-acb8-2eb6d375ce2e")
+		(uuid "64dd54e6-92aa-4e5d-837e-197bfd44c0f1")
 		(property "Reference" "#PWR607"
 			(at 243.84 63.5 0)
 			(hide yes)
@@ -4735,7 +4729,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "55428a5a-b905-4a51-ba42-089824bfd3f9")
+			(uuid "9441a38e-615f-45f9-8d8a-d5b19d89e9bb")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4756,7 +4750,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "bdc6f6e5-2816-4932-a2e9-26167435832e")
+		(uuid "6a9a2366-8d52-445a-9e38-cd19e1181cf2")
 		(property "Reference" "#PWR608"
 			(at 243.84 68.58 0)
 			(hide yes)
@@ -4813,7 +4807,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "b4bc8e57-94e7-4fef-924b-a182738de085")
+			(uuid "9c0b17a0-52ee-4a0e-9856-ae9614b9fb2e")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -4834,7 +4828,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "2f7ab616-9154-43f0-82e4-ea15a572cd5a")
+		(uuid "093c8c21-df9b-47b8-850e-92e26c061a31")
 		(property "Reference" "#PWR609"
 			(at 259.08 38.1 0)
 			(hide yes)
@@ -4890,12 +4884,170 @@
 			)
 		)
 		(pin "1"
-			(uuid "05d4118c-21c9-4722-bfa5-884e30fd2a77")
+			(uuid "71056a4d-b85e-4546-a439-11f1df8819c8")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
 					(reference "#PWR609")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 269.24 33.02 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "cee0f49f-b522-4d06-b8a9-fe3b74244c34")
+		(property "Reference" "R610"
+			(at 271.78 31.75 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "220"
+			(at 271.78 34.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 269.24 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 269.24 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 269.24 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "fcf37759-c527-43b1-b17f-78c26c0ce979")
+		)
+		(pin "2"
+			(uuid "ad46cebd-25fd-482a-837d-67f4a215afb6")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
+					(reference "R610")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+5V")
+		(at 269.24 26.67 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "0ee144e3-0599-47e1-9b98-e723840079f0")
+		(property "Reference" "#PWR610"
+			(at 269.24 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "+5V"
+			(at 269.24 23.114 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 269.24 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 269.24 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \\\"+5V\\\""
+			(at 269.24 26.67 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "8bc60de2-8eb1-4c53-b3c8-0818f67bff58")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
+					(reference "#PWR610")
 					(unit 1)
 				)
 			)
@@ -4911,8 +5063,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "3501a5ec-b98b-46e6-a69c-d4d7fc4f6192")
-		(property "Reference" "#PWR610"
+		(uuid "4bb2e391-0487-402c-964c-42d929e2b046")
+		(property "Reference" "#PWR611"
 			(at 259.08 81.28 0)
 			(hide yes)
 			(show_name no)
@@ -4967,12 +5119,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "a5b9973b-0bfc-4cf4-87de-ac69f041a658")
+			(uuid "46a1c38f-8f27-4f86-ae40-d2403f34e244")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR610")
+					(reference "#PWR611")
 					(unit 1)
 				)
 			)
@@ -4988,7 +5140,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "3076f5f3-9548-4a5e-be46-babaa2d31d1c")
+		(uuid "5471839e-1a8c-4f64-bd98-201dd1050606")
 		(property "Reference" "Q601"
 			(at 273.05 90.17 0)
 			(show_name no)
@@ -5045,13 +5197,13 @@
 			)
 		)
 		(pin "1"
-			(uuid "9f8c1477-aa7c-4c17-a2ab-ab502703027c")
+			(uuid "f1499fd3-03e9-4b73-9831-408c85000ce3")
 		)
 		(pin "2"
-			(uuid "0cc2716e-f4b6-44b4-90d6-30c3305183e1")
+			(uuid "609306dd-83de-4e4e-9144-954b1fb4b53f")
 		)
 		(pin "3"
-			(uuid "6dbe2f89-84fc-47a8-95ab-df8e8ad75666")
+			(uuid "7889ac04-51bb-439c-86c7-d883c2afaf1f")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5072,8 +5224,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "bc00d2cb-fff0-48a0-a156-61f432a2293e")
-		(property "Reference" "#PWR611"
+		(uuid "652d530a-1370-484e-9120-17441b92ae31")
+		(property "Reference" "#PWR612"
 			(at 269.24 99.06 0)
 			(hide yes)
 			(show_name no)
@@ -5128,12 +5280,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "8c834cf5-2cc3-40ae-9b66-f84e8deea4bb")
+			(uuid "6d8e736c-fdec-4c6f-a369-d77bb5e928a5")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR611")
+					(reference "#PWR612")
 					(unit 1)
 				)
 			)
@@ -5149,7 +5301,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "062be607-0e38-4d2d-beb1-aef06fc4b884")
+		(uuid "4788d27b-0d88-4a58-8503-1fcbdaa083af")
 		(property "Reference" "R602"
 			(at 248.92 88.9 90)
 			(show_name no)
@@ -5204,10 +5356,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "c5e230de-2945-4df9-9588-d4dc79da9e86")
+			(uuid "2715c949-17a2-4473-9557-92d4f0e8e7f9")
 		)
 		(pin "2"
-			(uuid "454d95da-f62c-4a48-9ee4-956d1eec5a42")
+			(uuid "fa191d09-2111-457b-a217-04774d8232b3")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5228,7 +5380,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "1e6efb6e-9ca0-4dce-a224-f535237a92fc")
+		(uuid "88b29f09-40c5-473b-8b79-42c1c9381f34")
 		(property "Reference" "Q602"
 			(at 205.74 166.37 0)
 			(show_name no)
@@ -5285,13 +5437,13 @@
 			)
 		)
 		(pin "1"
-			(uuid "cd839b42-9b50-4c40-92bd-e7f3d9e0ee0c")
+			(uuid "99c5ae2e-ce56-4790-b826-6b1b28f4c2d3")
 		)
 		(pin "2"
-			(uuid "d3ed17f9-84c4-455e-81d5-14363f16f104")
+			(uuid "07391065-48ef-453a-a226-47f501d61fdb")
 		)
 		(pin "3"
-			(uuid "eaab823c-cad8-4cf4-a483-d4775ebf30f8")
+			(uuid "c20c7cb4-d37a-411c-bbe9-90e0a9dbba93")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5312,7 +5464,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "f2258f18-35ac-48b1-8311-cd9d72bfe523")
+		(uuid "7e929e27-2124-4715-b7aa-aba7368985f0")
 		(property "Reference" "D601"
 			(at 207.01 153.67 90)
 			(show_name no)
@@ -5369,10 +5521,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "6d7f9cd5-cd13-4806-8517-adfbb91b6553")
+			(uuid "167aaf0b-b147-4fed-bce0-1e74763bc562")
 		)
 		(pin "2"
-			(uuid "12e303f4-82e1-4231-b052-f1579d22ba1a")
+			(uuid "b1789f3d-cea5-4e72-8e8f-f6009cd4c534")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5393,7 +5545,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "e3db421b-bc48-4795-96d4-d069f84997bd")
+		(uuid "614410f0-d49c-444f-8897-67ac17c4a566")
 		(property "Reference" "R603"
 			(at 205.74 140.97 0)
 			(show_name no)
@@ -5405,7 +5557,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "180"
+		(property "Value" "270"
 			(at 205.74 143.51 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5450,10 +5602,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "888b19c9-5dc2-4659-95de-064ed7754379")
+			(uuid "1cc2d792-eb3f-445c-88e2-b4452e86f3c8")
 		)
 		(pin "2"
-			(uuid "3ae5e676-d181-4427-898c-ea77efec03ea")
+			(uuid "9d38fa62-6974-41e1-8437-8fe67040245d")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5474,7 +5626,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "488f43b4-5981-4ae5-8342-06e5fd78833a")
+		(uuid "b66f71fe-78cd-4fce-b3e7-a0d9629f235c")
 		(property "Reference" "R604"
 			(at 187.96 165.1 90)
 			(show_name no)
@@ -5529,10 +5681,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "e9e13dd0-2cbe-4633-9e0c-75a5aeac753e")
+			(uuid "85bad6bb-fb1a-4ac2-ab66-21497b4cee93")
 		)
 		(pin "2"
-			(uuid "aea51e43-6618-4fdd-9b51-007e29a10f0e")
+			(uuid "f4f61afd-fb6c-4abf-acd3-bd79e209781b")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5553,8 +5705,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "05242550-51ea-40d7-93e6-1afebd55e095")
-		(property "Reference" "#PWR612"
+		(uuid "ab9f72bc-c1fe-4f53-969f-0b940cf575e7")
+		(property "Reference" "#PWR613"
 			(at 203.2 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -5609,12 +5761,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "20465a9c-3bd7-4b09-a0a9-5c2a23934d5a")
+			(uuid "b72b04af-831e-452e-8015-07774d8a7522")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR612")
+					(reference "#PWR613")
 					(unit 1)
 				)
 			)
@@ -5630,8 +5782,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "bac4ec07-4ee2-4dea-bdee-dff519b433c1")
-		(property "Reference" "#PWR613"
+		(uuid "0b7f2a89-e87d-4ec5-a66a-d19eca95cad4")
+		(property "Reference" "#PWR614"
 			(at 203.2 175.26 0)
 			(hide yes)
 			(show_name no)
@@ -5686,12 +5838,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "0c9a40ef-b6bd-4c4f-a945-c02845946550")
+			(uuid "bab6ccb6-6d18-43aa-940b-3d8fdd044239")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR613")
+					(reference "#PWR614")
 					(unit 1)
 				)
 			)
@@ -5707,7 +5859,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "0679f016-2638-4351-838a-e0a84688dec8")
+		(uuid "839f12f6-a62d-4775-8345-5e313eee0459")
 		(property "Reference" "Q603"
 			(at 256.54 166.37 0)
 			(show_name no)
@@ -5764,13 +5916,13 @@
 			)
 		)
 		(pin "1"
-			(uuid "d11aadab-4600-49dc-88c9-304ce334b1b8")
+			(uuid "c49afdf0-435f-4b23-b96a-5e6830bfee88")
 		)
 		(pin "2"
-			(uuid "b6cd3069-fd0b-430c-afd5-b11570b71ddc")
+			(uuid "3418997a-811c-4e93-be65-4df6591f432c")
 		)
 		(pin "3"
-			(uuid "bc3dc62e-f761-4019-9de4-b70e495d0b8a")
+			(uuid "200946e8-6a54-4cd2-9fe0-adb8cc4f33ac")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5791,7 +5943,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "213a3320-d9bf-4971-a51b-25cd9adc0272")
+		(uuid "8abec4f9-f1b4-4353-a6f9-71acc03d3591")
 		(property "Reference" "D602"
 			(at 257.81 153.67 90)
 			(show_name no)
@@ -5848,10 +6000,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "9088b2d6-a87d-4b9a-8d0e-d8044f09c3de")
+			(uuid "915ca813-2cae-47a3-8929-51b8c1a3bf36")
 		)
 		(pin "2"
-			(uuid "b4693281-9e07-4d0b-8bc4-bfd783932487")
+			(uuid "43a22c13-0362-4217-b8b9-ed333650da05")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5872,7 +6024,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "ba124e8c-61e1-4b93-8f3f-73465021e194")
+		(uuid "55123392-b147-4340-941b-5b7bbee6640b")
 		(property "Reference" "R605"
 			(at 256.54 140.97 0)
 			(show_name no)
@@ -5929,10 +6081,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a1ebb2fc-19be-465c-b0d0-74013a1cdb40")
+			(uuid "4c47bd8e-6b06-4a29-91fb-1e79fe488066")
 		)
 		(pin "2"
-			(uuid "a0f234ef-1fc7-4796-88e4-ed2e1a4759ed")
+			(uuid "8dc06391-69da-4e8d-9e1b-2841206badd7")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -5953,7 +6105,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "3a8842fa-75ad-43d2-b94d-131ba654192b")
+		(uuid "5ec7bc2b-e5b7-49f4-a1c5-fba4402b098b")
 		(property "Reference" "R606"
 			(at 238.76 165.1 90)
 			(show_name no)
@@ -6008,10 +6160,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "fce15a18-4d3b-4957-b9b1-d593a5369850")
+			(uuid "22c5948d-00c2-475b-a123-d1843b17bf4f")
 		)
 		(pin "2"
-			(uuid "f83271c3-2ba8-4a87-af5a-87b4a2ef5d79")
+			(uuid "49bb536d-031c-43fb-86eb-97f94b71ec39")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6032,8 +6184,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "158612af-9e60-4a30-b0db-d18e35dae6ac")
-		(property "Reference" "#PWR614"
+		(uuid "4e5e0394-bc20-43e1-b150-7472242facdb")
+		(property "Reference" "#PWR615"
 			(at 254 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -6088,12 +6240,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c3428139-263b-4490-93d1-0d9d2cff881c")
+			(uuid "2a8d5a22-4ba9-46e1-a752-9eec33788742")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR614")
+					(reference "#PWR615")
 					(unit 1)
 				)
 			)
@@ -6109,8 +6261,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "7457182d-4fd6-4bea-9084-9e54bd8cddf4")
-		(property "Reference" "#PWR615"
+		(uuid "1330a8d8-46a6-4477-a853-e714147a2317")
+		(property "Reference" "#PWR616"
 			(at 254 175.26 0)
 			(hide yes)
 			(show_name no)
@@ -6165,12 +6317,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "5e95553e-677c-4ed2-8056-b83bc1ec3f8c")
+			(uuid "fbb234a1-5452-4cd7-9800-305b14aecb39")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR615")
+					(reference "#PWR616")
 					(unit 1)
 				)
 			)
@@ -6186,7 +6338,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "325516d7-d6bc-48ff-98cc-e845f49c0171")
+		(uuid "568b9827-b290-41c5-808e-4340bab73506")
 		(property "Reference" "Q604"
 			(at 307.34 166.37 0)
 			(show_name no)
@@ -6243,13 +6395,13 @@
 			)
 		)
 		(pin "1"
-			(uuid "55430b68-0021-4149-aafe-d9bfc21303ff")
+			(uuid "90d84efc-0823-4039-a4a4-b6c3783be4b5")
 		)
 		(pin "2"
-			(uuid "a543b0df-6508-4f28-bfc2-092b2427099e")
+			(uuid "e7ff5fc0-483b-4e66-9870-1eb93efe1d12")
 		)
 		(pin "3"
-			(uuid "4552ff7e-bbc8-4ae3-917e-62ccf10de18f")
+			(uuid "a88b8530-fb27-4f00-a640-8388ed1f1762")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6270,7 +6422,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "38983d50-e403-4c61-ba3f-38b619689ea6")
+		(uuid "fbbf0b0d-1a13-4bb9-9c00-4d91f817fe15")
 		(property "Reference" "D603"
 			(at 308.61 153.67 90)
 			(show_name no)
@@ -6327,10 +6479,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "7fdbce07-757c-4462-a1dc-5922aefbb343")
+			(uuid "ef010412-f07f-4995-8261-56037dcd632f")
 		)
 		(pin "2"
-			(uuid "1e3f6049-4016-4905-a7e4-266a40d1c1b9")
+			(uuid "203b06ee-0daf-45f1-946e-d078e1327b50")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6351,7 +6503,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "17d8efb1-4f12-4fa6-876b-ce771be666cc")
+		(uuid "b6a6593b-c7aa-4ca1-92e0-63a72eeba136")
 		(property "Reference" "R607"
 			(at 307.34 140.97 0)
 			(show_name no)
@@ -6408,10 +6560,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "6dafe26a-e58d-4a4b-96c3-43128347d54a")
+			(uuid "6f0f1e64-91e3-4bbc-a11a-9e9ee9afa563")
 		)
 		(pin "2"
-			(uuid "78a0dd94-0fbe-4904-834f-0144d7214cf9")
+			(uuid "c0e676e7-9005-4251-8811-12c4463c0371")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6432,7 +6584,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "487a225b-4ea5-417b-8dcc-43222d31842c")
+		(uuid "55f41005-bd91-4c63-a283-e0106587664e")
 		(property "Reference" "R608"
 			(at 289.56 165.1 90)
 			(show_name no)
@@ -6487,10 +6639,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "a20746af-7eac-40e8-b562-c174a8d0c773")
+			(uuid "67ac8c92-26c4-4b07-9be2-206ebabd63d2")
 		)
 		(pin "2"
-			(uuid "3efe1df0-7b21-4db1-86f5-76fba477cf20")
+			(uuid "9217e144-a6c1-4017-aa61-a2c7791e6c64")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6511,8 +6663,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "0ff02c21-f626-48f7-ba54-de20e3de769d")
-		(property "Reference" "#PWR616"
+		(uuid "8291bd7e-5529-428e-a51d-894eb624dd25")
+		(property "Reference" "#PWR617"
 			(at 304.8 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -6567,12 +6719,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "c757b641-adbb-4b89-b466-1a5b4403ffd1")
+			(uuid "ee89b566-3b93-4867-80f0-3c2d07a4b863")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR616")
+					(reference "#PWR617")
 					(unit 1)
 				)
 			)
@@ -6588,8 +6740,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "c971c9ec-9c19-4377-bb71-d4212b0696f1")
-		(property "Reference" "#PWR617"
+		(uuid "501f414c-b522-4f98-a9a6-0394a9b6dff7")
+		(property "Reference" "#PWR618"
 			(at 304.8 175.26 0)
 			(hide yes)
 			(show_name no)
@@ -6644,12 +6796,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "093d09e6-3150-4a86-82e1-21af0eff4731")
+			(uuid "5347522a-1a9f-4259-828e-41489dad4af8")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR617")
+					(reference "#PWR618")
 					(unit 1)
 				)
 			)
@@ -6665,7 +6817,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "637177a8-ae34-4110-bfa4-72dd737b79ae")
+		(uuid "c188b4c0-5e50-4c6b-a304-1840a87e3443")
 		(property "Reference" "R609"
 			(at 368.3 140.97 0)
 			(show_name no)
@@ -6722,10 +6874,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "6a6e138e-659a-45c4-9701-e39dafe6962f")
+			(uuid "8e682a72-f7d6-4dab-9bcf-e584051b38ff")
 		)
 		(pin "2"
-			(uuid "bf717c7b-533d-4b87-85af-69da75ff8312")
+			(uuid "103f0c6f-c16f-44e7-abba-60832bb14671")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6746,8 +6898,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "b4e3ac43-c8b2-4337-9f37-1745172098f6")
-		(property "Reference" "#PWR618"
+		(uuid "62b12e6d-566b-4518-80f0-b41a3cbf58b7")
+		(property "Reference" "#PWR619"
 			(at 365.76 135.89 0)
 			(hide yes)
 			(show_name no)
@@ -6802,12 +6954,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "bdd48cf9-881d-428f-9b15-dac76dec4607")
+			(uuid "54e8933f-f7a8-45d5-9cc7-cdf11aa82812")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR618")
+					(reference "#PWR619")
 					(unit 1)
 				)
 			)
@@ -6823,7 +6975,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "c3c998c9-3b86-4bc4-84ae-1b3d9bf13884")
+		(uuid "b011d3ef-59d3-465e-9d34-82b3cbd77e04")
 		(property "Reference" "SW601"
 			(at 369.57 161.29 90)
 			(show_name no)
@@ -6835,7 +6987,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "B3F-4055"
+		(property "Value" "TL1105NF250Q"
 			(at 369.57 163.83 90)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6880,10 +7032,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "48bccf36-24e2-4fdd-b6bf-978ded5485ad")
+			(uuid "ca7902e9-19cd-4485-a048-77f3b8c58559")
 		)
 		(pin "2"
-			(uuid "3d6e857f-9f42-41e5-ad15-6fc76580cbd9")
+			(uuid "a70027d6-13a3-444e-946d-f659d081e531")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -6904,8 +7056,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "cd32a13e-2677-407e-80bc-914c959fa140")
-		(property "Reference" "#PWR619"
+		(uuid "9bf482ff-557b-4e99-b138-5294950da29e")
+		(property "Reference" "#PWR620"
 			(at 365.76 170.18 0)
 			(hide yes)
 			(show_name no)
@@ -6960,12 +7112,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "3b8e8845-eadf-49d7-9d31-e123d5fb1ffd")
+			(uuid "ec48cefe-41b1-4e88-ae13-f7e284cba58a")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR619")
+					(reference "#PWR620")
 					(unit 1)
 				)
 			)
@@ -6981,7 +7133,7 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "1c5c4df4-9d24-4682-b6f4-86c036d900f2")
+		(uuid "cacc6b57-cda2-4818-871d-5cb9d73440ef")
 		(property "Reference" "C601"
 			(at 391.16 161.29 0)
 			(show_name no)
@@ -7038,10 +7190,10 @@
 			)
 		)
 		(pin "1"
-			(uuid "cca6c9a4-837b-4c20-81da-0013a77c2fb9")
+			(uuid "98fd012f-00d1-4d55-b1a5-56badbc556dc")
 		)
 		(pin "2"
-			(uuid "547271b5-8353-4fb7-b58c-da242fd4461f")
+			(uuid "1158adcc-1d51-44d4-af92-6e67ef1d87b9")
 		)
 		(instances
 			(project "Motor-Controller"
@@ -7062,8 +7214,8 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "ca7b91f1-f092-4102-9a48-82f5be34d6d2")
-		(property "Reference" "#PWR620"
+		(uuid "aed4bacb-2e92-4a48-a045-380ca21109d5")
+		(property "Reference" "#PWR621"
 			(at 388.62 170.18 0)
 			(hide yes)
 			(show_name no)
@@ -7118,12 +7270,12 @@
 			)
 		)
 		(pin "1"
-			(uuid "7fdf765f-2ccb-497a-9659-63f72880ff4b")
+			(uuid "8d01654f-22cd-4292-af41-b2d1cd750743")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/5d3c9440-3bfd-4492-a97b-bd0a45e9f692"
-					(reference "#PWR620")
+					(reference "#PWR621")
 					(unit 1)
 				)
 			)
