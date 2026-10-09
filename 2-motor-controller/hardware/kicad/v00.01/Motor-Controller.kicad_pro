@@ -240,7 +240,7 @@
       "internal_id": "",
       "mfg": "",
       "mpn": "",
-      "sch_revision": ""
+      "sch_revision": "00.01"
     },
     "layer_pairs": [],
     "layer_presets": [],
@@ -661,7 +661,7 @@
         "uuid": "255b263c-8a60-4b67-92ab-70f539cf8eaf"
       }
     ],
-    "used_designators": "",
+    "used_designators": "#PWR12-13,J8",
     "variants": []
   },
   "sheets": [
@@ -684,6 +684,22 @@
     [
       "eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5",
       "Endstufe"
+    ],
+    [
+      "4737a83f-df62-45b5-a0e6-9e43b4f872b6",
+      "Messwerterfassung"
+    ],
+    [
+      "5d3c9440-3bfd-4492-a97b-bd0a45e9f692",
+      "Rechner und Bedienung"
+    ],
+    [
+      "fd880a29-a020-4ea2-b31c-ecd55e10afcb",
+      "RS422 TinyPilot"
+    ],
+    [
+      "24a213c1-da69-4959-a41d-450ab81dd3c6",
+      "RS422 Ruderlage"
     ]
   ],
   "text_variables": {},

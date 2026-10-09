@@ -204,7 +204,7 @@ Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kab
   Elektronik (billiger, aber zweiter Typ und zweites Schaltplanblatt, nur 1 A).
   Der Eingangsbereich entscheidet, nicht die Stromstärke: Beim Anlassen des Diesels bricht die Bordspannung
   kurz ein — ein Regler, der erst ab 10 V arbeitet (z. B. Traco TSR 3-2450 mit 3 A), ließe den Pi neu starten.
-  Getrennte Regler heißen auch: Ein Kurzschluss im Steuerhaus nimmt die Ruderlagen-Ausgabe nicht mit (F5, S6).
+  Getrennte Regler heißen auch: Ein Kurzschluss im Steuerstand nimmt die Ruderlagen-Ausgabe nicht mit (F5, S6).
   Zum Steuerstand gehen 5 V über das **vorhandene Kabel** (Festlegung des Betreibers 07.10.2026); im Steuerstand
   ist kein Platz für einen eigenen Regler. Der Zweig versorgt in Phase 3 auch den SuAnPilot.
 - **Schutz gegen Überspannung aus dem Bordnetz: Schutzdiode 1.5KE20A**, unidirektional, 1500 W, DO-201,
@@ -290,14 +290,14 @@ Lieferzeit laut Liste 15 Wochen.
 - **Durchführungen in der Gehäusewand:** Taster (seitlich), fünf Leuchtdioden (linke Seitenwand) und zwei an den Sicherungen (obere Wand, Abschnitt 8), Display, Kabel mit
   Zugentlastung.
 - **Anordnung (Grobplan, Betreiber 09.10.2026):** Platine 150 × 130 mm. Sicherungen mit ihren Leuchtdioden an der Oberkante. Links 12 V und RF300, darunter Leuchtdioden und
-  Taster; rechts Pumpe, 5 V und RS422 zum Steuerhaus; ESP32 oben links (Antenne über die Oberkante), Pololu oben rechts,
+  Taster; rechts Pumpe, 5 V und RS422 zum Steuerstand; ESP32 oben links (Antenne über die Oberkante), Pololu oben rechts,
   Display unten in der Mitte (`kicad/v00.01/Motor-Controller.kicad_pcb`). Zwischen ESP32 und Pololu die 5-V-Zweige und
   Eingangsdioden, neben dem Pololu Elko und Hall-Sensor, links neben dem Display Wandler (zu hoch für unter das Display),
   RF300-Eingang und Treiber der Leuchtdioden; unter dem Display nur flache Teile (Messwerterfassung, RS422).
 - **Keramikkondensatoren:** KEMET Goldmax X7R 50 V, Raster 2,54 mm (C320C104/684/475K5R5TA für 100 nF, 680 nF,
   4,7 µF; 10 nF als kleinerer C315C103K5R5TA); 1 µF als C330C105K5R5TA (Raster 5,08 mm, 7,1 × 4,1 mm): beide C320 bei keinem Händler belegt.
 - **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B an unserer Platine (MSTBA 2,5/2); RF300 zweiadrig geschirmt;
-  zum Steuerhaus **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
+  zum Steuerstand **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
   NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Ein Stecker J7, MSTBA 2,5/8**
   (Betreiber, 09.10.2026): 1 MCY, 2 MCZ (Controller → TinyPilot), 3 MCB, 4 MCA (TinyPilot → Controller),
   5 RAA, 6 RAB (NMEA-Ruderlage zum TinyPilot, nur Senden), 7 GND, 8 +5 V für die PyPilot-Einheit.

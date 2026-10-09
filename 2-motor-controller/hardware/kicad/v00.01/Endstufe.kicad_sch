@@ -890,12 +890,182 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "Jumper:Jumper_2_Bridged"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "JP"
+				(at 0 1.905 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "Jumper_2_Bridged"
+				(at 0 -2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Jumper, 2-pole, closed/bridged"
+				(at 0 -7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "Jumper SPST"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_0_0"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_0_1"
+				(arc
+					(start -1.524 0.254)
+					(mid 0 0.762)
+					(end 1.524 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Jumper_2_Bridged_1_1"
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "A"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "Motor-Controller:Pololu_G2_18v25"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
 			(property "Reference" "U"
 				(at 0 20.32 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -904,6 +1074,8 @@
 			)
 			(property "Value" "Pololu_G2_18v25"
 				(at 0 -17.78 0)
+				(show_name no)
+				(do_not_autoplace no)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -912,39 +1084,47 @@
 			)
 			(property "Footprint" "Motor-Controller:Pololu_G2_18v25_Socket"
 				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
-				(hide yes)
 			)
 			(property "Datasheet" "https://www.pololu.com/product/2994"
 				(at 0 -7.62 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
-				(hide yes)
 			)
 			(property "Description" "Pololu G2 High-Power Motor Driver 18v25 (Nr. 2994), umgedreht gesteckt. Oben Leistungsseite: VIN, GND, OUTB, OUTA = Pololu-Schraubklemmen, auf unserer Platine nur Hilfslötaugen (13-16), verbunden über Leitungen (Brücken W, nicht auf der Platine). Unten Steuerseite: L-förmige Stiftleiste (1-10), C+ (= VM) und C- als Einzelstifte."
 				(at 0 -10.16 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
-				(hide yes)
 			)
 			(property "ki_keywords" "Pololu G2 18v25 motor driver H-bridge"
 				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
-				(hide yes)
 			)
 			(symbol "Pololu_G2_18v25_0_1"
 				(rectangle
@@ -972,26 +1152,8 @@
 				)
 			)
 			(symbol "Pololu_G2_18v25_1_1"
-				(pin passive line
-					(at -10.16 15.24 0)
-					(length 2.54)
-					(name "VIN"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "13"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -10.16 10.16 0)
+				(pin power_in line
+					(at -2.54 -15.24 90)
 					(length 2.54)
 					(name "GND"
 						(effects
@@ -1000,7 +1162,7 @@
 							)
 						)
 					)
-					(number "14"
+					(number "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1055,60 +1217,6 @@
 						)
 					)
 					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at -10.16 -5.08 0)
-					(length 2.54)
-					(name "VREF"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "10"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 15.24 180)
-					(length 2.54)
-					(name "OUTB"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "16"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 10.16 10.16 180)
-					(length 2.54)
-					(name "OUTA"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "15"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1189,6 +1297,42 @@
 					)
 				)
 				(pin passive line
+					(at 2.54 -15.24 90)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at -10.16 -5.08 0)
+					(length 2.54)
+					(name "VREF"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
 					(at 10.16 -7.62 180)
 					(length 2.54)
 					(name "C+"
@@ -1224,17 +1368,17 @@
 						)
 					)
 				)
-				(pin power_in line
-					(at -2.54 -15.24 90)
+				(pin passive line
+					(at -10.16 15.24 0)
 					(length 2.54)
-					(name "GND"
+					(name "VIN"
 						(effects
 							(font
 								(size 1.27 1.27)
 							)
 						)
 					)
-					(number "1"
+					(number "13"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1243,7 +1387,7 @@
 					)
 				)
 				(pin passive line
-					(at 2.54 -15.24 90)
+					(at -10.16 10.16 0)
 					(length 2.54)
 					(name "GND"
 						(effects
@@ -1252,7 +1396,43 @@
 							)
 						)
 					)
-					(number "9"
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 10.16 180)
+					(length 2.54)
+					(name "OUTA"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 10.16 15.24 180)
+					(length 2.54)
+					(name "OUTB"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1261,6 +1441,7 @@
 					)
 				)
 			)
+			(embedded_fonts no)
 		)
 		(symbol "Sensor_Current:ACS758xCB-050B-PFF"
 			(exclude_from_sim no)
@@ -1906,172 +2087,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Jumper:Jumper_2_Bridged"
-			(pin_numbers
-				(hide yes)
-			)
-			(pin_names
-				(offset 0)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(in_pos_files yes)
-			(duplicate_pin_numbers_are_jumpers no)
-			(property "Reference" "JP"
-				(at 0 1.905 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Jumper_2_Bridged"
-				(at 0 -2.54 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 -5.08 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Description" "Jumper, 2-pole, closed/bridged"
-				(at 0 -7.62 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "Jumper SPST"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_fp_filters" "Jumper* TestPoint*2Pads* TestPoint*Bridge*"
-				(at 0 0 0)
-				(show_name no)
-				(do_not_autoplace no)
-				(hide yes)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(symbol "Jumper_2_Bridged_0_0"
-				(circle
-					(center -2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(circle
-					(center 2.032 0)
-					(radius 0.508)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Jumper_2_Bridged_0_1"
-				(arc
-					(start -1.524 0.254)
-					(mid 0 0.762)
-					(end 1.524 0.254)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-			)
-			(symbol "Jumper_2_Bridged_1_1"
-				(pin passive line
-					(at -5.08 0 0)
-					(length 2.54)
-					(name "A"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 2.54)
-					(name "B"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 	)
 	(rectangle
 		(start 177.8 88.9)
@@ -2179,6 +2194,17 @@
 		)
 		(uuid "8c8b21ab-7cb1-4d31-8a4e-65438f2187bf")
 	)
+	(text "W1-W4: kurze Leitungen zwischen den Pololu-Klemmen und J3/J4\n(mind. 20 mm, max. 1,5 mm²), nicht auf der Platine. Unter den\nPololu-Klemmen nur Hilfslötaugen (Pololu-Bauform, Unterseite)."
+		(exclude_from_sim no)
+		(at 74.93 29.21 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a96411f0-43f6-4cbe-9c5a-6ca5374408bc")
+	)
 	(text "Temperaturfühler"
 		(exclude_from_sim no)
 		(at 13.97 67.31 0)
@@ -2249,10 +2275,34 @@
 		(uuid "f2ac7776-4220-4e69-9d45-5dae62d9276b")
 	)
 	(junction
+		(at 180.34 30.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "002c634c-f688-4b43-a6ba-eb759ba112fe")
+	)
+	(junction
+		(at 182.88 35.56)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0976809a-ff75-4609-802f-d7e747e88621")
+	)
+	(junction
+		(at 63.5 43.18)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3fa220ef-e4b0-4e5c-9a3b-8de187a521a4")
+	)
+	(junction
 		(at 220.98 101.6)
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "4b70e9d4-2f8f-4377-bd51-8517faa7d61e")
+	)
+	(junction
+		(at 64.77 45.72)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5cd1a81a-b6b0-4dc8-9531-e9b01441a3fb")
 	)
 	(junction
 		(at 220.98 109.22)
@@ -2266,6 +2316,12 @@
 		(color 0 0 0 0)
 		(uuid "af72cf18-3cec-4e63-ba6d-a0cce15f8aee")
 	)
+	(junction
+		(at 152.4 53.34)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "ce35d559-c7a0-4e46-b774-e0c5c308e08a")
+	)
 	(no_connect
 		(at 129.54 63.5)
 		(uuid "2556f4b8-c230-4b60-be43-512f53e61204")
@@ -2273,6 +2329,36 @@
 	(no_connect
 		(at 129.54 60.96)
 		(uuid "d3d438c2-3804-4fb6-ad43-ae5725e90c70")
+	)
+	(wire
+		(pts
+			(xy 180.34 30.48) (xy 180.34 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "03aefc3a-747d-47e3-8292-c771a5627acd")
+	)
+	(wire
+		(pts
+			(xy 64.77 45.72) (xy 68.58 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0c854e32-ce58-470e-9960-d2b551f924e0")
+	)
+	(wire
+		(pts
+			(xy 152.4 53.34) (xy 160.02 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2f132188-28b6-46a5-a25b-1ec7cdab226d")
 	)
 	(wire
 		(pts
@@ -2296,6 +2382,16 @@
 	)
 	(wire
 		(pts
+			(xy 129.54 53.34) (xy 152.4 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "31af0f68-8936-4a0e-affe-1fba54aaece8")
+	)
+	(wire
+		(pts
 			(xy 129.54 66.04) (xy 147.32 66.04)
 		)
 		(stroke
@@ -2313,6 +2409,56 @@
 			(type default)
 		)
 		(uuid "39ff41ab-1fff-4fd8-aa11-6450cc55a9fe")
+	)
+	(wire
+		(pts
+			(xy 187.96 33.02) (xy 190.5 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "45da3e1e-d0be-400e-8765-2ae2dcc0a140")
+	)
+	(wire
+		(pts
+			(xy 35.56 38.1) (xy 63.5 38.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "46109f50-333a-4028-a11c-0d204a2e714a")
+	)
+	(wire
+		(pts
+			(xy 152.4 50.8) (xy 152.4 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4c8b456a-e61b-44a1-8dfd-7af90c95a5f1")
+	)
+	(wire
+		(pts
+			(xy 63.5 43.18) (xy 86.36 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50c52992-ff12-4a2e-82ac-45f9021535db")
+	)
+	(wire
+		(pts
+			(xy 167.64 35.56) (xy 182.88 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "50f75d1d-25bb-4ba8-8a52-b953e45a55c5")
 	)
 	(wire
 		(pts
@@ -2386,6 +2532,26 @@
 	)
 	(wire
 		(pts
+			(xy 129.54 43.18) (xy 132.08 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "76708cb6-5a49-4c38-a0dc-ff47b0b7fb35")
+	)
+	(wire
+		(pts
+			(xy 182.88 35.56) (xy 182.88 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7877055d-7813-446e-99e1-d4e3c9c7fef4")
+	)
+	(wire
+		(pts
 			(xy 129.54 68.58) (xy 134.62 68.58)
 		)
 		(stroke
@@ -2393,6 +2559,16 @@
 			(type default)
 		)
 		(uuid "7b498ea8-6d69-4172-9cc2-b2a254bf2f58")
+	)
+	(wire
+		(pts
+			(xy 132.08 43.18) (xy 132.08 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "833749a7-ab4b-4a69-ac85-663a33ba8b8d")
 	)
 	(wire
 		(pts
@@ -2406,6 +2582,26 @@
 	)
 	(wire
 		(pts
+			(xy 60.96 43.18) (xy 63.5 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89bc6c0f-6310-4f12-bc4b-1ca9a2e28441")
+	)
+	(wire
+		(pts
+			(xy 134.62 48.26) (xy 134.62 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f169abb-707f-40fb-a97e-a86161323264")
+	)
+	(wire
+		(pts
 			(xy 220.98 116.84) (xy 187.96 116.84)
 		)
 		(stroke
@@ -2413,6 +2609,46 @@
 			(type default)
 		)
 		(uuid "9470f226-4e31-43d9-bc94-768bdc684114")
+	)
+	(wire
+		(pts
+			(xy 182.88 35.56) (xy 187.96 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "958f36d1-2f0b-4f4f-9d9c-bad95fc86fad")
+	)
+	(wire
+		(pts
+			(xy 134.62 35.56) (xy 157.48 35.56)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "970d395f-845a-47aa-97e9-48ed41cedb51")
+	)
+	(wire
+		(pts
+			(xy 68.58 48.26) (xy 86.36 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fd84d0d-57c0-474e-b010-82c1acb19bf2")
+	)
+	(wire
+		(pts
+			(xy 167.64 30.48) (xy 180.34 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6fe4736-301e-4801-b742-810dd65ea390")
 	)
 	(wire
 		(pts
@@ -2436,6 +2672,76 @@
 	)
 	(wire
 		(pts
+			(xy 96.52 48.26) (xy 109.22 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "acad61ac-bbb3-4684-9fde-e3f8c264704e")
+	)
+	(wire
+		(pts
+			(xy 132.08 30.48) (xy 157.48 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ad295926-4b40-4c3a-9184-2947fa0eacc6")
+	)
+	(wire
+		(pts
+			(xy 64.77 45.72) (xy 64.77 53.34)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b7d0d919-b1ce-4f95-9148-68d02ce38fc3")
+	)
+	(wire
+		(pts
+			(xy 60.96 45.72) (xy 64.77 45.72)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c126a704-425e-4f3c-8d26-55efb74ddfb4")
+	)
+	(wire
+		(pts
+			(xy 129.54 48.26) (xy 134.62 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c1456f59-1295-4dcd-b07b-2fea752a87e4")
+	)
+	(wire
+		(pts
+			(xy 63.5 38.1) (xy 63.5 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c7610e82-cece-4152-97b3-815cde98d8cc")
+	)
+	(wire
+		(pts
+			(xy 180.34 25.4) (xy 266.7 25.4)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cc55ac1c-1451-44b8-b686-19810923798a")
+	)
+	(wire
+		(pts
 			(xy 205.74 68.58) (xy 266.7 68.58)
 		)
 		(stroke
@@ -2446,6 +2752,16 @@
 	)
 	(wire
 		(pts
+			(xy 180.34 30.48) (xy 190.5 30.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cfa1bd08-8679-4344-b1f4-46081877d972")
+	)
+	(wire
+		(pts
 			(xy 231.14 53.34) (xy 266.7 53.34)
 		)
 		(stroke
@@ -2453,6 +2769,16 @@
 			(type default)
 		)
 		(uuid "d4cd1986-ce23-4265-926d-e9deae7e3a5a")
+	)
+	(wire
+		(pts
+			(xy 68.58 45.72) (xy 68.58 48.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d4fc38f5-9226-4e48-a6be-1656bb3c1beb")
 	)
 	(wire
 		(pts
@@ -2476,6 +2802,16 @@
 	)
 	(wire
 		(pts
+			(xy 187.96 35.56) (xy 187.96 33.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e8d3328a-a6e9-40a9-b8cc-fe1971459597")
+	)
+	(wire
+		(pts
 			(xy 101.6 63.5) (xy 101.6 67.31)
 		)
 		(stroke
@@ -2493,6 +2829,26 @@
 			(type default)
 		)
 		(uuid "f1b202c3-b4cf-464f-9ec5-4bfd9e0ab911")
+	)
+	(wire
+		(pts
+			(xy 96.52 43.18) (xy 109.22 43.18)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f277009a-ce04-461a-820a-da219839a114")
+	)
+	(wire
+		(pts
+			(xy 182.88 50.8) (xy 210.82 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2fbec73-27c9-490a-887f-2dc20cb5984d")
 	)
 	(wire
 		(pts
@@ -2903,7 +3259,7 @@
 		(dnp no)
 		(uuid "1bfc7711-6021-4cf8-8b1b-4dce34fc019d")
 		(property "Reference" "#PWR310"
-			(at 152.4 39.370000000000005 0)
+			(at 152.4 39.37 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2914,7 +3270,7 @@
 			)
 		)
 		(property "Value" "+3V3"
-			(at 152.4 39.370000000000005 0)
+			(at 152.4 39.37 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3307,7 +3663,7 @@
 		(dnp no)
 		(uuid "5d491e8a-94ab-496b-b8d8-88b2b7b1c68b")
 		(property "Reference" "R11"
-			(at 154.94000000000003 45.72 0)
+			(at 154.94 45.72 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3318,7 +3674,7 @@
 			)
 		)
 		(property "Value" "10k"
-			(at 154.94000000000003 48.260000000000005 0)
+			(at 154.94 48.26 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -3614,6 +3970,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Jumper:Jumper_2_Bridged")
+		(at 162.56 35.56 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "90c25802-5d92-4930-a187-2b2a20f638ec")
+		(property "Reference" "W3"
+			(at 162.56 37.465 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Leitung 20 mm 1,5 mm2"
+			(at 162.56 33.02 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 162.56 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 162.56 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, closed/bridged"
+			(at 162.56 27.94 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "abce2aef-e92f-4a42-9e09-94b5d49907bd")
+		)
+		(pin "2"
+			(uuid "116d9a1e-fc3b-47ff-933b-79073c63022c")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
+					(reference "W3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 121.92 73.66 0)
 		(unit 1)
@@ -3771,6 +4207,87 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:Screw_Terminal_01x02")
+		(at 195.58 30.48 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "a61800f3-915b-423a-98a7-3e4f9da7f101")
+		(property "Reference" "J4"
+			(at 198.12 30.48 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "Degson DG301"
+			(at 198.12 34.29 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "Motor-Controller:Degson_DG301-5.0-02P"
+			(at 195.58 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 195.58 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
+			(at 195.58 30.48 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5a3a6671-f0bd-4165-806c-d8ea30449eb6")
+		)
+		(pin "2"
+			(uuid "1e9ba065-4203-4538-9170-4c1812c519dc")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
+					(reference "J4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 147.32 73.66 0)
 		(unit 1)
@@ -3843,6 +4360,86 @@
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
 					(reference "#PWR306")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Jumper:Jumper_2_Bridged")
+		(at 91.44 48.26 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "b2ae1dca-e037-4a53-87bd-e23d615139fe")
+		(property "Reference" "W2"
+			(at 91.44 50.165 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Leitung 20 mm 1,5 mm2"
+			(at 91.44 45.72 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 48.26 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, closed/bridged"
+			(at 91.44 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "2e170cf5-2d06-48da-bbb7-f436b0e70c45")
+		)
+		(pin "2"
+			(uuid "ff3182aa-8e36-4b37-b584-f8b42e74b1cb")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
+					(reference "W2")
 					(unit 1)
 				)
 			)
@@ -4165,6 +4762,86 @@
 		)
 	)
 	(symbol
+		(lib_id "Jumper:Jumper_2_Bridged")
+		(at 91.44 43.18 0)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board no)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "dd577ba6-828e-4f24-afdf-029389143a87")
+		(property "Reference" "W1"
+			(at 91.44 45.085 0)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Leitung 20 mm 1,5 mm2"
+			(at 91.44 40.64 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 43.18 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 38.1 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Jumper, 2-pole, closed/bridged"
+			(at 91.44 35.56 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "444ec64c-3ecf-42b8-91d5-88d673d3c1fb")
+		)
+		(pin "2"
+			(uuid "28e490b6-b3d9-4059-ac2f-f9c9035d62e0")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
+					(reference "W1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Motor-Controller:Pololu_G2_18v25")
 		(at 119.38 58.42 0)
 		(unit 1)
@@ -4264,6 +4941,18 @@
 		(pin "9"
 			(uuid "a8a82c71-28e5-4f22-b416-f0d8151e279e")
 		)
+		(pin "16"
+			(uuid "312d3211-e3ba-494a-a758-866525a26996")
+		)
+		(pin "13"
+			(uuid "f5785c60-b2c8-4c6c-a17a-7cc1ddb781eb")
+		)
+		(pin "14"
+			(uuid "f8ff611d-3fbf-4897-b6a9-53dc14d1597f")
+		)
+		(pin "15"
+			(uuid "6899cce3-4aa2-406e-a9b1-3a21e9515b66")
+		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
@@ -4355,6 +5044,7 @@
 	(symbol
 		(lib_id "Connector:Screw_Terminal_01x02")
 		(at 55.88 43.18 0)
+		(mirror y)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4364,7 +5054,7 @@
 		(dnp no)
 		(uuid "eea1710b-ba72-4b91-bb57-dc1d485a951c")
 		(property "Reference" "J3"
-			(at 53.34 49.53 0)
+			(at 58.42 49.53 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4374,7 +5064,7 @@
 			)
 		)
 		(property "Value" "Degson DG301"
-			(at 53.34 52.07 0)
+			(at 58.42 52.07 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -4426,324 +5116,6 @@
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
 					(reference "J3")
-					(unit 1)
-				)
-			)
-		)
-		(mirror y)
-	)
-	(symbol
-		(lib_id "Connector:Screw_Terminal_01x02")
-		(at 195.58 30.48 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "a61800f3-915b-423a-98a7-3e4f9da7f101")
-		(property "Reference" "J4"
-			(at 198.12 30.48 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				) (justify left))
-		)
-		(property "Value" "Degson DG301"
-			(at 198.12 34.29 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				) (justify left))
-		)
-		(property "Footprint" "Motor-Controller:Degson_DG301-5.0-02P"
-			(at 195.58 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 195.58 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Generic screw terminal, single row, 01x02, script generated (kicad-library-utils/schlib/autogen/connector/)"
-			(at 195.58 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5a3a6671-f0bd-4165-806c-d8ea30449eb6")
-		)
-		(pin "2"
-			(uuid "1e9ba065-4203-4538-9170-4c1812c519dc")
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
-					(reference "J4")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:Jumper_2_Bridged")
-		(at 91.44 43.18 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "dd577ba6-828e-4f24-afdf-029389143a87")
-		(property "Reference" "W1"
-			(at 91.44 45.085 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Leitung 20 mm 1,5 mm2"
-			(at 91.44 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 91.44 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 91.44 38.1 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Jumper, 2-pole, closed/bridged"
-			(at 91.44 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "444ec64c-3ecf-42b8-91d5-88d673d3c1fb")
-		)
-		(pin "2"
-			(uuid "28e490b6-b3d9-4059-ac2f-f9c9035d62e0")
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
-					(reference "W1")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:Jumper_2_Bridged")
-		(at 91.44 48.26 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "b2ae1dca-e037-4a53-87bd-e23d615139fe")
-		(property "Reference" "W2"
-			(at 91.44 50.165 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Leitung 20 mm 1,5 mm2"
-			(at 91.44 45.72 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 91.44 48.26 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 91.44 43.18 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Jumper, 2-pole, closed/bridged"
-			(at 91.44 40.64 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "2e170cf5-2d06-48da-bbb7-f436b0e70c45")
-		)
-		(pin "2"
-			(uuid "ff3182aa-8e36-4b37-b584-f8b42e74b1cb")
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
-					(reference "W2")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Jumper:Jumper_2_Bridged")
-		(at 162.56 35.56 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board no)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "90c25802-5d92-4930-a187-2b2a20f638ec")
-		(property "Reference" "W3"
-			(at 162.56 37.465 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "Leitung 20 mm 1,5 mm2"
-			(at 162.56 33.02 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 162.56 35.56 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 162.56 30.48 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Jumper, 2-pole, closed/bridged"
-			(at 162.56 27.94 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "abce2aef-e92f-4a42-9e09-94b5d49907bd")
-		)
-		(pin "2"
-			(uuid "116d9a1e-fc3b-47ff-933b-79073c63022c")
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/eb0a7f33-54c8-4f2a-99d4-3bc80eb9d2c5"
-					(reference "W3")
 					(unit 1)
 				)
 			)
@@ -4829,42 +5201,6 @@
 			)
 		)
 	)
-	(wire (pts (xy 35.56 38.1) (xy 63.5 38.1)) (stroke (width 0) (type default)) (uuid "46109f50-333a-4028-a11c-0d204a2e714a"))
-	(wire (pts (xy 63.5 38.1) (xy 63.5 43.18)) (stroke (width 0) (type default)) (uuid "c7610e82-cece-4152-97b3-815cde98d8cc"))
-	(wire (pts (xy 60.96 43.18) (xy 63.5 43.18)) (stroke (width 0) (type default)) (uuid "89bc6c0f-6310-4f12-bc4b-1ca9a2e28441"))
-	(wire (pts (xy 63.5 43.18) (xy 86.36 43.18)) (stroke (width 0) (type default)) (uuid "50c52992-ff12-4a2e-82ac-45f9021535db"))
-	(junction (at 63.5 43.18) (diameter 0) (color 0 0 0 0) (uuid "3fa220ef-e4b0-4e5c-9a3b-8de187a521a4"))
-	(wire (pts (xy 60.96 45.72) (xy 64.77 45.72)) (stroke (width 0) (type default)) (uuid "c126a704-425e-4f3c-8d26-55efb74ddfb4"))
-	(wire (pts (xy 64.77 45.72) (xy 68.58 45.72)) (stroke (width 0) (type default)) (uuid "0c854e32-ce58-470e-9960-d2b551f924e0"))
-	(wire (pts (xy 68.58 45.72) (xy 68.58 48.26)) (stroke (width 0) (type default)) (uuid "d4fc38f5-9226-4e48-a6be-1656bb3c1beb"))
-	(wire (pts (xy 68.58 48.26) (xy 86.36 48.26)) (stroke (width 0) (type default)) (uuid "9fd84d0d-57c0-474e-b010-82c1acb19bf2"))
-	(junction (at 64.77 45.72) (diameter 0) (color 0 0 0 0) (uuid "5cd1a81a-b6b0-4dc8-9531-e9b01441a3fb"))
-	(wire (pts (xy 64.77 45.72) (xy 64.77 53.34)) (stroke (width 0) (type default)) (uuid "b7d0d919-b1ce-4f95-9148-68d02ce38fc3"))
-	(wire (pts (xy 96.52 43.18) (xy 109.22 43.18)) (stroke (width 0) (type default)) (uuid "f277009a-ce04-461a-820a-da219839a114"))
-	(wire (pts (xy 96.52 48.26) (xy 109.22 48.26)) (stroke (width 0) (type default)) (uuid "acad61ac-bbb3-4684-9fde-e3f8c264704e"))
-	(wire (pts (xy 129.54 43.18) (xy 132.08 43.18)) (stroke (width 0) (type default)) (uuid "76708cb6-5a49-4c38-a0dc-ff47b0b7fb35"))
-	(wire (pts (xy 132.08 43.18) (xy 132.08 30.48)) (stroke (width 0) (type default)) (uuid "833749a7-ab4b-4a69-ac85-663a33ba8b8d"))
-	(wire (pts (xy 132.08 30.48) (xy 157.48 30.48)) (stroke (width 0) (type default)) (uuid "ad295926-4b40-4c3a-9184-2947fa0eacc6"))
-	(wire (pts (xy 129.54 48.26) (xy 134.62 48.26)) (stroke (width 0) (type default)) (uuid "c1456f59-1295-4dcd-b07b-2fea752a87e4"))
-	(wire (pts (xy 134.62 48.26) (xy 134.62 35.56)) (stroke (width 0) (type default)) (uuid "8f169abb-707f-40fb-a97e-a86161323264"))
-	(wire (pts (xy 134.62 35.56) (xy 157.48 35.56)) (stroke (width 0) (type default)) (uuid "970d395f-845a-47aa-97e9-48ed41cedb51"))
-	(wire (pts (xy 129.54 53.34) (xy 152.4 53.34)) (stroke (width 0) (type default)) (uuid "31af0f68-8936-4a0e-affe-1fba54aaece8"))
-	(wire (pts (xy 152.4 53.34) (xy 160.02 53.34)) (stroke (width 0) (type default)) (uuid "2f132188-28b6-46a5-a25b-1ec7cdab226d"))
-	(junction (at 152.4 53.34) (diameter 0) (color 0 0 0 0) (uuid "ce35d559-c7a0-4e46-b774-e0c5c308e08a"))
-	(wire (pts (xy 152.4 50.8) (xy 152.4 53.34)) (stroke (width 0) (type default)) (uuid "4c8b456a-e61b-44a1-8dfd-7af90c95a5f1"))
-	(wire (pts (xy 167.64 30.48) (xy 180.34 30.48)) (stroke (width 0) (type default)) (uuid "a6fe4736-301e-4801-b742-810dd65ea390"))
-	(wire (pts (xy 180.34 30.48) (xy 190.5 30.48)) (stroke (width 0) (type default)) (uuid "cfa1bd08-8679-4344-b1f4-46081877d972"))
-	(junction (at 180.34 30.48) (diameter 0) (color 0 0 0 0) (uuid "002c634c-f688-4b43-a6ba-eb759ba112fe"))
-	(wire (pts (xy 180.34 30.48) (xy 180.34 25.4)) (stroke (width 0) (type default)) (uuid "03aefc3a-747d-47e3-8292-c771a5627acd"))
-	(wire (pts (xy 180.34 25.4) (xy 266.7 25.4)) (stroke (width 0) (type default)) (uuid "cc55ac1c-1451-44b8-b686-19810923798a"))
-	(wire (pts (xy 167.64 35.56) (xy 182.88 35.56)) (stroke (width 0) (type default)) (uuid "50f75d1d-25bb-4ba8-8a52-b953e45a55c5"))
-	(wire (pts (xy 182.88 35.56) (xy 187.96 35.56)) (stroke (width 0) (type default)) (uuid "958f36d1-2f0b-4f4f-9d9c-bad95fc86fad"))
-	(wire (pts (xy 187.96 35.56) (xy 187.96 33.02)) (stroke (width 0) (type default)) (uuid "e8d3328a-a6e9-40a9-b8cc-fe1971459597"))
-	(wire (pts (xy 187.96 33.02) (xy 190.5 33.02)) (stroke (width 0) (type default)) (uuid "45da3e1e-d0be-400e-8765-2ae2dcc0a140"))
-	(junction (at 182.88 35.56) (diameter 0) (color 0 0 0 0) (uuid "0976809a-ff75-4609-802f-d7e747e88621"))
-	(wire (pts (xy 182.88 35.56) (xy 182.88 50.8)) (stroke (width 0) (type default)) (uuid "7877055d-7813-446e-99e1-d4e3c9c7fef4"))
-	(wire (pts (xy 182.88 50.8) (xy 210.82 50.8)) (stroke (width 0) (type default)) (uuid "f2fbec73-27c9-490a-887f-2dc20cb5984d"))
-	(text "W1-W4: kurze Leitungen zwischen den Pololu-Klemmen und J3/J4\n(mind. 20 mm, max. 1,5 mm²), nicht auf der Platine. Unter den\nPololu-Klemmen nur Hilfslötaugen (Pololu-Bauform, Unterseite)." (exclude_from_sim no) (at 74.93 29.21 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a96411f0-43f6-4cbe-9c5a-6ca5374408bc"))
 	(sheet_instances
 		(path "/"
 			(page "1")

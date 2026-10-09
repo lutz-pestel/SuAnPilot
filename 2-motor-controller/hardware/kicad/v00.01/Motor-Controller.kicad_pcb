@@ -764,7 +764,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "0989fdf2-f037-4b77-88c5-5ff0d4704de7")
-		(at 103.945 136.735)
+		(at 108.07 141.43)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R11"
@@ -1265,7 +1265,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "0e61e260-727a-4598-87f9-ccfadf354954")
-		(at 90.095 136.735)
+		(at 94.22 141.43)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R10"
@@ -1659,7 +1659,7 @@
 	(footprint "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "139d1423-e43d-44a3-966a-bcc0871fcb5f")
-		(at 101.265 117.445)
+		(at 105.39 122.14)
 		(descr "Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=3.04*1.6mm^2, https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf")
 		(tags "Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm")
 		(property "Reference" "D305"
@@ -1923,7 +1923,7 @@
 	(footprint "Package_DIP:DIP-8_W7.62mm"
 		(layer "F.Cu")
 		(uuid "1593922e-2ca5-4add-975c-45aa9559f97b")
-		(at 129.494999 124.505)
+		(at 133.619999 129.2)
 		(descr "8-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U501"
@@ -2120,7 +2120,7 @@
 			)
 		)
 		(point
-			(at 133.304999 128.315)
+			(at 137.429999 133.01)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "0ead46a1-d9c5-42a3-9981-1a16943d4e05")
@@ -2395,7 +2395,7 @@
 	(footprint "Motor-Controller:LED_Dialight_551_RightAngle"
 		(layer "F.Cu")
 		(uuid "174b80ca-7a99-4b29-9fb3-de4904d19bd4")
-		(at 44.44 83.62 180)
+		(at 44.44 101.845 180)
 		(descr "Leuchtdiode 3 mm im Winkelgehäuse Dialight 551-xx07F (Zeichnung C-17306 Rev G): Gehäuse 4,44 x 6,35 mm, 7,11 hoch, Lichtachse 5,08 mm über der Platine; Beinchen 2,54 mm, 4,44 mm hinter der Gehäusefront; Leuchtdiode ragt 2,41 mm vor. Pin 1 = Kathode. Leuchtdiode zeigt nach +x.")
 		(tags "LED right angle CBI Dialight 551")
 		(property "Reference" "D602"
@@ -2513,7 +2513,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "19738a36-1455-4064-846a-8f2a4aa1c37c")
-		(at 117.795 113.305)
+		(at 121.92 118)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R311"
@@ -2812,7 +2812,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "26acd443-5605-4e6f-bed5-699e5888cee0")
-		(at 111.585 103.335)
+		(at 115.71 108.03)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C601"
@@ -2919,7 +2919,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "272e768b-ef4d-41aa-98c3-a9ab5eba3b80")
-		(at 155.125 125.275)
+		(at 159.25 129.97)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C501"
@@ -3239,7 +3239,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "2baf8444-8901-4c16-ad64-5499646e7b41")
-		(at 145.985 102.545)
+		(at 150.11 107.24)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R303"
@@ -5922,7 +5922,7 @@
 	(footprint "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_8-G-5,08_1x08_P5.08mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "2d8c52bd-46b4-4f4a-a57c-397ea973b30b")
-		(at 179.705 111.645 90)
+		(at 179.2225 87.78 90)
 		(descr "Generic Phoenix Contact connector footprint for: MSTBA_2,5/8-G-5,08; number of pins: 08; pin pitch: 5.08mm; Angled || order number: 1757307 12A || order number: 1923924 16A (HC)")
 		(tags "phoenix_contact connector MSTBA_01x08_G_5.08mm")
 		(property "Reference" "J7"
@@ -5936,7 +5936,7 @@
 				)
 			)
 		)
-		(property "Value" "Steuerhaus RS422"
+		(property "Value" "Steuerstand RS422"
 			(at 17.78 11.2 90)
 			(layer "F.Fab")
 			(uuid "6c90c418-b63d-4e39-bb80-dc48e82a831a")
@@ -6499,7 +6499,7 @@
 	(footprint "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "32e44c60-034e-4530-8508-22db46abdc14")
-		(at 50.295 61.585 -90)
+		(at 50.2775 67.955 -90)
 		(descr "Generic Phoenix Contact connector footprint for: MSTBA_2,5/2-G-5,08; number of pins: 02; pin pitch: 5.08mm; Angled || order number: 1757242 12A || order number: 1923869 16A (HC)")
 		(tags "phoenix_contact connector MSTBA_01x02_G_5.08mm")
 		(property "Reference" "J1"
@@ -7039,6 +7039,7 @@
 		)
 	)
 	(footprint "Motor-Controller:LCD_12864B_Socket"
+		(locked yes)
 		(layer "F.Cu")
 		(uuid "36e73123-0f8b-4527-a45b-a9dbd5124076")
 		(at 141.76 163.5)
@@ -7047,7 +7048,7 @@
 		(property "Reference" "DS601"
 			(at -13.26 4.2 0)
 			(layer "F.SilkS")
-			(uuid "5243783a-3cff-4662-b13a-500afc652544")
+			(uuid "726d36df-4f25-45d5-86ed-a5084283c5dc")
 			(effects
 				(font
 					(size 1 1)
@@ -7058,7 +7059,7 @@
 		(property "Value" "LCD 12864B ST7920"
 			(at -13.26 -33 0)
 			(layer "F.Fab")
-			(uuid "b3e3d718-9e3c-4fc1-8070-67dab8359caa")
+			(uuid "63cb2038-031e-4ec7-8ffd-faa25e328372")
 			(effects
 				(font
 					(size 1 1)
@@ -7070,7 +7071,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "54c4215c-d0f9-4952-8d71-9343c22efe25")
+			(uuid "41b660f5-239a-4be3-93f0-041160858086")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7081,7 +7082,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "119108f4-a915-4397-9a55-87623c8b33a3")
+			(uuid "a4f0ea1d-3fe5-4e34-8f03-c127bd80d789")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7416,7 +7417,7 @@
 	(footprint "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "3b1b3481-7621-4f93-a1f9-ac9b3c21eadc")
-		(at 142.815 112.855)
+		(at 146.94 117.55)
 		(descr "Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=3.04*1.6mm^2, https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf")
 		(tags "Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm")
 		(property "Reference" "D302"
@@ -7680,7 +7681,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "3c459bd5-6d14-42ee-af4a-a838faf82d69")
-		(at 90.095 108.715)
+		(at 94.22 113.41)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R304"
@@ -8042,13 +8043,13 @@
 	(footprint "Motor-Controller:LED_Dialight_551_RightAngle"
 		(layer "F.Cu")
 		(uuid "40ded42c-141a-47e0-bc14-138bf17dcd07")
-		(at 44.44 106.48 180)
+		(at 44.44 124.705 180)
 		(descr "Leuchtdiode 3 mm im Winkelgehäuse Dialight 551-xx07F (Zeichnung C-17306 Rev G): Gehäuse 4,44 x 6,35 mm, 7,11 hoch, Lichtachse 5,08 mm über der Platine; Beinchen 2,54 mm, 4,44 mm hinter der Gehäusefront; Leuchtdiode ragt 2,41 mm vor. Pin 1 = Kathode. Leuchtdiode zeigt nach +x.")
 		(tags "LED right angle CBI Dialight 551")
 		(property "Reference" "D4"
-			(at 1.2 -2 180)
+			(at 0 0 180)
 			(layer "F.SilkS")
-			(uuid "b12548a1-a962-441e-9a56-6989e455a694")
+			(uuid "eea83a6f-5df8-4c8c-85e1-0daece53b2a0")
 			(effects
 				(font
 					(size 1 1)
@@ -8059,7 +8060,7 @@
 		(property "Value" "gelb B"
 			(at 1.2 4.6 180)
 			(layer "F.Fab")
-			(uuid "ef964367-12de-4e5d-99dc-bb90a2c1e48e")
+			(uuid "8eef3fe1-88ef-46ba-a619-676397e0c8f2")
 			(effects
 				(font
 					(size 1 1)
@@ -8071,7 +8072,7 @@
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "de561fea-8271-43bb-a0f1-b7dac1393a76")
+			(uuid "4e091c62-03ee-406d-a061-89f89a72106e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8082,7 +8083,7 @@
 			(at 0 0 180)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0af599c9-0bc7-45e8-8304-d5efe06bb4be")
+			(uuid "87a4db47-000f-4c26-a114-61198cda0558")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8160,7 +8161,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "43a377a6-f03b-49a1-927f-db79b68ec2a0")
-		(at 145.735 118.685)
+		(at 149.86 123.38)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C304"
@@ -8480,7 +8481,7 @@
 	(footprint "Package_TO_SOT_THT:TO-92_Inline"
 		(layer "F.Cu")
 		(uuid "45d0d701-7382-47dc-b79f-64028e70258a")
-		(at 90.505 125.715)
+		(at 94.63 130.41)
 		(descr "TO-92 leads in-line, narrow, oval pads, drill 0.75mm (see NXP sot054_po.pdf)")
 		(tags "to-92 sc-43 sc-43a sot54 PA33 transistor")
 		(property "Reference" "U302"
@@ -8693,7 +8694,7 @@
 	(footprint "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "4ae18b88-dd83-4488-bb82-5ee206ca682d")
-		(at 90.045 117.445)
+		(at 94.17 122.14)
 		(descr "Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=3.04*1.6mm^2, https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf")
 		(tags "Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm")
 		(property "Reference" "D304"
@@ -10318,7 +10319,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "4f675377-3765-4a82-80e7-d778b7c73499")
-		(at 145.495 108.715)
+		(at 149.62 113.41)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R308"
@@ -10640,7 +10641,7 @@
 	(footprint "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "4fb7a15f-eed5-4d24-83ed-51efc2c69dea")
-		(at 131.595 112.855)
+		(at 135.72 117.55)
 		(descr "Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=3.04*1.6mm^2, https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf")
 		(tags "Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm")
 		(property "Reference" "D301"
@@ -10904,7 +10905,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "5482ab5f-c778-416d-813f-d87f14370a9e")
-		(at 90.095 113.305)
+		(at 94.22 118)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R309"
@@ -11085,7 +11086,7 @@
 	(footprint "Motor-Controller:LED_Dialight_551_RightAngle"
 		(layer "F.Cu")
 		(uuid "58c19553-a2ec-4e0b-b386-de0d92f0ef1f")
-		(at 44.44 91.24 180)
+		(at 44.44 109.465 180)
 		(descr "Leuchtdiode 3 mm im Winkelgehäuse Dialight 551-xx07F (Zeichnung C-17306 Rev G): Gehäuse 4,44 x 6,35 mm, 7,11 hoch, Lichtachse 5,08 mm über der Platine; Beinchen 2,54 mm, 4,44 mm hinter der Gehäusefront; Leuchtdiode ragt 2,41 mm vor. Pin 1 = Kathode. Leuchtdiode zeigt nach +x.")
 		(tags "LED right angle CBI Dialight 551")
 		(property "Reference" "D603"
@@ -11203,7 +11204,7 @@
 	(footprint "Package_DIP:DIP-8_W7.62mm"
 		(layer "F.Cu")
 		(uuid "58f64220-a419-437d-80f8-890f3f2ba4af")
-		(at 97.155 124.505)
+		(at 101.28 129.2)
 		(descr "8-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils)")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil")
 		(property "Reference" "U401"
@@ -11400,7 +11401,7 @@
 			)
 		)
 		(point
-			(at 100.965 128.315)
+			(at 105.09 133.01)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "dcc6bdc6-55f5-47f7-8aec-a9b2802ffc1b")
@@ -11494,7 +11495,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "5b91e28a-4506-4079-9d31-bcb924d60712")
-		(at 122.785 125.275)
+		(at 126.91 129.97)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C401"
@@ -12086,7 +12087,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "62527af5-6362-4fc1-9e03-220d39b8cd0d")
-		(at 138.565 118.685)
+		(at 142.69 123.38)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C303"
@@ -12193,7 +12194,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "64ff9fb2-6b32-4276-bbb2-09ac700bd8cd")
-		(at 132.135 102.545)
+		(at 136.26 107.24)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R302"
@@ -12374,7 +12375,7 @@
 	(footprint "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "67841cc2-091a-4d8d-9269-48e3d4c71e37")
-		(at 112.485 117.445)
+		(at 116.61 122.14)
 		(descr "Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=3.04*1.6mm^2, https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf")
 		(tags "Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm")
 		(property "Reference" "D306"
@@ -12949,7 +12950,7 @@
 	(footprint "Motor-Controller:ESP32-DevKitC_Socket"
 		(layer "F.Cu")
 		(uuid "70c3ba66-105a-4f98-8fdc-f8cff278a256")
-		(at 57.269999 41.39)
+		(at 55.5 47.44)
 		(descr "Espressif ESP32-DevKitC V4 gesteckt: zwei Buchsenleisten 1x19, Raster 2,54 mm, Reihenabstand 25,40 mm (Maßzeichnung esp32_devkitc_v4_dimensions.pdf). 1-19 = J2, 20-38 = J3. Platine 27,94 mm breit, 1,29 mm über Pin 1/19 hinaus; Antenne 18,0 mm breit ragt 6,04 mm über die Kante bei Pin 1 (Maßzeichnung Espressif): Antenne über den Rand unserer Platine hinaus, darunter kein Kupfer.")
 		(tags "ESP32 DevKitC socket")
 		(property "Reference" "U601"
@@ -13424,7 +13425,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "730d430c-9e77-4fa3-9e77-9c66c4e39d7c")
-		(at 162.195 118.685)
+		(at 166.32 123.38)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C306"
@@ -14115,7 +14116,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "80f0ad0f-cc81-48ac-a438-8db310095ebb")
-		(at 131.394999 118.685)
+		(at 135.519999 123.38)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C302"
@@ -14403,7 +14404,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "832d8e41-bed6-4cec-93c2-e56325cc7685")
-		(at 103.945 113.305)
+		(at 108.07 118)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R310"
@@ -14730,7 +14731,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "8ae60853-3633-46bc-9228-377750d3ff63")
-		(at 124.225 118.685)
+		(at 128.35 123.38)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C301"
@@ -15018,7 +15019,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0617_L17.0mm_D6.0mm_P20.32mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "9ee79770-11e0-46fd-898d-84948aac9b95")
-		(at 49.495 116.825)
+		(at 50 101)
 		(descr "Resistor, Axial_DIN0617 series, Axial, Horizontal, pin pitch=20.32mm, 2W, length*diameter=17*6mm^2, http://www.vishay.com/docs/20128/wkxwrx.pdf")
 		(tags "Resistor Axial_DIN0617 series Axial Horizontal pin pitch 20.32mm 2W length 17mm diameter 6mm")
 		(property "Reference" "R1"
@@ -15674,7 +15675,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "ba334c85-e759-4c8e-9e76-904a5f034473")
-		(at 97.095 147.545)
+		(at 101.22 152.24)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R201"
@@ -15855,7 +15856,7 @@
 	(footprint "Capacitor_THT:C_Rect_L7.2mm_W4.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2"
 		(layer "F.Cu")
 		(uuid "ba9a9e35-4b22-4b9e-9982-d6a82e442f8f")
-		(at 152.735 118.895)
+		(at 156.86 123.59)
 		(descr "C, Rect series, Radial, pin pitch=5.00mm, length*width=7.2*4.5mm^2, Capacitor, http://www.wima.com/EN/WIMA_FKS_2.pdf")
 		(tags "C Rect series Radial pin pitch 5.00mm length 7.2mm width 4.5mm Capacitor")
 		(property "Reference" "C305"
@@ -16347,7 +16348,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "c2d49fb9-d540-48b6-8761-94c75b7b17c2")
-		(at 103.945 108.715)
+		(at 108.07 113.41)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R305"
@@ -16528,11 +16529,11 @@
 	(footprint "Package_DIP:DIP-16_W7.62mm_Socket"
 		(layer "F.Cu")
 		(uuid "c3924553-9f14-420d-87de-529350e7cbb8")
-		(at 49.565 92.625)
+		(at 54.3 116.5 90)
 		(descr "16-lead though-hole mounted DIP package, row spacing 7.62mm (300 mils), Socket")
 		(tags "THT DIP DIL PDIP 2.54mm 7.62mm 300mil Socket")
 		(property "Reference" "U301"
-			(at 3.81 -2.33 0)
+			(at 3.81 -2.33 90)
 			(layer "F.SilkS")
 			(uuid "2e17e81d-b3a7-4459-8c7e-c843d26ce09e")
 			(effects
@@ -16543,7 +16544,7 @@
 			)
 		)
 		(property "Value" "MCP3208"
-			(at 3.81 20.11 0)
+			(at 3.81 20.11 90)
 			(layer "F.Fab")
 			(uuid "48c732bc-fb6c-42ba-b1f6-91d6cbf67279")
 			(effects
@@ -16554,7 +16555,7 @@
 			)
 		)
 		(property "Datasheet" "http://ww1.microchip.com/downloads/en/DeviceDoc/21298c.pdf"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "b7652eca-731c-48e4-837b-66a571bc432d")
@@ -16565,7 +16566,7 @@
 			)
 		)
 		(property "Description" "A/D Converter, 12-Bit, 8-Channel, SPI Interface , 2.7V-5.5V"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
 			(uuid "8bde8d29-a036-484d-8e08-9e7a308a7a77")
@@ -16576,7 +16577,7 @@
 			)
 		)
 		(property "KiLib_Generator" "package/DIP/legacy"
-			(at 0 0 0)
+			(at 0 0 90)
 			(layer "F.SilkS")
 			(hide yes)
 			(uuid "394bdfa4-66bb-46f6-bc28-9b4f94ad74ad")
@@ -16592,24 +16593,14 @@
 		(attr through_hole)
 		(duplicate_pad_numbers_are_jumpers no)
 		(fp_line
-			(start 1.16 -1.33)
-			(end 1.16 19.11)
+			(start 6.46 -1.33)
+			(end 4.81 -1.33)
 			(stroke
 				(width 0.12)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "c99a91fb-f122-40e3-bd52-a583c2dd9768")
-		)
-		(fp_line
-			(start 1.16 19.11)
-			(end 6.46 19.11)
-			(stroke
-				(width 0.12)
-				(type solid)
-			)
-			(layer "F.SilkS")
-			(uuid "e73e84cd-e26f-4caa-ae30-282bc23a7414")
+			(uuid "99cf5ff4-e06a-421d-bddb-33f5ae7a5293")
 		)
 		(fp_line
 			(start 2.81 -1.33)
@@ -16622,14 +16613,14 @@
 			(uuid "1c93d962-bc7d-4423-a0fc-2e640233e948")
 		)
 		(fp_line
-			(start 6.46 -1.33)
-			(end 4.81 -1.33)
+			(start 1.16 -1.33)
+			(end 1.16 19.11)
 			(stroke
 				(width 0.12)
 				(type solid)
 			)
 			(layer "F.SilkS")
-			(uuid "99cf5ff4-e06a-421d-bddb-33f5ae7a5293")
+			(uuid "c99a91fb-f122-40e3-bd52-a583c2dd9768")
 		)
 		(fp_line
 			(start 6.46 19.11)
@@ -16640,6 +16631,16 @@
 			)
 			(layer "F.SilkS")
 			(uuid "8a91570f-77e5-4c5b-80f6-a6fd1c3644f8")
+		)
+		(fp_line
+			(start 1.16 19.11)
+			(end 6.46 19.11)
+			(stroke
+				(width 0.12)
+				(type solid)
+			)
+			(layer "F.SilkS")
+			(uuid "e73e84cd-e26f-4caa-ae30-282bc23a7414")
 		)
 		(fp_rect
 			(start -1.33 -1.39)
@@ -16675,24 +16676,14 @@
 			(uuid "d24fbee4-2dc8-49b9-b103-0c9d10b2cb78")
 		)
 		(fp_line
-			(start 0.635 -0.27)
-			(end 1.635 -1.27)
+			(start 6.985 -1.27)
+			(end 6.985 19.05)
 			(stroke
 				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "de67ae57-6ade-4bfc-bda0-f0a6727a8602")
-		)
-		(fp_line
-			(start 0.635 19.05)
-			(end 0.635 -0.27)
-			(stroke
-				(width 0.1)
-				(type solid)
-			)
-			(layer "F.Fab")
-			(uuid "c71f4d55-a861-4149-b6b3-a379210ecf9b")
+			(uuid "545a1be9-1686-4666-8c61-3cf35b94bd11")
 		)
 		(fp_line
 			(start 1.635 -1.27)
@@ -16705,14 +16696,14 @@
 			(uuid "364d8ae7-a1d7-4e68-814e-8156da55072a")
 		)
 		(fp_line
-			(start 6.985 -1.27)
-			(end 6.985 19.05)
+			(start 0.635 -0.27)
+			(end 1.635 -1.27)
 			(stroke
 				(width 0.1)
 				(type solid)
 			)
 			(layer "F.Fab")
-			(uuid "545a1be9-1686-4666-8c61-3cf35b94bd11")
+			(uuid "de67ae57-6ade-4bfc-bda0-f0a6727a8602")
 		)
 		(fp_line
 			(start 6.985 19.05)
@@ -16723,6 +16714,16 @@
 			)
 			(layer "F.Fab")
 			(uuid "5f49be57-2060-4bc1-9e8a-25365dfcda9d")
+		)
+		(fp_line
+			(start 0.635 19.05)
+			(end 0.635 -0.27)
+			(stroke
+				(width 0.1)
+				(type solid)
+			)
+			(layer "F.Fab")
+			(uuid "c71f4d55-a861-4149-b6b3-a379210ecf9b")
 		)
 		(fp_rect
 			(start -1.27 -1.33)
@@ -16736,7 +16737,7 @@
 			(uuid "0e31d3b0-a335-4394-8dd8-ba4ae9f01a51")
 		)
 		(fp_text user "${REFERENCE}"
-			(at 3.81 8.89 90)
+			(at 3.81 8.89 0)
 			(layer "F.Fab")
 			(uuid "a7c3767d-20c6-47f3-a329-4f90b8bf3f30")
 			(effects
@@ -16747,13 +16748,13 @@
 			)
 		)
 		(point
-			(at 53.375 101.515)
+			(at 63.19 112.69)
 			(size 1.27)
 			(layer "F.Fab")
 			(uuid "04695587-52a5-4b81-8210-37024de512db")
 		)
 		(pad "1" thru_hole roundrect
-			(at 0 0)
+			(at 0 0 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16763,7 +16764,7 @@
 			(uuid "363cec0d-f497-4170-80c3-38ce0389a919")
 		)
 		(pad "2" thru_hole circle
-			(at 0 2.54)
+			(at 0 2.54 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16772,7 +16773,7 @@
 			(uuid "0d7820b3-cf63-4622-b1f3-1d52b5fe1b6e")
 		)
 		(pad "3" thru_hole circle
-			(at 0 5.08)
+			(at 0 5.08 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16781,7 +16782,7 @@
 			(uuid "80636c57-7f83-4421-8cdf-21b2b59cef39")
 		)
 		(pad "4" thru_hole circle
-			(at 0 7.62)
+			(at 0 7.62 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16790,7 +16791,7 @@
 			(uuid "eaf656a6-4039-46d5-b3d1-eaee9c678035")
 		)
 		(pad "5" thru_hole circle
-			(at 0 10.16)
+			(at 0 10.16 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16799,7 +16800,7 @@
 			(uuid "469084db-02c4-484a-80ed-d938c65fec32")
 		)
 		(pad "6" thru_hole circle
-			(at 0 12.7)
+			(at 0 12.7 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16808,7 +16809,7 @@
 			(uuid "0fb820eb-2ec3-4063-a9f1-ac93c551ec35")
 		)
 		(pad "7" thru_hole circle
-			(at 0 15.24)
+			(at 0 15.24 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16817,7 +16818,7 @@
 			(uuid "9468c615-d5a9-464f-a6f1-d36d9ec25c31")
 		)
 		(pad "8" thru_hole circle
-			(at 0 17.78)
+			(at 0 17.78 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16826,7 +16827,7 @@
 			(uuid "45a73599-9c0c-4437-9e2e-64b14921ef46")
 		)
 		(pad "9" thru_hole circle
-			(at 7.62 17.78)
+			(at 7.62 17.78 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16835,7 +16836,7 @@
 			(uuid "05d05373-6c0d-4ab8-b027-708f351905f0")
 		)
 		(pad "10" thru_hole circle
-			(at 7.62 15.24)
+			(at 7.62 15.24 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16844,7 +16845,7 @@
 			(uuid "16e86d46-0fbd-4816-8f2a-2cf3129b8212")
 		)
 		(pad "11" thru_hole circle
-			(at 7.62 12.7)
+			(at 7.62 12.7 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16853,7 +16854,7 @@
 			(uuid "c23d815e-999c-4156-8851-a48ae8e1f09b")
 		)
 		(pad "12" thru_hole circle
-			(at 7.62 10.16)
+			(at 7.62 10.16 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16862,7 +16863,7 @@
 			(uuid "24e74ef4-f41e-4c7d-a900-b3849d1fc5cc")
 		)
 		(pad "13" thru_hole circle
-			(at 7.62 7.62)
+			(at 7.62 7.62 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16871,7 +16872,7 @@
 			(uuid "ccfaa925-9735-439a-823a-95c068ed8749")
 		)
 		(pad "14" thru_hole circle
-			(at 7.62 5.08)
+			(at 7.62 5.08 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16880,7 +16881,7 @@
 			(uuid "e816f88e-7494-4ad5-9c46-38ec6a2e2d88")
 		)
 		(pad "15" thru_hole circle
-			(at 7.62 2.54)
+			(at 7.62 2.54 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -16889,7 +16890,7 @@
 			(uuid "85e6d5c7-fd21-4c2f-8987-9600c666bb13")
 		)
 		(pad "16" thru_hole circle
-			(at 7.62 0)
+			(at 7.62 0 90)
 			(size 1.6 1.6)
 			(drill 0.8)
 			(layers "*.Cu" "*.Mask")
@@ -17275,7 +17276,7 @@
 	(footprint "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "cb76ed92-2af1-4694-bb48-d29d67a183d8")
-		(at 50.295 47.085 -90)
+		(at 50.2775 49.455 -90)
 		(descr "Generic Phoenix Contact connector footprint for: MSTBA_2,5/2-G-5,08; number of pins: 02; pin pitch: 5.08mm; Angled || order number: 1757242 12A || order number: 1923869 16A (HC)")
 		(tags "phoenix_contact connector MSTBA_01x02_G_5.08mm")
 		(property "Reference" "J2"
@@ -17558,7 +17559,7 @@
 	(footprint "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "cf66c8f0-53f3-478f-895d-f650a17e4e34")
-		(at 154.035 112.855)
+		(at 158.16 117.55)
 		(descr "Diode, DO-34_SOD68 series, Axial, Horizontal, pin pitch=7.62mm, length*diameter=3.04*1.6mm^2, https://www.nxp.com/docs/en/data-sheet/KTY83_SER.pdf")
 		(tags "Diode DO-34_SOD68 series Axial Horizontal pin pitch 7.62mm  length 3.04mm diameter 1.6mm")
 		(property "Reference" "D303"
@@ -18003,7 +18004,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "d8300027-8e43-47f8-b1c8-85b6e1425755")
-		(at 140.805 124.485)
+		(at 144.93 129.18)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R501"
@@ -18365,7 +18366,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "d9f6692e-9e94-4707-93ca-a6deb1b8af51")
-		(at 117.795 108.715)
+		(at 121.92 113.41)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R306"
@@ -18727,7 +18728,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "ddd18967-985f-4b3b-ab20-758aeb223eba")
-		(at 131.645 108.715)
+		(at 135.77 113.41)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R307"
@@ -19026,7 +19027,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "e13609b1-6c1e-4a8d-a290-c0c2835408a1")
-		(at 90.565 148.335)
+		(at 94.69 153.03)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C203"
@@ -19133,7 +19134,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "e13af30d-c2e7-4aac-996e-8b4dc26f9a68")
-		(at 118.285 102.545)
+		(at 122.41 107.24)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R301"
@@ -19552,11 +19553,11 @@
 	(footprint "Motor-Controller:LED_Dialight_551_RightAngle"
 		(layer "F.Cu")
 		(uuid "e4cd4138-cc08-4025-a4eb-6044672e5791")
-		(at 44.44 98.86 180)
+		(at 44.44 117.085 180)
 		(descr "Leuchtdiode 3 mm im Winkelgehäuse Dialight 551-xx07F (Zeichnung C-17306 Rev G): Gehäuse 4,44 x 6,35 mm, 7,11 hoch, Lichtachse 5,08 mm über der Platine; Beinchen 2,54 mm, 4,44 mm hinter der Gehäusefront; Leuchtdiode ragt 2,41 mm vor. Pin 1 = Kathode. Leuchtdiode zeigt nach +x.")
 		(tags "LED right angle CBI Dialight 551")
 		(property "Reference" "D3"
-			(at 1.2 -2 180)
+			(at 0 22.86 180)
 			(layer "F.SilkS")
 			(uuid "c9fffc05-096e-45aa-b01c-1512606a57db")
 			(effects
@@ -19670,7 +19671,7 @@
 	(footprint "Motor-Controller:LED_Dialight_551_RightAngle"
 		(layer "F.Cu")
 		(uuid "e9d63ae5-52df-4cb4-8030-cd5f5384afc1")
-		(at 44.44 76 180)
+		(at 44.44 94.225 180)
 		(descr "Leuchtdiode 3 mm im Winkelgehäuse Dialight 551-xx07F (Zeichnung C-17306 Rev G): Gehäuse 4,44 x 6,35 mm, 7,11 hoch, Lichtachse 5,08 mm über der Platine; Beinchen 2,54 mm, 4,44 mm hinter der Gehäusefront; Leuchtdiode ragt 2,41 mm vor. Pin 1 = Kathode. Leuchtdiode zeigt nach +x.")
 		(tags "LED right angle CBI Dialight 551")
 		(property "Reference" "D601"
@@ -19788,7 +19789,7 @@
 	(footprint "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "e9f4bb79-b037-46a0-a059-ffab55614ebc")
-		(at 108.465 124.485)
+		(at 112.59 129.18)
 		(descr "Resistor, Axial_DIN0207 series, Axial, Horizontal, pin pitch=10.16mm, 0.25W = 1/4W, length*diameter=6.3*2.5mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0207 series Axial Horizontal pin pitch 10.16mm 0.25W = 1/4W length 6.3mm diameter 2.5mm")
 		(property "Reference" "R401"
@@ -20471,7 +20472,7 @@
 	(footprint "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 		(layer "F.Cu")
 		(uuid "f4a54577-3d2b-4810-b0fa-555cd8f7e61a")
-		(at 118.265 137.525)
+		(at 122.39 142.22)
 		(descr "Keramikkondensator KEMET Goldmax C320C (radial, Raster 2,54 mm, Körper max. 5,08 x 4,07 x 5,84 mm, Draht 0,51 mm)")
 		(tags "capacitor ceramic KEMET C320 radial")
 		(property "Reference" "C10"
@@ -20578,7 +20579,7 @@
 	(footprint "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal"
 		(layer "F.Cu")
 		(uuid "fe244118-d73e-40cd-a781-a19c5f2e78d9")
-		(at 179.705 52.175 90)
+		(at 179.2225 107.545 90)
 		(descr "Generic Phoenix Contact connector footprint for: MSTBA_2,5/2-G-5,08; number of pins: 02; pin pitch: 5.08mm; Angled || order number: 1757242 12A || order number: 1923869 16A (HC)")
 		(tags "phoenix_contact connector MSTBA_01x02_G_5.08mm")
 		(property "Reference" "J5"
@@ -20870,7 +20871,7 @@
 		(uuid "0432a1e2-5da0-4dfb-9946-2b55dffef347")
 	)
 	(gr_text "SuAn Motor-Controller V2.0  v00.01"
-		(at 132 152 0)
+		(at 136.125 156.695 0)
 		(layer "F.SilkS")
 		(uuid "a04b8aee-6ea7-47cc-a4d7-1517ce319dd1")
 		(effects

@@ -261,8 +261,7 @@
 			(symbol "C_0_1"
 				(polyline
 					(pts
-						(xy -2.032 0.762)
-						(xy 2.032 0.762)
+						(xy -2.032 0.762) (xy 2.032 0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -274,8 +273,7 @@
 				)
 				(polyline
 					(pts
-						(xy -2.032 -0.762)
-						(xy 2.032 -0.762)
+						(xy -2.032 -0.762) (xy 2.032 -0.762)
 					)
 					(stroke
 						(width 0.508)
@@ -427,8 +425,7 @@
 				)
 				(polyline
 					(pts
-						(xy 0 2.54)
-						(xy 0 -2.54)
+						(xy 0 2.54) (xy 0 -2.54)
 					)
 					(stroke
 						(width 0)
@@ -759,11 +756,7 @@
 			(symbol "LED_0_1"
 				(polyline
 					(pts
-						(xy -3.048 -0.762)
-						(xy -4.572 -2.286)
-						(xy -3.81 -2.286)
-						(xy -4.572 -2.286)
-						(xy -4.572 -1.524)
+						(xy -3.048 -0.762) (xy -4.572 -2.286) (xy -3.81 -2.286) (xy -4.572 -2.286) (xy -4.572 -1.524)
 					)
 					(stroke
 						(width 0)
@@ -775,11 +768,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.778 -0.762)
-						(xy -3.302 -2.286)
-						(xy -2.54 -2.286)
-						(xy -3.302 -2.286)
-						(xy -3.302 -1.524)
+						(xy -1.778 -0.762) (xy -3.302 -2.286) (xy -2.54 -2.286) (xy -3.302 -2.286) (xy -3.302 -1.524)
 					)
 					(stroke
 						(width 0)
@@ -791,8 +780,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.27 0)
-						(xy 1.27 0)
+						(xy -1.27 0) (xy 1.27 0)
 					)
 					(stroke
 						(width 0)
@@ -804,8 +792,7 @@
 				)
 				(polyline
 					(pts
-						(xy -1.27 -1.27)
-						(xy -1.27 1.27)
+						(xy -1.27 -1.27) (xy -1.27 1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -817,10 +804,7 @@
 				)
 				(polyline
 					(pts
-						(xy 1.27 -1.27)
-						(xy 1.27 1.27)
-						(xy -1.27 0)
-						(xy 1.27 -1.27)
+						(xy 1.27 -1.27) (xy 1.27 1.27) (xy -1.27 0) (xy 1.27 -1.27)
 					)
 					(stroke
 						(width 0.254)
@@ -1113,12 +1097,7 @@
 			(symbol "PWR_FLAG_0_1"
 				(polyline
 					(pts
-						(xy 0 0)
-						(xy 0 1.27)
-						(xy -1.016 1.905)
-						(xy 0 2.54)
-						(xy 1.016 1.905)
-						(xy 0 1.27)
+						(xy 0 0) (xy 0 1.27) (xy -1.016 1.905) (xy 0 2.54) (xy 1.016 1.905) (xy 0 1.27)
 					)
 					(stroke
 						(width 0)
@@ -1156,6 +1135,246 @@
 		)
 		(uuid "4bd18c80-a879-4a84-ab1c-e49658d8cc2c")
 	)
+	(text "Zweimal eingesetzt: „5V Elektronik“ (Rechner, Hall-Sensor, Leuchtdioden) und „5V PyPilot“ (Kabel zum Steuerhaus).\nU: Recom R-78B5.0-2.0, 5 V / 2 A, Eingang 6,5–32 V, kurzschlussfest, −40…+70 °C ohne Abschlag (Datenblatt REV 5/2021).\nVerträgt keine Verpolung: Verpolschutz D2 im Hauptblatt. Ausgang braucht laut Datenblatt keinen Kondensator.\nFilter nach Hersteller (EN 55022 Klasse B): 10 µF (zweimal 4,7 µF) – 10 µH (Bourns RLB0914-100KL) – 4,7 µF,\nKondensatoren KEMET C320C475K5R5TA (4,7 µF 50 V X7R). Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OG/OGN.\nRote Leuchtdiode mit 4k7 parallel zur Sicherung: leuchtet, wenn die Sicherung durch ist."
+		(exclude_from_sim no)
+		(at 24.13 121.92 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "e16f9d1d-e5e7-43d4-ba26-435c7c9f1e40")
+	)
+	(junction
+		(at 104.14 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0071b789-9366-4116-86d6-e05084e7f125")
+	)
+	(junction
+		(at 104.14 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "239c1102-9017-40cc-acc7-bfd50fe906b3")
+	)
+	(junction
+		(at 81.28 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "301bc026-d074-4047-8426-94318358bf09")
+	)
+	(junction
+		(at 68.58 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "351e8188-fc15-4be9-af20-0755a8fde010")
+	)
+	(junction
+		(at 60.96 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "41bb4acd-075a-4183-bb0a-1dd38eaa9d01")
+	)
+	(junction
+		(at 68.58 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5af6370a-55cc-44d1-b148-31c66436519b")
+	)
+	(junction
+		(at 81.28 101.6)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e6ee9993-d7c1-491e-a5a3-63da652a6210")
+	)
+	(junction
+		(at 38.1 76.2)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "e7b4ab1d-db9b-404d-91b4-93ec06f44c0b")
+	)
+	(wire
+		(pts
+			(xy 30.48 76.2) (xy 44.45 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "183a8692-2090-45a8-902c-7a28180377db")
+	)
+	(wire
+		(pts
+			(xy 30.48 101.6) (xy 125.73 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1856aeb3-27ca-4266-9811-bcd5deb19345")
+	)
+	(wire
+		(pts
+			(xy 104.14 76.2) (xy 104.14 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23b6b402-750c-4e19-8705-0dbac7aed386")
+	)
+	(wire
+		(pts
+			(xy 81.28 92.71) (xy 81.28 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "34932b79-1fff-4867-83a3-9b56c803deee")
+	)
+	(wire
+		(pts
+			(xy 68.58 76.2) (xy 68.58 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "36860212-f3f0-4906-8203-427dba647e36")
+	)
+	(wire
+		(pts
+			(xy 133.35 76.2) (xy 148.59 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3bc07496-66a4-4ade-9d5e-e75777a305ca")
+	)
+	(wire
+		(pts
+			(xy 38.1 63.5) (xy 41.91 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4d9d8dac-8673-4033-9034-bc8b69d65a11")
+	)
+	(wire
+		(pts
+			(xy 52.07 76.2) (xy 60.96 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "54254d04-23de-422b-88ef-44040b85ff0e")
+	)
+	(wire
+		(pts
+			(xy 95.25 76.2) (xy 118.11 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6a118ea8-4d99-40a1-a126-f102ce2c0c70")
+	)
+	(wire
+		(pts
+			(xy 60.96 63.5) (xy 60.96 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "791147de-2d5e-473d-99ec-88fe5ceb8a8f")
+	)
+	(wire
+		(pts
+			(xy 81.28 76.2) (xy 81.28 85.09)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b68df280-fee3-48bf-9378-4f650d9c4ad6")
+	)
+	(wire
+		(pts
+			(xy 68.58 92.71) (xy 68.58 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b97ad0da-7e2b-4e1c-91c9-ca92677db17b")
+	)
+	(wire
+		(pts
+			(xy 60.96 76.2) (xy 87.63 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c321b536-a44d-4fd6-873c-4982d15e90a1")
+	)
+	(wire
+		(pts
+			(xy 104.14 92.71) (xy 104.14 101.6)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3e5b4cb-3c7a-4dcd-bc39-17e06b711448")
+	)
+	(wire
+		(pts
+			(xy 38.1 76.2) (xy 38.1 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e53e9ec8-969d-46fc-8a79-a03ceeb9d91a")
+	)
+	(wire
+		(pts
+			(xy 125.73 101.6) (xy 125.73 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e95c8fcb-9a9d-4029-94e2-cdf170559e71")
+	)
+	(wire
+		(pts
+			(xy 49.53 63.5) (xy 53.34 63.5)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e9dfeae9-13e1-4b5a-b7cd-41eab937a32c")
+	)
+	(hierarchical_label "+5V"
+		(shape output)
+		(at 148.59 76.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "09278278-e604-4a34-83fa-457d1b7b7f5f")
+	)
 	(hierarchical_label "+12V"
 		(shape input)
 		(at 30.48 76.2 180)
@@ -1177,263 +1396,6 @@
 			(justify right)
 		)
 		(uuid "d09f2aee-9ff1-41c2-a025-1e71d56783c5")
-	)
-	(wire
-		(pts
-			(xy 30.48 76.2)
-			(xy 44.45 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "183a8692-2090-45a8-902c-7a28180377db")
-	)
-	(junction
-		(at 38.1 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e7b4ab1d-db9b-404d-91b4-93ec06f44c0b")
-	)
-	(wire
-		(pts
-			(xy 38.1 76.2)
-			(xy 38.1 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e53e9ec8-969d-46fc-8a79-a03ceeb9d91a")
-	)
-	(wire
-		(pts
-			(xy 38.1 63.5)
-			(xy 41.91 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4d9d8dac-8673-4033-9034-bc8b69d65a11")
-	)
-	(wire
-		(pts
-			(xy 49.53 63.5)
-			(xy 53.34 63.5)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e9dfeae9-13e1-4b5a-b7cd-41eab937a32c")
-	)
-	(wire
-		(pts
-			(xy 60.96 63.5)
-			(xy 60.96 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "791147de-2d5e-473d-99ec-88fe5ceb8a8f")
-	)
-	(junction
-		(at 60.96 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "41bb4acd-075a-4183-bb0a-1dd38eaa9d01")
-	)
-	(wire
-		(pts
-			(xy 52.07 76.2)
-			(xy 60.96 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "54254d04-23de-422b-88ef-44040b85ff0e")
-	)
-	(wire
-		(pts
-			(xy 68.58 76.2)
-			(xy 68.58 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "36860212-f3f0-4906-8203-427dba647e36")
-	)
-	(wire
-		(pts
-			(xy 68.58 92.71)
-			(xy 68.58 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b97ad0da-7e2b-4e1c-91c9-ca92677db17b")
-	)
-	(junction
-		(at 68.58 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "5af6370a-55cc-44d1-b148-31c66436519b")
-	)
-	(junction
-		(at 68.58 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "351e8188-fc15-4be9-af20-0755a8fde010")
-	)
-	(wire
-		(pts
-			(xy 81.28 76.2)
-			(xy 81.28 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b68df280-fee3-48bf-9378-4f650d9c4ad6")
-	)
-	(wire
-		(pts
-			(xy 81.28 92.71)
-			(xy 81.28 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "34932b79-1fff-4867-83a3-9b56c803deee")
-	)
-	(junction
-		(at 81.28 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "301bc026-d074-4047-8426-94318358bf09")
-	)
-	(junction
-		(at 81.28 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e6ee9993-d7c1-491e-a5a3-63da652a6210")
-	)
-	(wire
-		(pts
-			(xy 60.96 76.2)
-			(xy 87.63 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c321b536-a44d-4fd6-873c-4982d15e90a1")
-	)
-	(wire
-		(pts
-			(xy 104.14 92.71)
-			(xy 104.14 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "d3e5b4cb-3c7a-4dcd-bc39-17e06b711448")
-	)
-	(junction
-		(at 104.14 101.6)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "0071b789-9366-4116-86d6-e05084e7f125")
-	)
-	(junction
-		(at 104.14 76.2)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "239c1102-9017-40cc-acc7-bfd50fe906b3")
-	)
-	(wire
-		(pts
-			(xy 104.14 76.2)
-			(xy 104.14 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "23b6b402-750c-4e19-8705-0dbac7aed386")
-	)
-	(wire
-		(pts
-			(xy 95.25 76.2)
-			(xy 118.11 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6a118ea8-4d99-40a1-a126-f102ce2c0c70")
-	)
-	(wire
-		(pts
-			(xy 30.48 101.6)
-			(xy 125.73 101.6)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "1856aeb3-27ca-4266-9811-bcd5deb19345")
-	)
-	(wire
-		(pts
-			(xy 125.73 101.6)
-			(xy 125.73 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "e95c8fcb-9a9d-4029-94e2-cdf170559e71")
-	)
-	(wire
-		(pts
-			(xy 133.35 76.2)
-			(xy 148.59 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3bc07496-66a4-4ade-9d5e-e75777a305ca")
-	)
-	(hierarchical_label "+5V"
-		(shape output)
-		(at 148.59 76.2 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left)
-		)
-		(uuid "09278278-e604-4a34-83fa-457d1b7b7f5f")
-	)
-	(text "Zweimal eingesetzt: „5V Elektronik“ (Rechner, Hall-Sensor, Leuchtdioden) und „5V PyPilot“ (Kabel zum Steuerhaus).\nU: Recom R-78B5.0-2.0, 5 V / 2 A, Eingang 6,5–32 V, kurzschlussfest, −40…+70 °C ohne Abschlag (Datenblatt REV 5/2021).\nVerträgt keine Verpolung: Verpolschutz D2 im Hauptblatt. Ausgang braucht laut Datenblatt keinen Kondensator.\nFilter nach Hersteller (EN 55022 Klasse B): 10 µF (zweimal 4,7 µF) – 10 µH (Bourns RLB0914-100KL) – 4,7 µF,\nKondensatoren KEMET C320C475K5R5TA (4,7 µF 50 V X7R). Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OG/OGN.\nRote Leuchtdiode mit 4k7 parallel zur Sicherung: leuchtet, wenn die Sicherung durch ist."
-		(exclude_from_sim no)
-		(at 24.13 121.92 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "e16f9d1d-e5e7-43d4-ba26-435c7c9f1e40")
 	)
 	(symbol
 		(lib_id "Device:Fuse")
@@ -1519,8 +1481,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:R")
-		(at 45.72 63.5 90)
+		(lib_id "Converter_DCDC:R-78B5.0-2.0")
+		(at 125.73 76.2 0)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -1528,9 +1490,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "df1fd4c2-aa55-453e-8e2f-a1967d30d8d9")
-		(property "Reference" "R101"
-			(at 45.72 60.96 90)
+		(uuid "4f171512-8045-4009-80db-ea47617a67e4")
+		(property "Reference" "U101"
+			(at 125.73 69.85 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -1539,18 +1501,19 @@
 				)
 			)
 		)
-		(property "Value" "4k7"
-			(at 45.72 66.04 90)
+		(property "Value" "R-78B5.0-2.0"
+			(at 129.54 82.55 0)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
-		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
-			(at 45.72 63.5 0)
+		(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT"
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1560,8 +1523,8 @@
 				)
 			)
 		)
-		(property "Datasheet" ""
-			(at 45.72 63.5 0)
+		(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Bxx-2.0.pdf"
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1571,8 +1534,8 @@
 				)
 			)
 		)
-		(property "Description" "Resistor"
-			(at 45.72 63.5 0)
+		(property "Description" "2A Step-Down DC/DC-Regulator, 6.5-32V input, 5.0V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
+			(at 125.73 76.2 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -1583,19 +1546,105 @@
 			)
 		)
 		(pin "1"
-			(uuid "8848bb9b-0a6b-407e-9303-d4a0b58ab5d8")
+			(uuid "983b58c5-a45e-43f1-b636-22eab05cff21")
 		)
 		(pin "2"
-			(uuid "57fa369b-c31a-4bf5-bd5b-a02a52e952b4")
+			(uuid "33649618-16e5-488a-aa7c-c82eb7272e89")
+		)
+		(pin "3"
+			(uuid "66562578-9780-4a85-af01-5812c631cdb3")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
-					(reference "R101")
+					(reference "U101")
 					(unit 1)
 				)
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "R201")
+					(reference "U201")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:L")
+		(at 91.44 76.2 90)
+		(unit 1)
+		(body_style 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(in_pos_files yes)
+		(dnp no)
+		(uuid "62c4b202-bbb5-49d5-8e56-c307ae7b4e69")
+		(property "Reference" "L101"
+			(at 91.44 73.66 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10uH 2,7A"
+			(at 91.44 78.74 90)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Inductor_THT:L_Radial_D10.0mm_P5.00mm_Fastron_07P"
+			(at 91.44 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Datasheet" ""
+			(at 91.44 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Description" "Inductor"
+			(at 91.44 76.2 0)
+			(hide yes)
+			(show_name no)
+			(do_not_autoplace no)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "d1e8f3d4-f9ed-45c5-86be-02eb8c73f40b")
+		)
+		(pin "2"
+			(uuid "a15313f8-3170-4d75-b266-083880e66b9a")
+		)
+		(instances
+			(project "Motor-Controller"
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
+					(reference "L101")
+					(unit 1)
+				)
+				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
+					(reference "L201")
 					(unit 1)
 				)
 			)
@@ -1855,89 +1904,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:L")
-		(at 91.44 76.2 90)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "62c4b202-bbb5-49d5-8e56-c307ae7b4e69")
-		(property "Reference" "L101"
-			(at 91.44 73.66 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "10uH 2,7A"
-			(at 91.44 78.74 90)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Inductor_THT:L_Radial_D10.0mm_P5.00mm_Fastron_07P"
-			(at 91.44 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 91.44 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Inductor"
-			(at 91.44 76.2 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "d1e8f3d4-f9ed-45c5-86be-02eb8c73f40b")
-		)
-		(pin "2"
-			(uuid "a15313f8-3170-4d75-b266-083880e66b9a")
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
-					(reference "L101")
-					(unit 1)
-				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "L201")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Device:C")
 		(at 104.14 88.9 0)
 		(unit 1)
@@ -2105,8 +2071,8 @@
 		)
 	)
 	(symbol
-		(lib_id "Converter_DCDC:R-78B5.0-2.0")
-		(at 125.73 76.2 0)
+		(lib_id "Device:R")
+		(at 45.72 63.5 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -2114,9 +2080,9 @@
 		(on_board yes)
 		(in_pos_files yes)
 		(dnp no)
-		(uuid "4f171512-8045-4009-80db-ea47617a67e4")
-		(property "Reference" "U101"
-			(at 125.73 69.85 0)
+		(uuid "df1fd4c2-aa55-453e-8e2f-a1967d30d8d9")
+		(property "Reference" "R101"
+			(at 45.72 60.96 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
@@ -2125,19 +2091,18 @@
 				)
 			)
 		)
-		(property "Value" "R-78B5.0-2.0"
-			(at 129.54 82.55 0)
+		(property "Value" "4k7"
+			(at 45.72 66.04 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Footprint" "Converter_DCDC:Converter_DCDC_RECOM_R-78B-2.0_THT"
-			(at 125.73 76.2 0)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
+			(at 45.72 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2147,8 +2112,8 @@
 				)
 			)
 		)
-		(property "Datasheet" "https://www.recom-power.com/pdf/Innoline/R-78Bxx-2.0.pdf"
-			(at 125.73 76.2 0)
+		(property "Datasheet" ""
+			(at 45.72 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2158,8 +2123,8 @@
 				)
 			)
 		)
-		(property "Description" "2A Step-Down DC/DC-Regulator, 6.5-32V input, 5.0V fixed Output Voltage, LM78xx replacement, -40°C to +85°C, SIP3"
-			(at 125.73 76.2 0)
+		(property "Description" "Resistor"
+			(at 45.72 63.5 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -2170,22 +2135,19 @@
 			)
 		)
 		(pin "1"
-			(uuid "983b58c5-a45e-43f1-b636-22eab05cff21")
+			(uuid "8848bb9b-0a6b-407e-9303-d4a0b58ab5d8")
 		)
 		(pin "2"
-			(uuid "33649618-16e5-488a-aa7c-c82eb7272e89")
-		)
-		(pin "3"
-			(uuid "66562578-9780-4a85-af01-5812c631cdb3")
+			(uuid "57fa369b-c31a-4bf5-bd5b-a02a52e952b4")
 		)
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
-					(reference "U101")
+					(reference "R101")
 					(unit 1)
 				)
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "U201")
+					(reference "R201")
 					(unit 1)
 				)
 			)
