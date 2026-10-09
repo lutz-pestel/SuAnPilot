@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.20, Stand 08.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.21, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -81,7 +81,7 @@ bei 5 V, Farnell 1791392) im Weg der Pumpenader A (Pololu OUTA → Klemme → Se
 derselbe Strom). Beide Pumpenadern laufen ohnehin über unsere Platine (Abschnitt 1), der Sensor bringt keine zusätzliche
 Klemme. **Er wird gleich bestückt** (Betreiber, 08.10.2026): Ein späterer Einbau hieße Löten an der Leistungsstrecke. Versorgung aus **5 V** (Elektronikzweig), weil der Hersteller ihn bei 5 V abgleicht
 (Datenblatt: 3,0–5,5 V zulässig, abseits von 5 V zusätzlicher Fehler ohne Zahlenangabe); Ausgang über einen
-Spannungsteiler auf einen freien Wandlerkanal (Abschnitt 3), Teiler mit dem Sensor bestücken.
+Spannungsteiler 1:2 (2 × 10 kΩ, 1 %; ±50 A ergeben 0,25–2,25 V, gerechnet) auf Wandlerkanal CH4 (Abschnitt 3).
 
 ## 3. Messwerterfassung und Spannungsmessung — **festgelegt 04.10.2026**
 
@@ -149,7 +149,8 @@ Stiftleisten, zwei Rechenkerne.
 - **Zwei Rechenkerne:** einer misst, der andere regelt und redet — die Messung stockt nicht, während Daten
   übertragen werden.
 - **Anschlüsse mit Reserve:** gebraucht werden rund 20 (Wandler 4, Display 3 und Beleuchtung 1, zwei serielle
-  Strecken 3, Endstufe 4, Frequenzeingang 1, drei Leuchtdioden, ein Taster), vorhanden sind etwa 30.
+  Strecken 3, Endstufe 4, Frequenzeingang 1, drei Leuchtdioden, ein Taster), vorhanden sind etwa 30. Belegung im
+  Schaltplanblatt `Rechner`, geprüft gegen Espressif (keine Startanschlüsse an der Pumpe, Taster nur abfragen).
 - **WLAN für die Fernprogrammierung** (F12). Zwei Auflagen an den Platinenentwurf, damit die Antenne auf dem
   Modul genügt: Das Modul sitzt **an der Kante unserer Platine, die Antenne ragt darüber hinaus**; darunter und
   daneben kein Kupfer, keine Bauteile. Alles Metallische (Leistungsmodul, Klemmen, dicke Kabel)
@@ -164,11 +165,10 @@ Stiftleisten, zwei Rechenkerne.
 *Verworfen:* Arduino Nano (zu langsam, zu wenige Schnittstellen),
 Teensy 4.1 (mehr als nötig).
 
-## 6. Datenverbindung — **festgelegt 04.10.2026**
+## 6. Datenverbindung — **festgelegt 08.10.2026**
 
-**MAX488E / MAX3488E (DIP-8)** — Datenblatt <https://www.analog.com/en/products/max3488e.html>, Bezug z. B.
-<https://de.farnell.com/analog-devices/max488cpa/transceiver-rs-485-422-dip8-488/dp/2519464>.
-Die Familie steckt bereits zweimal auf der vorhandenen Platine
+**MAX3488E (3,3 V, DIP-8), je Strecke einer, direkt am Rechner** — Datenblatt <https://www.analog.com/en/products/max3488e.html>.
+Die Familie (MAX488E/MAX3488E) steckt bereits zweimal auf der vorhandenen Platine
 `1-tinypilot/autopilot/hardware/kicad/PyPilot_Main_RS422`: U6 für die Strecke zum Motor-Controller, U7 für die Ruderlage, beide an
 3,3 V, je ein Abschlusswiderstand am Empfangspaar (bei uns 2 × 120 Ω, 1 %, 0,25 W, wie R25/R26 der
 RF300-Interfaceplatine) — an Bord erprobt und beschaffbar. Eigenschaften: Vollduplex
@@ -177,17 +177,12 @@ Störstrahlung), Treiber kurzschluss- und übertemperaturfest, Empfänger mit Fa
 Ruhepegel statt Zeichensalat), ±15 kV Schutz gegen statische Entladung.
 **Die Ruderlage läuft schon heute differentiell über RS422** (Stecker J3, Pins 5–8), nicht einadrig.
 
-**Galvanisch getrennt, aber nur auf unserer Seite** — der TinyPilot bleibt unverändert. Motorströme bis 40 A auf
-gemeinsamer Masse erzeugen über 10–15 m Kabel Spannungsunterschiede zwischen Motorraum und Steuerhaus; ein
-Ausgleichsstrom auf der Datenmasse zerstört Treiber, und die Ursache findet man hinterher nie.
-Je Strecke: **zwei Optokoppler 6N137 (DIP-8, <https://de.rs-online.com/web/p/optokoppler/2799622>) + isolierter
-DC/DC-Wandler Traco TMA 0505S (SIP, 1 kV Trennung, ~3,70 €,
-<https://de.rs-online.com/web/p/dcdc-wandler/1914922>) + MAX488E** auf der getrennten Seite, etwa 12–18 €. Dort das 5-V-Modell, weil schnelle Optokoppler in Drahtform erst ab 4,5 V
-arbeiten; der 3,3-V-Typ MAX3488E bleibt richtig für jede Strecke, die nicht getrennt wird.
 **Zwei getrennte Strecken:** eine zum TinyPilot, eine für die Ruderlage. Nur so hält F5 — die Anzeige am
-Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt.
+Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt. Ein Schaltplanblatt (`kicad/v00.01/RS422-Strecke`),
+zweimal eingesetzt; bei der Ruderlage bleibt der Empfänger frei.
 
-*Verworfen:* isolierte Fertigbausteine wie ADM2483 — nur in SMD erhältlich.
+*Verworfen:* galvanische Trennung (Lichtkoppler 6N137 und Trennwandler TMA 0505S) — der TinyPilot hängt nur am
+Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kabel ohnehin verbunden (Betreiber, 08.10.2026).
 
 ## 7. Versorgung und Schutz — **festgelegt 04.10.2026**
 
@@ -243,10 +238,12 @@ Helligkeit über einen Transistor. Gelb-grüne Ausführung (bei Umgebungslicht l
 Unterlagen nicht — beim Kauf prüfen.
 **Sieben Leuchtdioden** — sie fallen nicht aus wie ein Display:
 - vom Rechner: grün „Betrieb" (blinkt im Programmtakt; Dauerlicht oder dunkel = Programm hängt), **rot „Störung"**,
-  blau „WLAN an" (F12);
+  blau „WLAN an" (F12). Je ein Transistor BC337 schaltet sie aus +5 V: Grün und Blau brauchen ca. 3 V, mehr als ein
+  3,3-V-Anschluss sicher liefert; Vorwiderstände für ca. 9–11 mA (gerechnet), an die gekauften Leuchtdioden anpassen;
 - ohne Rechner: zwei gelbe „A" und „B", gegeneinander mit Vorwiderstand an den Pumpenklemmen auf unserer
   Platine (Abschnitt 1). Sie zeigen, was an der Pumpe ankommt, nicht was befohlen ist; schwach heißt zu wenig Spannung (Fall
-  04.10.). Noch nachrechnen: Einfluss auf den Selbsttest-Widerstand (Abschnitt 3);
+  04.10.). Mit dem Selbsttest-Widerstand (Abschnitt 3) stellt sich in Ruhe A ca. 5 V, B ca. 3 V ein (gerechnet); die
+  gelbe Leuchtdiode A glimmt dabei kaum sichtbar (ca. 30 µA, gerechnet);
 - je 5-V-Zweig rot „Sicherung durch" (Abschnitt 7), leuchtet auch bei totem Gerät.
 **Warnausgang:** rote Leuchtdiode, Fehlertext im Display, Meldung an den TinyPilot mit Anzeige dort und am Leitstand.
 Kein Summer.
@@ -298,7 +295,8 @@ Gehäuse, wird später entschieden (Abschnitt 10).
    Motorraum legen und prüfen, ob es den Master erreicht und wie stark. Entscheidet über -32E oder -32UE.
 7. Taster: von außen bedienbar (nachgiebige Stelle im Deckel) oder nur bei geöffnetem Gehäuse?
 8. Buchsen- und Stiftleiste für den umgedrehten Pololu wählen: Abstand der Platinen größer als die Pololu-Klemmen
-   (10,0 mm laut Degson-Datenblatt) plus Luft (Abschnitt 1).
+   (10,0 mm laut Degson-Datenblatt) plus Luft (Abschnitt 1). Ebenso die Buchsenleisten für ESP32 (2 × 19) und Display (20).
+9. Leuchtdioden wählen (Farbe, Bauform, Fassung in der Gehäusewand); danach die Vorwiderstände (Abschnitt 8) anpassen.
 
 ## Quellen
 **Die Bezugsquelle jedes Bauteils steht im jeweiligen Abschnitt.** Hier nur, was nicht an einem Bauteil hängt:

@@ -1,6 +1,6 @@
 # SuAn-Autopilot-Projekt
 
-Version 00.01, Stand 07.10.2026, Obergrenze 80 Zeilen.
+Version 00.02, Stand 09.10.2026, Obergrenze 80 Zeilen.
 Entwicklung und Bau eines neuen Autopilot-Systems für die SuAn. Dieses Dokument erklärt das Gesamtprojekt;
 Einzelheiten stehen in den Dokumenten der Phasen (Abschnitt 6).
 
@@ -57,6 +57,7 @@ zusammenarbeitet und die SuAn sicher steuert. Nachweis durch **Seetests** nach e
 | Phase 1: RF300-Interfaceplatine | `1-tinypilot/rf300-interface/` |
 | Eigener Kursregler | `1-tinypilot/regler/` |
 | Phase 2: Anforderungen, Bauteile | `2-motor-controller/hardware/konzeption/motorcontroller.md`, `Bauteilauswahl.md` |
+| Phase 2: Schaltplan, Stückliste | `2-motor-controller/hardware/kicad/v00.01/`, `2-motor-controller/hardware/bom/bom.csv` |
 | Phase 3: Gesamtbeschreibung | `3-suanpilot/docs/gesamt.md` |
 | Robertson-Handbücher, Pumpe | `0-gesamtprojekt/handbuecher/Robertson/` |
 | Aufgaben, Lehren | `0-gesamtprojekt/TODO.md`, `0-gesamtprojekt/CHRONIK.md` |

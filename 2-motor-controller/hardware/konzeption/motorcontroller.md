@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.09, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.10, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -161,10 +161,11 @@ Version 00.09, Stand: 08.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   Verträglichkeit mit pypilot 0.24 ungeprüft.
 
 ## 5. Nächste Schritte
-1. Recherche fertiger Lösungen und handelsüblicher H-Brücken (Strom, Schutz, Ansteuerung).
-2. Pumpendaten einholen, H-Brücke auswählen.
-3. Aufbau des Interfaces festlegen (Mikrocontroller, Frequenzmessung, RS422, NMEA-Ausgang).
-4. Prototyp am Tisch, dann Test an der Pumpe im Hafen.
+Schaltplan `kicad/v00.01` vollständig (09.10.2026: Regelprüfung von KiCad ohne Fehler, alle Verbindungen des
+Blockschaltbilds in der Verbindungsliste nachgewiesen). Bauteile: `Bauteilauswahl.md`, Stückliste `bom/bom.csv`.
+1. Offene Punkte der Bauteilauswahl (Abschnitt 10) klären, vor allem Widerstand für 15 A und Leisten für den Pololu.
+2. Lötbilder (Footprints) zuordnen, dann Platine entwerfen.
+3. Prototyp am Tisch, dann Test an der Pumpe im Hafen.
 Jeder Schritt wird einzeln vorgelegt.
 
 ## 6. Pflege
