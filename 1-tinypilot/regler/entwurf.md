@@ -1,6 +1,6 @@
 # Regler adaptive – Entwurf
 
-Version 00.02, Stand: 05.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
+Version 00.03, Stand: 09.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
 TinyPilot; wird der Kern von SuAnPilot V1.0 auf derselben Hardware. Hardware bleibt vorerst unverändert
 (RPi Zero 2 W nur, falls die Rechenleistung nicht reicht). Grundlagen: `0-gesamtprojekt/wissen/Marktrecherche.md`
 (Bauart der Hersteller), Testberichte `1-tinypilot/docs/tests/`.
@@ -72,18 +72,8 @@ und Luvgierigkeit stecken beide im Trimm und werden mitgelernt):
   Master; der Leitstand zeigt vorrangig die Leistung, dazu ausgewählte Einstellungen (Regler, Satz), gibt Alarm/Summer.
 
 ## 4. Sicherheit und Rückfall
-- **Grundsatz: Fehler melden, weitersteuern, abgestuft übergeben.** Pumpe schwach (Rudergeschwindigkeit je Richtung
-  laufend gelernt) → melden und mit gelernter Geschwindigkeit weiter; Schätzung weicht ab → an Anzeige angleichen;
-  erst „Ruder folgt nicht“ oder fehlende Anzeige → „basic“. (Anlass 03.10.: Pumpe rückwärts zeitweise ~1 °/s.)
-- **Ruderanzeige fehlt:** weiter mit geschätzter Ruderlage (`t_blind`, 10 s), Alarm; danach Rückfall auf „basic“.
-  Abweichung Schätzung/Anzeige ist kein Abbruchgrund mehr (siehe Grundsatz).
-- **Kurs/Drehrate unplausibel** bei freier Fahrt (SOG über Grenze): Alarm; bei Manöver und wenig Fahrt keine
-  Bewertung (Lehre 02.10. Ankermanöver).
-- **Alarme** erscheinen im Leitstand und schalten den Summer am Master (eigener Summer erst mit SuAnPilot V2.0).
-- **Kursabweichung** über Grenze länger als Zeit: Alarm.
-- **Ruder am Anschlag** länger als Zeit: Alarm „Schiff übersteuert“.
-- **Fehler im Regler** (Ausnahme im Programm): sofort Rückfall auf „basic“ mit den gespeicherten Werten.
-- Alle Werte haben feste Grenzen; Einschalten nur mit gültigem Kurs.
+Fehlererkennung und Reaktionen (beide Regler): `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`. Zusätzlich gilt:
+alle Werte des Reglers haben feste Grenzen.
 
 ## 5. Vermessung SuAn (liefert alle Werte)
 ### 5.1 Ruderantrieb (im Hafen)

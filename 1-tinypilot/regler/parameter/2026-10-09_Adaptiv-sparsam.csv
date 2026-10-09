@@ -1,0 +1,33 @@
+name,wert,bedeutung
+ap.pilot.adaptive.sparsam,1.0,"0 = Satz ruhig, 1 = Satz sparsam"
+ap.pilot.adaptive.k_ref,1.0,Grad Ruder je Grad Kursfehler bei v_ref (Pflicht)
+ap.pilot.adaptive.Tg,2.0,"s, Gegenruder: Drehrate x Tg wirkt wie Kursfehler"
+ap.pilot.adaptive.T_D,0.0,"s, Glaettung der Drehrate fuers Gegenruder (Wellengieren; 0 = aus)"
+ap.pilot.adaptive.v_ref,6.5,"kn, Bezugsfahrt fuer k_ref und K_ref"
+ap.pilot.adaptive.n_v,1.0,Exponent der Fahrtanpassung (0 = keine)
+ap.pilot.adaptive.v_min,2.0,"kn, kleinste Fahrt fuer die Anpassung"
+ap.pilot.adaptive.fk_min,0.5,k hoechstens so weit verkleinern (Faktor)
+ap.pilot.adaptive.fk_max,3.0,k hoechstens so weit vergroessern (Faktor)
+ap.pilot.adaptive.K_ref,0.42,Grad/s Drehung je Grad Ruder bei v_ref (Drehruder; 0 = aus)
+ap.pilot.adaptive.T_I,60.0,"s, Zeitkonstante Rest-Trimm (0 = aus)"
+ap.pilot.adaptive.r_max_stb,1.5,"Grad/s, Kurswechsel nach Steuerbord (0 = Sprung)"
+ap.pilot.adaptive.r_max_bb,1.5,"Grad/s, Kurswechsel nach Backbord (0 = Sprung)"
+ap.pilot.adaptive.T_ramp,5.3,"s, Soll-Drehung nimmt zum Ziel hin ab: Rest/T_ramp (0 = aus)"
+ap.pilot.adaptive.T_acc,0.0,"s, Soll-Drehung setzt weich ein und klingt weich aus (0 = Sprung)"
+ap.pilot.adaptive.t_rev,1.0,"s, Pumpenschutz: Mindestpause vor Richtungsumkehr"
+ap.pilot.adaptive.rate_up,6.5,Grad/s Ruder bei Pumpe + (Pflicht)
+ap.pilot.adaptive.rate_down,3.7,Grad/s Ruder bei Pumpe - (Pflicht)
+ap.pilot.adaptive.delay,0.4,"s, Verzoegerung der Ruderanzeige (gemessen 04.10.: 0,2-0,5 s)"
+ap.pilot.adaptive.T_corr,3.0,"s, Abgleich Schaetzung -> Anzeige"
+ap.pilot.adaptive.hub,30.0,"Grad, groesster Ausschlag um den Trimm"
+ap.pilot.adaptive.e_freeze,15.0,"Grad, ab diesem Kursfehler lernt der Trimm nicht"
+ap.pilot.adaptive.t_blind,10.0,"s, so lange ohne Ruderanzeige weiter mit Schaetzung"
+ap.pilot.adaptive.jump_lim,8.0,"Grad, Abweichung Anzeige/Schaetzung gilt als unplausibel"
+ap.pilot.adaptive.t_bad,3.0,"s, (nicht mehr benutzt: Abweichung wird abgeglichen, nicht abgebrochen)"
+ap.pilot.adaptive.lern,0.4,Lernrate Rudergeschwindigkeit je Auswertung (0 = fest)
+ap.pilot.adaptive.t_lern,1.0,"s, Laufzeit je Richtung, ueber die gesammelt wird, bevor gelernt/bewertet wird"
+ap.pilot.adaptive.schwach,0.5,"Anteil der Soll-Rudergeschwindigkeit, unter dem Pumpe schwach gemeldet wird"
+ap.pilot.adaptive.n_tot,3.0,so viele Laeufe einer Richtung ohne Ruderbewegung -> Ruder folgt nicht
+ap.pilot.adaptive.speed,1.0,Pumpengeschwindigkeit (Anteil)
+ap.pilot.adaptive.db_sparsam,2.0,"Grad, Totband im Satz sparsam"
+ap.pilot.adaptive.TS_sparsam,0.0,"s, Glaettung Kursfehler im Satz sparsam"

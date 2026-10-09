@@ -34,6 +34,14 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
     lassen, melden sich Geräte ab? Master an der Drosselgrenze (60 °C), Dateimanager `pcmanfm` 87 % Last prüfen.
 13. **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung messen, per Netz abfragbar, für Versuche in allen
     Phasen; Projektplan `99-tools/docs/messgeraet.md`; nächster Schritt: Entscheidungen dort, Abschnitt 3.
+14. **Prüfung „Ruder folgt nicht“** (Fehlersystematik, Abschnitt 2): Stromgrenzen niedrig/normal/hoch aus den Aufzeichnungen
+    bestimmen (bekannt: Fehlerfall 1,0–1,5 A) und Fensterlänge festlegen; danach Spalte „Bereich“ in die Tabelle.
+15. **Fehler 3 „Messwert springt“: Aufzeichnungen überprüfen** (06.–09.10.): Wie oft werden die vorgeschlagenen Grenzen
+    (5° je 0,2 s, zurück binnen 1 s, zweiter Sprung binnen 5 min) im Normalbetrieb überschritten? Bewegt eine Hand das Ruder schneller?
+16. **Fehler 6 „Strom hoch“: Strom an der Endlage messen**, je Richtung: Ruder per Handsteuerung (Stoß 1,4 s) an den Anschlag
+    fahren und aufzeichnen. Ergibt Grenze und Fensterlänge (bekannt: Betrieb 4–6 A, Spitzen 8,3 A, Anlauf unter 15 A).
+17. **Fehler 7 Ersatzsteuerung:** Gibt es an Bord einen zweiten Kompass im NMEA? Nimmt pypilot 0.24 ihn an, kann er nur nach dem
+    Kreisel steuern? Umschalten auf GPS-Kurs (Betriebsart „gps“) und Standby, wenn nichts geht; danach bauen.
 
 ## Unterwegs
 1. **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).
