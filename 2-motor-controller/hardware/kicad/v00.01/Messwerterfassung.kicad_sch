@@ -2923,7 +2923,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 35.56 35.56 0)
 			(hide yes)
 			(show_name no)
@@ -3079,7 +3079,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 45.72 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -3160,7 +3160,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 55.88 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -3318,7 +3318,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 68.58 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -3474,7 +3474,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 			(at 81.28 35.56 0)
 			(hide yes)
 			(show_name no)
@@ -3630,7 +3630,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 			(at 81.28 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -3786,7 +3786,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 45.72 83.82 0)
 			(hide yes)
 			(show_name no)
@@ -3867,7 +3867,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 55.88 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -4025,7 +4025,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 68.58 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -4181,7 +4181,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 			(at 81.28 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -4337,7 +4337,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 			(at 81.28 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -4493,7 +4493,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 45.72 149.86 0)
 			(hide yes)
 			(show_name no)
@@ -4574,7 +4574,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 55.88 157.48 0)
 			(hide yes)
 			(show_name no)
@@ -4732,7 +4732,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 68.58 157.48 0)
 			(hide yes)
 			(show_name no)
@@ -4888,7 +4888,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 			(at 81.28 142.24 0)
 			(hide yes)
 			(show_name no)
@@ -5044,7 +5044,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal"
+		(property "Footprint" "Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal"
 			(at 81.28 157.48 0)
 			(hide yes)
 			(show_name no)
@@ -5200,7 +5200,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 129.54 43.18 0)
 			(hide yes)
 			(show_name no)
@@ -5281,7 +5281,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 139.7 50.8 0)
 			(hide yes)
 			(show_name no)
@@ -5439,7 +5439,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 129.54 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -5597,7 +5597,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 139.7 91.44 0)
 			(hide yes)
 			(show_name no)
@@ -5755,7 +5755,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_DIP:DIP-16_W7.62mm_Socket"
 			(at 236.22 76.2 0)
 			(hide yes)
 			(show_name no)
@@ -5878,7 +5878,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 198.12 40.64 0)
 			(hide yes)
 			(show_name no)
@@ -6036,7 +6036,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_THT:C_Rect_L7.2mm_W4.5mm_P5.00mm_FKS2_FKP2_MKS2_MKP2"
 			(at 198.12 53.34 0)
 			(hide yes)
 			(show_name no)
@@ -6510,7 +6510,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 248.92 50.8 0)
 			(hide yes)
 			(show_name no)

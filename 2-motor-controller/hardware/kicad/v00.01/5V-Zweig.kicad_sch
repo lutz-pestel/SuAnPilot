@@ -1632,7 +1632,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LED_THT:LED_D3.0mm"
+		(property "Footprint" "Motor-Controller:LED_Dialight_551_RightAngle"
 			(at 57.15 63.5 0)
 			(hide yes)
 			(show_name no)
@@ -1717,7 +1717,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm"
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 68.58 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -1802,7 +1802,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm"
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 81.28 88.9 0)
 			(hide yes)
 			(show_name no)
@@ -1970,7 +1970,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D7.5mm_W5.0mm_P5.00mm"
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 104.14 88.9 0)
 			(hide yes)
 			(show_name no)

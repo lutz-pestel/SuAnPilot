@@ -3,7 +3,7 @@
   (generator "kicad-mcp")
   (generator_version "9.0")
   (layer "F.Cu")
-  (descr "Espressif ESP32-DevKitC V4 gesteckt: zwei Buchsenleisten 1x19, Raster 2,54 mm, Reihenabstand 25,40 mm (Maßzeichnung esp32_devkitc_v4_dimensions.pdf). 1-19 = J2, 20-38 = J3. Nur der Bereich der Leisten ist eingezeichnet; Platinenumriss und Antennenende vor dem Layout an der Maßzeichnung prüfen.")
+  (descr "Espressif ESP32-DevKitC V4 gesteckt: zwei Buchsenleisten 1x19, Raster 2,54 mm, Reihenabstand 25,40 mm (Maßzeichnung esp32_devkitc_v4_dimensions.pdf). 1-19 = J2, 20-38 = J3. Platine 27,94 mm breit, 1,29 mm über Pin 1/19 hinaus; Antenne 18,0 mm breit ragt 6,04 mm über die Kante bei Pin 1 (Maßzeichnung Espressif): Antenne über den Rand unserer Platine hinaus, darunter kein Kupfer.")
   (tags "ESP32 DevKitC socket")
 
   (property "Reference" "REF**" (at 12.7 -2.6 0)
@@ -23,8 +23,8 @@
   )
 
   (fp_rect
-    (start -1.5 -1.5)
-    (end 26.9 47.25)
+    (start -1.52 -7.58)
+    (end 26.92 47.26)
     (stroke (width 0.05) (type default))
     (fill none)
     (layer "F.CrtYd")
@@ -38,6 +38,20 @@
     (fill none)
     (layer "F.Fab")
     (uuid "ee1afb2c-1cfe-4676-8665-456d4ca1c7b8")
+  )
+
+  (fp_rect
+    (start 3.7 -7.33)
+    (end 21.7 -1.29)
+    (stroke (width 0.1) (type default))
+    (fill none)
+    (layer "F.Fab")
+    (uuid "85de12a7-b0e7-45de-abee-1b94e6588335")
+  )
+  (fp_text user "Antenne über den Platinenrand" (at 12.7 -4.3 0)
+    (layer "F.Fab")
+    (uuid "7624eee4-cdd8-4dc7-8294-08b41cad2f92")
+    (effects (font (size 0.8 0.8) (thickness 0.12)))
   )
 
   (pad "1" thru_hole rect
@@ -343,5 +357,19 @@
     (layers "*.Cu" "*.Mask")
     (uuid "192962af-2245-4d42-af20-b17a830ae517")
   )
-
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x19_P2.54mm_Vertical.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x19_P2.54mm_Vertical.step"
+    (offset (xyz 25.4 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  (model "${KIPRJMOD}/../../3d-modelle/ESP32-DevKitC-32D_GrabCAD.step"
+    (offset (xyz -1.25 -46.99 11))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
 )

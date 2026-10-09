@@ -1031,7 +1031,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 45.72 86.36 0)
 			(hide yes)
 			(show_name no)
@@ -1110,7 +1110,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_THT:C_Disc_D5.0mm_W2.5mm_P5.00mm"
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 93.98 78.74 0)
 			(hide yes)
 			(show_name no)

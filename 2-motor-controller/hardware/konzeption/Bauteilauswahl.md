@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.22, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.23, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -243,10 +243,11 @@ Projekten bewährt (Unterlagen: `E:\Users\SuAn\Cloud\My Computer\Hardware\Displa
 **Ruderwinkel, Status und Fehlertext**. Beleuchtung immer an und gedimmt, bei Störung hell; der ESP32 stellt die
 Helligkeit über einen Transistor. Gelb-grüne Ausführung (bei Umgebungslicht lesbar). **Beleuchtung aus +5 V über
 220 Ω** (Betreiber, 09.10.2026: hell genug, der ESP32 dimmt zusätzlich); der Strom bleibt unter 15 mA (gerechnet),
-der Strom des Moduls muss nicht gemessen werden. Temperaturbereich steht in keiner Unterlage.
-Gesteckt in eine Buchsenleiste Würth 61302011821 (1 × 20, Abschnitt 1).
+der Strom des Moduls muss nicht gemessen werden. −20…+70 °C, Platine 93 × 70 mm (Maßzeichnung 12864B V2.0 in den Unterlagen).
+Gesteckt in eine Buchsenleiste Würth 61302011821 (1 × 20, Abschnitt 1), gehalten von vier Stehbolzen M3 × 11 (Würth
+WA-SBRII 970110324); es liegt 11 mm über unserer Platine, darunter nur Teile unter 7 mm.
 **Sieben Leuchtdioden** — sie fallen nicht aus wie ein Display. **Dialight 551** (3-mm-Leuchtdiode im schwarzen
-Winkelgehäuse, Betreiber 09.10.2026): an der **rechten Platinenkante**, sie schauen durch Löcher in der rechten
+Winkelgehäuse, Betreiber 09.10.2026): fünf an der **linken Platinenkante** unter den Klemmen, sie schauen durch Löcher in der linken
 Gehäusewand, keine Kabel. Grün 551-0207F, rot 551-0407F, gelb 551-0307F (−55…+100 °C), blau 551-0807F (−40…+85 °C;
 Datenblatt 551-xx07F, Kopie bei Arrow):
 - vom Rechner: grün „Betrieb" (blinkt im Programmtakt; Dauerlicht oder dunkel = Programm hängt), **rot „Störung"**,
@@ -256,7 +257,8 @@ Datenblatt 551-xx07F, Kopie bei Arrow):
   Platine (Abschnitt 1). Sie zeigen, was an der Pumpe ankommt, nicht was befohlen ist; schwach heißt zu wenig Spannung (Fall
   04.10.). Mit dem Selbsttest-Widerstand (Abschnitt 3) stellt sich in Ruhe A ca. 5 V, B ca. 3 V ein (gerechnet); die
   gelbe Leuchtdiode A glimmt dabei kaum sichtbar (ca. 30 µA, gerechnet);
-- je 5-V-Zweig rot „Sicherung durch" (Abschnitt 7), leuchtet auch bei totem Gerät.
+- je 5-V-Zweig rot „Sicherung durch" (Abschnitt 7), leuchtet auch bei totem Gerät; sitzt an der **Oberkante neben
+  ihrer Sicherung** (Betreiber, 09.10.2026), beide Sicherungen dort, damit sie leicht zu tauschen sind.
 **Warnausgang:** rote Leuchtdiode, Fehlertext im Display, Meldung an den TinyPilot mit Anzeige dort und am Leitstand.
 Kein Summer.
 **Ein Taster mit zwei Aufgaben:** Beleuchtung hell und WLAN wieder einschalten (F12). **Winkeltaster E-Switch
@@ -285,8 +287,15 @@ Lieferzeit laut Liste 15 Wochen.
   Pololu (Abschnitt 1).
 - **Wärmeabfuhr:** kein Kühlkörper; das Modul trägt 25 A ohne Kühlkörper, die Pumpe zieht 4–6 A. Temperaturfühler
   an der Endstufe siehe Abschnitt 1 (F11).
-- **Durchführungen in der Gehäusewand:** Taster (seitlich), sieben Leuchtdioden (rechte Seitenwand, Abschnitt 8), Display, Kabel mit
+- **Durchführungen in der Gehäusewand:** Taster (seitlich), fünf Leuchtdioden (linke Seitenwand) und zwei an den Sicherungen (obere Wand, Abschnitt 8), Display, Kabel mit
   Zugentlastung.
+- **Anordnung (Grobplan, Betreiber 09.10.2026):** Platine 150 × 130 mm. Sicherungen mit ihren Leuchtdioden an der Oberkante. Links 12 V und RF300, darunter Leuchtdioden und
+  Taster; rechts Pumpe, 5 V und RS422 zum Steuerhaus; ESP32 oben links (Antenne über die Oberkante), Pololu oben rechts,
+  Display unten in der Mitte (`kicad/v00.01/Motor-Controller.kicad_pcb`). Zwischen ESP32 und Pololu die 5-V-Zweige und
+  Eingangsdioden, neben dem Pololu Elko und Hall-Sensor, links neben dem Display Wandler (zu hoch für unter das Display),
+  RF300-Eingang und Treiber der Leuchtdioden; unter dem Display nur flache Teile (Messwerterfassung, RS422).
+- **Keramikkondensatoren:** KEMET Goldmax X7R 50 V, Raster 2,54 mm (C320C104/684/475K5R5TA für 100 nF, 680 nF,
+  4,7 µF; 10 nF als kleinerer C315C103K5R5TA); 1 µF als C330C105K5R5TA (Raster 5,08 mm, 7,1 × 4,1 mm): beide C320 bei keinem Händler belegt.
 - **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B an unserer Platine (MSTBA 2,5/2); RF300 zweiadrig geschirmt;
   zum Steuerhaus **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
   NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Stecker und Belegung wie an der

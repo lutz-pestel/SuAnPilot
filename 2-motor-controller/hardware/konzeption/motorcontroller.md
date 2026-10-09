@@ -165,8 +165,10 @@ Version 00.11, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 ## 5. Nächste Schritte
 Schaltplan `kicad/v00.01` vollständig (09.10.2026: Regelprüfung von KiCad ohne Fehler, alle Verbindungen des
 Blockschaltbilds in der Verbindungsliste nachgewiesen). Bauteile gewählt: `Bauteilauswahl.md`, Stückliste `bom/bom.csv`;
-offen nur der RF300-Versuch (`0-gesamtprojekt/TODO.md`).
-1. Lötbilder (Footprints) zuordnen, dann Platine entwerfen.
+offen nur der RF300-Versuch (`0-gesamtprojekt/TODO.md`). Lötbilder zugeordnet, Platine `kicad/v00.01/Motor-Controller.kicad_pcb`
+angelegt (Abgleich mit dem Schaltplan ohne Abweichung): alle Teile angeordnet, 150 × 130 mm (`Bauteilauswahl.md`
+Abschnitt 9, Bild `Anordnung_Platine.pdf` nur lokal); wartet auf die Durchsicht des Betreibers.
+1. Leiterbahnen ziehen, Bestückungsdruck bereinigen.
 2. Prototyp am Tisch, dann Test an der Pumpe im Hafen.
 Jeder Schritt wird einzeln vorgelegt.
 

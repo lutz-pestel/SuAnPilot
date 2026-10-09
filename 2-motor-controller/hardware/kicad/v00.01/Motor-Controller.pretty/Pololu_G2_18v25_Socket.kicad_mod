@@ -165,4 +165,29 @@
   (pad "15" smd circle (at 11.39 29.464) (size 1.5 1.5) (layers "B.Cu" "B.Mask") (uuid "dfe348db-23c4-4901-88fd-d606b326896b"))
   (pad "16" smd circle (at 6.39 29.464) (size 1.5 1.5) (layers "B.Cu" "B.Mask") (uuid "636da5e2-64ee-4a24-aca5-1c3af58b91fc"))
   (pad "14" smd circle (at 1.39 29.464) (size 1.5 1.5) (layers "B.Cu" "B.Mask") (uuid "cdea57a0-be45-4996-8558-8a1277e44e15"))
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x08_P2.54mm_Vertical.step"
+    (offset (xyz 0 0 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 -90))
+  )
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x02_P2.54mm_Vertical.step"
+    (offset (xyz 0 -2.54 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x01_P2.54mm_Vertical.step"
+    (offset (xyz 16.891 -16.049 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  (model "${KICAD10_3DMODEL_DIR}/Connector_PinSocket_2.54mm.3dshapes/PinSocket_1x01_P2.54mm_Vertical.step"
+    (offset (xyz 16.891 -11.049 0))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 0 0 0))
+  )
+  (model "${KIPRJMOD}/../../3d-modelle/Pololu_G2-18v25_md31b.step"
+    (offset (xyz 19.05 1.27 13.575))
+    (scale (xyz 1 1 1))
+    (rotate (xyz 180 0 90))
+  )
 )

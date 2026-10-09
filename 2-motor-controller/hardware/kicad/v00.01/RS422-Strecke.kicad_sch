@@ -1414,7 +1414,7 @@
 				(justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Motor-Controller:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm"
 			(at 116.84 64.77 0)
 			(hide yes)
 			(show_name no)
@@ -1661,7 +1661,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal"
 			(at 154.94 82.55 0)
 			(hide yes)
 			(show_name no)

@@ -6642,7 +6642,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal"
 			(at 397.51 93.98 0)
 			(hide yes)
 			(show_name no)
@@ -6798,7 +6798,7 @@
 				) (justify right)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_8-G-5,08_1x08_P5.08mm_Horizontal"
 			(at 397.51 147.32 0)
 			(hide yes)
 			(show_name no)
