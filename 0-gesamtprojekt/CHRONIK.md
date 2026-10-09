@@ -79,3 +79,8 @@ Leitungsenden; erst die Regelprüfung meldete die Referenz als unversorgt. Eine 
 ESP32-Anschlüsse gäben beim Start nichts aus; Espressif sagt das nicht, erst der Abgleich mit dem Herstellerdokument fand es.
 **Lehre:** Ein Schaltplan ist erst fertig, wenn die Regelprüfung ohne Fehler ist, jede Verbindung des Blockschaltbilds in
 der Netzliste nachgewiesen ist und jede Aussage über Anschlüsse einen Herstellerbeleg hat.
+
+## 2026-10-09 – Leitstand und Pumpenüberwachung drei Tage blind, ohne Fehlermeldung
+Die Aufzeichnung legt ihre Datei an, bevor der TinyPilot antwortet; Leitstand und Überwachung lasen die leere Kopfzeile und
+verwarfen danach jede Zeile. Seite „Güte“ zeigte seit 06.10. die Werte von damals als aktuell.
+**Lehre:** Wer einer neuen Datei folgt, liest sie erst, wenn die Kopfzeile vollständig ist. Jede Anzeige prüft das Alter ihrer Daten.

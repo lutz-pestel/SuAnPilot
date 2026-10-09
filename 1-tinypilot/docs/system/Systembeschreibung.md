@@ -132,7 +132,7 @@ Im TinyPilot: Selbsthilfe-Logbuch `/mnt/mmcblk0p2/servo_recovery.csv`.
   je Tag eine Datei; Speichergrenze Datenordner 2 GB, älteste Rohdaten werden zuerst gelöscht.
   Dazu je Minute mit Autopilot ohne Manöver: `bug` (Wind von BB/StB), `geradeaus_ruder` (mittlere Ruderanzeige,
   Anzeige-Fehler +2,9° nicht abgezogen), `drehung` (°/s). Ändern sich die Spalten, wird die alte Tagesdatei `…-1.csv`.
-- **Leitstand** (`leitstand.py` 00.01, Desktop-Symbol „Leitstand Autopilot“ am Master, Tasten 1–4): Seite 1 Lage, Ruderbalken, Verlauf
+- **Leitstand** (`leitstand.py` 00.03, Desktop-Symbol „Leitstand Autopilot“ am Master, Tasten 1–4): Seite 1 Lage, Ruderbalken, Verlauf
   10 min in Ampelfarben; Seite 2 „Güte“ (AP-Health, Umwelt, Ruder-Trimm, Gesamtampel 60 min); Seite 3 schaltet Regler und Satz
   (Rückfrage, Bestätigung) und zeigt alle Meldungen; Seite 4 „Geräte“: oben Internet (alle 3 s geprüft), darunter alle Geräte
   des Netzes 10.10.10.0/24 mit IP (grün online, rot offline, gelb neu) nach `geraete.csv` (Kennung = MAC-Adresse oder Anfang, IP, Name, Funktion).

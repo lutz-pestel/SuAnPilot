@@ -159,10 +159,17 @@ def follow():
     while True:
         newest = max(glob.glob(os.path.join(DATA, 'signals_*.csv')) or [''], key=lambda p: os.path.getmtime(p) if p else 0)
         if newest and newest != path:
-            path, f = newest, open(newest)
-            reader_fields = next(csv.reader([f.readline()]))
-            f.seek(0, 2)                     # nur neue Zeilen
-            buf = ''
+            nf = open(newest)
+            kopf = nf.readline()
+            if not kopf.endswith('\n'):      # Kopfzeile fehlt noch (aplog wartet auf den TinyPilot): spaeter erneut
+                nf.close()
+            else:
+                if f:
+                    f.close()
+                path, f = newest, nf
+                reader_fields = next(csv.reader([kopf]))
+                f.seek(0, 2)                 # nur neue Zeilen
+                buf = ''
         if f:
             buf += f.read()
             lines = buf.split('\n')

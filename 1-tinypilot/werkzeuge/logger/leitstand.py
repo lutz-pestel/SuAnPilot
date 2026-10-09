@@ -11,7 +11,8 @@ import csv, glob, io, json, os, socket, subprocess, threading, time, tkinter as 
 from concurrent.futures import ThreadPoolExecutor
 from tkinter import messagebox
 
-VERSION = '00.01'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
+VERSION = '00.03'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
+GUETE_ALT = 180        # s nach Ende der letzten Minute: Seite „Güte“ gilt als veraltet
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 STATUS = os.path.join(DATA, 'verbindung.json')       # schreibt aplog.py jede Sekunde
 GERAETE = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'geraete.csv')   # bekannte Geraete: ip,name,funktion
@@ -352,13 +353,20 @@ class Source:
     def update(self):
         p = self.newest()
         if p and p != self.path:
-            self.path, self.f = p, open(p, newline='')
-            self.fields = next(csv.reader([self.f.readline()]))
-            size = os.path.getsize(p)
-            self.f.seek(max(0, size - 900000))           # ~10 min Verlauf
-            if size > 900000:
-                self.f.readline()                          # angeschnittene Zeile verwerfen
-            self.buf, self.rows = '', []
+            f = open(p, newline='')
+            kopf = f.readline()
+            if not kopf.endswith('\n'):                    # Kopfzeile fehlt noch (aplog wartet auf den TinyPilot):
+                f.close()                                  # beim naechsten Durchlauf erneut versuchen
+            else:
+                if self.f:
+                    self.f.close()
+                self.path, self.f = p, f
+                self.fields = next(csv.reader([kopf]))
+                size = os.path.getsize(p)
+                self.f.seek(max(0, size - 900000))       # ~10 min Verlauf
+                if size > 900000:
+                    self.f.readline()                      # angeschnittene Zeile verwerfen
+                self.buf, self.rows = '', []
         if not self.f:
             return
         self.buf += self.f.read()
@@ -874,6 +882,12 @@ class Leitstand:
         rows = rows[-60:]
         if not rows:
             c.create_text(500, 200, text='Noch keine Gütedatei (guete_<Datum>.csv) – läuft pumpwatch.py?', fill=YEL, font=self.mid)
+            return
+        ende = time.mktime(time.strptime(rows[-1]['zeit'], '%Y-%m-%d %H:%M')) + 60   # Minute endet 60 s nach „zeit“
+        if time.time() - ende > GUETE_ALT:                 # nichts Altes als aktuell zeigen
+            c.create_text(506, 200, text='Gütedaten veraltet – letzte Minute %s' % rows[-1]['zeit'], fill=DIM, font=self.mid)
+            c.create_text(506, 230, text='Auswertung (pumpwatch.py) liefert nichts – „aplog.sh status“ prüfen',
+                          fill=DIM, font=self.small)
             return
         AMP = {'gut': GRN, 'akzeptabel': YEL, 'schlecht': RED}
         last10 = rows[-10:]
