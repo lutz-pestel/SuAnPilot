@@ -32,8 +32,7 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
     oder nacheinander ausschalten.
 12. **WLAN des Masters beobachten** (06.10.: PC konnte sich 40 min nicht anmelden, Neustart half): Seite 4 eine Stunde offen
     lassen, melden sich Geräte ab? Master an der Drosselgrenze (60 °C), Dateimanager `pcmanfm` 87 % Last prüfen.
-13. **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung messen, per Netz abfragbar, für Versuche in allen
-    Phasen; Projektplan `99-tools/docs/messgeraet.md`; nächster Schritt: Entscheidungen dort, Abschnitt 3.
+13. **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung per Netz; nächster Schritt: `99-tools/docs/messgeraet.md`, Abschnitt 3.
 14. **Prüfung „Ruder folgt nicht“** (Fehlersystematik, Abschnitt 2): Stromgrenzen niedrig/normal/hoch aus den Aufzeichnungen
     bestimmen (bekannt: Fehlerfall 1,0–1,5 A) und Fensterlänge festlegen; danach Spalte „Bereich“ in die Tabelle.
 15. **Fehler 3 „Messwert springt“: Aufzeichnungen überprüfen** (06.–09.10.): Wie oft werden die vorgeschlagenen Grenzen
@@ -42,6 +41,7 @@ innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten.
     fahren und aufzeichnen. Ergibt Grenze und Fensterlänge (bekannt: Betrieb 4–6 A, Spitzen 8,3 A, Anlauf unter 15 A).
 17. **Fehler 7 Ersatzsteuerung:** Gibt es an Bord einen zweiten Kompass im NMEA? Nimmt pypilot 0.24 ihn an, kann er nur nach dem
     Kreisel steuern? Umschalten auf GPS-Kurs (Betriebsart „gps“) und Standby, wenn nichts geht; danach bauen.
+18. **Anzeige 1 (Display des TinyPilot)** (Fehlersystematik, Abschnitt 5): unterste Zeile bei Warnung/Alarm invertiert überschreiben.
 
 ## Unterwegs
 1. **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).

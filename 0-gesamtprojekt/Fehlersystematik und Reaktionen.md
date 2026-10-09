@@ -1,6 +1,6 @@
 # Fehlersystematik und Reaktionen
 
-Version 00.26, Stand 09.10.2026. Gilt für den TinyPilot (Phase 1) und als Vorgabe für Motor-Controller (Phase 2)
+Version 00.27, Stand 09.10.2026. Gilt für den TinyPilot (Phase 1) und als Vorgabe für Motor-Controller (Phase 2)
 und SuAnPilot (Phase 3).
 
 ## 1. Die beiden Regler
@@ -65,4 +65,6 @@ Verweis auf ein Teil: Nummer und Buchstabe, z. B. „Fehler 2C“.
 ## 5. Meldestufen
 - **Hinweis:** nur im Meldungsprotokoll.
 - **Warnung:** gelb im Leitstand, steht an, solange der Zustand besteht.
-- **Alarm:** rot im Leitstand, Knopf „Meldungen“ rot bis angesehen; künftig Summer und Anzeige im Display des TinyPilot (heute nicht).
+- **Alarm:** rot im Leitstand, Knopf „Meldungen“ rot bis angesehen; künftig Summer (heute nicht).
+- **Display des TinyPilot** (Anzeige 1, heute nicht): bei Warnung oder Alarm wird die unterste Zeile (Betriebsarten) mit
+  „Warnung“ oder „Alarm“ in invertierten Farben überschrieben, solange der Zustand besteht.
