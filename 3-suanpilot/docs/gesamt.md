@@ -1,7 +1,7 @@
 # Projekt SuAnPilot – Gesamtbeschreibung
 
 **Ideensammlung.** Noch nicht gestartet; jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.02, Stand: 09.10.2026. Grundlage sind die Erfahrungen mit dem heutigen TinyPilot (pypilot 0.24),
+Version 00.03, Stand: 09.10.2026. Grundlage sind die Erfahrungen mit dem heutigen TinyPilot (pypilot 0.24),
 beschrieben in `1-tinypilot/docs/system/Systembeschreibung.md` und `1-tinypilot/docs/tests/` des Hauptprojekts.
 
 ## 1. Ziel
@@ -43,10 +43,10 @@ Ein eigener Autopilot für das 15-t-Schiff mit Hydrauliksteuerung:
 - **GPS und Wind** kommen, wenn vorhanden, vom Master; die Steuerung hängt aber von keinem anderen Dienst ab.
 - **Aufzeichnung** aller Mess- und Stellwerte in der Bedieneinheit, auswertbar auch nachträglich.
 
-## 4. Aufteilung der Fehlertoleranz (offen)
-Fehler, Symptome und Reaktionen: `0-gesamtprojekt/Fehlersystematik und Reaktionen.md` im Hauptprojekt.
-Welche Prüfungen im Controller liegen (Strom, Ruderbewegung, Verbindungsverlust) und welche in der
-Bedieneinheit (Kurs, Sensor-Plausibilität, Selbsthilfe, Buchführung), ist noch festzulegen.
+## 4. Fehlertoleranz
+Fehler, Symptome und Reaktionen: `0-gesamtprojekt/Fehlersystematik und Reaktionen.md` im Hauptprojekt. Die Prüfungen
+verteilen sich auf Controller und Bedieneinheit wie beim TinyPilot. Unterschied: SuAnPilot hat einen Summer und
+mehr Platz im Display für Fehlermeldungen.
 
 ## 5. Dokumente
 - `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md` – Anforderungen an die Bedieneinheit (B, U, R, L, Z, W) und Nachbesserungsbedarf gegenüber pypilot 0.24.
