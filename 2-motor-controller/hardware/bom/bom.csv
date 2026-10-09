@@ -1,4 +1,4 @@
-# Version 00.19, Stand 09.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Mengen aus dem Schaltplan kicad/v00.01 (Stand 09.10.2026).
+# Version 00.20, Stand 09.10.2026. Hauptliste Motor-Controller (Neubau). Katalogwerte: JLCPCB-Teilesuche vom 05.10.2026 (Lager und Preise ändern sich). Preise in US-Dollar, Einzelpreis ab 1 Stück. Mengen aus dem Schaltplan kicad/v00.01 (Stand 09.10.2026).
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
 Endstufe;1;Pololu G2 18v25 (Modul, gesteckt);-;-;-;-;-;-;-;-;-;Modul mit eigener Platine, nicht bei JLCPCB bestückbar, Bezug Eckstein/TME;Bauteilauswahl 1
 Strommessung (Hall) in Pumpenader A, bestückt;1;ACS758LCB-050B-PFF-T (Drahtform, Gehäuse CB-5);C73426;Extended;474;6.30;kein SMD-Gegenstück gefunden (nur Gehäuse CB);-;-;-;-;Versorgung 5 V, Ausgang über Teiler, Katalog nennt nur Schraubfahnen-Gehäuse, ob JLCPCB es bestückt, ungeklärt;Bauteilauswahl 2
@@ -16,7 +16,7 @@ Spannungsteiler Messstellen 18 kΩ 1 %;3;Metallschicht axial;nicht geprüft;-;-;
 Selbsttest-Widerstand 100 kΩ;1;Metallschicht axial;nicht geprüft;-;-;-;0603WAF1003T5E (0603);C25803;Basic;22051367;0.003;wie oben;Bauteilauswahl 3
 Temperaturfühler Endstufe (NTC mit Öse);1;TDK B57703M0103A017 (10 kΩ, 115 mm);-;-;-;-;-;-;-;-;-;bei JLCPCB nicht geprüft, Bezug DigiKey.de 3,29 €, Teiler 12 kΩ 1 %, Öse unter M2-Schraube mit Scheibe;Bauteilauswahl 1
 Verpolschutz Elektronikzweig;1;Vishay SB540-E3/54 (Schottky 5 A 40 V, DO-201AD);-;-;-;-;-;-;-;-;-;Bezug Farnell 9550399 / RS 7000915, bei JLCPCB nicht geprüft;Bauteilauswahl 7
-Klemmen für die vier kurzen Leitungen zum Pololu (VIN/GND, OUTA/OUTB);2;Degson DG301-5.0-02P-12-00A(H) (5,0 mm, fest eingelötet);C5371917;-;-;-;-;-;-;-;-;baugleich zu Pololu Nr. 2440, Datenblatt und 3D-Modell vorhanden, Leiter 0,75-1,5 mm²;Bauteilauswahl 9
+Klemmen für die vier kurzen Leitungen zum Pololu (VIN/GND, OUTA/OUTB) und für den Temperaturfühler (J3, J4, J6);3;Degson DG301-5.0-02P-12-00A(H) (5,0 mm, fest eingelötet);C5371917;-;-;-;-;-;-;-;-;baugleich zu Pololu Nr. 2440, Datenblatt und 3D-Modell vorhanden, Leiter 0,75-1,5 mm²;Bauteilauswahl 9
 Leitungen Pololu-Klemmen zu J3/J4 (W1-W4 im Schaltplan);4;Litze 1,5 mm² mit Aderendhülsen, mind. 20 mm;-;-;-;-;-;-;-;-;-;Ersatzmodul fertig verdrahtet mitführen;Bauteilauswahl 1
 Halter Sicherung 2 A je 5-V-Zweig;2;Schurter OGN 0031.8201 (5 × 20 mm, Leiterplatte);C3204125;-;-;-;-;-;-;-;-;Bezug Bürklin 46G6020 / Farnell 1162740;Bauteilauswahl 7
 Drossel 10 µH je 5-V-Zweig;2;Bourns RLB0914-100KL (10 µH, 2,7 A, radial);-;-;-;-;-;-;-;-;-;Bezug RS 8118799 / Mouser;Bauteilauswahl 7

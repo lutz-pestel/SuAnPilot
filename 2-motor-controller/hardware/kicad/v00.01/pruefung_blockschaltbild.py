@@ -1,4 +1,4 @@
-# Prueft jeden Pfeil des Blockschaltbilds gegen die Netzliste von KiCad. Version 00.01, Stand 09.10.2026.
+# Prueft jeden Pfeil des Blockschaltbilds gegen die Netzliste von KiCad. Version 00.02, Stand 09.10.2026.
 # Aufruf (KiCad geschlossen): kicad-cli sch export netlist --format kicadxml -o mc.xml Motor-Controller.kicad_sch
 #                            python pruefung_blockschaltbild.py mc.xml   -> erwartet: 80 erfuellt, 0 nicht erfuellt
 # Bauteilnamen (U601, R610 ...) gelten fuer den Plan v00.01; neue Verbindungen hier als Pruefpunkt ergaenzen.
@@ -50,7 +50,7 @@ same('Hall-Sensor Versorgung +5V', 'U2.1', 'U601.19')
 same('Gelbe LEDs: R12 an KLEMME_A', 'R12.1', 'J5.1'); same('Gelbe LEDs an KLEMME_B', 'D3.1', 'D4.2', 'J5.2')
 print('--- Versorgung')
 same('+5V Elektronik: Regler U101 an ESP32 5V, Hall-Sensor, LED-Zweige', 'U101.3', 'U601.19', 'U2.1', 'R603.1')
-same('+5V_PYPILOT: Regler U201 an Klemme J8.1', 'U201.3', 'J8.1'); same('J8.2 Masse', 'J8.2', 'U601.14')
+same('+5V_PYPILOT: Regler U201 an Klemme J7.8', 'U201.3', 'J7.8'); same('J7.7 Masse', 'J7.7', 'U601.14')
 apart('+5V_PYPILOT getrennt von +5V Elektronik', 'U201.3', 'U101.3')
 same('+3V3 vom ESP32 an Wandler, Referenz, RS422, RF300-Eingang, Display, FLT-Widerstand',
      'U601.1', 'U301.16', 'R311.1', 'U401.1', 'U501.1', 'R6.1', 'DS601.2', 'R11.1')
@@ -73,10 +73,11 @@ same('SPI Takt IO18', 'U601.28', 'U301.13'); same('SPI Daten vom Wandler IO19', 
 same('SPI Daten zum Wandler IO23', 'U601.21', 'U301.11'); same('SPI Auswahl IO5', 'U601.29', 'U301.10')
 print('--- Verbindung zum Steuerhaus')
 same('TinyPilot senden: ESP32 IO17 an U401 DI', 'U601.30', 'U401.3'); same('TinyPilot empfangen: U401 RO an IO16', 'U401.2', 'U601.31')
-same('J7.1 A+', 'J7.1', 'U401.8'); same('J7.2 B−', 'J7.2', 'U401.7'); same('J7.3 Z−', 'J7.3', 'U401.6'); same('J7.4 Y+', 'J7.4', 'U401.5')
+same('J7.1 MCY', 'J7.1', 'U401.5'); same('J7.2 MCZ', 'J7.2', 'U401.6'); same('J7.3 MCB', 'J7.3', 'U401.7'); same('J7.4 MCA', 'J7.4', 'U401.8')
 same('Abschluss 120 Ω TinyPilot', 'R401.1', 'U401.8'); same('Abschluss', 'R401.2', 'U401.7')
 same('NMEA-Ruderlage: ESP32 IO32 an U501 DI', 'U601.7', 'U501.3')
-same('J7.5 A+', 'J7.5', 'U501.8'); same('J7.6 B−', 'J7.6', 'U501.7'); same('J7.7 Z−', 'J7.7', 'U501.6'); same('J7.8 Y+', 'J7.8', 'U501.5')
+same('J7.5 RAA', 'J7.5', 'U501.5'); same('J7.6 RAB', 'J7.6', 'U501.6')
+apart('Ruderlage-Empfänger A nicht an J7', 'U501.8', 'J7.5'); apart('Ruderlage-Empfänger B nicht an J7', 'U501.7', 'J7.6')
 apart('Ruderlage-Strecke unabhängig von der TinyPilot-Strecke', 'U501.5', 'U401.5')
 print('--- Rechner und Bedienung')
 same('Display Auswahl IO15', 'U601.35', 'DS601.4'); same('Display Daten IO13', 'U601.15', 'DS601.5'); same('Display Takt IO14', 'U601.12', 'DS601.6')

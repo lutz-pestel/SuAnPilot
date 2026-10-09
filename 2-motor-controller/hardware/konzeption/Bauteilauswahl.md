@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.23, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.24, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -298,9 +298,11 @@ Lieferzeit laut Liste 15 Wochen.
   4,7 µF; 10 nF als kleinerer C315C103K5R5TA); 1 µF als C330C105K5R5TA (Raster 5,08 mm, 7,1 × 4,1 mm): beide C320 bei keinem Händler belegt.
 - **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B an unserer Platine (MSTBA 2,5/2); RF300 zweiadrig geschirmt;
   zum Steuerhaus **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
-  NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Stecker und Belegung wie an der
-  RF300-Interfaceplatine:** MSTBA 2,5/8 wie dort J9 (1–4 RS422 zum Motor-Controller A+, B−, Z−, Y+; 5–8 RS422
-  Ruderlage A+, B−, Z−, Y+), 5 V über MSTBA 2,5/2.
+  NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Ein Stecker J7, MSTBA 2,5/8**
+  (Betreiber, 09.10.2026): 1 MCY, 2 MCZ (Controller → TinyPilot), 3 MCB, 4 MCA (TinyPilot → Controller),
+  5 RAA, 6 RAB (NMEA-Ruderlage zum TinyPilot, nur Senden), 7 GND, 8 +5 V für die PyPilot-Einheit.
+  Offen: Ob die NMEA-Leitung entfallen kann, weil pypilot den Ruderwinkel aus dem Controller-Protokoll selbst als
+  $APRSA ausgibt (nmea.py), ist noch nicht geprüft; bis dahin bleibt sie (Betreiber).
 
 ## 10. Offen — vor dem Kauf zu messen oder zu klären
 Nur noch der RF300-Versuch an der alten Platine (Abschnitt 4, `0-gesamtprojekt/TODO.md`).
