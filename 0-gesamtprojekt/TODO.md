@@ -70,3 +70,5 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 19. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
     auf 220 Ω: zählt die Platine noch sauber? Dazu Frequenz mittschiffs an der Platine (6,89 V) und am Robertson (10,8 V)
     vergleichen: beeinflusst die Sensorspannung die Messung? (M)
+20. **Robnet On-Off** (gelb; gemessen 13,5 V bei eingeschaltetem Robertson): Ist es eine Schaltleitung? Spannung messen bei
+    Robertson aus und während STBY 3–5 s gedrückt wird (`99-tools/docs/Robnet.md`, H6). (M)

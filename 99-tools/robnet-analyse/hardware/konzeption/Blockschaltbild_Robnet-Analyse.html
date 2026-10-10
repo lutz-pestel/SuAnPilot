@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blockschaltbild Robnet-Analyse</title>
+<style>
+  :root{ --bg:#f6f7f9; --fg:#1a1d21; --muted:#5b6471; --line:#c2c8d0; }
+  html,body{margin:0;background:var(--bg);color:var(--fg);
+    font-family:"Segoe UI",system-ui,-apple-system,Arial,sans-serif;}
+  .wrap{max-width:1700px;margin:0 auto;padding:18px 16px 40px;}
+  h1{font-size:20px;margin:0 0 2px;}
+  .sub{color:var(--muted);font-size:13px;margin:0 0 14px;line-height:1.5;}
+  .sheet{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px;overflow-x:auto;}
+  svg{width:100%;min-width:900px;height:auto;display:block;}
+  .bx{font:10px/1.32 "Segoe UI",system-ui,Arial,sans-serif;color:#1a1d21;
+      padding:5px 7px;box-sizing:border-box;height:100%;overflow:hidden;}
+  .bx b{display:block;font-size:11.5px;line-height:1.25;margin-bottom:2px;}
+  .bx i{font-style:normal;color:var(--muted);}
+  .bx ul{margin:2px 0 3px 14px;padding:0;}
+  text{font-family:"Segoe UI",system-ui,Arial,sans-serif;}
+  .lb{font-size:9px;fill:#374151;}
+  .pn{font-size:9.5px;fill:#1a1d21;font-weight:600;}
+  .frame-t{font-size:12px;fill:var(--muted);font-weight:600;}
+  .legend{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px 26px;font-size:12.5px;color:#243040;}
+  .legend div{display:flex;align-items:center;gap:8px;}
+  .legend span.k{display:inline-block;width:30px;height:0;border-top-width:3px;border-top-style:solid;}
+  .note{margin-top:10px;font-size:12.5px;color:var(--muted);line-height:1.6;}
+  @media print{ @page{size:A4 landscape;margin:8mm;} body{background:#fff;} .sheet{border:none;padding:0;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
+  <p class="sub">Version 00.01, Stand 10.10.2026. Platine im Motorraum, die den Robnet-Bus des Robertson AP300X nur
+  mitliest (sendet nie). Anforderungen: <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte:
+  <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und MCP3208 aus den KiCad-Symbolen des Motor-Controllers;
+  Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in <code>Bauteilauswahl.md</code>.</p>
+
+<div class="sheet">
+<svg viewBox="0 0 1600 960" role="img" aria-label="Blockschaltbild der Robnet-Analyse-Platine">
+  <defs>
+    <marker id="m-power" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#c0392b"/></marker>
+    <marker id="m-digi"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f6feb"/></marker>
+    <marker id="m-ana"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
+    <marker id="m-data"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
+    <marker id="m-sup"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+    <style>
+      .w-power{stroke:#c0392b;stroke-width:3.5;fill:none;marker-end:url(#m-power);}
+      .w-digi {stroke:#1f6feb;stroke-width:2;fill:none;marker-end:url(#m-digi);}
+      .w-ana  {stroke:#d97706;stroke-width:2;fill:none;marker-end:url(#m-ana);}
+      .w-data {stroke:#7c3aed;stroke-width:2.4;fill:none;marker-end:url(#m-data);}
+      .w-sup  {stroke:#6b7280;stroke-width:2;fill:none;stroke-dasharray:6 4;marker-end:url(#m-sup);}
+      .w-gnd  {stroke:#374151;stroke-width:2;fill:none;}
+      .nm{marker-end:none;}
+      .both{marker-start:url(#m-data);}
+      .dot{fill:#374151;}
+    </style>
+  </defs>
+
+  <!-- ======== Vorhandene Anlage links ======== -->
+  <rect x="10" y="120" width="190" height="440" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="11" y="121" width="188" height="438"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>J300 Verteilereinheit</b>Robnet-Klemmleiste der Hauptplatine (Motorraum), Adern zur Bedieneinheit.
+    Jede Ader zus&auml;tzlich unter die vorhandene Schraube; Klemmleiste bleibt gesteckt.
+    <br><br><i>Gemessen 10.10.2026 gegen Masse:</i>
+    <ul><li>Bus&#8722; braun 0,7&nbsp;V</li><li>Bus+ wei&szlig; 4,4&nbsp;V</li>
+    <li>Vsys+ rosa 26,4&nbsp;V</li><li>Vsys&#8722; grau 0,004&nbsp;V</li>
+    <li>On-Off gelb 13,5&nbsp;V</li><li>Alarm gr&uuml;n 0,4 / 4,8&nbsp;V</li></ul>
+    <i>Bus: Pakete mit Pausen (Oszilloskop).</i></div></foreignObject>
+
+  <rect x="10" y="770" width="190" height="120" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="11" y="771" width="188" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>Robertson-Versorgung</b>Bordnetz 12&nbsp;V am J300 (Plus nach dessen Sicherung, Minus = Bordmasse = Grau).</div></foreignObject>
+
+  <!-- ======== Rahmen: das Geraet ======== -->
+  <rect x="230" y="70" width="1150" height="870" rx="14" fill="#fbfcfe" stroke="#8c97a6" stroke-width="2" stroke-dasharray="10 6"/>
+  <text class="frame-t" x="246" y="92">Robnet-Analyse (eine Platine, Raspberry Pi Zero 2 W aufgesteckt) &#8211; nur lesen, kein Sender, kein Abschlusswiderstand</text>
+
+  <!-- ======== J1 / J2 Klemmen ======== -->
+  <rect x="250" y="120" width="110" height="440" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
+  <text class="pn" x="258" y="138">J1 Robnet</text>
+  <text class="lb" x="258" y="150">Schraubklemme 6-pol.</text>
+  <text class="pn" x="354" y="164" text-anchor="end">1 Bus&#8722;</text>
+  <text class="pn" x="354" y="204" text-anchor="end">2 Bus+</text>
+  <text class="pn" x="354" y="414" text-anchor="end">3 Vsys+</text>
+  <text class="pn" x="354" y="454" text-anchor="end">4 Vsys&#8722;</text>
+  <text class="pn" x="354" y="494" text-anchor="end">5 On-Off</text>
+  <text class="pn" x="354" y="534" text-anchor="end">6 Alarm</text>
+
+  <rect x="250" y="770" width="110" height="120" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
+  <text class="pn" x="258" y="788">J2 Versorgung</text>
+  <text class="lb" x="258" y="800">Schraubklemme 2-pol.</text>
+  <text class="pn" x="354" y="814" text-anchor="end">1 +12 V</text>
+  <text class="pn" x="354" y="864" text-anchor="end">2 GND</text>
+
+  <!-- J300 -> J1 -->
+  <path class="w-data" d="M200,160 L248,160"/>
+  <path class="w-data" d="M200,200 L248,200"/>
+  <path class="w-ana"  d="M200,410 L248,410"/>
+  <path class="w-gnd"  d="M200,450 L250,450"/>
+  <path class="w-digi" d="M200,490 L248,490"/>
+  <path class="w-digi" d="M200,530 L248,530"/>
+  <!-- Versorgung -> J2 -->
+  <path class="w-power" d="M200,810 L248,810"/>
+  <path class="w-gnd"   d="M200,860 L250,860"/>
+
+  <!-- ======== U1 MAX3488 ======== -->
+  <rect x="440" y="110" width="280" height="180" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="441" y="111" width="278" height="178"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>U1 Bus-Empf&auml;nger MAX3488 (DIP-8, im Sockel)</b>
+    <ul><li>8&nbsp;A &#8592; Bus+ &uuml;ber R1, 7&nbsp;B &#8592; Bus&#8722; &uuml;ber R2 (Vorschlag je 1&nbsp;k&#937;)</li>
+    <li>JP1: A/B kreuzen, falls die Polarit&auml;t falsch ist</li>
+    <li>2&nbsp;RO &#8594; Zero (zwei Eing&auml;nge)</li>
+    <li>3&nbsp;DI an +3V3; <b style="display:inline;font-size:10px">5&nbsp;Y, 6&nbsp;Z offen</b> (Treiber sendet sonst immer)</li>
+    <li>1&nbsp;VCC +3V3 mit 100&nbsp;nF, 4&nbsp;GND</li></ul>
+    <i>Empf&auml;ngereingang 12&nbsp;k&#937; (Datenblatt-Angabe), bis 250&nbsp;kbit/s; Reserve MAX3490 (schneller), Steckgleichheit pr&uuml;fen.</i></div></foreignObject>
+
+  <!-- J1 -> U1 -->
+  <path class="w-data" d="M360,160 L438,160"/>
+  <text class="lb" x="420" y="154" text-anchor="middle">Bus&#8722;</text>
+  <path class="w-data" d="M360,200 L438,200"/>
+  <text class="lb" x="420" y="194" text-anchor="middle">Bus+</text>
+
+  <!-- ======== Spannungsteiler fuer den Wandler ======== -->
+  <rect x="440" y="320" width="280" height="290" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <text class="pn" x="448" y="337">Spannungsteiler und Klemmdioden (6 Kan&auml;le)</text>
+  <text class="lb" x="448" y="354">CH0 Bus+ &#8212; 100 k / 18 k (bis ~16 V)</text>
+  <text class="lb" x="448" y="379">CH1 Bus&#8722; &#8212; 100 k / 18 k</text>
+  <text class="lb" x="448" y="414">CH2 Vsys+ &#8212; 100 k / 8,2 k (bis ~33 V)</text>
+  <text class="lb" x="448" y="494">CH3 On-Off &#8212; 100 k / 18 k</text>
+  <text class="lb" x="448" y="534">CH4 Alarm &#8212; 100 k / 18 k</text>
+  <text class="lb" x="448" y="574">CH5 Bordspannung (+12V_F) &#8212; 100 k / 18 k</text>
+  <text class="lb" x="448" y="590">CH6, CH7 frei (an GND). Je Kanal 1 %, zwei BAT85 nach +3V3/GND,</text>
+  <text class="lb" x="448" y="602">Kondensator gegen GND (Gl&#228;ttung je Kanal). Last je Ader ~118 k&#937;.</text>
+
+  <!-- Abzweige Bus -> Teiler (ein Kreuzungspunkt ohne Verbindung bei x=380,y=200) -->
+  <circle class="dot" cx="400" cy="200" r="4"/>
+  <path class="w-ana" d="M400,200 L400,350 L438,350"/>
+  <circle class="dot" cx="380" cy="160" r="4"/>
+  <path class="w-ana" d="M380,160 L380,375 L438,375"/>
+  <!-- Vsys+, On-Off, Alarm -> Teiler -->
+  <path class="w-ana" d="M360,410 L438,410"/>
+  <path class="w-digi" d="M360,490 L438,490"/>
+  <path class="w-digi" d="M360,530 L438,530"/>
+  <!-- Vsys- = GND -->
+  <path class="w-gnd" d="M360,450 L392,450 L392,462"/>
+  <path class="w-gnd" d="M382,462 L402,462 M386,467 L398,467 M390,472 L394,472"/>
+  <text class="lb" x="408" y="455">GND</text>
+  <!-- Bordspannung als Netzname -->
+  <path class="w-sup" d="M420,570 L438,570"/>
+
+  <!-- ======== Teiler fuer Schaltleitungen ======== -->
+  <rect x="440" y="640" width="280" height="100" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="441" y="641" width="278" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>Teiler f&uuml;r die Schaltleitungen (auf 3,3&nbsp;V)</b>
+    On-Off 100&nbsp;k / 22&nbsp;k (13,5&nbsp;V &#8594; ~2,4&nbsp;V); Alarm 100&nbsp;k / 180&nbsp;k (4,8&nbsp;V &#8594; ~3,1&nbsp;V); je BAT85 nach +3V3.
+    <i>On-Off-Bedeutung ungepr&uuml;ft (TODO, Frage 20).</i></div></foreignObject>
+  <!-- Abzweige On-Off/Alarm (ein Kreuzungspunkt ohne Verbindung bei x=410,y=530) -->
+  <circle class="dot" cx="410" cy="490" r="4"/>
+  <path class="w-digi" d="M410,490 L410,680 L438,680"/>
+  <circle class="dot" cx="390" cy="530" r="4"/>
+  <path class="w-digi" d="M390,530 L390,715 L438,715"/>
+
+  <!-- ======== Versorgung ======== -->
+  <rect x="440" y="770" width="580" height="120" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="441" y="771" width="578" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>Versorgung</b>
+    J2 +12&nbsp;V &#8594; F1 Sicherung &#8594; D1 Verpolschutz &#8594; <b style="display:inline;font-size:10px">Netz +12V_F</b> &#8594; U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V) &#8594; +5V &#8594; Zero Pin&nbsp;2/4.
+    <br>+3V3 kommt vom Zero (Pin&nbsp;1/17) und versorgt U1, U2 und die Referenz. Nicht aus Vsys versorgen (Robnet nicht belasten).
+    <br><i>Zero nie gleichzeitig &uuml;ber USB versorgen.</i></div></foreignObject>
+  <path class="w-power" d="M360,810 L438,810"/>
+  <path class="w-gnd" d="M360,860 L392,860 L392,872"/>
+  <path class="w-gnd" d="M382,872 L402,872 M386,877 L398,877 M390,882 L394,882"/>
+  <text class="lb" x="408" y="865">GND</text>
+
+  <!-- ======== U2 MCP3208 ======== -->
+  <rect x="780" y="320" width="240" height="290" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="781" y="321" width="238" height="288"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>U2 Wandler MCP3208 (DIP-16, im Sockel)</b>
+    12 Bit, 8 Eing&auml;nge, SPI, an +3V3.
+    <ul><li>1&#8211;8 CH0&#8211;CH7 &#8592; Teiler</li>
+    <li>15 VREF &#8592; U4 LM4040AIZ-2.5 (Vorwiderstand von +3V3)</li>
+    <li>13 CLK, 11 Din, 12 Dout, 10 CS</li>
+    <li>16 VDD +3V3 mit 100&nbsp;nF; 9 DGND, 14 AGND</li></ul>
+    <i>Langsame Werte aller Adern; Bitmuster nur bis ~2400&#8211;4800 Baud (Recherche, ungemessen).</i></div></foreignObject>
+  <path class="w-ana" d="M720,465 L778,465"/>
+  <text class="lb" x="749" y="458" text-anchor="middle">CH0&#8211;5</text>
+  <text class="lb" x="749" y="481" text-anchor="middle">0&#8211;2,5 V</text>
+
+  <!-- ======== Raspberry Pi Zero 2 W ======== -->
+  <rect x="1100" y="110" width="250" height="780" rx="8" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
+  <text class="pn" x="1110" y="130">Raspberry Pi Zero 2 W</text>
+  <text class="lb" x="1110" y="143">40-pol. Leiste aufgesteckt (Pin / GPIO)</text>
+  <text class="pn" x="1110" y="184">Pin 10 &#183; GPIO15 RXD</text>
+  <text class="lb" x="1110" y="196">Seriell-Schnittstelle (Bluetooth aus)</text>
+  <text class="pn" x="1110" y="234">Pin 16 &#183; GPIO23</text>
+  <text class="lb" x="1110" y="246">Zeitstempel der Pegelwechsel (pigpio)</text>
+  <text class="lb" x="1110" y="270">Pin 8 &#183; GPIO14 TXD: frei</text>
+  <text class="pn" x="1110" y="404">Pin 23 &#183; GPIO11 SCLK</text>
+  <text class="pn" x="1110" y="429">Pin 19 &#183; GPIO10 MOSI</text>
+  <text class="pn" x="1110" y="454">Pin 21 &#183; GPIO9 MISO</text>
+  <text class="pn" x="1110" y="479">Pin 24 &#183; GPIO8 CE0</text>
+  <text class="lb" x="1110" y="494">Hardware-SPI 0</text>
+  <text class="pn" x="1110" y="684">Pin 11 &#183; GPIO17 ON_OFF</text>
+  <text class="pn" x="1110" y="719">Pin 13 &#183; GPIO27 ALARM</text>
+  <text class="pn" x="1110" y="834">Pin 2/4 &#183; +5V</text>
+  <text class="lb" x="1110" y="852">Pin 1/17 +3V3 &#8594; Netz +3V3</text>
+  <text class="lb" x="1110" y="866">GND Pin 6, 9, 14, 20, 25 &#8230;</text>
+
+  <!-- U1 -> Zero -->
+  <circle class="dot" cx="760" cy="180" r="4"/>
+  <path class="w-data" d="M720,180 L1098,180"/>
+  <path class="w-data" d="M760,180 L760,230 L1098,230"/>
+  <text class="lb" x="740" y="173" text-anchor="middle">RO</text>
+  <text class="lb" x="930" y="173" text-anchor="middle">BUS_RX (Telegramme, Datenraten durchprobieren)</text>
+  <text class="lb" x="930" y="223" text-anchor="middle">BUS_RX (Pulsdauern, Bitmuster)</text>
+
+  <!-- SPI -->
+  <path class="w-digi" d="M1098,400 L1022,400"/>
+  <text class="lb" x="1060" y="394" text-anchor="middle">CLK&#8594;13</text>
+  <path class="w-digi" d="M1098,425 L1022,425"/>
+  <text class="lb" x="1060" y="419" text-anchor="middle">Din&#8594;11</text>
+  <path class="w-digi" d="M1022,450 L1098,450"/>
+  <text class="lb" x="1060" y="444" text-anchor="middle">12 Dout</text>
+  <path class="w-digi" d="M1098,475 L1022,475"/>
+  <text class="lb" x="1060" y="469" text-anchor="middle">CS&#8594;10</text>
+
+  <!-- Schaltleitungen -> Zero -->
+  <path class="w-digi" d="M720,680 L1098,680"/>
+  <text class="lb" x="910" y="673" text-anchor="middle">ON_OFF (0/3,3 V)</text>
+  <path class="w-digi" d="M720,715 L1098,715"/>
+  <text class="lb" x="910" y="708" text-anchor="middle">ALARM (0/3,3 V)</text>
+
+  <!-- Versorgung -> Zero -->
+  <path class="w-power" d="M1020,830 L1098,830"/>
+  <text class="lb" x="1060" y="822" text-anchor="middle">+5V</text>
+
+  <!-- +3V3 Netz -->
+  <path class="w-sup" d="M1098,560 L1022,560"/>
+  <text class="lb" x="1060" y="553" text-anchor="middle">+3V3</text>
+  <path class="w-sup" d="M760,100 L760,125"/>
+  <text class="lb" x="766" y="108">+3V3 &#8594; U1</text>
+
+  <!-- ======== Rechts: Netz ======== -->
+  <rect x="1410" y="380" width="180" height="120" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="1411" y="381" width="178" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>Master (OpenPlotter)</b>10.10.10.1, WLAN-Zugangspunkt an Bord; stellt die Uhr (GPS).</div></foreignObject>
+  <rect x="1410" y="560" width="180" height="90" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
+  <foreignObject x="1411" y="561" width="178" height="88"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten.</div></foreignObject>
+  <path class="w-data both" d="M1352,440 L1408,440"/>
+  <text class="lb" x="1380" y="432" text-anchor="middle">WLAN</text>
+  <path class="w-data both" d="M1500,502 L1500,558"/>
+  <text class="lb" x="1508" y="534">SSH</text>
+</svg>
+</div>
+
+<div class="legend">
+  <div><span class="k" style="border-top-color:#c0392b;border-top-width:4px"></span>Versorgung (Leistung)</div>
+  <div><span class="k" style="border-top-color:#7c3aed"></span>Robnet-Daten, seriell</div>
+  <div><span class="k" style="border-top-color:#d97706"></span>Messwert (analog)</div>
+  <div><span class="k" style="border-top-color:#1f6feb"></span>Logik- und Schaltsignal</div>
+  <div><span class="k" style="border-top-color:#6b7280;border-top-style:dashed"></span>Versorgung als Netzname</div>
+  <div><span class="k" style="border-top-color:#374151"></span>Masse (GND = Vsys&#8722; = Bordmasse)</div>
+</div>
+<p class="note">
+  Pfeile zeigen die Signalrichtung; ein Punkt ist ein Abzweig, Linien ohne Punkt kreuzen sich ohne Verbindung.
+  Der gestrichelte Rahmen ist die Platine; links vorhandene Anlage, rechts das Bordnetz. Bus+ und Bus&#8722; werden
+  zweifach gemessen: als Differenz &uuml;ber U1 (Bitmuster) und einzeln gegen Masse &uuml;ber U2 (Pegel, Hub).
+  Offen: Werte von R1/R2, Vorwiderstand der Referenz, Sicherung, Verpolschutz, Steckgleichheit MAX3490.
+</p>
+</div>
+</body>
+</html>

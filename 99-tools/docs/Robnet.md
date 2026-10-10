@@ -1,6 +1,6 @@
 # Robnet (Datennetz des Robertson AP300X)
 
-Version 00.04, Stand 10.10.2026, Obergrenze 60 Zeilen.
+Version 00.05, Stand 10.10.2026, Obergrenze 60 Zeilen.
 Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 
 ## 1. Belegt (Handbuch AP300X `handbuecher/Robertson/Control-Unit/AP300CX_Manual.pdf`, Abschnitte 1.1, 3.x; AP11-Handbuch)
@@ -52,8 +52,5 @@ Schaltleitungen (H6) und ob Daten laufen (Anzeige springt). **Entscheidet, ob de
 **Stufe 2 – Oszilloskop** (wahlweise; Verlauf über die Zeit): Spannungshub eines Bits, Gegenlauf von Bus+/Bus− (Nachweis H1),
 Bitdauer (Datenrate), Pausen und Telegrammlängen.
 
-**Stufe 3 – RPi am J300, Zugriff per WLAN, nur mitlesen, kein Sender:**
-MAX3488 nur als Empfänger an Bus+/Bus− (Zeitstempel der Pegelwechsel → Datenrate, dann Telegramme über die Seriell-
-Schnittstelle). MCP3208 wie im Motor-Controller (Teiler 100 kΩ/18 kΩ, bis ~16 V) an allen 6 Adern; für Vsys (26,4 V)
-größerer Teiler. On-Off und Alarm zusätzlich über Optokoppler an Eingänge (Zeitstempel). Grau = Bordmasse (gemessen),
-Trennung daher nicht zwingend. Ersetzt kein Oszilloskop: bei schneller Datenrate nur Mittelwerte.
+**Stufe 3 – Platine Robnet-Analyse** (Zero 2 W, MAX3488, MCP3208; nur mitlesen): Konzept und Blockschaltbild in
+`99-tools/robnet-analyse/hardware/konzeption/`.
