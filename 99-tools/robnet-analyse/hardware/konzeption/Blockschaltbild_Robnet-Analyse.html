@@ -32,7 +32,7 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.01, Stand 10.10.2026. Platine im Motorraum, die den Robnet-Bus des Robertson AP300X nur
+  <p class="sub">Version 00.03, Stand 10.10.2026. Platine im Motorraum, die den Robnet-Bus des Robertson AP300X nur
   mitliest (sendet nie). Anforderungen: <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte:
   <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und MCP3208 aus den KiCad-Symbolen des Motor-Controllers;
   Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in <code>Bauteilauswahl.md</code>.</p>
@@ -114,7 +114,7 @@
     <li>2&nbsp;RO &#8594; Zero (zwei Eing&auml;nge)</li>
     <li>3&nbsp;DI an +3V3; <b style="display:inline;font-size:10px">5&nbsp;Y, 6&nbsp;Z offen</b> (Treiber sendet sonst immer)</li>
     <li>1&nbsp;VCC +3V3 mit 100&nbsp;nF, 4&nbsp;GND</li></ul>
-    <i>Empf&auml;ngereingang 12&nbsp;k&#937; (Datenblatt-Angabe), bis 250&nbsp;kbit/s; Reserve MAX3490 (schneller), Steckgleichheit pr&uuml;fen.</i></div></foreignObject>
+    <i>Empf&auml;ngereingang 12&nbsp;k&#937; (Datenblatt-Angabe), bis 250&nbsp;kbit/s (Bedarf: Annahme &#8804; 9600&nbsp;Baud). Sockel nur f&uuml;r schnellen Tausch.</i></div></foreignObject>
 
   <!-- J1 -> U1 -->
   <path class="w-data" d="M360,160 L438,160"/>
@@ -245,14 +245,10 @@
   <!-- ======== Rechts: Netz ======== -->
   <rect x="1410" y="380" width="180" height="120" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
   <foreignObject x="1411" y="381" width="178" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>Master (OpenPlotter)</b>10.10.10.1, WLAN-Zugangspunkt an Bord; stellt die Uhr (GPS).</div></foreignObject>
-  <rect x="1410" y="560" width="180" height="90" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
-  <foreignObject x="1411" y="561" width="178" height="88"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten.</div></foreignObject>
+    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten; stellt die Uhr des Zero. WLAN: Samsung AP, Ersatz das WLAN des Masters.</div></foreignObject>
   <path class="w-data both" d="M1352,440 L1408,440"/>
-  <text class="lb" x="1380" y="432" text-anchor="middle">WLAN</text>
-  <path class="w-data both" d="M1500,502 L1500,558"/>
-  <text class="lb" x="1508" y="534">SSH</text>
+  <text class="lb" x="1384" y="430">WLAN</text>
+  <text class="lb" x="1384" y="458">SSH</text>
 </svg>
 </div>
 
@@ -266,9 +262,9 @@
 </div>
 <p class="note">
   Pfeile zeigen die Signalrichtung; ein Punkt ist ein Abzweig, Linien ohne Punkt kreuzen sich ohne Verbindung.
-  Der gestrichelte Rahmen ist die Platine; links vorhandene Anlage, rechts das Bordnetz. Bus+ und Bus&#8722; werden
+  Der gestrichelte Rahmen ist die Platine; links vorhandene Anlage, rechts der PC. Bus+ und Bus&#8722; werden
   zweifach gemessen: als Differenz &uuml;ber U1 (Bitmuster) und einzeln gegen Masse &uuml;ber U2 (Pegel, Hub).
-  Offen: Werte von R1/R2, Vorwiderstand der Referenz, Sicherung, Verpolschutz, Steckgleichheit MAX3490.
+  Offen: Werte von R1/R2, Vorwiderstand der Referenz, Sicherung, Verpolschutz.
 </p>
 </div>
 </body>
