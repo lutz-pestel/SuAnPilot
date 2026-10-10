@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Schaltplan `kicad/v00.01` gezeichnet (09.10.2026); jede Anforderung wird vor dem Bau einzeln geprüft.
-Version 00.11, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.12, Stand: 10.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -33,7 +33,12 @@ Version 00.11, Stand: 09.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 ## 3. Anforderungen
 ### 3.1 Funktion
 - F1 Pumpe in beide Richtungen mit voller Drehzahl; beide Richtungen gleichwertig.
-- F2 Motorstrom je Richtung messen, Spitzen erfassen.
+- F2 Motorstrom je Richtung messen, Spitzen erfassen. **Nötiges Messtempo je Zweck:**
+  - Regelung (Ruderlage, Kurs): 10–50 Messungen je Sekunde; das Schiff dreht in Sekunden.
+  - Kurzschluss: nicht über den Wandler, die Endstufe schaltet selbst ab (schneller als jedes Programm).
+  - Wärme von Motor und Leitungen: wenige Messungen je Sekunde; sie steigt in Sekunden.
+  - Dauerfehler (einseitiger Förderausfall, 1,9 V statt 11 V, 1,3 A statt 5 A): einige Dutzend je Sekunde, gemittelt.
+  - Anlaufspitzen: nur für die Fehlersuche, nicht für die Sicherheit; einzig hier sind tausende je Sekunde nötig.
 - F3 RF300-Frequenz direkt messen und **im Gerät in Grad umrechnen**, für Display, NMEA (F5) und TinyPilot. **Eine
   Kalibrierung** (heute zwei: RF300-Interface und pypilot): am TinyPilot wie heute; pypilot schreibt die Werte (Versatz,
   Maßstab, Nichtlinearität, Bereich) über das Protokoll in den Speicher des Geräts, das Gerät rechnet damit. An pypilot

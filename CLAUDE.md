@@ -16,7 +16,7 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
-- 60: `1-tinypilot/rf300-interface/software/Programmbeschreibung.md`, `0-gesamtprojekt/VERSIONEN.md`, `0-gesamtprojekt/wissen/Robnet.md`
+- 60: `1-tinypilot/rf300-interface/software/Programmbeschreibung.md`, `0-gesamtprojekt/VERSIONEN.md`, `99-tools/docs/Robnet.md`
 - 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `CLAUDE.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `1-tinypilot/regler/entwurf_pumpenleistung.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
   `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
@@ -46,7 +46,7 @@ Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git),
 - **`0-gesamtprojekt/`** (gilt für alle Phasen): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,
   `wissen/` (Hintergrund, Marktrecherche, pypilot-Geschichte), `handbuecher/` (PyPilot, Andere Schiffe, Robertson; nicht in Git),
   `fertigung/` (JLCPCB-Strategie).
-- **`99-tools/`** (Werkzeuge für alle Phasen, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`).
+- **`99-tools/`** (Werkzeuge für alle Phasen, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`), Baugruppe `robnet-analyse/` (Robertson-Bus mitlesen, `docs/Robnet.md`).
 - Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.
 - KiCad: Das alte Original (Platinen, Gerber, Pläne) liegt außerhalb, nicht Teil des Projekts:
   `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `1-tinypilot/autopilot/hardware/kicad/` ist eine Kopie

@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.24, Stand 09.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.25, Stand 10.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -105,12 +105,11 @@ zusammen ~3–7 €. 12 Bit, 8 Eingänge, SPI.
 seinen Eingängen 3,5 V erwarten würde, die der ESP32 nicht liefert. Daraus folgt die Referenz von 2,5 V — sie
 darf die Versorgung nicht überschreiten — und ein Messtempo von etwa 60 000 statt 100 000 Messungen je Sekunde.
 Begründung der Wahl:
-- **Das Messtempo bestimmen wir selbst.** Eine Anlauf- oder Blockierspitze dauert wenige Millisekunden; mit
-  5 000–10 000 Messungen je Sekunde liegen 100–200 Messpunkte darüber (F2, Spitzen erfassen). Im ruhigen Betrieb
-  wird langsam gemessen, bei Verdacht schnell. Die Grenze setzt unsere Software, nicht das Bauteil.
-- **Acht Eingänge, fünf Messstellen:** Klemme A, Klemme B, Bordspannung, Stromrückmeldung der Endstufe
+- **Hauptgrund: acht Eingänge, fünf Messstellen:** Klemme A, Klemme B, Bordspannung, Stromrückmeldung der Endstufe
   (Abschnitt 2) und Temperatur der Endstufe (NTC, F11); ein Kanal für den Hall-Sensor (Abschnitt 2).
   Zwei Eingänge sind frei.
+- **Tempo nur als Spielraum.** Nötig sind wenige Dutzend Messungen je Sekunde (Anforderungen, F2). Schneller nur für
+  Anlaufspitzen (Fehlersuche): bei 5 000–10 000 je Sekunde liegen 100–200 Punkte auf einer Spitze von wenigen ms.
 - **Steckbar im Sockel**, ohne Lötkolben tauschbar.
 **Anschluss über Hardware-SPI, nicht nachgebildet in Software.** Der Wandler hält die Messspannung in einem
 Kondensator von 20 pF, der während der Wandlung Ladung verliert; unter 10 000 Takten je Sekunde leidet die
@@ -127,9 +126,9 @@ Fehler der Bordspannung, notfalls im Programm ausgleichen. **Die Glättung ist j
 der Mittelwert herauskommt (der Fall vom 04.10. — 1,9 V statt 11 V — wäre so sofort sichtbar); der Stromkanal
 **ohne** diese Glättung, sonst verschenkt man die Spitzen.
 
-*Verworfen:* ADS1115-Modul (nur 4 Eingänge und fest 860 Messungen je Sekunde — eine 2 ms kurze Spitze wird
-verfehlt oder zufällig getroffen, und ein zufälliger Wert ist schlimmer als keiner, weil man ihn für den
-Höchstwert hält); der Wandler im ESP32 (misst nicht geradlinig, nur 10–11 nutzbare Bit).
+*Verworfen:* ADS1115-Modul — für Regelung, Schutz und Dauerfehler hätte er gereicht, verworfen wegen nur 4 Eingängen;
+zudem teilen sich alle Kanäle höchstens 860 Messungen je Sekunde, er mittelt über jede Messung und drückt eine 2 ms
+kurze Spitze flach, zwischen den Kanälen verfehlt er sie ganz; der Wandler im ESP32 (misst nicht geradlinig, nur 10–11 nutzbare Bit).
 
 **Ein Widerstand mehr für den Selbsttest (S10):** 100 kΩ von einer Motorklemme nach Plus. Ohne ihn ziehen die
 Messteiler die freien Klemmen in Ruhe nach Masse — „alles 0 V" wäre dann sowohl der gesunde Ruhezustand als auch

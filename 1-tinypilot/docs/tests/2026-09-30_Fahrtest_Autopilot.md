@@ -21,7 +21,7 @@ Test abgeschlossen. Planung: `1-tinypilot/docs/system/Testplan_Autopilot.md`. Fo
 | 08:53 | 42–45° | 17–20 (22–26) | 3–4 / 1,3 | Reglerversuche (3), Sonnenschüsse |
 | 09:37 | – | – | – | Ausweichmanöver (nicht ausgewertet) |
 | 09:41 | 83° scheinbar ≈ 108° wahr, raumschots | 14 | 2,4 / 1,1 | Kurs 0° |
-| 09:51 | raumschots | – | – | +10° Kursänderung, Schiff dreht durch (4.5) |
+| 09:51 | raumschots | – | – | +10° Kursänderung, Schiff dreht durch (4.4) |
 
 ## 3. Reglerversuche (am Wind, Sollkurs 26°, Windeinfall 42–49°)
 | ab | Änderung | Grund | Wind (Böen) / Krängung | Kursfehler Ø | nach Luv Ø | >10° |
@@ -49,12 +49,11 @@ schreibt nach einem Rücksprung nichts. Seit 4.1 behoben keine Lücken mehr.
 **4.3 Ausfall des Autopiloten 08:39:39**, 2 s nach dem Neustart des Signal-K-Servers: Verbindung zum
 TinyPilot brach ab, danach Autopilot aus, Sollkurs 186° (alter Wert), Ruder blieb bei 10°, das Schiff
 drehte in 30 s um ~75°. Ursache der Kopplung unbekannt.
-**4.4 Hartruder beim Wiedereinschalten 08:40:17**: Ruder lief in 4 s auf −27°. Ungeklärt.
-**4.5 Durchdrehen nach +10° (09:51:48–09:52:12)**: Ruder auf −11°, Schiff dreht mit 4°/s. Danach 17 s
+**4.4 Durchdrehen nach +10° (09:51:48–09:52:12)**: Ruder auf −11°, Schiff dreht mit 4°/s. Danach 17 s
 volle Pumpe in Gegenrichtung befohlen; gemessene Ruderlage nur −11° → +2° (0,7°/s, Strom 1,4 A),
 blieb also auf der Drehseite (Ruder für Geradeauslauf auf diesem Kurs ~+5…+10°). Betreiber sah
 **überhaupt kein Gegenruder**, Pumpe lief nicht. Schiff bis 44° über den Kurs, dann Hand. Ursache: 5.
-**4.6 Sonnenschüsse** am Wind bei Böen: bis 39° neben dem Kurs, Rückkehr 25–50 s.
+**4.5 Sonnenschüsse** am Wind bei Böen: bis 39° neben dem Kurs, Rückkehr 25–50 s.
 
 ## 5. Erkenntnisse
 - **Pumpe läuft „vorwärts“ zeitweise nicht an** (Ruder positiv = Gegenruder beim Anluven, Kurs nach
@@ -97,7 +96,7 @@ blieb also auf der Drehseite (Ruder für Geradeauslauf auf diesem Kurs ~+5…+10
 1. **Defekten Motor-Controller untersuchen** (Ersatz seit 01.10. eingebaut): Ansteuerung des oberen
    Transistors der Vorwärtsseite messen, Speicherkondensatoren/Dioden prüfen. Reglerversuche wurden
    am 01.10. mit dem Ersatz wiederholt.
-2. Ausfall bei Signal-K-Neustart (4.3) und Hartruder (4.4) nachstellen. Bis dahin: Signal K nie bei
+2. Ausfall bei Signal-K-Neustart (4.3) nachstellen. Bis dahin: Signal K nie bei
    eingeschaltetem Autopiloten neu starten.
 3. Krängungsabhängiger Ruderanteil (Programmänderung im Paket `pypilot.tcz`).
 4. Totzone kleiner Befehle: `servo.period`/`servo.gain` untersuchen.

@@ -1,56 +1,50 @@
 # Aufgabenliste TinyPilot (aktuelles Projekt)
 
-Stand: 09.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
+Stand: 10.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
 Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `3-suanpilot/docs/gesamt.md`.
-Einteilung nach Ort: **Im Hafen** (entwickeln, einrichten) und **Unterwegs** (messen, testen); Reihenfolge
-innerhalb des Abschnitts nach Sicherheit → Nutzen/Aufwand → Abhängigkeiten. Fork: `1-tinypilot/regler/verbesserungen.md`.
+Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `1-tinypilot/regler/verbesserungen.md`.
+**Erst der Kern; alles unter „Später“ wartet, bis adaptive auf See gezeigt hat, ob er besser ist als basic.**
 
-## Im Hafen
-1. **Leitstand erweitern** (Seiten 1–4 laufen am Master, `leitstand.py`): auf den Cockpit-Kartenplotter bringen
-   (dort live vom TinyPilot, höchstens 1 Abfrage/s, Desktop-Symbol); Summer zuschalten (Master GPIO 24, Plotter
-   GPIO 23, Konflikt mit NMEA_Monitor/ePaper prüfen); weitere Prüfungen ergänzen; Diagramme in Seite 1 nur bei Änderung neu zeichnen.
-2. **Ruderlage in Signal K:** Signal K liest die NMEA-Ausgabe des TinyPilot (TCP 10.10.10.163:20220, sendet
-   `$APRSA` 4/s, dazu Kurs, Roll, Stampf) als Datenquelle → `steering.rudderAngle`. Vorzeichen prüfen.
-   Signal K dafür nur bei ausgeschaltetem Autopiloten neu starten. Alternative: pypilot-eigener
-   Signal-K-Client (`signalk.py`, braucht Zugriffsfreigabe im Signal-K-Admin).
-3. **Kurze Pumpenstöße bewerten** (< 1,2 s) in Überwachung und Selbsthilfe; Test unterwegs.
-4. **Fork:** Einträge aus `Verbesserungen.md` nach deren Priorität einbauen; Test unterwegs.
-5. **Profile** als Behelf auf dem Master: Bedingung (Kurs zum Wind, Krängung, Seegang) × Ziel
-   („bestes Kurshalten“, „minimaler Strom“); ein Befehl schaltet um und markiert. Werte unterwegs messen.
-6. **Datensicherung** Master → `1-tinypilot/daten/aplog/` regelmäßig; automatische Erkennung von Kurs- und
-   Bedingungswechseln, damit Abschnitte ohne Markierung auswertbar sind.
-7. Ausfall des Autopiloten beim Signal-K-Neustart (30.09.) und Hartruder beim Einschalten nachstellen;
-   Verdacht prüfen, ob der Signal-K-Client in pypilot beteiligt ist. Bis dahin: Signal K nie bei
-   eingeschaltetem Autopiloten neu starten.
-8. Ruder-Kalibrierung genau (Endpunkte am 01.10. nicht am Anschlag, Grad ~20 % zu groß).
-9. AIS-Positionsmeldungen mit Datum 2007 abstellen; Signal-K-Passwort zurücksetzen;
-   Aufzeichnungsprogramm: Takt nach nicht springendem Zähler.
-10. **Pumpe rückwärts** (Testbericht 08.10.): an Bord feste Höchstdrehzahl 80 %. Offen: Erkennung für kurze Stöße des Autopiloten
-    (`1-tinypilot/regler/entwurf_pumpenleistung.md`); Fehlalarm „Pumpe steht“ der alten Selbsthilfe bei halber Geschwindigkeit abstellen.
-11. **Master-Netz:** Autostart des Leitstands (`Leitstand-Autostart.desktop`) nach einem Neustart des Masters prüfen (eingerichtet,
-    ungeprüft); die Geräte `30:83:98` (10.10.10.159/.160, Espressif, ohne offene Ports) zuordnen: an Bord nachsehen
-    oder nacheinander ausschalten.
-12. **WLAN des Masters beobachten** (06.10.: PC konnte sich 40 min nicht anmelden, Neustart half): Seite 4 eine Stunde offen
-    lassen, melden sich Geräte ab? Master an der Drosselgrenze (60 °C), Dateimanager `pcmanfm` 87 % Last prüfen.
-13. **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung per Netz; nächster Schritt: `99-tools/docs/messgeraet.md`, Abschnitt 3.
-14. **Prüfung „Ruder folgt nicht“** (Fehlersystematik, Abschnitt 2): Stromgrenzen niedrig/normal/hoch aus den Aufzeichnungen
-    bestimmen (bekannt: Fehlerfall 1,0–1,5 A) und Fensterlänge festlegen; danach Spalte „Bereich“ in die Tabelle.
-15. **Fehler 3 „Messwert springt“: Aufzeichnungen überprüfen** (06.–09.10.): Wie oft werden die vorgeschlagenen Grenzen
-    (5° je 0,2 s, zurück binnen 1 s, zweiter Sprung binnen 5 min) im Normalbetrieb überschritten? Bewegt eine Hand das Ruder schneller?
-16. **Fehler 6 „Strom hoch“: Strom an der Endlage messen**, je Richtung: Ruder per Handsteuerung (Stoß 1,4 s) an den Anschlag
-    fahren und aufzeichnen. Ergibt Grenze und Fensterlänge (bekannt: Betrieb 4–6 A, Spitzen 8,3 A, Anlauf unter 15 A).
-17. **Fehler 7 Ersatzsteuerung:** Gibt es an Bord einen zweiten Kompass im NMEA? Nimmt pypilot 0.24 ihn an, kann er nur nach dem
-    Kreisel steuern? Umschalten auf GPS-Kurs (Betriebsart „gps“) und Standby, wenn nichts geht; danach bauen.
-18. **Anzeige 1 (Display des TinyPilot)** (Fehlersystematik, Abschnitt 5): unterste Zeile bei Warnung/Alarm invertiert überschreiben.
+## Kern (jetzt)
+1. **adaptive in Betrieb nehmen** (Werte: `1-tinypilot/regler/parameter/`, Entwurf `1-tinypilot/regler/entwurf.md`):
+   a) [H] nach einem Rückfall beim nächsten Start wieder adaptive wählen; Regler auf Anzeige 1 (Fehlersystematik 3, 5).
+   b) [U, M] Vergleich adaptive / basic unter gleichen Bedingungen (Gütemaß Trend und Pumpe); Feinabstimmung (Entwurf 5.5).
+2. [H] **Hörbarer Alarm:** Summer im Leitstand zuschalten (Master GPIO 24, Plotter GPIO 23, Konflikt mit NMEA_Monitor/ePaper
+   prüfen); ob der Summer der Hauptplatine bestückt ist und geht: offene Frage 4.
 
-## Unterwegs
-1. **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).
-2. **Krängungs-Glied H vor dem Wind prüfen:** löst Rollen (bis ±30°) es falsch aus? Wechseltest H 0 / 0,5
-   ab 5° Krängung. (Am Wind halbiert H das Anluven, Testbericht 01.10.)
-3. **Neue Werte auf anderen Kursen prüfen** (raumschots, vor dem Wind; Gütemaß Trend und Pumpe).
-4. Werte je Profil messen; Fork-Einbauten testen (siehe Im Hafen 4, 5).
-5. Windgeber prüfen (hart am Wind nur 12–17° scheinbar; Wendewinkel vergleichen); Kompass: Abweichung
-   zum GPS-Kurs je Kurs.
+## Später
+1. [H] Ausfall des Autopiloten beim Signal-K-Neustart (30.09.) nachstellen; Signal-K-Client in pypilot beteiligt?
+   Bis dahin: Signal K nie bei eingeschaltetem Autopiloten neu starten.
+2. [U, M] **Betrieb ohne WLAN testen:** WLAN aus, Autopilot muss weiter steuern (ohne GPS/Wind).
+3. [H] **Prüfung „Ruder folgt nicht“** (Fehlersystematik, Abschnitt 2): Stromgrenzen niedrig/normal/hoch aus den Aufzeichnungen
+   bestimmen (bekannt: Fehlerfall 1,0–1,5 A) und Fensterlänge festlegen; danach Spalte „Bereich“ in die Tabelle.
+4. [H] **Fehler 6 „Strom hoch“:** Strom an der Endlage je Richtung messen (Handsteuerung, Stoß 1,4 s, aufzeichnen); ergibt
+   Grenze und Fensterlänge (bekannt: Betrieb 4–6 A, Spitzen 8,3 A, Anlauf unter 15 A).
+5. [H] **Fehler 3 „Messwert springt“:** Wie oft überschreitet der Normalbetrieb (06.–09.10.) die Grenzen 5° je 0,2 s,
+   zurück binnen 1 s, zweiter Sprung binnen 5 min? Bewegt eine Hand das Ruder schneller?
+6. [H] **Pumpe rückwärts** (Testbericht 08.10.; an Bord fest 80 %): Erkennung für kurze Stöße
+   (`1-tinypilot/regler/entwurf_pumpenleistung.md`) und Bewertung kurzer Stöße (< 1,2 s); Fehlalarm „Pumpe steht“ abstellen.
+7. [U, M] **Fehler 7 Ersatzsteuerung:** zweiter Kompass im NMEA? Nimmt pypilot 0.24 ihn an, nur nach Kreisel steuern?
+   Betriebsart „gps“ und Standby, wenn nichts geht; danach bauen.
+8. [H] **Anzeige 1:** unterste Zeile bei Warnung/Alarm invertiert (Fehlersystematik, Abschnitt 5).
+9. [H] Ruder-Kalibrierung genau (Endpunkte am 01.10. nicht am Anschlag, Grad ~20 % zu groß); [U, M] Nullpunkt bei
+   Geradeausfahrt ohne Krängung (offene Frage 14).
+10. [H] **Leitstand** auf den Cockpit-Kartenplotter (live vom TinyPilot, höchstens 1 Abfrage/s, Desktop-Symbol); weitere
+   Prüfungen; Diagramme in Seite 1 nur bei Änderung neu zeichnen.
+11. [H] **Fork:** Einträge aus `Verbesserungen.md` nach deren Priorität einbauen; Test unterwegs.
+12. [U] **Krängungs-Glied H vor dem Wind:** löst Rollen (bis ±30°) es falsch aus? Wechseltest H 0 / 0,5 ab 5° Krängung.
+13. [U] **Werte auf anderen Kursen** (raumschots, vor dem Wind); Windgeber (hart am Wind nur 12–17° scheinbar,
+    Wendewinkel); [U, M] Kompass: Abweichung zum GPS-Kurs je Kurs.
+14. [H] **Datensicherung** Master → `1-tinypilot/daten/aplog/` regelmäßig; Kurs- und Bedingungswechsel automatisch erkennen.
+15. [H] **Master-Netz:** Autostart des Leitstands nach Neustart prüfen (eingerichtet, ungeprüft); Geräte `30:83:98`
+    (10.10.10.159/.160, Espressif) zuordnen. WLAN beobachten (06.10.: 40 min keine Anmeldung; Drosselgrenze 60 °C, `pcmanfm` 87 %).
+16. [H] **Profile** auf dem Master: Bedingung (Kurs zum Wind, Krängung, Seegang) × Ziel („bestes Kurshalten“,
+    „minimaler Strom“); ein Befehl schaltet um und markiert; [U] Werte je Profil messen.
+17. [H] **Ruderlage in Signal K:** NMEA-Ausgabe des TinyPilot (TCP 10.10.10.163:20220, `$APRSA` 4/s) als Datenquelle →
+    `steering.rudderAngle`, Vorzeichen prüfen; Signal K nur bei ausgeschaltetem Autopiloten neu starten.
+    Alternative: pypilot-eigener Signal-K-Client (`signalk.py`, Zugriffsfreigabe im Signal-K-Admin).
+18. [H] AIS-Meldungen mit Datum 2007 abstellen; Signal-K-Passwort zurücksetzen; Aufzeichnung: Takt nach nicht springendem Zähler.
+19. [H] **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung per Netz; nächster Schritt `99-tools/docs/messgeraet.md`, Abschnitt 3.
 
 ## Offene Fragen Hardware (gemeinsam klären; geklärt → in die Systembeschreibung, hier löschen)
 Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlagen und KiCad-Pläne (03.10.2026).
@@ -76,4 +70,3 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 19. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
     auf 220 Ω: zählt die Platine noch sauber? Dazu Frequenz mittschiffs an der Platine (6,89 V) und am Robertson (10,8 V)
     vergleichen: beeinflusst die Sensorspannung die Messung? (M)
-Ebenfalls offen, steht oben: Ruder-Kalibrierung (Hafen 8), Hartruder (Hafen 7), AIS (Hafen 9), Kompass, Windgeber (Unterwegs 5).
