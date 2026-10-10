@@ -16,7 +16,7 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
-- 60: `1-tinypilot/rf300-interface/software/Programmbeschreibung.md`, `0-gesamtprojekt/VERSIONEN.md`
+- 60: `1-tinypilot/rf300-interface/software/Programmbeschreibung.md`, `0-gesamtprojekt/VERSIONEN.md`, `0-gesamtprojekt/wissen/Robnet.md`
 - 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `CLAUDE.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `1-tinypilot/regler/entwurf_pumpenleistung.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
   `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
