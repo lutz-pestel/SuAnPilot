@@ -1,6 +1,6 @@
 # Robnet (Datennetz des Robertson AP300X)
 
-Version 00.05, Stand 10.10.2026, Obergrenze 60 Zeilen.
+Version 00.06, Stand 10.10.2026, Obergrenze 60 Zeilen.
 Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 
 ## 1. Belegt (Handbuch AP300X `handbuecher/Robertson/Control-Unit/AP300CX_Manual.pdf`, Abschnitte 1.1, 3.x; AP11-Handbuch)
@@ -31,14 +31,15 @@ Oszilloskop am Bus: Pakete aus unregelmäßigen Pulsen mit Pausen, ähnlich der 
 Offen: Datenrate (kürzester Puls), Hub beim Springen, Gegenlauf Bus+/Bus−, Paketabstand, On-Off beim Ausschalten.
 Protokoll und Datenrate nennen weder die Handbücher (AP300X, AP11, AP21/22, AP3000X) noch zwei Internet-Suchen.
 
-## 3. Hypothesen (alle unbestätigt, aus Allgemeinwissen, nicht aus Dokumenten)
+## 3. Hypothesen (je mit Prüfstand; Grundlage Allgemeinwissen, nicht die Dokumente)
 - **H1** „Bus+/Bus−“ ist ein Differenzsignal. (RS422, RS485 und NMEA 0183 sind es alle; „+/−“ allein unterscheidet sie nicht.)
+  H1 und H4 gestützt durch die Pegel in Abschnitt 2 (0,7/4,4 V, typisch 5-V-Differenztreiber), nicht bewiesen.
 - **H2** Nicht RS422: das bräuchte zwei Datenpaare, Robnet hat eines.
 - **H3** Nicht NMEA 0183: dort sendet nur ein Gerät je Leitung; Robnet hat mehrere Teilnehmer und beliebige Abzweige.
 - **H4** Am ehesten RS485-artig (ein Paar, mehrere Teilnehmer, abwechselndes Senden). Könnte auch ein eigener Robertson-Aufbau sein.
 - **H5** „V System“ ist die Versorgung der Bedieneinheit aus dem J300; gemessen 26,4 V, also über der Bordspannung (J300 erzeugt sie wohl selbst).
 - **H6** Nur „Bus“ ist eine serielle Datenleitung. On-Off und Alarm sind einfache Schaltleitungen (fester Pegel, Wechsel nur beim
-  Ein-/Ausschalten oder Alarm); das Handbuch erklärt sie nicht. Alarm bestätigt (0,4 V / 4,8 V, 5-V-Logik); On-Off offen.
+  Ein-/Ausschalten oder Alarm); das Handbuch erklärt sie nicht. Bus trägt Datenpakete (Oszilloskop); Alarm bestätigt (0,4 V / 4,8 V, 5-V-Logik); On-Off offen.
 
 ## 4. Messplan
 **Messort:** Robnet-Klemmleiste der Hauptplatine im J300 (Motorraum; Handbuch S. 78: Schraubklemmen, Farben beschriftet).
