@@ -55,7 +55,8 @@ def lauf(params, schiff, dauer=300.0, ereignisse=(), dt=0.1, start_ruder=None, s
             elif art == 'luv': schiff.luv = wert
             elif art == 'anzeige_aus': aus_bis = schiff.t + wert
         anz = None if schiff.t < aus_bis else schiff.anzeige()
-        u, info = c.step(schiff.t, True, schiff.psi, cmd, schiff.r + random.gauss(0, 0.05), anz, sog)
+        u, info = c.step(schiff.t, True, schiff.psi, cmd, schiff.r + random.gauss(0, 0.05), anz, sog,
+                         heel=schiff.kraengung() if hasattr(schiff, 'kraengung') else None)
         if info['state'].startswith('Rueckfall'):
             log.append((schiff.t, resolv(schiff.psi - cmd), 0, schiff.rud, info['state'])); break
         schiff.schritt(u, dt)

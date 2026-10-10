@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Regler adaptive, Version 00.06, Stand 06.10.2026. Entwurf: 1-tinypilot/regler/entwurf.md
+# Regler adaptive, Version 00.10, Stand 10.10.2026. Entwurf: 1-tinypilot/regler/entwurf.md
 # Regelt die Ruderlage:  Soll = Trimm + k(Fahrt) x (Kursfehler + Tg x (Drehrate - Soll-Drehrate)) + Drehruder
 # Die Pumpe wird ueber eine geschaetzte Ruderlage gefuehrt (Laufzeit x Rudergeschwindigkeit), die mit der um
 # 'delay' verspaeteten Ruderanzeige abgeglichen wird. Alle Schiffswerte kommen aus SuAns Vermessung; solange
@@ -7,7 +7,7 @@
 # Im TinyPilot: Datei nach pypilot/pilots/adaptive.py; am PC: AdaptiveCore direkt (sim.py). Python 3.6.
 import math, time
 
-VERSION = '00.06'
+VERSION = '00.10'
 
 def resolv(a):
     """Winkel auf -180..180."""
@@ -48,10 +48,14 @@ PARAMS = [
     ('t_lern',     1.0, 0.3, 5.0,  's, Laufzeit je Richtung, ueber die gesammelt wird, bevor gelernt/bewertet wird'),
     ('schwach',    0.5, 0.1, 0.9,  'Anteil der Soll-Rudergeschwindigkeit, unter dem Pumpe schwach gemeldet wird'),
     ('n_tot',      3.0, 1.0, 10.0, 'so viele Laeufe einer Richtung ohne Ruderbewegung -> Ruder folgt nicht'),
+    ('frz',        0.2, 0.05, 1.0, 'Grad, Anzeige schwankt weniger: eingefroren (Geber gestoert) -> basic'),
+    ('t_frz',      3.0, 1.0, 10.0, 's, Zeitfenster fuer "eingefroren"'),
     ('speed',      1.0, 0.2, 1.0,  'Pumpengeschwindigkeit (Anteil)'),
     ('sparsam',    0.0, 0.0, 1.0,  '0 = Satz ruhig, 1 = Satz sparsam'),
     ('db_sparsam', 2.0, 0.2, 6.0,  'Grad, Totband im Satz sparsam'),
     ('TS_sparsam', 0.0, 0.0, 30.0, 's, Glaettung Kursfehler im Satz sparsam'),
+    ('kh',         0.0, 0.0, 2.0,  'Grad Gegenruder je Grad Kraengung, Vorsteuerung in der Boee (02.10.: ~1; 0 = aus)'),
+    ('T_H',        1.0, 0.0, 10.0, 's, Zusatzglaettung Kraengung fuer kh (pypilot glaettet schon ~1,7 s; Sim 10.10.: 1 s)'),
 ]
 DEFAULTS = {n: d for n, d, lo, hi, txt in PARAMS}
 REQUIRED = ('k_ref', 'rate_up', 'rate_down')
@@ -68,7 +72,9 @@ class AdaptiveCore(object):
 
     def reset(self, t, rudder, heading=None):
         self.t = t
-        self.trim = rudder if rudder is not None else 0.0
+        if not hasattr(self, 'heel_f'):
+            self.heel_f = None               # geglaettete Kraengung (+ = nach StB, Wind von BB); bleibt ueber reset
+        self.trim = (rudder if rudder is not None else 0.0) - self._vh()
         self.est_raw = rudder if rudder is not None else 0.0
         self.off = 0.0
         self.hist = []                   # (t, est_raw) fuer den Abgleich mit der verspaeteten Anzeige
@@ -91,6 +97,7 @@ class AdaptiveCore(object):
             self.sammL = {1: [0.0, 0.0], -1: [0.0, 0.0]}  # wie samm, aber nur lange Laeufe (nur fuer die Schwach-Meldung)
             self.vl = {1: None, -1: None}                 # Rudergeschwindigkeit aus langen Laeufen (None = noch keine)
         self.n_abgl = 0
+        self.warn = None                 # (Text, bis) Warnung "Ruder folgt nicht", Regler steuert weiter
         self.info = {}
 
     def missing(self):
@@ -116,6 +123,25 @@ class AdaptiveCore(object):
         v = [a for t, a in self.anz if ta <= t <= tb]
         return sum(v) / len(v) if v else None
 
+    def _eingefroren(self, t):
+        """Anzeige ueber t_frz praktisch unveraendert (sonst zittert sie bis 2 Grad): Geber, Leitung oder Interface
+        gestoert. Nur dann hilft basic; bewegt sich die Anzeige, ist das Ruder gehalten oder blockiert (10.10.2026)."""
+        p = self.p
+        v = [a for ta, a in self.anz if ta >= t - p['t_frz']]
+        if not v or self.anz[0][0] > t - p['t_frz'] + 0.3:
+            return False                                # noch zu kurz beobachtet
+        return max(v) - min(v) < p['frz']
+
+    def _folgt_nicht(self, t, r):
+        """Ruder folgt der Pumpe nicht: bei eingefrorener Anzeige Rueckfall, sonst nur Warnung und weitersteuern
+        (Hand am Steuer oder Blockade; der Strom steigt dabei nicht, gemessen 10.10.2026)."""
+        txt = 'Ruder folgt nicht (%s)' % ('vorw' if r > 0 else 'rueckw')
+        if self._eingefroren(t):
+            self._stop(t)
+            return 'Rueckfall: ' + txt
+        self.warn = (txt + ', Hand/Blockade?', t + 5.0)   # 5 s als Zustand zeigen
+        return None
+
     def _lernen(self, t):
         """Rudergeschwindigkeit je Richtung lernen (Anzeige um delay versetzt). Kurze Stoesse sind einzeln zu
         ungenau (Anzeige schwankt ~1 Grad, Ruder federt nach, manche Stoesse erreichen die Pumpe nicht): Laufzeit und
@@ -129,6 +155,8 @@ class AdaptiveCore(object):
             # sind kuerzer als das +-0,2-s-Fenster von _anz_at, das den Weg sonst verschmiert)
             a0, a1 = self._anz_win(t0 + p['delay'] - 0.4, t0 + p['delay']), self._anz_win(t_end + p['delay'], t_end + p['delay'] + 0.4)
             if a0 is None or a1 is None:
+                continue
+            if (a1 - a0) * r < -1.0:                       # Ruder lief gegen den Befehl: von aussen bewegt, nicht lernen
                 continue
             s = self.samm[r]
             s[0] += t1 - t0
@@ -153,12 +181,19 @@ class AdaptiveCore(object):
                 else: self.v_down = neu
         self.offen = rest
 
-    def step(self, t, enabled, heading, command, rate, rudder, sog=None, windmode=False):
+    def _vh(self):
+        """Vorsteuerung aus der Kraengung (entwurf.md 3.2): mehr Kraengung, mehr Gegenruder; Trimm lernt den Rest."""
+        return -self.p['kh'] * self.heel_f if self.heel_f is not None else 0.0
+
+    def step(self, t, enabled, heading, command, rate, rudder, sog=None, windmode=False, heel=None):
         p = self.p
         if self.t is None:
             self.reset(t, rudder, heading)
         dt = clip(t - self.t, 0.0, 0.5)
         self.t = t
+        if heel is not None and heel is not False:
+            if self.heel_f is None or p['T_H'] <= 0: self.heel_f = float(heel)
+            else: self.heel_f += (float(heel) - self.heel_f) * min(1.0, dt / p['T_H'])
         miss = self.missing()
         if miss:
             return 0, self._out('Rueckfall: Werte fehlen (%s)' % ','.join(miss))
@@ -168,7 +203,7 @@ class AdaptiveCore(object):
         s = -1.0 if windmode else 1.0      # im Windmodus ist der Fehler umgekehrt (wie pypilot)
 
         # --- Ruderlage schaetzen (gelernte Rudergeschwindigkeit je Richtung) ---
-        if self.v_up is None:
+        if self.v_up is None or p['lern'] <= 0:         # ohne Lernen gelten die eingestellten Werte sofort
             self.v_up, self.v_down = p['rate_up'], p['rate_down']
         if self.u > 0:
             self.est_raw += self.v_up * dt
@@ -212,14 +247,20 @@ class AdaptiveCore(object):
                 if a0 is not None:
                     v_live = max(0.0, (a1 - a0) * r0) / eff
                     if eff > 2.5 and v_live < 0.3:
-                        self._stop(t)
-                        return 0, self._out('Rueckfall: Ruder folgt nicht (%s)' % ('vorw' if r0 > 0 else 'rueckw'))
-                    if r0 > 0: self.v_up = clip(min(self.v_up, 1.2 * v_live), 0.3, 1.5 * p['rate_up'])
-                    else: self.v_down = clip(min(self.v_down, 1.2 * v_live), 0.3, 1.5 * p['rate_down'])
-        for r in (1, -1):                               # Ruder bewegt sich trotz Pumpe nicht: an basic uebergeben
+                        rf = self._folgt_nicht(t, r0)
+                        if rf:
+                            return 0, self._out(rf)
+                        self.lauf = (r0, t)             # Pruefung neu beginnen, weitersteuern
+                    # Kein Absenken der Rudergeschwindigkeit waehrend des Laufs: nach einem Handeingriff fiel sie
+                    # so auf 1 Grad/s, der Regler schaukelte sich auf +-50 Grad auf (10.10.2026). Lernen nur in _lernen.
+        for r in (1, -1):                               # Ruder bewegt sich trotz Pumpe nicht
             if self.tot[r] >= p['n_tot']:
                 self.tot[r] = 0
-                return 0, self._out('Rueckfall: Ruder folgt nicht (%s)' % ('vorw' if r > 0 else 'rueckw'))
+                rf = self._folgt_nicht(t, r)
+                if rf:
+                    return 0, self._out(rf)
+        if self.warn and t < self.warn[1] and state in ('ok', 'abgleich'):
+            state = self.warn[0]
         for r, v, sp in ((1, self.vl[1], p['rate_up']), (-1, self.vl[-1], p['rate_down'])):   # nur lange Laeufe
             if v is not None and v < p['schwach'] * sp and state == 'ok':
                 state = 'Pumpe %s schwach %.1f' % ('vorw' if r > 0 else 'rueckw', v)
@@ -228,7 +269,7 @@ class AdaptiveCore(object):
             self._stop(t)
             self.rf = 0.0
             self.ref = heading
-            self.trim = est
+            self.trim = est - self._vh()
             self.ef = 0.0
             return 0, self._out('aus', est=est)
 
@@ -280,7 +321,7 @@ class AdaptiveCore(object):
             self.rate_f += (rate - self.rate_f) * min(1.0, dt / p['T_D'])
 
         # --- Soll-Ruderlage ---
-        raw = self.trim + k * (self.ef + p['Tg'] * (self.rate_f - r_ref)) + dff
+        raw = self.trim + self._vh() + k * (self.ef + p['Tg'] * (self.rate_f - r_ref)) + dff
         lim = float(p.get('limit', 30.0))
         soll = clip(clip(raw, self.trim - p['hub'], self.trim + p['hub']), -lim, lim)
         saturated = abs(soll - raw) > 0.01
@@ -337,6 +378,8 @@ if AutopilotPilot:
                 self._process(reset)
             except Exception as e:                      # nie den Autopiloten anhalten: zurueck auf basic
                 try:
+                    if not self.ap.enabled.value:       # Autopilot aus: nicht umschalten (10.10.2026)
+                        return
                     self.ap.servo.command.set(0)
                     self.ap.pilot.set('basic')
                     print('adaptive: Rueckfall, Fehler', repr(e))
@@ -349,6 +392,8 @@ if AutopilotPilot:
             rudder = ap.sensors.rudder.angle.value
             rudder = None if type(rudder) == bool else rudder
             sog = ap.sensors.gps.speed.value
+            heel = ap.boatimu.SensorValues.get('heel')        # fehlt sie, ohne Vorsteuerung weiter
+            heel = None if heel is None or type(heel.value) == bool else heel.value
             sog = None if type(sog) == bool else sog
             heading, command = ap.heading.value, ap.heading_command.value
             rate = ap.boatimu.SensorValues['headingrate_lowpass'].value
@@ -363,9 +408,12 @@ if AutopilotPilot:
                     self.core.p[n] = v.value
                 self.core.p['limit'] = ap.sensors.rudder.range.value
                 u, info = self.core.step(t, ap.enabled.value, heading, command, rate, rudder, sog,
-                                         'wind' in ap.mode.value)
+                                         'wind' in ap.mode.value, heel)
             except Exception as e:
                 u, info = 0, {'state': 'Rueckfall: Fehler %s' % e}
+            if info['state'].startswith('Rueckfall') and not ap.enabled.value:
+                # Autopilot aus: nicht umschalten, nur Grund zeigen; beim Einschalten wird neu geprueft (10.10.2026)
+                info['state'] = 'aus: ' + info['state'][len('Rueckfall: '):]
             if self.status.value != info['state']:
                 self.status.set(info['state'])
             if info['state'].startswith('Rueckfall'):

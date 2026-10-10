@@ -11,7 +11,7 @@ import csv, glob, io, json, os, socket, subprocess, threading, time, tkinter as 
 from concurrent.futures import ThreadPoolExecutor
 from tkinter import messagebox
 
-VERSION = '00.03'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
+VERSION = '00.04'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
 GUETE_ALT = 180        # s nach Ende der letzten Minute: Seite „Güte“ gilt als veraltet
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 STATUS = os.path.join(DATA, 'verbindung.json')       # schreibt aplog.py jede Sekunde
@@ -818,6 +818,8 @@ class Leitstand:
         ct = fl(r.get('servo.controller_temp'))
         if ct is not None and ct > 55:
             p.append(('temp', 'gelb', 'Controller-Temperatur %.0f °C' % ct))
+        if r.get('ap.offcourse') == 'True':       # vom TinyPilot (ab ap-v00.09): wie Robertson, 20 Grad / 30 s
+            p.append(('offcourse', 'rot', 'OFF COURSE – Sollkurs wird nicht gehalten, bitte übernehmen'))
         ra = fl(r.get('rudder.angle'))
         if ra is not None and abs(ra) >= LIMITS['rudder.angle'][1]:
             p.append(('ruder', 'gelb', 'Ruder am Bereichsende'))

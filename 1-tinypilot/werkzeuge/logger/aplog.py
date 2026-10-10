@@ -4,7 +4,7 @@
 # events_*.csv:  settings, written whenever one of them changes
 import csv, json, os, socket, sys, time
 
-VERSION = '00.01'      # Version der Aufzeichnung (Format NN.NN, jede Aenderung zaehlt hoch)
+VERSION = '00.02'      # Version der Aufzeichnung (Format NN.NN, jede Aenderung zaehlt hoch)
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 PERIOD = float(os.environ.get('APLOG_PERIOD', '0.2'))
 
@@ -18,7 +18,8 @@ SIGNALS = ['ap.enabled', 'ap.mode', 'ap.heading', 'ap.heading_command', 'ap.head
            'ap.pilot.basic.DDgain', 'ap.pilot.basic.PRgain', 'ap.pilot.basic.FFgain',
            'ap.pilot.basic.Hgain', 'ap.pilot.basic.heelrate', 'servo.controller_temp', 'servo.recovery',
            'ap.pilot.adaptive.soll', 'ap.pilot.adaptive.est', 'ap.pilot.adaptive.trim', 'ap.pilot.adaptive.k',
-           'ap.pilot.adaptive.fehler', 'ap.pilot.adaptive.status', 'ap.pilot.adaptive.v_up', 'ap.pilot.adaptive.v_down']
+           'ap.pilot.adaptive.fehler', 'ap.pilot.adaptive.status', 'ap.pilot.adaptive.v_up', 'ap.pilot.adaptive.v_down',
+           'ap.offcourse']
 SETTINGS = ['ap.pilot', 'ap.pilot.basic.P', 'ap.pilot.basic.I', 'ap.pilot.basic.D',
             'ap.pilot.basic.DD', 'ap.pilot.basic.PR', 'ap.pilot.basic.FF', 'ap.pilot.basic.R',
             'servo.period', 'servo.gain', 'servo.speed.min', 'servo.speed.max',

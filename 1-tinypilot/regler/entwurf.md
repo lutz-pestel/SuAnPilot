@@ -1,6 +1,6 @@
 # Regler adaptive – Entwurf
 
-Version 00.03, Stand: 09.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
+Version 00.04, Stand: 10.10.2026. Eigener Kursregler für SuAn, Neuentwicklung (kein Fork). Läuft als Reglerbaustein im heutigen
 TinyPilot; wird der Kern von SuAnPilot V1.0 auf derselben Hardware. Hardware bleibt vorerst unverändert
 (RPi Zero 2 W nur, falls die Rechenleistung nicht reicht). Grundlagen: `0-gesamtprojekt/wissen/Marktrecherche.md`
 (Bauart der Hersteller), Testberichte `1-tinypilot/docs/tests/`.
@@ -10,6 +10,9 @@ TinyPilot; wird der Kern von SuAnPilot V1.0 auf derselben Hardware. Hardware ble
   der mit derselben Pumpe ohne Zusatzdaten steuert; mit Drehrate, Krängung und Fahrt besser als er.
 - Zwei Wertesätze: **„ruhig“** (wenig Pendeln, mehr Strom) und **„sparsam“** (etwas mehr Pendeln, weniger Strom).
 - Bewertung nach dem Gütemaß in `1-tinypilot/docs/system/Testplan_Autopilot.md` (Trend, Pumpe W, Wechsel, Ausreißer).
+- **Auf den Sollkurs (Vorgabe Betreiber 10.10.2026):** nach Kurswechsel, Störung und Einschalten zügig innerhalb ±1° („ruhig“) bzw. ±2,5° („sparsam“);
+  einmaliges Überschwingen höchstens 3°, keine zweite Schwingung über 2°; kein Pendeln beim Kurshalten,
+  Pumpenlaufzeit nicht deutlich höher als heute.
 
 ## 2. Grundsätze
 - **Nur SuAns eigene Werte.** Handbücher anderer Hersteller liefern nur die Bauart, keine Zahlen.

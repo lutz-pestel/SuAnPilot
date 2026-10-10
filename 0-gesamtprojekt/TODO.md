@@ -7,8 +7,12 @@ Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `
 
 ## Kern (jetzt)
 1. **adaptive in Betrieb nehmen** (Werte: `1-tinypilot/regler/parameter/`, Entwurf `1-tinypilot/regler/entwurf.md`):
-   a) [H] nach einem Rückfall beim nächsten Start wieder adaptive wählen; Regler auf Anzeige 1 (Fehlersystematik 3, 5).
-   b) [U, M] Vergleich adaptive / basic unter gleichen Bedingungen (Gütemaß Trend und Pumpe); Feinabstimmung (Entwurf 5.5).
+   a) [H] Paket ap-v00.09 einspielen (liegt auf der Karte: OFF COURSE 20°/30 s, Vorsteuerung Krängung kh 0,1); am Master aplog 00.02, leitstand 00.04.
+   b) [H] Rückkehr nach großer Abweichung begrenzen (wie Kurswechsel, 2°/s); 10.10.: nach Griff ins Ruder −42/+21/−14/+11°.
+   c) [H] Wertesätze neu fassen: „ruhig“ ist für Schwerwetter gedacht (Kurs vor Strom), „sparsam“ Regelfall; bessere Namen und Regeln.
+   d) [H] Einchecken, Etiketten ap-v00.06–09; Dokumente nachtragen, Chronik: Hand am Steuer hebt den Strom nicht; im Lauf
+      abgesenkte Rudergeschwindigkeit schaukelt den Kurs auf (10.10.).
+   e) [U, M] Vergleich adaptive / basic unter gleichen Bedingungen (Gütemaß Trend und Pumpe); Feinabstimmung (Entwurf 5.5).
 2. [H] **Hörbarer Alarm:** Summer im Leitstand zuschalten (Master GPIO 24, Plotter GPIO 23, Konflikt mit NMEA_Monitor/ePaper
    prüfen); ob der Summer der Hauptplatine bestückt ist und geht: offene Frage 4.
 
