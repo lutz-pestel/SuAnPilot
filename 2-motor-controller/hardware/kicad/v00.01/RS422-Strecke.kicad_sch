@@ -946,7 +946,7 @@
 		)
 		(uuid "c9f3e3d8-1d4d-4aa9-9978-43f70204d4c0")
 	)
-	(text "A/B: Empfangspaar (vom TinyPilot), 120 Ω Abschluss.\nY/Z: Sendepaar (zum TinyPilot).\nMAX3488E: 3,3 V, 250 kbit/s, ±15 kV, Kabelbruch ergibt Ruhepegel.\nOhne galvanische Trennung: Der TinyPilot hängt nur am\nMotor-Controller und bekommt von ihm auch die 5 V (Betreiber, 08.10.2026).\nZweimal eingesetzt: TinyPilot (Befehle und Meldungen, U401)\nund Ruderlage (NMEA $GPRSA 4800 Bd, nur Senden, U501)."
+	(text "A/B: Empfangspaar (vom TinyPilot), 120 Ω Abschluss.\nY/Z: Sendepaar (zum TinyPilot).\nMAX3488E: 3,3 V, 250 kbit/s, ±15 kV, Kabelbruch ergibt Ruhepegel.\nOhne galvanische Trennung: Der TinyPilot hängt nur am\nMotor-Controller und bekommt von ihm auch die 12 V (Betreiber, 08.10.2026).\nZweimal eingesetzt: TinyPilot (Befehle und Meldungen, U401)\nund Ruderlage (NMEA $GPRSA 4800 Bd, nur Senden, U501)."
 		(exclude_from_sim no)
 		(at 77.47 134.62 0)
 		(effects
@@ -1675,11 +1675,6 @@
 					(unit 1)
 				)
 			)
-		)
-	)
-	(sheet_instances
-		(path "/"
-			(page "1")
 		)
 	)
 )

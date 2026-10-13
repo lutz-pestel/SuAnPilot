@@ -3008,7 +3008,7 @@
 		)
 		(uuid "02e2326b-69f3-4e89-b8ca-38a4429e232b")
 	)
-	(text "J7 MSTBA 2,5/8 zum Steuerhaus (Betreiber, 09.10.2026):\n1 MCY, 2 MCZ (Controller sendet zum TinyPilot); 3 MCB, 4 MCA (TinyPilot sendet zum Controller);\n5 RAA, 6 RAB (NMEA-Ruderlage zum TinyPilot, nur Senden); 7 GND, 8 +5 V für die PyPilot-Einheit."
+	(text "J7 MSTBA 2,5/8 zum Steuerhaus (Betreiber, 09.10.2026):\n1 MCY, 2 MCZ (Controller sendet zum TinyPilot); 3 MCB, 4 MCA (TinyPilot sendet zum Controller);\n5 RAA, 6 RAB (NMEA-Ruderlage zum TinyPilot, nur Senden); 7 GND, 8 +12 V für die PyPilot-Einheit (hinter D2, ohne eigene Sicherung, Betreiber 13.10.2026);\ndie 5 V macht ein eigener Regler am Steuerstand."
 		(exclude_from_sim no)
 		(at 265.43 198.12 0)
 		(effects
@@ -3625,16 +3625,6 @@
 	)
 	(wire
 		(pts
-			(xy 322.58 93.98) (xy 345.44 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a5413c81-7462-45d0-8f57-49dd687025b5")
-	)
-	(wire
-		(pts
 			(xy 149.86 57.15) (xy 144.78 57.15)
 		)
 		(stroke
@@ -3642,16 +3632,6 @@
 			(type default)
 		)
 		(uuid "a70f464a-97fa-4044-a773-381f70a49723")
-	)
-	(wire
-		(pts
-			(xy 292.1 93.98) (xy 287.02 93.98)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a7ba0989-3e3b-47c8-9891-6b68e2913d4e")
 	)
 	(wire
 		(pts
@@ -3705,16 +3685,6 @@
 	)
 	(wire
 		(pts
-			(xy 287.02 93.98) (xy 287.02 91.44)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c8224631-fb00-4366-b7d0-f6647d153ee2")
-	)
-	(wire
-		(pts
 			(xy 144.78 57.15) (xy 144.78 54.61)
 		)
 		(stroke
@@ -3732,16 +3702,6 @@
 			(type default)
 		)
 		(uuid "cc7bf8e4-728b-4e26-aae7-1cec87cb0ac3")
-	)
-	(wire
-		(pts
-			(xy 287.02 104.14) (xy 287.02 106.68)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "cc9dad6d-2c34-4526-8eb1-9420107fdb1e")
 	)
 	(wire
 		(pts
@@ -3902,16 +3862,6 @@
 			(type default)
 		)
 		(uuid "ff3fca50-bca6-4c01-bd80-5d44534b7945")
-	)
-	(wire
-		(pts
-			(xy 292.1 104.14) (xy 287.02 104.14)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "ffc4a1f8-2be8-469c-808c-9a9192b24179")
 	)
 	(label "HALL"
 		(at 335.28 35.56 0)
@@ -4152,26 +4102,6 @@
 			(justify left bottom)
 		)
 		(uuid "8eb717e8-6b79-4bcb-b782-424ab8bcbe54")
-	)
-	(label "+5V_PYPILOT"
-		(at 345.44 93.98 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "93852003-7007-47a9-992a-4d544edd11cd")
-	)
-	(label "+5V_PYPILOT"
-		(at 387.35 157.48 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "9e7d3eff-7e06-4248-8d24-05b6eb190126")
 	)
 	(label "MCB"
 		(at 387.35 144.78 180)
@@ -4804,7 +4734,7 @@
 	)
 	(symbol
 		(lib_id "power:+12V")
-		(at 287.02 91.44 0)
+		(at 387.35 157.48 90)
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
@@ -4814,7 +4744,7 @@
 		(dnp no)
 		(uuid "600c2242-ebab-4db7-bb50-dba37416e93a")
 		(property "Reference" "#PWR06"
-			(at 287.02 88.9 0)
+			(at 387.35 157.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4825,17 +4755,18 @@
 			)
 		)
 		(property "Value" "+12V"
-			(at 287.02 87.63 0)
+			(at 383.54 157.48 90)
 			(show_name no)
 			(do_not_autoplace no)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify left)
 			)
 		)
 		(property "Footprint" ""
-			(at 287.02 91.44 0)
+			(at 387.35 157.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4846,7 +4777,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 287.02 91.44 0)
+			(at 387.35 157.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4857,7 +4788,7 @@
 			)
 		)
 		(property "Description" "Power symbol creates a global label with name \"+12V\""
-			(at 287.02 91.44 0)
+			(at 387.35 157.48 0)
 			(hide yes)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4951,83 +4882,6 @@
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
 					(reference "#PWR02")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 287.02 106.68 0)
-		(unit 1)
-		(body_style 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(in_pos_files yes)
-		(dnp no)
-		(uuid "80cde189-08c2-4168-91b4-f7857cb9da6f")
-		(property "Reference" "#PWR07"
-			(at 287.02 104.14 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "GND"
-			(at 287.02 109.22 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 287.02 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Datasheet" ""
-			(at 287.02 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
-			(at 287.02 106.68 0)
-			(hide yes)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5bf74f3c-e69e-4eb1-bccb-6c02a97f9b43")
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(reference "#PWR07")
 					(unit 1)
 				)
 			)
@@ -5528,7 +5382,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_Phoenix_MSTB:PhoenixContact_MSTBA_2,5_2-G-5,08_1x02_P5.08mm_Horizontal"
+		(property "Footprint" "Motor-Controller:Degson_DG301-5.0-02P"
 			(at 21.59 21.59 0)
 			(hide yes)
 			(show_name no)
@@ -6024,7 +5878,7 @@
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(page "9")
+					(page "8")
 				)
 			)
 		)
@@ -6352,7 +6206,7 @@
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(page "6")
+					(page "5")
 				)
 			)
 		)
@@ -6518,83 +6372,7 @@
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(page "7")
-				)
-			)
-		)
-	)
-	(sheet
-		(at 292.1 88.9)
-		(size 30.48 20.32)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(stroke
-			(width 0.0006)
-			(type solid)
-		)
-		(fill
-			(color 0 0 0 0)
-		)
-		(uuid "6e08cac9-0d96-4a68-acc9-44be3610c2a8")
-		(property "Sheetname" "5V PyPilot"
-			(at 294.64 87.63 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left bottom)
-			)
-		)
-		(property "Sheetfile" "5V-Zweig.kicad_sch"
-			(at 294.64 110.49 0)
-			(show_name no)
-			(do_not_autoplace no)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left top)
-			)
-		)
-		(pin "+12V" input
-			(at 292.1 93.98 180)
-			(uuid "76a3a549-2ab0-4c4d-8a7f-7a5c5fee065b")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "GND" input
-			(at 292.1 104.14 180)
-			(uuid "a10d343f-ba1b-4aac-8606-3aefbefc5cf1")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(pin "+5V" output
-			(at 322.58 93.98 0)
-			(uuid "9f28c382-bd22-4689-889a-11870399160e")
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-			)
-		)
-		(instances
-			(project "Motor-Controller"
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(page "4")
+					(page "6")
 				)
 			)
 		)
@@ -6740,7 +6518,7 @@
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(page "5")
+					(page "4")
 				)
 			)
 		)
@@ -6846,7 +6624,7 @@
 		(instances
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf"
-					(page "8")
+					(page "7")
 				)
 			)
 		)

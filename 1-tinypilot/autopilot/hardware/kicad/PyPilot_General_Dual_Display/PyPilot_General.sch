@@ -253,6 +253,16 @@ $EndComp
 Wire Wire Line
 	7550 3000 7775 3000
 Wire Wire Line
+	7550 2900 7700 2900
+Wire Wire Line
+	7700 2900 7700 3150
+Wire Wire Line
+	7700 3150 8250 3150
+Wire Wire Line
+	8250 3150 8250 3000
+Wire Wire Line
+	8250 3000 8350 3000
+Wire Wire Line
 	2850 3200 5550 3200
 $Comp
 L Connector:Screw_Terminal_01x02 J1
@@ -426,4 +436,6 @@ Text Notes 8825 3600 0    50   ~ 0
 orange-white
 Text Notes 8900 3700 0    50   ~ 0
 orange
+Text Notes 7600 2250 0    50   ~ 0
+Regler 12→5 V, 3 A Dauerstrom:\neigene Baugruppe, eigenes Gehäuse,\nam Steuerstand nahe TinyPilot.\n12 V vom Interface (J7), rot/schwarz.
 $EndSCHEMATC

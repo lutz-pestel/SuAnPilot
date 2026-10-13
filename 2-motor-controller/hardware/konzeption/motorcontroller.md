@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Schaltplan `kicad/v00.01` gezeichnet (09.10.2026); jede Anforderung wird vor dem Bau einzeln geprüft.
-Version 00.12, Stand: 10.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.13, Stand: 13.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -77,10 +77,11 @@ Version 00.12, Stand: 10.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
   ein Taster schaltet es wieder ein; **blaue Leuchtdiode** zeigt an, dass es läuft. Das Gerät meldet sich zuerst
   bei „master" an; schlägt das fehl, baut es einen eigenen Zugangspunkt auf. **Programmieren nur bei stehender
   Pumpe.** Reicht der Funk im Motorraum nicht, kommt der Laptop dorthin (Betreiber, 09.10.2026).
-- F13 **Gemeinsame Stromversorgung:** Das Gerät erzeugt auch die 5 V für die PyPilot-Einheit (heute Aufgabe des
-  RF300-Interface) – über einen **eigenen zweiten Regler**, damit ein Kurzschluss dort nicht die Ruderlagen-
-  Ausgabe und die Pumpensteuerung mitnimmt (F5, S6). Kabellänge zur Steuersäule höchstens 3 m. Es bleibt beim
-  vorhandenen Kabel und 5 V zum Steuerstand; der Zweig versorgt in Phase 3 auch den SuAnPilot.
+- F13 **Stromversorgung des Steuerstands:** Das Gerät gibt **12 V** an die PyPilot-Einheit weiter (heute Aufgabe des
+  RF300-Interface), direkt aus dem verpolgeschützten Elektronikzweig, **ohne eigene Sicherung** (Betreiber, 13.10.2026).
+  Die 5 V macht am Steuerstand ein eigener Schaltregler (3 A Dauerstrom, eigenes Gehäuse). Bewusst hingenommen: Ein
+  Kurzschluss am Steuerstand legt das ganze Gerät lahm, auch die Ruderlagen-Ausgabe (F5). Kabellänge zur Steuersäule
+  höchstens 3 m; es bleibt beim vorhandenen Kabel. Die Leitung versorgt in Phase 3 auch den SuAnPilot.
 - F14 **Unterspannungsfest (Pflicht).** Anlass: einseitiger Förderausfall bei tiefer Spannung am Gerät (Abschnitt 2).
   Maßstab: mindestens so unempfindlich wie der Robertson an derselben Versorgung.
   a) Hilfsspannung der Treiber unabhängig von der Bordspannung (Aufwärtswandler oder Treiber mit Ladungspumpe, vgl. F9).
@@ -156,7 +157,7 @@ Version 00.12, Stand: 10.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 ## 4. Offene Punkte
 - Pumpe RPU160: Strom im Betrieb weiter beobachten; Anlauf unter 15 A (Betreiber, 09.10.2026), Blockierstrom und
   Überdruckventil unbekannt. (Typenschild: 12 V, 7,5 A, 3500 min⁻¹, 1,6 l/min, IP 44. Gemessen: Betrieb 4–6 A, Spitzen 8,3 A ohne Last.)
-- Stromaufnahme der PyPilot-Einheit auf der 5-V-Leitung und Querschnitt des rot/schwarzen Paares messen.
+- Stromaufnahme der PyPilot-Einheit auf der 12-V-Leitung und Querschnitt des rot/schwarzen Paares messen.
 - Welche Befehlsnummern des pypilot-Protokolls frei sind (Quelltext `servo.py` und `motor.ino` nachsehen).
 - Doppelung (S8) ja oder nein; Gehäuse und Steckverbinder.
 - Welcher Teil der Fehlertoleranz (S1–S5) liegt im Gerät, welcher im TinyPilot?

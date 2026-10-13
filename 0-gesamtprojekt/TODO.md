@@ -1,6 +1,6 @@
 # Aufgabenliste TinyPilot (aktuelles Projekt)
 
-Stand: 10.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
+Stand: 13.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
 Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `3-suanpilot/docs/gesamt.md`.
 Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `1-tinypilot/regler/verbesserungen.md`.
 **Erst der Kern; alles unter „Später“ wartet, bis adaptive auf See gezeigt hat, ob er besser ist als basic.**
@@ -54,8 +54,6 @@ Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `
 
 ## Offene Fragen Hardware (gemeinsam klären; geklärt → in die Systembeschreibung, hier löschen)
 Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlagen und KiCad-Pläne (03.10.2026).
-1. 5-V-Wandler der PyPilot-Einheit: Ort und Typ? Pläne: eigenes Modul an der 12-V-Klemme des Interface; Betreiber:
-   auf der Interface-Platine. (N; Spannung an Klemme „12V out“ M)
 2. Interface: welche Widerstände eingelötet? Plan/Platine: Vorwiderstand RF300 360/100 Ω, 8 weitere 2k2/2k, 4k7/4k. (N)
 3. Robertson J300 noch an Klemme „RF300 to J300“? Weitergabe über Kondensator ok (Frage im Plan seit 2021)? (N)
 4. Hauptplatine: Infrarot-Empfänger und Summer bestückt? Summer funktioniert (Plan: Plus an Masse, beide Platinen)? (N, M)
@@ -72,7 +70,7 @@ Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlag
 15. Verzögerung der Ruderlage ~1 s: welcher Teil wie viel (Mittelwert, Glättung, Controller, pypilot)? Für SuAnPilot. (M)
 16. Einbauort der PyPilot-Einheit (Kompass): Abstand zu Eisen und Stromkabeln? (N)
 17. Unterlagen: Motor_Controller_Fakten nennt 0,25 s Verzögerung (geschätzt), gemessen ~1 s – berichtigen.
-18. Verdrahtungsplan: orange Ader und Masse am Wandler fehlen, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
+18. Verdrahtungsplan: orange Ader fehlt, blaues Paar falsch – Plan berichtigen oder Kabelliste gilt? (F)
 19. **RF300-Versuch für den Neubau:** R1 der Interfaceplatine (gemessen ~360–410 Ω, R1 nicht auf 100 Ω tauschen) probeweise
     auf 220 Ω: zählt die Platine noch sauber? Dazu Frequenz mittschiffs an der Platine (6,89 V) und am Robertson (10,8 V)
     vergleichen: beeinflusst die Sensorspannung die Messung? (M)

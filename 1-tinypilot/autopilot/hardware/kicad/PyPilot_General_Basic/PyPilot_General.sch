@@ -14,6 +14,7 @@ Comment3 ""
 Comment4 ""
 $EndDescr
 NoConn ~ 3150 3950
+NoConn ~ 4750 3550
 Wire Wire Line
 	1900 3750 1900 4000
 Wire Wire Line
@@ -46,21 +47,21 @@ Wire Wire Line
 Wire Wire Line
 	3150 3650 3050 3650
 Wire Wire Line
-	1750 2200 2050 2200
+	5600 3550 5750 3550
 Wire Wire Line
-	1750 2300 2050 2300
+	5600 3650 5750 3650
 Wire Wire Line
 	4750 3750 4850 3750
 Wire Wire Line
 	1900 3750 3150 3750
 Wire Wire Line
-	2750 2200 3350 2200
+	6450 3550 6650 3550
 Wire Wire Line
 	5100 1650 7100 1650
 Wire Wire Line
 	5100 1750 7100 1750
 Wire Wire Line
-	4750 3550 6650 3550
+	6450 3650 6650 3650
 Wire Wire Line
 	4750 3950 6050 3950
 Wire Wire Line
@@ -120,12 +121,12 @@ $EndComp
 $Comp
 L power:GND #PWR019
 U 1 1 60A44631
-P 1750 2300
-F 0 "#PWR019" H 1750 2050 50  0001 C CNN
-F 1 "GND" H 1755 2127 50  0000 C CNN
-F 2 "" H 1750 2300 50  0001 C CNN
-F 3 "" H 1750 2300 50  0001 C CNN
-	1    1750 2300
+P 5600 3650
+F 0 "#PWR019" H 5600 3400 50  0001 C CNN
+F 1 "GND" H 5605 3477 50  0000 C CNN
+F 2 "" H 5600 3650 50  0001 C CNN
+F 3 "" H 5600 3650 50  0001 C CNN
+	1    5600 3650
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -153,12 +154,12 @@ $EndComp
 $Comp
 L General_Library:StepDownRegulator12V-5V U4
 U 1 1 60A3E391
-P 2300 2250
-F 0 "U4" H 2400 2525 50  0000 C CNN
-F 1 "StepDownRegulator12V-5V" H 2400 2434 50  0000 C CNN
-F 2 "" H 2300 2250 50  0001 C CNN
-F 3 "" H 2300 2250 50  0001 C CNN
-	1    2300 2250
+P 6000 3600
+F 0 "U4" H 6100 4010 50  0000 C CNN
+F 1 "StepDownRegulator12V-5V" H 6100 3920 50  0000 C CNN
+F 2 "" H 6000 3600 50  0001 C CNN
+F 3 "" H 6000 3600 50  0001 C CNN
+	1    6000 3600
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -170,28 +171,6 @@ F 1 "Motor_Controller" H 3950 3124 50  0000 C CNN
 F 2 "" H 3850 3250 50  0001 C CNN
 F 3 "" H 3850 3250 50  0001 C CNN
 	1    3850 3250
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR022
-U 1 1 60A510F9
-P 2750 2300
-F 0 "#PWR022" H 2750 2050 50  0001 C CNN
-F 1 "GND" H 2755 2127 50  0000 C CNN
-F 2 "" H 2750 2300 50  0001 C CNN
-F 3 "" H 2750 2300 50  0001 C CNN
-	1    2750 2300
-	1    0    0    -1  
-$EndComp
-$Comp
-L power:GND #PWR028
-U 1 1 60A51426
-P 3350 2200
-F 0 "#PWR028" H 3350 1950 50  0001 C CNN
-F 1 "GND" H 3355 2027 50  0000 C CNN
-F 2 "" H 3350 2200 50  0001 C CNN
-F 3 "" H 3350 2200 50  0001 C CNN
-	1    3350 2200
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -258,12 +237,12 @@ Wire Wire Line
 $Comp
 L power:+12V #PWR?
 U 1 1 60A3FB71
-P 1750 2200
-F 0 "#PWR?" H 1750 2050 50  0001 C CNN
-F 1 "+12V" H 1765 2373 50  0000 C CNN
-F 2 "" H 1750 2200 50  0001 C CNN
-F 3 "" H 1750 2200 50  0001 C CNN
-	1    1750 2200
+P 5600 3550
+F 0 "#PWR?" H 5600 3400 50  0001 C CNN
+F 1 "+12V" H 5615 3723 50  0000 C CNN
+F 2 "" H 5600 3550 50  0001 C CNN
+F 3 "" H 5600 3550 50  0001 C CNN
+	1    5600 3550
 	1    0    0    -1  
 $EndComp
 $Comp
@@ -310,4 +289,6 @@ F 3 "" H 6650 3650 50  0001 C CNN
 	1    6650 3650
 	1    0    0    -1  
 $EndComp
+Text Notes 5600 4550 0    50   ~ 0
+Regler 12→5 V (3 A Dauerstrom): eigene Baugruppe\nim eigenen Gehäuse am Steuerstand, nahe der PyPilot-Einheit.\nDer 5-V-Ausgang des Motor-Controllers bleibt frei.
 $EndSCHEMATC

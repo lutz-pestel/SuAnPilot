@@ -1,6 +1,6 @@
 # Bauteilauswahl Motor-Controller V2.0
 
-Version 00.25, Stand 10.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
+Version 00.26, Stand 13.10.2026, Obergrenze 350 Zeilen. Grundlage: `Projektdokument.md` Abschnitt 3,
 `Blockschaltbild_Controller-V2.0.html`.
 Abschnitte 1 bis 8 sind **festgelegt**; 9 ist Vorschlag und wird noch besprochen.
 Preise sind Einzelpreise aus Händlerlisten, nur zur Größenordnung. Verworfene Wege stehen in je einem Satz;
@@ -188,27 +188,26 @@ Steuerstand läuft weiter, wenn die Verbindung zum TinyPilot ausfällt. Ein Scha
 zweimal eingesetzt; bei der Ruderlage bleibt der Empfänger frei.
 
 *Verworfen:* galvanische Trennung (Lichtkoppler 6N137 und Trennwandler TMA 0505S) — der TinyPilot hängt nur am
-Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kabel ohnehin verbunden (Betreiber, 08.10.2026).
+Motor-Controller und bekommt von ihm auch die 12 V; die Massen sind über das Kabel ohnehin verbunden (Betreiber, 08.10.2026).
 
 ## 7. Versorgung und Schutz — **festgelegt 04.10.2026**
 
-- **Zwei getrennte Regler, beide Recom R-78B5.0-2.0** (F13): SIP-3, 5 V / 2 A, Eingang **6,5–32 V**, kurzschlussfest, −40…+70 °C ohne Abschlag, verträgt keine
-  Verpolung (Datenblatt REV 5/2021, <https://www.recom-power.com/pdf/Innoline/R-78B-2.0.pdf>). Gleicher Typ in beiden
-  Zweigen: ein Ersatzteil passt überall, ein Schaltplanblatt (`kicad/v00.01/5V-Zweig`, zweimal eingesetzt), Reserve
-  für Sendespitzen des ESP32. 3,3 V liefert das ESP32-Modul selbst.
-  **Teile je 5-V-Zweig** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OGN
+- **Ein Regler Recom R-78B5.0-2.0** für die Elektronik: SIP-3, 5 V / 2 A, Eingang **6,5–32 V**, kurzschlussfest, −40…+70 °C ohne Abschlag, verträgt keine
+  Verpolung (Datenblatt REV 5/2021, <https://www.recom-power.com/pdf/Innoline/R-78B-2.0.pdf>). Schaltplanblatt
+  `kicad/v00.01/5V-Zweig`; Reserve für Sendespitzen des ESP32. 3,3 V liefert das ESP32-Modul selbst.
+  **Teile des 5-V-Zweigs** (Drahtbauteile): Regler R-78B5.0-2.0; Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OGN
   0031.8201 (Bürklin 46G6020, Farnell 1162740); rote Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung; Filter nach Herstellervorschlag:
   10 µF (2 × KEMET C320C475K5R5TA, 4,7 µF 50 V X7R) – Drossel **Bourns RLB0914-100KL** (10 µH, 2,7 A, RS 8118799;
-  Zweig zieht am Eingang höchstens ~1,6 A bei 7 V, gerechnet) – 4,7 µF (C320C475K5R5TA). *Verworfen:* Traco TSR 1-2450 für die
-  Elektronik (billiger, aber zweiter Typ und zweites Schaltplanblatt, nur 1 A).
-  Der Eingangsbereich entscheidet, nicht die Stromstärke: Beim Anlassen des Diesels bricht die Bordspannung
-  kurz ein — ein Regler, der erst ab 10 V arbeitet (z. B. Traco TSR 3-2450 mit 3 A), ließe den Pi neu starten.
-  Getrennte Regler heißen auch: Ein Kurzschluss im Steuerstand nimmt die Ruderlagen-Ausgabe nicht mit (F5, S6).
-  Zum Steuerstand gehen 5 V über das **vorhandene Kabel** (Festlegung des Betreibers 07.10.2026); im Steuerstand
-  ist kein Platz für einen eigenen Regler. Der Zweig versorgt in Phase 3 auch den SuAnPilot.
+  Zweig zieht am Eingang höchstens ~1,6 A bei 7 V, gerechnet) – 4,7 µF (C320C475K5R5TA). *Verworfen:* Traco TSR 1-2450
+  (billiger, aber nur 1 A). Der Eingangsbereich entscheidet, nicht die Stromstärke: Beim Anlassen des Diesels bricht
+  die Bordspannung kurz ein — ein Regler, der erst ab 10 V arbeitet (z. B. Traco TSR 3-2450), ließe den Rechner neu starten.
+- **Zum Steuerstand gehen 12 V** über das **vorhandene Kabel** (rot/schwarz, J7 Anschluss 8), abgegriffen hinter dem
+  Verpolschutz, **ohne eigene Sicherung** (Betreiber, 13.10.2026). Die 5 V macht am Steuerstand ein eigener Schaltregler
+  (3 A Dauerstrom, eigenes Gehäuse). Bewusst hingenommen: Ein Kurzschluss am Steuerstand legt das ganze Gerät lahm (F5).
+  Die Leitung versorgt in Phase 3 auch den SuAnPilot.
 - **Schutz gegen Überspannung aus dem Bordnetz: Schutzdiode 1.5KE20A**, unidirektional, 1500 W, DO-201,
   Drahtform, unter 1 € (<https://www.digikey.de/de/products/detail/littelfuse-inc/1-5KE20A/688017>), direkt
-  an der Eingangsklemme. Keine Drossel am Geräteeingang (müsste 15 A tragen; die 5-V-Zweige filtern selbst). An der
+  an der Eingangsklemme. Keine Drossel am Geräteeingang (müsste 15 A tragen; der 5-V-Zweig filtert selbst). An der
   Endstufe Elko **Panasonic EEU-FR1V102** (1000 µF, 35 V, 105 °C, 10 000 h, Ø 12,5 × 20 mm; Farnell 2508152) auf
   unserer Platine, nicht auf dem Modul, angeschlossen über zwei Stifte an den Pololu-Lötpunkten „+" (VM) und „−"
   (Abschnitt 1): hinter dem Verpolschutz des Pololu. Pololu: „at least a few hundred µF", auf dem Modul nur 3 × 150 µF.
@@ -224,11 +223,12 @@ Motor-Controller und bekommt von ihm auch die 5 V; die Massen sind über das Kab
   stirbt dann, fast immer als Kurzschluss — und die Sicherung im Schiff fällt. Das ist ihr Wert: Sie macht aus einem
   Totalschaden einen Wechsel von Diode und Sicherung für zwei Euro.
 - **Verpolschutz nur für den Elektronikzweig: Schottky-Diode Vishay SB540-E3/54 in Reihe** (5 A, 40 V, DO-201AD;
-  Farnell 9550399, RS 7000915; 5 A, weil beide Zweige bei 7 V zusammen über 3 A ziehen können). Ein Bauteil; Verlust typisch 0,4–0,5 V, die Regler arbeiten damit bis etwa 7 V Bordspannung.
+  Farnell 9550399, RS 7000915; 5 A, weil Elektronik und die 12-V-Leitung zum Steuerstand durch sie fließen; deren Strom ist noch zu messen). Ein Bauteil;
+  Verlust typisch 0,4–0,5 V, der Regler arbeitet damit bis etwa 7 V Bordspannung.
   Beleg: Mit der Silizium-Diode der alten Interfaceplatine ist der TinyPilot in allen Feldversuchen nie neu gestartet
   (Betreiber, 07.10.2026); die Schottky-Diode verliert weniger. *Verworfen:* P-Kanal-MOSFET (nicht nötig). Der G2 bringt
   seinen eigenen Verpolschutz mit — damit entfällt ein Bauteil im Hochstrompfad.
-- **Zwei Sicherungen auf der Platine:** Elektronik 2 A, TinyPilot-Zweig 2 A (F13). Die Leistung sichert die vorhandene
+- **Eine Sicherung auf der Platine:** Elektronik 2 A; die 12-V-Leitung zum Steuerstand hat keine (F13). Die Leistung sichert die vorhandene
   **20-A-Sicherung im Schiff** (Leitung 2,5 mm²), deshalb keine eigene (Betreiber, 08.10.2026). Die **Grenze der Software
   liegt unter 20 A** (Abschnitt 1), damit zuerst die Elektronik abschaltet und erst danach diese Sicherung fällt.
 - **Rote Leuchtdiode „Sicherung durch"**, mit Widerstand **parallel zur Sicherung**: Ist die Sicherung heil,
@@ -245,7 +245,7 @@ Helligkeit über einen Transistor. Gelb-grüne Ausführung (bei Umgebungslicht l
 der Strom des Moduls muss nicht gemessen werden. −20…+70 °C, Platine 93 × 70 mm (Maßzeichnung 12864B V2.0 in den Unterlagen).
 Gesteckt in eine Buchsenleiste Würth 61302011821 (1 × 20, Abschnitt 1), gehalten von vier Stehbolzen M3 × 11 (Würth
 WA-SBRII 970110324); es liegt 11 mm über unserer Platine, darunter nur Teile unter 7 mm.
-**Sieben Leuchtdioden** — sie fallen nicht aus wie ein Display. **Dialight 551** (3-mm-Leuchtdiode im schwarzen
+**Sechs Leuchtdioden** — sie fallen nicht aus wie ein Display. **Dialight 551** (3-mm-Leuchtdiode im schwarzen
 Winkelgehäuse, Betreiber 09.10.2026): fünf an der **linken Platinenkante** unter den Klemmen, sie schauen durch Löcher in der linken
 Gehäusewand, keine Kabel. Grün 551-0207F, rot 551-0407F, gelb 551-0307F (−55…+100 °C), blau 551-0807F (−40…+85 °C;
 Datenblatt 551-xx07F, Kopie bei Arrow):
@@ -256,8 +256,8 @@ Datenblatt 551-xx07F, Kopie bei Arrow):
   Platine (Abschnitt 1). Sie zeigen, was an der Pumpe ankommt, nicht was befohlen ist; schwach heißt zu wenig Spannung (Fall
   04.10.). Mit dem Selbsttest-Widerstand (Abschnitt 3) stellt sich in Ruhe A ca. 5 V, B ca. 3 V ein (gerechnet); die
   gelbe Leuchtdiode A glimmt dabei kaum sichtbar (ca. 30 µA, gerechnet);
-- je 5-V-Zweig rot „Sicherung durch" (Abschnitt 7), leuchtet auch bei totem Gerät; sitzt an der **Oberkante neben
-  ihrer Sicherung** (Betreiber, 09.10.2026), beide Sicherungen dort, damit sie leicht zu tauschen sind.
+- rot „Sicherung durch" am 5-V-Zweig (Abschnitt 7), leuchtet auch bei totem Gerät; sitzt an der **Oberkante neben
+  der Sicherung** (Betreiber, 09.10.2026), damit sie leicht zu tauschen ist.
 **Warnausgang:** rote Leuchtdiode, Fehlertext im Display, Meldung an den TinyPilot mit Anzeige dort und am Leitstand.
 Kein Summer.
 **Ein Taster mit zwei Aufgaben:** Beleuchtung hell und WLAN wieder einschalten (F12). **Winkeltaster E-Switch
@@ -286,20 +286,20 @@ Lieferzeit laut Liste 15 Wochen.
   Pololu (Abschnitt 1).
 - **Wärmeabfuhr:** kein Kühlkörper; das Modul trägt 25 A ohne Kühlkörper, die Pumpe zieht 4–6 A. Temperaturfühler
   an der Endstufe siehe Abschnitt 1 (F11).
-- **Durchführungen in der Gehäusewand:** Taster (seitlich), fünf Leuchtdioden (linke Seitenwand) und zwei an den Sicherungen (obere Wand, Abschnitt 8), Display, Kabel mit
+- **Durchführungen in der Gehäusewand:** Taster (seitlich), fünf Leuchtdioden (linke Seitenwand) und eine an der Sicherung (obere Wand, Abschnitt 8), Display, Kabel mit
   Zugentlastung.
-- **Anordnung (Grobplan, Betreiber 09.10.2026):** Platine 150 × 130 mm. Sicherungen mit ihren Leuchtdioden an der Oberkante. Links 12 V und RF300, darunter Leuchtdioden und
-  Taster; rechts Pumpe, 5 V und RS422 zum Steuerstand; ESP32 oben links (Antenne über die Oberkante), Pololu oben rechts,
-  Display unten in der Mitte (`kicad/v00.01/Motor-Controller.kicad_pcb`). Zwischen ESP32 und Pololu die 5-V-Zweige und
+- **Anordnung (Grobplan, Betreiber 09.10.2026):** Platine 150 × 130 mm. Sicherung mit Leuchtdiode an der Oberkante. Links 12 V und RF300, darunter Leuchtdioden und
+  Taster; rechts Pumpe, 12 V und RS422 zum Steuerstand; ESP32 oben links (Antenne über die Oberkante), Pololu oben rechts,
+  Display unten in der Mitte (`kicad/v00.01/Motor-Controller.kicad_pcb`). Zwischen ESP32 und Pololu der 5-V-Zweig und
   Eingangsdioden, neben dem Pololu Elko und Hall-Sensor, links neben dem Display Wandler (zu hoch für unter das Display),
   RF300-Eingang und Treiber der Leuchtdioden; unter dem Display nur flache Teile (Messwerterfassung, RS422).
 - **Keramikkondensatoren:** KEMET Goldmax X7R 50 V, Raster 2,54 mm (C320C104/684/475K5R5TA für 100 nF, 680 nF,
   4,7 µF; 10 nF als kleinerer C315C103K5R5TA); 1 µF als C330C105K5R5TA (Raster 5,08 mm, 7,1 × 4,1 mm): beide C320 bei keinem Händler belegt.
 - **Anschlüsse nach außen:** 12 V (2,5 mm², Sicherung 20 A im Schiff) an unserer Platine, Pumpe A/B an unserer Platine (MSTBA 2,5/2); RF300 zweiadrig geschirmt;
   zum Steuerstand **das vorhandene Kabel, unverändert** (8 Adern: grün Stellbefehle, orange Meldungen, braun
-  NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 5 V, F13). **Ein Stecker J7, MSTBA 2,5/8**
+  NMEA-Ruderlage, weiß Minus, blau frei; dazu rot/schwarz für 12 V, F13). **Ein Stecker J7, MSTBA 2,5/8**
   (Betreiber, 09.10.2026): 1 MCY, 2 MCZ (Controller → TinyPilot), 3 MCB, 4 MCA (TinyPilot → Controller),
-  5 RAA, 6 RAB (NMEA-Ruderlage zum TinyPilot, nur Senden), 7 GND, 8 +5 V für die PyPilot-Einheit.
+  5 RAA, 6 RAB (NMEA-Ruderlage zum TinyPilot, nur Senden), 7 GND, 8 +12 V für die PyPilot-Einheit.
   Offen: Ob die NMEA-Leitung entfallen kann, weil pypilot den Ruderwinkel aus dem Controller-Protokoll selbst als
   $APRSA ausgibt (nmea.py), ist noch nicht geprüft; bis dahin bleibt sie (Betreiber).
 

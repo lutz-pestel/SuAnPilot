@@ -1135,7 +1135,7 @@
 		)
 		(uuid "4bd18c80-a879-4a84-ab1c-e49658d8cc2c")
 	)
-	(text "Zweimal eingesetzt: „5V Elektronik“ (Rechner, Hall-Sensor, Leuchtdioden) und „5V PyPilot“ (Kabel zum Steuerhaus).\nU: Recom R-78B5.0-2.0, 5 V / 2 A, Eingang 6,5–32 V, kurzschlussfest, −40…+70 °C ohne Abschlag (Datenblatt REV 5/2021).\nVerträgt keine Verpolung: Verpolschutz D2 im Hauptblatt. Ausgang braucht laut Datenblatt keinen Kondensator.\nFilter nach Hersteller (EN 55022 Klasse B): 10 µF (zweimal 4,7 µF) – 10 µH (Bourns RLB0914-100KL) – 4,7 µF,\nKondensatoren KEMET C320C475K5R5TA (4,7 µF 50 V X7R). Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OG/OGN.\nRote Leuchtdiode mit 4k7 parallel zur Sicherung: leuchtet, wenn die Sicherung durch ist."
+	(text "Einmal eingesetzt: „5V Elektronik“ (Rechner, Hall-Sensor, Leuchtdioden). Zum Steuerhaus gehen 12 V (J7 Anschluss 8, Hauptblatt).\nU: Recom R-78B5.0-2.0, 5 V / 2 A, Eingang 6,5–32 V, kurzschlussfest, −40…+70 °C ohne Abschlag (Datenblatt REV 5/2021).\nVerträgt keine Verpolung: Verpolschutz D2 im Hauptblatt. Ausgang braucht laut Datenblatt keinen Kondensator.\nFilter nach Hersteller (EN 55022 Klasse B): 10 µF (zweimal 4,7 µF) – 10 µH (Bourns RLB0914-100KL) – 4,7 µF,\nKondensatoren KEMET C320C475K5R5TA (4,7 µF 50 V X7R). Sicherung 2 A träge 5 × 20 mm im Schurter-Halter OG/OGN.\nRote Leuchtdiode mit 4k7 parallel zur Sicherung: leuchtet, wenn die Sicherung durch ist."
 		(exclude_from_sim no)
 		(at 24.13 121.92 0)
 		(effects
@@ -1473,10 +1473,6 @@
 					(reference "F101")
 					(unit 1)
 				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "F201")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1560,10 +1556,6 @@
 					(reference "U101")
 					(unit 1)
 				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "U201")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1643,10 +1635,6 @@
 					(reference "L101")
 					(unit 1)
 				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "L201")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1724,10 +1712,6 @@
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
 					(reference "D101")
-					(unit 1)
-				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "D201")
 					(unit 1)
 				)
 			)
@@ -1811,10 +1795,6 @@
 					(reference "C101")
 					(unit 1)
 				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "C201")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -1894,10 +1874,6 @@
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
 					(reference "C103")
-					(unit 1)
-				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "C203")
 					(unit 1)
 				)
 			)
@@ -1981,10 +1957,6 @@
 					(reference "C102")
 					(unit 1)
 				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "C202")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -2061,10 +2033,6 @@
 			(project "Motor-Controller"
 				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/308cdea6-e3ed-4042-bab9-d5931def5bc5"
 					(reference "#FLG101")
-					(unit 1)
-				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "#FLG201")
 					(unit 1)
 				)
 			)
@@ -2146,16 +2114,7 @@
 					(reference "R101")
 					(unit 1)
 				)
-				(path "/255b263c-8a60-4b67-92ab-70f539cf8eaf/6e08cac9-0d96-4a68-acc9-44be3610c2a8"
-					(reference "R201")
-					(unit 1)
-				)
 			)
-		)
-	)
-	(sheet_instances
-		(path "/"
-			(page "1")
 		)
 	)
 )

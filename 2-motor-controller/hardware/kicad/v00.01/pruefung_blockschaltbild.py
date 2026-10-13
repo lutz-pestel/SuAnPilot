@@ -1,6 +1,6 @@
-# Prueft jeden Pfeil des Blockschaltbilds gegen die Netzliste von KiCad. Version 00.02, Stand 09.10.2026.
+# Prueft jeden Pfeil des Blockschaltbilds gegen die Netzliste von KiCad. Version 00.03, Stand 13.10.2026.
 # Aufruf (KiCad geschlossen): kicad-cli sch export netlist --format kicadxml -o mc.xml Motor-Controller.kicad_sch
-#                            python pruefung_blockschaltbild.py mc.xml   -> erwartet: 80 erfuellt, 0 nicht erfuellt
+#                            python pruefung_blockschaltbild.py mc.xml   -> erwartet: 78 erfuellt, 0 nicht erfuellt
 # Bauteilnamen (U601, R610 ...) gelten fuer den Plan v00.01; neue Verbindungen hier als Pruefpunkt ergaenzen.
 import sys, xml.etree.ElementTree as E
 sys.stdout.reconfigure(encoding='utf-8')
@@ -35,7 +35,7 @@ def apart(text, a, b):
 print('--- Bordnetz-Eingang')
 same('J2.1 12 V an Schutzdiode D1 (Kathode) und Verpolschutz D2 (Anode) = +12V_LEISTUNG', 'J2.1', 'D1.1', 'D2.2')
 same('J2.2 Minus an Masse, Anode D1', 'J2.2', 'D1.2', 'U601.14')
-same('+12V hinter D2 an beide 5-V-Zweige, RF300-Speisung, Selbsttest', 'D2.1', 'F101.1', 'F201.1', 'R1.1', 'R301.1')
+same('+12V hinter D2 an 5-V-Zweig, Klemme J7.8 (Steuerstand), RF300-Speisung, Selbsttest', 'D2.1', 'F101.1', 'J7.8', 'R1.1', 'R301.1')
 print('--- Endstufe (Pololu)')
 same('+12V_LEISTUNG über J3/W1 an Pololu VIN', 'J3.1', 'W1.1', 'J2.1'); same('W1 an VIN', 'W1.2', 'U1.13')
 same('Pololu GND über W2/J3 an Masse', 'U1.14', 'W2.2'); same('W2 an Masse', 'W2.1', 'J3.2', 'U601.14')
@@ -50,8 +50,8 @@ same('Hall-Sensor Versorgung +5V', 'U2.1', 'U601.19')
 same('Gelbe LEDs: R12 an KLEMME_A', 'R12.1', 'J5.1'); same('Gelbe LEDs an KLEMME_B', 'D3.1', 'D4.2', 'J5.2')
 print('--- Versorgung')
 same('+5V Elektronik: Regler U101 an ESP32 5V, Hall-Sensor, LED-Zweige', 'U101.3', 'U601.19', 'U2.1', 'R603.1')
-same('+5V_PYPILOT: Regler U201 an Klemme J7.8', 'U201.3', 'J7.8'); same('J7.7 Masse', 'J7.7', 'U601.14')
-apart('+5V_PYPILOT getrennt von +5V Elektronik', 'U201.3', 'U101.3')
+same('+12V an Klemme J7.8 (Steuerstand, ohne eigene Sicherung)', 'J7.8', 'D2.1'); same('J7.7 Masse', 'J7.7', 'U601.14')
+apart('J7.8 nicht an +5V Elektronik', 'J7.8', 'U101.3')
 same('+3V3 vom ESP32 an Wandler, Referenz, RS422, RF300-Eingang, Display, FLT-Widerstand',
      'U601.1', 'U301.16', 'R311.1', 'U401.1', 'U501.1', 'R6.1', 'DS601.2', 'R11.1')
 print('--- RF300 (Ruderlage)')
@@ -87,8 +87,7 @@ same('Beleuchtung BLA über R610 220 Ω an +5V Elektronik', 'R610.1', 'U101.3');
 same('grün Betrieb: IO21', 'U601.25', 'R604.1'); same('rot Störung: IO22', 'U601.22', 'R606.1'); same('blau WLAN: IO33', 'U601.8', 'R608.1')
 same('LED grün am Transistor', 'D601.1', 'Q602.1'); same('LED rot am Transistor', 'D602.1', 'Q603.1'); same('LED blau am Transistor', 'D603.1', 'Q604.1')
 same('Taster an IO36 mit 10k nach +3V3', 'SW601.2', 'U601.3', 'R609.2')
-print('--- Sicherungs-LEDs der 5-V-Zweige')
+print('--- Sicherungs-LED des 5-V-Zweigs')
 same('LED D101 mit R101 parallel zur Sicherung F101', 'R101.1', 'F101.1'); same('D101 an Sicherungsausgang', 'D101.1', 'F101.2')
-same('LED D201 mit R201 parallel zur Sicherung F201', 'R201.1', 'F201.1'); same('D201 an Sicherungsausgang', 'D201.1', 'F201.2')
 print()
 print('Prüfpunkte erfüllt: %d, nicht erfüllt: %d' % (ok, fail))

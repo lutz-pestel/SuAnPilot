@@ -1,6 +1,6 @@
 # Systembeschreibung Autopilot
 
-Stand: 09.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
+Stand: 13.10.2026. Beschreibt den heutigen Aufbau. Einzelheiten stehen in den Dokumenten am Ende.
 
 ## 1. Überblick
 - Selbstgebauter Autopilot für ein 15-Tonnen-Schiff mit Hydrauliksteuerung.
@@ -46,11 +46,12 @@ Port_10 6, Stb_10 5, Tack 26). Ruhe HIGH, Druck LOW. Der Arduino meldet eine Tas
 **GPS:** Master, Port 10110 (NMEA über TCP) → pypilot (`nmea.client = 10.10.10.1:10110`).
 
 **Strom:** 12 V → RF300-Interface (Verpolschutz) → Regler 7805 (5 V für Interface und Optokoppler des Motor-Controllers) und
-12-V-Ausgang → Wandler 12→5 V → Hauptplatine: Pi, Coprozessor, Regler U1 (3,3 V); Lagesensor
-und Infrarot-Empfänger am 3,3 V des Pi. Motor-Controller: eigene 12 V. Der RF300 bekommt Strom und sendet über denselben Draht.
+12-V-Ausgang → **12 V zum Steuerstand** → dort eigener Schaltregler 12→5 V (3 A Dauerstrom, eigenes Gehäuse) → Hauptplatine:
+Pi, Coprozessor, Regler U1 (3,3 V); Lagesensor und Infrarot-Empfänger am 3,3 V des Pi. Motor-Controller: eigene 12 V.
+Der RF300 bekommt Strom und sendet über denselben Draht.
 
 **Kabel Motorraum ↔ PyPilot-Einheit** (8 Adern, weiße Ader = Minus): grün Stellbefehle, orange Meldungen des Motor-Controllers,
-braun NMEA-Ruderlage, blau frei. 5 V kommen getrennt (rot/schwarz). Unbenutzt am Interface: NMEA-Klemme, Hall-Eingang, Ausgang J300.
+braun NMEA-Ruderlage, blau frei. 12 V kommen getrennt (rot/schwarz) zum Regler; von dort ein zweites rot/schwarzes Paar mit 5 V zur PyPilot-Einheit. Unbenutzt am Interface: NMEA-Klemme, Hall-Eingang, Ausgang J300.
 
 ## 4. TinyPilot
 **Software:** pypilot 0.24, geladen aus dem schreibgeschützten Paket `pypilot.tcz`. Eigene Änderungen:
