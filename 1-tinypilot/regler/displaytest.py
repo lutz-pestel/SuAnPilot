@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-# Displaytest (Version 00.01, 10.10.2026): Steuerseite von hat/page.py am PC auf nachgebildetem Display
+# Displaytest (Version 00.02, 10.10.2026): Steuerseite von hat/page.py am PC auf nachgebildetem Display
 # (JLX12864 hochkant, 64 x 128 Punkte). Schrift nur als Rahmen (am PC keine Schriftbibliothek): geprueft werden
-# Lage der Texte, Regleranzeige links unten (gross), WIFI rechts unten (klein), Alarmzeile invertiert. Bilder: displaytest_<fall>.png (4-fach).
+# Lage der Texte: Regler ganz oben, Kurs, Sollkurs-Feld mit allen Alarmen (hell hinterlegt), WIFI unten;
+# Ruder-Endlage bei Handsteuerung keine Meldung. Bilder: displaytest_<fall>.png (4-fach).
 # Aufruf: python displaytest.py [Ausgabeordner]
 import sys, os, types, struct, zlib
 
@@ -57,11 +58,13 @@ GRUND = {'ap.mode': 'compass', 'ap.heading': 123.0, 'ap.heading_command': 125.0,
          'wind.source': 'none', 'imu.compass.calibration': [[0, 0, 0, 0], [1.0, 0]]}
 faelle = [('adaptive', {'ap.pilot': 'adaptive', 'ap.pilot.adaptive.status': 'ok'}, 'ADAPTIV', False),
           ('basic_gewaehlt', {'ap.pilot': 'basic', 'ap.pilot.adaptive.status': 'aus'}, 'BASIC', False),
-          ('rueckfall', {'ap.pilot': 'basic', 'ap.pilot.adaptive.status': 'Rueckfall: Ruder folgt nicht (rueckw)'}, 'BASIC', True),
+          ('rueckfall', {'ap.pilot': 'basic', 'ap.pilot.adaptive.status': 'Rueckfall: Ruder folgt nicht (rueckw)'}, 'BASIC', 'ALARM basic'),
           ('offcourse', {'ap.pilot': 'basic', 'ap.pilot.adaptive.status': 'Rueckfall: Ruder folgt nicht (rueckw)',
-                         'ap.offcourse': True}, 'BASIC', True),
+                         'ap.offcourse': True}, 'BASIC', 'OFF COURSE'),
           ('rueckfall_standby', {'ap.pilot': 'basic', 'ap.pilot.adaptive.status': 'Rueckfall: Ruderanzeige fehlt',
-                                 'ap.enabled': False}, 'BASIC', True)]
+                                 'ap.enabled': False}, 'BASIC', 'ALARM basic'),
+          ('endlage_hand', {'ap.pilot': 'adaptive', 'ap.enabled': False, 'servo.flags': 'SYNC MAX_RUDDER_FAULT'}, 'ADAPTIV', False),
+          ('endlage_autopilot', {'ap.pilot': 'adaptive', 'servo.flags': 'SYNC MAX_RUDDER_FAULT'}, 'ADAPTIV', 'max_rudder fault')]
 ordner = sys.argv[1] if len(sys.argv) > 1 else '.'
 ok = True
 for name, werte, regler, alarm in faelle:
@@ -70,20 +73,24 @@ for name, werte, regler, alarm in faelle:
     seite = page.control(lcd); seite.lcd = lcd
     seite.display(True); seite.display(False)
     s = lcd.surface
+    oben = [t for t in texte if t[0] == regler and t[4] <= int(.09 * (H - 1)) + 1]           # Regler ganz oben
     unten = [t for t in texte if t[2] >= int(.92 * (H - 1)) - 1]
-    r_ok = any(t[0] == regler and t[3] <= int(.7 * (W - 1)) for t in unten)
-    zeile = [s.p[y][x] for y in range(int(.75 * (H - 1)), int(.9 * (H - 1)) + 1) for x in range(W)]
-    hell = sum(1 for v in zeile if v in (1, 3)) / float(len(zeile))      # Anteil hell (invertiert)
     wifi = [t for t in unten if t[0].startswith('WIFI')]
-    reg = [t for t in unten if t[0] == regler]
-    w_ok = bool(wifi) and bool(reg) and wifi[0][1] > reg[0][3] and (wifi[0][4] - wifi[0][2]) < (reg[0][4] - reg[0][2])
-    r_ok = r_ok and w_ok
-    a_ok = (hell > 0.5) == alarm and (any(t[0] in ('ALARM basic', 'OFF COURSE') for t in texte) == alarm)
+    kurs = [t for t in texte if t[0].strip().isdigit() and t[2] >= int(.10 * (H - 1)) - 1 and t[4] <= int(.42 * (H - 1)) + 1]
+    r_ok = bool(oben) and bool(wifi) and bool(kurs)
+    feld = [s.p[y][x] for y in range(int(.43 * (H - 1)), int(.72 * (H - 1)) + 1) for x in range(W)]
+    hell = sum(1 for v in feld if v in (1, 3)) / float(len(feld))       # Anteil hell (invertiert)
+    melde = [' '.join(t[0].split()) for t in texte if t[2] >= int(.42 * (H - 1)) - 1 and t[4] <= int(.73 * (H - 1)) + 1]
+    if alarm in ('ALARM basic', 'OFF COURSE'):
+        a_ok = hell > 0.5 and alarm in melde and not any(m in melde for m in ('ALARM basic', 'OFF COURSE') if m != alarm)
+    elif alarm:
+        a_ok = alarm in melde
+    else:
+        a_ok = hell < 0.5 and not any('fault' in m or 'ALARM' in m or 'OFF' in m for m in melde)
     ok &= r_ok and a_ok
     s.png(os.path.join(ordner, 'displaytest_%s.png' % name))
-    print('%-18s Regler links unten "%s", WIFI kleiner rechts: %-6s Alarmzeile %s (hell %3.0f %%): %s' % (
-        name, regler, 'OK' if r_ok else 'FEHLER', 'ja  ' if alarm else 'nein', 100 * hell, 'OK' if a_ok else 'FEHLER'))
-    if name == 'offcourse': ok &= any(t[0] == 'OFF COURSE' for t in texte) and not any(t[0] == 'ALARM basic' for t in texte)
+    print('%-18s Regler oben "%s", Kurs, WIFI unten: %-6s Meldefeld %-17s (hell %3.0f %%): %s' % (
+        name, regler, 'OK' if r_ok else 'FEHLER', alarm or '-', 100 * hell, 'OK' if a_ok else 'FEHLER'))
     print('   Texte:', ', '.join('%s @(%d,%d)-(%d,%d)' % t for t in texte if t[0].strip()))
 print('alle Faelle bestanden' if ok else 'FEHLER')
 sys.exit(0 if ok else 1)

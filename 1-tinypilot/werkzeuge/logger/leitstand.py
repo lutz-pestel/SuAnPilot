@@ -11,7 +11,7 @@ import csv, glob, io, json, os, socket, subprocess, threading, time, tkinter as 
 from concurrent.futures import ThreadPoolExecutor
 from tkinter import messagebox
 
-VERSION = '00.04'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
+VERSION = '00.05'      # Version des Leitstands (Format NN.NN, jede Aenderung zaehlt hoch)
 GUETE_ALT = 180        # s nach Ende der letzten Minute: Seite „Güte“ gilt als veraltet
 DATA = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
 STATUS = os.path.join(DATA, 'verbindung.json')       # schreibt aplog.py jede Sekunde
@@ -807,7 +807,9 @@ class Leitstand:
         p, ev = [], []
         if age > 10:
             p.append(('daten', 'rot', 'Keine neuen Daten – Verbindung zum TinyPilot oder Aufzeichnung gestört'))
-        bad = [f for f in r.get('servo.flags', '').replace('"', '').split() if any(k in f for k in FAULTS)]
+        ein = r.get('ap.enabled') == 'True'
+        bad = [f for f in r.get('servo.flags', '').replace('"', '').split() if any(k in f for k in FAULTS)
+               and (ein or 'RUDDER_FAULT' not in f)]      # Endlage bei Handsteuerung ist kein Fehler (10.10.2026)
         if bad:
             p.append(('servo', 'rot', 'Servo meldet: ' + ' '.join(bad)))
         if fl(r.get('ap.heading')) is None and r.get('ap.enabled') == 'True':
@@ -821,7 +823,7 @@ class Leitstand:
         if r.get('ap.offcourse') == 'True':       # vom TinyPilot (ab ap-v00.09): wie Robertson, 20 Grad / 30 s
             p.append(('offcourse', 'rot', 'OFF COURSE – Sollkurs wird nicht gehalten, bitte übernehmen'))
         ra = fl(r.get('rudder.angle'))
-        if ra is not None and abs(ra) >= LIMITS['rudder.angle'][1]:
+        if ein and ra is not None and abs(ra) >= LIMITS['rudder.angle'][1]:
             p.append(('ruder', 'gelb', 'Ruder am Bereichsende'))
         if abs(time.time() - fl(r['time'])) > 3600:
             p.append(('uhr', 'gelb', 'Uhrzeit Master und Aufzeichnung weichen ab'))
