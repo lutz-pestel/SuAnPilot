@@ -49,8 +49,8 @@ Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `
     Alternative: pypilot-eigener Signal-K-Client (`signalk.py`, Zugriffsfreigabe im Signal-K-Admin).
 18. [H] AIS-Meldungen mit Datum 2007 abstellen; Signal-K-Passwort zurücksetzen; Aufzeichnung: Takt nach nicht springendem Zähler.
 19. [H] **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung per Netz; nächster Schritt `99-tools/docs/messgeraet.md`, Abschnitt 3.
-20. [H] **Robnet-Analyse** (`99-tools/robnet-analyse/`, Robertson-Bus mitlesen und auftrennen): Stand und nächster Schritt
-    in `99-tools/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
+20. [H] **Robnet-Analyse** (`10-Roberson-Bedieneinheit/robnet-analyse/`, Robertson-Bus mitlesen und auftrennen): Stand und nächster Schritt
+    in `10-Roberson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
 
 ## Offene Fragen Hardware (gemeinsam klären; geklärt → in die Systembeschreibung, hier löschen)
 Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlagen und KiCad-Pläne (03.10.2026).
