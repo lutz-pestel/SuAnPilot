@@ -1,6 +1,6 @@
 # Robnet (Datennetz des Robertson AP300X)
 
-Version 00.07, Stand 13.10.2026, Obergrenze 60 Zeilen.
+Version 00.08, Stand 14.10.2026, Obergrenze 60 Zeilen.
 Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 
 ## 1. Belegt (Handbuch AP300X `handbuecher/Robertson/Control-Unit/AP300CX_Manual.pdf`, Abschnitte 1.1, 3.x; AP11-Handbuch)
@@ -47,6 +47,6 @@ Alarm treibt. Protokoll und Datenrate nennen weder die Handbücher (AP300X, AP11
 
 ## 4. Weitere Messungen
 Multimeter-Messung (Stufe 1) erledigt, Ergebnisse in Abschnitt 2. Datenrate, Signalform, Telegramme und das Auftrennen
-einzelner Adern übernimmt die Platine Robnet-Analyse: Einstieg `10-Roberson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`.
+einzelner Adern übernimmt die Platine Robnet-Analyse: Einstieg `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`.
 Sicherheit beim Messen von Hand: Klemmleiste gesteckt lassen, schwarze Spitze fest an Grau, Bordspannung und Pumpenausgang
 im J300 nicht berühren.

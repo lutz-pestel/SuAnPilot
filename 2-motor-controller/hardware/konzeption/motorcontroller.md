@@ -1,7 +1,7 @@
 # Unterprojekt Motor-Controller-Neubau
 
 **Ideensammlung.** Schaltplan `kicad/v00.01` gezeichnet (09.10.2026); jede Anforderung wird vor dem Bau einzeln geprüft.
-Version 00.13, Stand: 13.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
+Version 00.14, Stand: 14.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilauswahl.md`.
 
 ## 1. Ziel und Abgrenzung
 - Ein Gerät ersetzt **Motor-Controller und RF300-Interfaceplatine** gemeinsam.
@@ -128,7 +128,7 @@ Version 00.13, Stand: 13.10.2026, Obergrenze 200 Zeilen. Bauteilwahl: `Bauteilau
 
 ### 3.3 Anschluss des RF300
 - RF300 (`1-tinypilot/rf300-interface/hardware/datenblaetter/RF 300 Ruderlagensensor.xls`): Mitte 3400 Hz, 20 Hz je Grad, ±90° = 1600–5200 Hz,
-  Versorgung und Signal auf denselben zwei Adern, **polaritätsunabhängig** (Robertson-Handbücher AP300CX/AP11: Klemmen
+  Versorgung und Signal auf denselben zwei Adern, **polaritätsunabhängig** (Robertson-Handbücher AP300X/AP11: Klemmen
   RF+/RF–, „non polarized“); keine Ader an Schiffsmasse (gemessen). Linearität ±3° bis 45°. Kabel an Bord höchstens
   3 m, geschirmt, Schirm an Masse, fern von Lichtmaschine und Starter (Betreiber; geliefert wird der Geber mit 10 m).
 - **Arbeitspunkt gemessen 05.10.2026** (Multimeter, Bordspannung 12,73 V), an der eigenen Interfaceplatine:

@@ -1,8 +1,9 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.05, Stand 13.10.2026, Obergrenze 80 Zeilen.
+Version 00.06, Stand 14.10.2026, Obergrenze 80 Zeilen.
+Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader einzeln auftrennen kann, damit Pegel,
-Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H7):
+Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H7):
 `99-tools/docs/Robnet.md`. Alle Verbindungen mit Pins und Netzen: `Blockschaltbild_Robnet-Analyse.html`.
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
@@ -18,6 +19,8 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden. Robnet-Wissen (
   5. Software: Aufzeichnung, Datenraten durchprobieren, Telegramme zerlegen; dann Trennversuche (Abschnitt 1).
 
 ## 1. Grundsätze
+- **Alle 6 Adern aufzeichnen und die Richtung erkennen:** welche Seite treibt bzw. sendet, auch auf dem Bus (Betreiber,
+  14.10.2026). Messwiderstand statt Trennen, wo er besser ist; Komplexität der Hardware sinnvoll begrenzen.
 - **Nur lesen, nie senden.** Kein Abschlusswiderstand, wenig Last am Bus, kein Strom aus Vsys.
 - **Am J300 nichts verändern:** Die Platine wird als Zwischenstecker eingeschleift (Abschnitt 2, Block 1).
 - **Trennen nur über Relais mit Ruhekontakt:** stromlos oder defekt ist alles 1:1 verbunden, der Robertson läuft normal.
@@ -65,8 +68,9 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden. Robnet-Wissen (
 ## 5. Offen
 - Typ und Rastermaß des Phoenix-Steckers (Buchse und Stecker passend bestellen).
 - Relaistyp (Ruhekontakt, 5-V-Spule, für Signale) und Treiber; Freigabeschalter.
-- Messkanäle reichen nicht für beide Seiten jeder Ader (Vsys+, On-Off, Alarm nur Seite J300): genügt das, oder zweiter
-  MCP3208 an CE1?
+- Richtungserkennung (Abschnitt 1), Vorschlag, vom Betreiber noch nicht bestätigt: On-Off, Alarm, Vsys+ mit Messwiderstand
+  und beiden Seiten messen (zweiter MCP3208 an CE1, heute nur Seite J300); Bus zuerst über den Telegramminhalt (Absender
+  erkennbar?), Bus-Messwiderstand nur als unbestückter Platz; Relais bleiben für die Trennversuche.
 - Werte der Schutz- und Teilerwiderstände, Vorwiderstand LM4040, Sicherung, Verpolschutz; Gehäuse und Einbauort.
 - Erst mit der Platine klärbar: welche Seite On-Off auf 8 V zieht, wer Alarm treibt, wie der Robertson auf jede
   getrennte Ader reagiert (nur im Hafen, Standby).

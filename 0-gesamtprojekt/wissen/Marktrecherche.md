@@ -1,6 +1,6 @@
 # Marktrecherche Autopiloten – Vergleich mit pypilot
 
-Stand: 02.10.2026. Grundlage: Handbücher, Fachartikel, Foren (Quellen am Ende) und der pypilot-Code
+Stand: 14.10.2026. Grundlage: Handbücher, Fachartikel, Foren (Quellen am Ende) und der pypilot-Code
 von GitHub (Stand 09.09.2026, Version 0.71). **Belegt** = Handbuch/Code; **Angabe** = Herstellerwerbung
 oder Erfahrungsbericht, nicht nachgeprüft.
 
@@ -50,7 +50,7 @@ oder Erfahrungsbericht, nicht nachgeprüft.
    Auto-Stufe + Reaktionsstufen als Kern; Kalibrierfahrt zur Inbetriebnahme.
 
 ## 5. Rechenregeln im Einzelnen (Handbücher, belegt)
-| Baustein | Robertson AP300CX (an Bord) | Simrad NAC-2/3 | B&G H5000 |
+| Baustein | Robertson AP300X (an Bord) | Simrad NAC-2/3 | B&G H5000 |
 |---|---|---|---|
 | Ruder (P) | Ruder = Rudder × Kursfehler; Segler LO 0,5 / HI 0,35 | Rudder gain; zu hoch → Überschwingen | Rudder Gain 0,37–0,60 |
 | Gegenruder (D) | Counter Rudder × Drehrate; LO 1,4 / HI 1,0 | Counter rudder; Trägheit, beide Drehrichtungen prüfen | 0,9–1,3 |
@@ -75,7 +75,7 @@ Werte nach Fahrt angepasst. B&G ergänzt schnelle Krängungsglieder und lernt la
   (Zeitkonstante aus SuAns Vermessung), Start mit jetziger Ruderlage, Werte × (Bezugsfahrt / SOG) begrenzt, später Krängungsglied.
 
 ## Quellen
-- Robertson AP300X/AP300CX Handbuch (`Robertson/Control-Unit/AP300CX_Manual.pdf`), Abschnitte 2.7, 2.10, 3.13
+- Robertson AP300X Handbuch (`Robertson/Control-Unit/AP300CX_Manual.pdf`), Abschnitte 2.7, 2.10, 3.13
 - [Simrad NAC-2/NAC-3 Commissioning Manual](https://media.hudsonmarine.co.uk/uploads/Navico/Autopilot/NAC-2%20and%20NAC-3%20Commissioning%20Manual.pdf)
 - [H5000 Autopilot Setup & Sailing Guide (J109, 2024)](https://vs.j109.org/blog/wp-content/uploads/2025/07/H5000-Autopilot-Setup-Sailing-Guide.pdf)
 - [Yachting World: New-age sailing autopilot systems](https://www.yachtingworld.com/gear-reviews/new-age-sailing-autopilot-systems-126909)

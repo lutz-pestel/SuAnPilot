@@ -1,8 +1,8 @@
 # CLAUDE.md
 
 ## Projekt
-**SuAn-Autopilot-Projekt** (`0-gesamtprojekt/SuAn-Autopilot-Projekt.md`): neues Autopilot-System für die SuAn (15 t, Hydraulik), ersetzt
-den alten Robertson AP300CX. Ein Projekt, drei Phasen: 1 TinyPilot-Ersatzsystem testen, 2 neuer Motor-Controller, 3 SuAnPilot.
+**SuAn-Autopilot-Projekt** (`0-gesamtprojekt/SuAn-Autopilot-Projekt.md`): zwei Wege für dasselbe Problem (verschlissene Bedieneinheit AP300CX des
+Robertson AP300X auf der SuAn, 15 t, Hydraulik). **A** Neuentwicklung auf Basis TinyPilot (3 Phasen), **B** neue Bedieneinheit für Robertson.
 Eingebaut ist heute der TinyPilot mit pypilot 0.24 (Stand 14.03.2020, eigene Änderungen siehe unten).
 Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen Tests.
 
@@ -12,15 +12,15 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 ## Einstieg für neue Sitzungen
 1. Gesamtprojekt: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`. 2. `0-gesamtprojekt/TODO.md` (was als Nächstes ansteht). 3. Heutiger Aufbau und Werte:
 `1-tinypilot/docs/system/Systembeschreibung.md`. 4. Letzte Tests: `1-tinypilot/docs/tests/`, Ablauf und Sicherheit:
-`1-tinypilot/docs/system/Testplan_Autopilot.md`. 5. Lehren: `0-gesamtprojekt/CHRONIK.md`. 6. Phasen 2 und 3: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `3-suanpilot/docs/gesamt.md`. 7. Robnet-Analyse (Robertson-Bedieneinheit): `10-Roberson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
+`1-tinypilot/docs/system/Testplan_Autopilot.md`. 5. Lehren: `0-gesamtprojekt/CHRONIK.md`. 6. Weg A, Phasen 2 und 3: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `3-suanpilot/docs/gesamt.md`. 7. Weg B, Robnet-Analyse (Robertson-Bedieneinheit): `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
 Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
 - 60: `1-tinypilot/rf300-interface/software/Programmbeschreibung.md`, `0-gesamtprojekt/VERSIONEN.md`, `99-tools/docs/Robnet.md`
-- 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `CLAUDE.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `1-tinypilot/regler/entwurf_pumpenleistung.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
-  `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`, `10-Roberson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`
+- 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `1-tinypilot/regler/entwurf_pumpenleistung.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
+  `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
-- 100: `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`
+- 100: `CLAUDE.md`, `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`
 - 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`, `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`
@@ -28,7 +28,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
 
 ## Ablage
-Ein Projekt, drei Phasen; je Phase ein Ordner, dazu `0-gesamtprojekt/` und `99-tools/`. Im Hauptordner sonst nur, was die Werkzeuge dort
+Je Phase von Weg A ein Ordner, Weg B in `10-`, dazu `0-gesamtprojekt/` und `99-tools/`. Im Hauptordner sonst nur, was die Werkzeuge dort
 erwarten (`CLAUDE.md`, `CLAUDE.local.md`, `.gitignore`, `.mcp.json`, `.claude/`). Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
 `bom/`, `3d-modelle/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einer Phase enthalten nur deren Inhalt.
 Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git), Name `Hersteller_Teilnummer_Ausgabe.pdf`; keine eigene Liste, die Links stehen in der Bauteilauswahl.
@@ -43,11 +43,11 @@ Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git),
   Schaltplan `hardware/kicad/v00.01/` (KiCad 10): Dateien nur bei geschlossenem KiCad ändern; danach `kicad-cli sch erc` und `pruefung_blockschaltbild.py`.
 - **`3-suanpilot/`** (Phase 3, nicht begonnen): `autopilot/`, `docs/`. Phasen 2 und 3 sind Ideensammlungen:
   **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.** Versionsnummern erst im Unterordner `vNN.NN/`.
-- **`0-gesamtprojekt/`** (gilt für alle Phasen): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,
+- **`0-gesamtprojekt/`** (gilt für beide Wege): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,
   `wissen/` (Hintergrund, Marktrecherche, pypilot-Geschichte), `handbuecher/` (PyPilot, Andere Schiffe, Robertson; nicht in Git),
   `fertigung/` (JLCPCB-Strategie).
-- **`99-tools/`** (Werkzeuge für alle Phasen, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`); `docs/Robnet.md` (Robertson-Bus-Wissen).
-- **`10-Roberson-Bedieneinheit/`** (Robertson-Bedieneinheit, gleicher Aufbau): Baugruppe `robnet-analyse/` (Robertson-Bus mitlesen).
+- **`99-tools/`** (Werkzeuge für beide Wege, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`); `docs/Robnet.md` (Robertson-Bus-Wissen).
+- **`10-Robertson-Bedieneinheit/`** (Robertson-Bedieneinheit, gleicher Aufbau): Baugruppe `robnet-analyse/` (Robertson-Bus mitlesen).
 - Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.
 - KiCad: Das alte Original (Platinen, Gerber, Pläne) liegt außerhalb, nicht Teil des Projekts:
   `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `1-tinypilot/autopilot/hardware/kicad/` ist eine Kopie
@@ -75,6 +75,6 @@ Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git),
   packen, `.md5.txt` erneuern, neu starten. Original: `pypilot.tcz.orig-2026-09-29` (Karte und PC).
 - Eigene Änderungen am Paket: `hat/page.py` (Notlösung A2), `servo.py` (Korrektur 11/2021; Selbsthilfe
   bei stehender Pumpe: nur Melden), `pilots/basic.py` (Krängungs-Glied H),
-  `boatimu.py` (Filter gespeichert). Sicherungen: `pypilot.tcz.bak-2026-09-30`, `…bak-2026-10-01-heel`, `…bak-2026-10-01-selbsthilfe`, `…bak-2026-10-02-vor-abhilfe-aus`.
+  `boatimu.py` (Filter gespeichert).
 - Motor-Controller: fertig gekauft, Firmware wird nicht neu aufgespielt; Ersatzgerät seit 01.10.2026.
   Ein neuer Controller überschreibt beim Verbinden Ruder-Kalibrierung, Stromgrenze und servo.gain – prüfen.

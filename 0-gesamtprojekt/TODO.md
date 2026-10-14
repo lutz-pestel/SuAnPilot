@@ -1,7 +1,7 @@
-# Aufgabenliste TinyPilot (aktuelles Projekt)
+# Aufgabenliste SuAn-Autopilot-Projekt (Weg A und Weg B)
 
-Stand: 13.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
-Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Zukunftsprojekt: `3-suanpilot/docs/gesamt.md`.
+Stand: 14.10.2026. Erledigtes wird gelöscht, nicht abgehakt; Lehren gehen in `0-gesamtprojekt/CHRONIK.md`.
+Jeder Schritt wird dem Betreiber einzeln vorgelegt (Regel 3). Übersicht der Wege: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`.
 Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `1-tinypilot/regler/verbesserungen.md`.
 **Erst der Kern; alles unter „Später“ wartet, bis adaptive auf See gezeigt hat, ob er besser ist als basic.**
 
@@ -49,8 +49,8 @@ Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `
     Alternative: pypilot-eigener Signal-K-Client (`signalk.py`, Zugriffsfreigabe im Signal-K-Admin).
 18. [H] AIS-Meldungen mit Datum 2007 abstellen; Signal-K-Passwort zurücksetzen; Aufzeichnung: Takt nach nicht springendem Zähler.
 19. [H] **Messgerät** (`99-tools/messgeraet/`, Idee): Strom und Spannung per Netz; nächster Schritt `99-tools/docs/messgeraet.md`, Abschnitt 3.
-20. [H] **Robnet-Analyse** (`10-Roberson-Bedieneinheit/robnet-analyse/`, Robertson-Bus mitlesen und auftrennen): Stand und nächster Schritt
-    in `10-Roberson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
+20. [H] **Robnet-Analyse** (Weg B, `10-Robertson-Bedieneinheit/robnet-analyse/`, Robertson-Bus mitlesen, Richtung erkennen): Stand und nächster Schritt
+    in `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
 
 ## Offene Fragen Hardware (gemeinsam klären; geklärt → in die Systembeschreibung, hier löschen)
 Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlagen und KiCad-Pläne (03.10.2026).
