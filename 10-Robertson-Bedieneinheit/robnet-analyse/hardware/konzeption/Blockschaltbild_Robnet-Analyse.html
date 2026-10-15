@@ -33,8 +33,8 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.10, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
-  Robnet-Bus mit (sendet nie), erkennt &uuml;ber Shunts die Richtung jeder Ader und kann f&uuml;nf der sechs Adern per Jumper trennen. Anforderungen und Einstieg:
+  <p class="sub">Version 00.15, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
+  Robnet-Bus mit (sendet nie), kann f&uuml;nf der sechs Adern per Jumper trennen; die Richtung jeder Ader zeigt ein Trennversuch. Anforderungen und Einstieg:
   <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte: <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und
   MCP3208 aus den KiCad-Symbolen des Motor-Controllers; Zero-Pins und Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in
   <code>Bauteilauswahl.md</code>.</p>
@@ -47,6 +47,7 @@
     <marker id="m-ana"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
     <marker id="m-data"  viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7c3aed"/></marker>
     <marker id="m-sup"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker>
+    <marker id="m-bund" viewBox="0 0 10 10" refX="7" refY="5" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d97706"/></marker>
     <marker id="m-cab"   viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#374151"/></marker>
     <style>
       .w-power{stroke:#c0392b;stroke-width:3.5;fill:none;marker-end:url(#m-power);}
@@ -56,6 +57,8 @@
       .w-sup  {stroke:#6b7280;stroke-width:2;fill:none;stroke-dasharray:6 4;marker-end:url(#m-sup);}
       .w-gnd  {stroke:#374151;stroke-width:2;fill:none;}
       .w-cab  {stroke:#374151;stroke-width:7;fill:none;}
+      .w-bund {stroke:#d97706;stroke-width:6;fill:none;stroke-linejoin:round;marker-end:url(#m-bund);}
+      .w-stub {stroke:#d97706;stroke-width:1.6;fill:none;}
       .r-bus  {stroke:#7c3aed;stroke-width:2.4;fill:none;}
       .r-vs   {stroke:#c0392b;stroke-width:2.2;fill:none;}
       .r-sw   {stroke:#1f6feb;stroke-width:2;fill:none;}
@@ -83,7 +86,7 @@
 
   <!-- ======== Rahmen ======== -->
   <rect x="220" y="88" width="1160" height="1130" rx="14" fill="#fbfcfe" stroke="#8c97a6" stroke-width="2" stroke-dasharray="10 6"/>
-  <text class="frame-t" x="236" y="1208">Robnet-Analyse (eine Platine, Raspberry Pi Zero 2 W aufgesteckt) &#8211; liest nur, sendet nie; Signalweg nur passiv (Shunts, Jumper): f&#228;llt die Platine aus, l&#228;uft der Robertson weiter</text>
+  <text class="frame-t" x="236" y="1208">Robnet-Analyse (eine Platine, Raspberry Pi Zero 2 W aufgesteckt) &#8211; liest nur, sendet nie; Signalweg nur passiv (Jumper): f&#228;llt die Platine aus, l&#228;uft der Robertson weiter</text>
 
   <!-- ======== J1 Kabel zum J300 ======== -->
   <rect x="240" y="120" width="90" height="250" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
@@ -98,16 +101,16 @@
   <path class="w-cab" d="M204,250 L236,250"/>
   <text class="lb" x="204" y="243">6 Adern</text>
 
-  <!-- ======== Shunts und Jumper ======== -->
+  <!-- ======== Jumper ======== -->
   <rect x="410" y="120" width="160" height="250" rx="6" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <text class="pn" x="418" y="135">Shunts, Jumper w&#228;hlt</text>
-  <text class="lb" x="490" y="164" text-anchor="middle">RS1 0,1 &#937; / RS2 1 &#937; &#183; JP3</text>
-  <text class="lb" x="490" y="189" text-anchor="middle">durchgehend, kein Shunt</text>
-  <text class="lb" x="490" y="234" text-anchor="middle">RS3 10 &#937; / RS4 100 &#937; &#183; JP4</text>
-  <text class="lb" x="490" y="269" text-anchor="middle">RS5 10 &#937; / RS6 100 &#937; &#183; JP5</text>
-  <text class="lb" x="490" y="304" text-anchor="middle">RS7 2,2 &#937; / RS8 100 &#937; &#183; JP6</text>
-  <text class="lb" x="490" y="339" text-anchor="middle">RS9 2,2 &#937; / RS10 100 &#937; &#183; JP7</text>
-  <text class="lb" x="490" y="362" text-anchor="middle">Jumper gezogen = getrennt</text>
+  <text class="pn" x="418" y="135">Jumper (Trennstellen)</text>
+  <text class="lb" x="490" y="154" text-anchor="middle">JP3</text>
+  <text class="lb" x="490" y="189" text-anchor="middle">durchgehend, nie getrennt</text>
+  <text class="lb" x="490" y="224" text-anchor="middle">JP4</text>
+  <text class="lb" x="490" y="259" text-anchor="middle">JP5</text>
+  <text class="lb" x="490" y="294" text-anchor="middle">JP6</text>
+  <text class="lb" x="490" y="329" text-anchor="middle">JP7</text>
+  <text class="lb" x="490" y="355" text-anchor="middle">gesteckt = 1:1, gezogen = getrennt</text>
 
   <!-- ======== J3 Buchse Bedieneinheit ======== -->
   <rect x="640" y="120" width="90" height="250" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
@@ -121,7 +124,7 @@
   <text class="pn" x="646" y="339">1 Bus&#8722;</text>
   <path class="w-cab" d="M685,118 L685,72"/>
 
-  <!-- Adern J1 -> Shunts -> J3 -->
+  <!-- Adern J1 -> Jumper -> J3 -->
   <path class="r-vs"  d="M330,160 L410,160 M570,160 L640,160"/>
   <path class="r-gnd" d="M330,195 L640,195"/>
   <path class="r-sw"  d="M330,230 L410,230 M570,230 L640,230"/>
@@ -130,46 +133,62 @@
   <path class="r-bus" d="M330,335 L410,335 M570,335 L640,335"/>
 
   <!-- Messabgriffe Seite J300 (Netznamen) -->
-  <circle class="dot" cx="345" cy="160" r="3.5"/><text class="nn" x="350" y="155">VSYS_J</text>
-  <circle class="dot" cx="345" cy="230" r="3.5"/><text class="nn" x="350" y="225">ONOFF_J</text>
-  <circle class="dot" cx="345" cy="265" r="3.5"/><text class="nn" x="350" y="260">ALARM_J</text>
-  <circle class="dot" cx="360" cy="300" r="3.5"/><text class="nn" x="356" y="392" text-anchor="end">BUSP_J</text>
-  <circle class="dot" cx="390" cy="335" r="3.5"/><text class="nn" x="394" y="392">BUSN_J</text>
+  <circle class="dot" cx="338" cy="160" r="3.5"/><text class="nn" x="343" y="155">VSYS_J</text>
+  <circle class="dot" cx="344" cy="230" r="3.5"/><text class="nn" x="349" y="225">ONOFF_J</text>
+  <circle class="dot" cx="350" cy="265" r="3.5"/><text class="nn" x="355" y="260">ALARM_J</text>
+  <circle class="dot" cx="360" cy="300" r="3.5"/>
+  <circle class="dot" cx="390" cy="335" r="3.5"/>
   <!-- Seite Bedieneinheit -->
-  <circle class="dot" cx="585" cy="160" r="3.5"/><text class="nn" x="590" y="155">VSYS_B</text>
-  <circle class="dot" cx="585" cy="230" r="3.5"/><text class="nn" x="590" y="225">ONOFF_B</text>
-  <circle class="dot" cx="585" cy="265" r="3.5"/><text class="nn" x="590" y="260">ALARM_B</text>
-  <circle class="dot" cx="590" cy="300" r="3.5"/><text class="nn" x="594" y="317">BUSP_B</text>
-  <circle class="dot" cx="590" cy="335" r="3.5"/><text class="nn" x="594" y="352">BUSN_B</text>
+  <circle class="dot" cx="578" cy="160" r="3.5"/><text class="nn" x="583" y="155">VSYS_B</text>
+  <circle class="dot" cx="584" cy="230" r="3.5"/><text class="nn" x="589" y="225">ONOFF_B</text>
+  <circle class="dot" cx="590" cy="265" r="3.5"/><text class="nn" x="595" y="260">ALARM_B</text>
+  <circle class="dot" cx="600" cy="300" r="3.5"/>
+  <circle class="dot" cx="620" cy="335" r="3.5"/>
 
-  <!-- ======== Strommessverstaerker ======== -->
-  <rect x="800" y="120" width="220" height="160" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="801" y="121" width="218" height="158"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>U7&#8211;U11 Strommessverst&auml;rker</b>
-    Je einer &uuml;ber jedem Shunt (Eingang _J gegen _B), beide Richtungen: U7 Vsys+ &#8594; I_VSYS, U8 On-Off &#8594; I_ONOFF,
-    U9 Alarm &#8594; I_ALARM, U10 Bus+ &#8594; I_BUSP, U11 Bus&#8722; &#8594; I_BUSN. Ausgang um 1,25&nbsp;V (halbe Referenz):
-    dar&uuml;ber flie&szlig;t Strom J300 &#8594; Bedieneinheit, darunter umgekehrt. Gleichtakt bis ~30&nbsp;V (Vsys+).
-    <i>Typ und Verst&auml;rkung offen.</i></div></foreignObject>
-  <path class="w-ana" d="M910,282 L910,298"/>
+  <!-- Messleitungen: Stichleitungen und Buendel -->
+  <path class="w-stub" d="M338,160 L338,376 M344,230 L344,376 M350,265 L350,376"/>
+  <circle class="dot" cx="360" cy="376" r="3.5"/><circle class="dot" cx="390" cy="376" r="3.5"/>
+  <path class="w-bund" d="M394,376 L232,376 L232,700 L246,700"/>
+  <text class="nn" transform="rotate(-90 245 640)" x="245" y="640">5 Messleitungen Seite J300 &#8594; Teiler U2</text>
+  <path class="w-stub" d="M578,160 L578,376 M584,230 L584,376 M590,265 L590,376"/>
+  <circle class="dot" cx="600" cy="376" r="3.5"/><circle class="dot" cx="620" cy="376" r="3.5"/>
+  <path class="w-bund" d="M574,376 L760,376 L760,300 L794,300"/>
+  <text class="nn" x="634" y="392">5 Messleitungen Seite Bedieneinheit &#8594; Teiler U6</text>
+
+  <!-- ======== Teiler U6 ======== -->
+  <rect x="800" y="240" width="220" height="110" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="801" y="241" width="218" height="108"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>Teiler und Klemmdioden U6 (5 Kan&auml;le)</b>
+    CH0 &#8592; VSYS_B 100&nbsp;k / 8,2&nbsp;k; CH1 &#8592; ONOFF_B, CH2 &#8592; ALARM_B, CH3 &#8592; BUSP_B, CH4 &#8592; BUSN_B je
+    100&nbsp;k / 18&nbsp;k (Bus ohne Gl&auml;ttung); je zwei BAT85 nach +3V3/GND.</div></foreignObject>
+  <path class="w-ana" d="M910,238 L910,224"/>
 
   <!-- ======== U6 zweiter MCP3208 ======== -->
-  <rect x="800" y="300" width="220" height="100" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="801" y="301" width="218" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+  <rect x="800" y="120" width="220" height="100" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="801" y="121" width="218" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
     <b>U6 Wandler MCP3208 (zweiter, CE1)</b>
-    CH0 &#8592; VSYS_B (100&nbsp;k / 8,2&nbsp;k), CH1 &#8592; ONOFF_B, CH2 &#8592; ALARM_B (100&nbsp;k / 18&nbsp;k; BAT85 wie U2).
-    CH3&#8211;CH7 &#8592; I_VSYS, I_ONOFF, I_ALARM, I_BUSP, I_BUSN. VREF von U4.</div></foreignObject>
-  <path class="w-digi" d="M1098,350 L1022,350" style="marker-start:url(#m-digi)"/>
-  <text class="lb" x="1060" y="343" text-anchor="middle">SPI + CE1</text>
+    Alle f&uuml;nf Adern auf der Seite Bedieneinheit (CH0&#8211;CH4, Teiler darunter); CH5&#8211;CH7 frei. VREF von U4.</div></foreignObject>
+  <path class="w-digi" d="M1098,170 L1022,170" style="marker-start:url(#m-digi)"/>
+  <text class="lb" x="1060" y="163" text-anchor="middle">SPI + CE1</text>
 
-  <!-- ======== U1 Empfaenger Seite J300 ======== -->
-  <rect x="250" y="410" width="250" height="140" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="251" y="420" width="248" height="129"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>U1 MAX3488, Seite J300 (Sockel)</b>
-    8&nbsp;A &#8592; Bus+, 7&nbsp;B &#8592; Bus&#8722; &uuml;ber R1/R2 (je 1&nbsp;k&#937;); JP1 kreuzt A/B. 2&nbsp;RO &#8594; Zero.
+  <!-- ======== JP2 Seitenwahl ======== -->
+  <rect x="250" y="384" width="250" height="36" rx="6" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="251" y="385" width="248" height="34"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b style="display:inline;font-size:10px">JP2 Seitenwahl</b> (2 &#215; 3, zwei Jumper): links Seite J300 (_J), rechts Seite Bedieneinheit (_B)</div></foreignObject>
+  <path class="w-data" d="M600,300 L600,398 L502,398"/>
+  <path class="w-data" d="M620,335 L620,410 L502,410"/>
+
+  <!-- ======== U1 Empfaenger ======== -->
+  <rect x="250" y="440" width="250" height="140" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="251" y="450" width="248" height="129"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>U1 MAX3488 (Sockel)</b>
+    8&nbsp;A &#8592; Bus+, 7&nbsp;B &#8592; Bus&#8722; &uuml;ber R1/R2 (je 1&nbsp;k&#937;); JP2 w&auml;hlt Seite J300 (_J) oder Bedieneinheit (_B), JP1 kreuzt A/B. 2&nbsp;RO &#8594; Zero.
     3&nbsp;DI an +3V3; <b style="display:inline;font-size:10px">5&nbsp;Y, 6&nbsp;Z offen</b>. 1&nbsp;VCC +3V3 mit 100&nbsp;nF, 4&nbsp;GND.
     <i>Eingang 12&nbsp;k&#937;, bis 250&nbsp;kbit/s (Bedarf &#8804; 9600&nbsp;Baud).</i></div></foreignObject>
-  <path class="w-data" d="M360,300 L360,408"/>
-  <path class="w-data" d="M390,335 L390,408"/>
+  <path class="w-data" d="M360,300 L360,382"/>
+  <path class="w-data" d="M390,335 L390,382"/>
+  <path class="w-data" d="M360,420 L360,438"/>
+  <path class="w-data" d="M390,420 L390,438"/>
 
 
   <!-- ======== J4 Stiftleiste Messpunkte ======== -->
@@ -179,7 +198,7 @@
     <i>F&uuml;r Oszilloskop oder Logikanalysator.</i></div></foreignObject>
 
   <!-- RO-Leitungen zum Zero -->
-  <path class="w-data" d="M300,550 L300,590 L1098,590"/>
+  <path class="w-data" d="M300,580 L300,590 L1098,590"/>
   <circle class="dot" cx="760" cy="590" r="4"/>
   <path class="w-data" d="M760,590 L760,615 L1098,615"/>
   <text class="lb" x="940" y="583" text-anchor="middle">RO_J (Telegramme, Datenraten durchprobieren)</text>
@@ -187,17 +206,16 @@
 
   <!-- ======== Teiler fuer den Wandler ======== -->
   <rect x="250" y="660" width="350" height="250" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <text class="pn" x="258" y="677">Spannungsteiler und Klemmdioden (8 Kan&#228;le)</text>
+  <text class="pn" x="258" y="677">Teiler und Klemmdioden U2, Seite J300 (6 Kan&#228;le)</text>
   <text class="lb" x="258" y="697">CH0 &#8592; <tspan class="nn">BUSP_J</tspan>  100 k / 18 k (bis ~16 V), ohne Gl&#228;ttung</text>
   <text class="lb" x="258" y="717">CH1 &#8592; <tspan class="nn">BUSN_J</tspan>  100 k / 18 k, ohne Gl&#228;ttung</text>
   <text class="lb" x="258" y="737">CH2 &#8592; <tspan class="nn">VSYS_J</tspan>  100 k / 8,2 k (bis ~33 V)</text>
   <text class="lb" x="258" y="757">CH3 &#8592; <tspan class="nn">ONOFF_J</tspan>  100 k / 18 k (12 V / 8 V nur hier)</text>
   <text class="lb" x="258" y="777">CH4 &#8592; <tspan class="nn">ALARM_J</tspan>  100 k / 18 k</text>
   <text class="lb" x="258" y="797">CH5 &#8592; <tspan class="nn">+12V_F</tspan>  100 k / 18 k (Bordspannung)</text>
-  <text class="lb" x="258" y="817">CH6 &#8592; <tspan class="nn">BUSP_B</tspan>  100 k / 18 k, ohne Gl&#228;ttung</text>
-  <text class="lb" x="258" y="837">CH7 &#8592; <tspan class="nn">BUSN_B</tspan>  100 k / 18 k, ohne Gl&#228;ttung</text>
+  <text class="lb" x="258" y="817">CH6, CH7 frei</text>
   <text class="lb" x="258" y="862">Je Kanal Teiler 1 %, zwei BAT85 nach +3V3/GND; Last je Ader ~118 k&#937;.</text>
-  <text class="lb" x="258" y="876">Seite Bedieneinheit von Vsys+, On-Off, Alarm: U6 (oben).</text>
+  <text class="lb" x="258" y="876">Seite Bedieneinheit: Teiler U6 (oben).</text>
   <path class="w-ana" d="M600,770 L658,770"/>
   <text class="lb" x="629" y="763" text-anchor="middle">CH0&#8211;7</text>
 
@@ -206,7 +224,7 @@
   <foreignObject x="661" y="661" width="238" height="248"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
     <b>U2 Wandler MCP3208 (DIP-16, Sockel)</b>
     12 Bit, 8 Eing&auml;nge, SPI, an +3V3.
-    <ul><li>1&#8211;8 CH0&#8211;CH7 &#8592; Teiler</li>
+    <ul><li>1&#8211;6 CH0&#8211;CH5 &#8592; Teiler, 7&#8211;8 frei</li>
     <li>15 VREF &#8592; U4 LM4040AIZ-2.5 (Vorwiderstand von +3V3)</li>
     <li>13 CLK, 11 Din, 12 Dout, 10 CS</li>
     <li>16 VDD +3V3 mit 100&nbsp;nF; 9 DGND, 14 AGND</li></ul>
@@ -240,7 +258,7 @@
     <b>Versorgung</b>
     J2 +12&nbsp;V &#8594; F1 Sicherung &#8594; D1 Verpolschutz &#8594; <b style="display:inline;font-size:10px">Netz +12V_F</b> &#8594;
     U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V) &#8594; <b style="display:inline;font-size:10px">+5V</b> &#8594; Zero Pin 2/4.
-    <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U2, U6, U4 und U7&#8211;U11. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
+    <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U2, U6, U4. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
     Nicht aus Vsys versorgen (Robnet nicht belasten).
     <br><i>Zero nie gleichzeitig &uuml;ber USB versorgen.</i></div></foreignObject>
   <path class="w-power" d="M1020,1110 L1098,1110"/>
@@ -252,8 +270,8 @@
   <rect x="1100" y="120" width="250" height="1060" rx="8" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
   <text class="pn" x="1110" y="137">Raspberry Pi Zero 2 W (zu beschaffen)</text>
   <text class="lb" x="1110" y="149">40-pol. Leiste aufgesteckt (Pin / GPIO)</text>
-  <text class="pn" x="1110" y="354">Pin 26 &#183; GPIO7 CE1 &#8594; U6</text>
-  <text class="lb" x="1110" y="366">SPI-Leitungen gemeinsam mit U2</text>
+  <text class="pn" x="1110" y="174">Pin 26 &#183; GPIO7 CE1 &#8594; U6</text>
+  <text class="lb" x="1110" y="186">SPI-Leitungen gemeinsam mit U2</text>
   <text class="pn" x="1110" y="594">Pin 10 &#183; GPIO15 RXD &#8592; RO_J</text>
   <text class="lb" x="1110" y="606">Seriell-Schnittstelle (Bluetooth aus)</text>
   <text class="pn" x="1110" y="619">Pin 16 &#183; GPIO23 &#8592; RO_J</text>
@@ -291,15 +309,15 @@
   <div><span class="k" style="border-top-color:#6b7280;border-top-style:dashed"></span>Versorgung als Netzname</div>
   <div><span class="k" style="border-top-color:#374151"></span>Masse (GND = Vsys&#8722; = Bordmasse)</div>
   <div><span class="k" style="border-top-color:#374151;border-top-width:7px"></span>Kabel, 6 Adern 1:1</div>
+  <div><span class="k" style="border-top-color:#d97706;border-top-width:6px"></span>B&uuml;ndel getrennter Messleitungen (Punkt = Leitung tritt ein)</div>
 </div>
 <p class="note">
   Pfeile zeigen die Signalrichtung; Robnet-Adern ohne Pfeil (beide Richtungen). Ein Punkt ist ein Abzweig, Linien ohne
   Punkt kreuzen sich ohne Verbindung. <b>Violette fette Namen sind Netznamen: gleicher Name = verbunden</b> (Abgriffe vor
-  den Shunts Seite J300 &#8222;_J&#8220;, dahinter Seite Bedieneinheit &#8222;_B&#8220;). Pinnummern an J1/J3 wie an der J300-Klemmleiste
-  (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Shunt-Werte gerechnet, nicht gemessen; Bus 2,2 &#937; bei Abschlusswiderst&auml;nden im Robertson-Bus, 100 &#937; ohne
-  (Hinweis: eher ohne, <code>Robnet.md</code> H8). Arbeitshypothese RS485 (H4). Offen: WLAN-Stick, 5-m-Kabel, LAN-Adapter, Bestellnummern der Phoenix-Teile,
-  Jumperart (l&ouml;st sich nicht, Vsys+ strombelastbar), Typ und Verst&auml;rkung U7&#8211;U11, Werte von R1/R2, Vorwiderstand der
-  Referenz, Sicherung, Verpolschutz.
+  den Jumpern Seite J300 &#8222;_J&#8220;, dahinter Seite Bedieneinheit &#8222;_B&#8220;). Pinnummern an J1/J3 wie an der J300-Klemmleiste
+  (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Arbeitshypothese RS485
+  (<code>Robnet.md</code>, H4). Richtung durch Trennversuche (Konzept, Block 8). Teile, Bezug und was vor der Bestellung
+  zu pr&uuml;fen ist: <code>Bauteilauswahl.md</code> (Abschnitt 7).
 </p>
 </div>
 </body>
