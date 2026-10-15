@@ -8,6 +8,10 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 
 ## Goldene Regel (gilt für alle Projektteile)
 **Ein Kommando ist erst beendet, wenn seine Ausführung überprüft wurde.**
+- **Nachziehen:** Nach jeder Änderung ohne Aufforderung alle Dokumente anpassen, die denselben Inhalt nennen, auch das
+  Blockschaltbild (danach als Bild ansehen); per Suche im ganzen Projekt prüfen, dass nichts Altes übrig ist.
+- **Zielprüfung:** Vor jeder zusätzlichen Funktion fragen, ob das Ziel sie braucht. Löst etwas nur das Problem des vorigen
+  Schritts, zurück zum Ziel (Anlass: Shunts und Messverstärker der Robnet-Analyse, 15.10.2026, gestrichen).
 
 ## Bauteilauswahl (Standard, IMMER)
 Jede Teilewahl folgt **immer und ohne Aufforderung** `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md` (Schritte 1–9),
