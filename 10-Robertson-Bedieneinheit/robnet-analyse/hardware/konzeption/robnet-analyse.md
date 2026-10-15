@@ -8,7 +8,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
 - **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.15, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
-  Teileauswahl `Bauteilauswahl.md` 00.04 mit Stückliste `hardware/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
+  Teileauswahl `Bauteilauswahl.md` 00.06 mit Bezugsquellen (Abschnitt 8) und Stückliste `hardware/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Noch nichts gebaut:** kein Schaltplan, keine Platine, keine Software. Zero 2 W nicht vorhanden.
   Leere Platzhalter: `hardware/kicad/v00.01/`, `software/`.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):

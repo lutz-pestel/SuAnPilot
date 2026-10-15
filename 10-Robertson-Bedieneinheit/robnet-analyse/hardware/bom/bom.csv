@@ -1,28 +1,28 @@
-# Version 00.03, Stand 15.10.2026. Hauptliste Robnet-Analyse. Begründung je Teil: konzeption/Bauteilauswahl.md (Abschnitt in Spalte Quelle). Lager und Preise vom 15.10.2026, vor der Bestellung neu prüfen. "MC" = wie Motor-Controller (2-motor-controller/hardware/bom/bom.csv).
+# Version 00.04, Stand 15.10.2026. Hauptliste Robnet-Analyse. Begründung je Teil: konzeption/Bauteilauswahl.md (Abschnitt in Spalte Quelle). Lager und Preise vom 15.10.2026, vor der Bestellung neu prüfen. "MC" = wie Motor-Controller (2-motor-controller/hardware/bom/bom.csv).
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
-Stiftleiste 1x2 2,54 mm vergoldet (JP3-JP7);5;Stiftleiste 1x2;nicht geprüft;-;-;-;-;-;-;-;-;gesteckt = 1:1, gezogen = getrennt;Bauteilauswahl 1
-Stiftleiste 2x3 2,54 mm (JP1, JP2);2;Stiftleiste 2x3;nicht geprüft;-;-;-;-;-;-;-;-;JP1 A/B kreuzen, JP2 Seite wählen;Bauteilauswahl 1
-Jumper vergoldet 3 A;9;Harwin M7566-05;-;-;-;-;-;-;-;-;-;5 für JP3-JP7, je 2 für JP1 und JP2, Bezug Farnell 150411;Bauteilauswahl 1
-Stiftleiste 1x3 2,54 mm (J4 Messpunkte);1;Stiftleiste 1x3;nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2
-Widerstände 1 %, Vishay MBB0207;26;100 kΩ (12), 18 kΩ (9), 8,2 kΩ (2), 180 kΩ (1), 1 kΩ (2);nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 3
-Klemmdioden;23;BAT85 (DO-34);-;-;-;-;-;-;-;-;-;wie MC, Bezug RS 0300978;Bauteilauswahl 3
-Abblockkondensatoren 100 nF;3;KEMET C320C104K5R5TA;nicht geprüft;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 3
-Stiftleiste 6-polig 5,08 mm (J1, J3);2;Phoenix MSTBA 2,5/6-G-5,08 (1757284);-;-;-;-;-;-;-;-;-;lieferbar (Betreiber 15.10.2026), Farnell 3705213;Bauteilauswahl 2
-Stecker 6-polig 5,08 mm (Kabel J1-J300);2;Phoenix MSTB 2,5/6-ST-5,08 (1757051);-;-;-;-;-;-;-;-;-;Stecker der Bedieneinheit ist vorhanden;Bauteilauswahl 2
-Steuerleitung 6 x 0,5 mm²;1;LiYY 6 x 0,5 mm², Länge nach Einbauort;-;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2
-Stiftleiste und Stecker 2-polig 5,08 mm (J2);1;Phoenix MSTBA 2,5/2-G-5,08 (1757242) und MSTB 2,5/2-ST-5,08 (1757019);-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 2
-Buchsenleiste 2x20 2,54 mm (Zero);1;Buchsenleiste 2x20;nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2
-Bus-Empfänger U1;1;MAX3488EEPA-TUDI (DIP-8);C53286052;Extended;200;1.62;MAX3488ESA-TUDI (SOP-8);C53286186;Extended;208;0.68;wie MC (Werte aus MC-Liste);Bauteilauswahl 3
-A/D-Wandler U2, U6;2;MCP3208-CI/P (DIP-16, Sockel);C1543277;Extended;10;4.27;MCP3208T-CI/SL (SOIC-16);C626764;Extended;1088;3.32;wie MC (Werte aus MC-Liste);Bauteilauswahl 3
-Spannungsreferenz 2,5 V U4;1;LM4040AIZ-2.5/NOPB (TO-92);C544355;-;2;4.43;nicht geprüft;-;-;-;-;wie MC, Bezug RS 534-3037;Bauteilauswahl 3
-Sockel DIP-8 / DIP-16;1 / 2;Sockel DIP-8 (U1), DIP-16 (U2, U6);nicht geprüft;-;-;-;-;-;-;-;-;steckbar;Bauteilauswahl 3
-Vorwiderstand LM4040;1;ca. 1 kΩ (Wert im Schaltplan);nicht geprüft;-;-;-;-;-;-;-;-;gerechnet;Bauteilauswahl 3
-Sicherung 1 A träge 5 x 20 mm mit Halter;1;Sicherung 1 A T, Halter Schurter OGN 0031.8201;C3204125 (Halter);-;-;-;-;-;-;-;-;MC: 2 A, hier weniger Last;Bauteilauswahl 4
-Verpolschutz;1;Vishay SB540-E3/54;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4
-Überspannungsschutz;1;1.5KE20A (DO-201);C1976464;Extended;308;0.16;-;-;-;-;-;wie MC;Bauteilauswahl 4
-Filter 5-V-Zweig;1 Satz;2 x KEMET C320C475K5R5TA, 1 x Bourns RLB0914-100KL, 1 x C320C475K5R5TA;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4
-Regler 5 V / 2 A;1;Recom R-78B5.0-2.0 (SIP-3);-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4
-Anzeige Sicherung;1 Satz;Leuchtdiode rot 3 mm, 4,7 kΩ;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4
-Rechner;1;Raspberry Pi Zero 2 W (oder 2 WH) und microSD 32 GB für Dauerschreiben;-;-;-;-;-;-;-;-;-;Zukaufteil;Bauteilauswahl 5
-Netz Weg 1;1 Satz;WLAN-Stick Ralink RT5370 mit Antenne, USB-2.0-Verlängerung 5 m, OTG-Adapter micro-B auf A;-;-;-;-;-;-;-;-;-;Zukaufteil, lsusb 148f:5370 prüfen;Bauteilauswahl 5
-Netz Weg 2;1;Plugable USB2-OTGE100 (AX88772A);-;-;-;-;-;-;-;-;-;Zukaufteil;Bauteilauswahl 5
+Stiftleiste 1x2 2,54 mm vergoldet (JP3-JP7);5;Stiftleiste 1x2;nicht geprüft;-;-;-;-;-;-;-;-;gesteckt = 1:1, gezogen = getrennt;Bauteilauswahl 1, Bezug 8
+Stiftleiste 2x3 2,54 mm (JP1, JP2);2;Stiftleiste 2x3;nicht geprüft;-;-;-;-;-;-;-;-;JP1 A/B kreuzen, JP2 Seite wählen;Bauteilauswahl 1, Bezug 8
+Jumper vergoldet 3 A;9;Harwin M7566-05;-;-;-;-;-;-;-;-;-;5 für JP3-JP7, je 2 für JP1 und JP2, Bezug Farnell 150411;Bauteilauswahl 1, Bezug 8
+Stiftleiste 1x3 2,54 mm (J4 Messpunkte);1;Stiftleiste 1x3;nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2, Bezug 8
+Widerstände 1 %, Vishay MBB0207;26;100 kΩ (12), 18 kΩ (9), 8,2 kΩ (2), 180 kΩ (1), 1 kΩ (2);nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 3, Bezug 8
+Klemmdioden;23;BAT85 (DO-34);-;-;-;-;-;-;-;-;-;wie MC, Bezug RS 0300978;Bauteilauswahl 3, Bezug 8
+Abblockkondensatoren 100 nF;3;KEMET C320C104K5R5TA;nicht geprüft;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 3, Bezug 8
+Stiftleiste 6-polig 5,08 mm (J1, J3);2;Phoenix MSTBA 2,5/6-G-5,08 (1757284);-;-;-;-;-;-;-;-;-;lieferbar (Betreiber 15.10.2026), Farnell 3705213;Bauteilauswahl 2, Bezug 8
+Stecker 6-polig 5,08 mm (Kabel J1-J300);2;Phoenix MSTB 2,5/6-ST-5,08 (1757051);-;-;-;-;-;-;-;-;-;Stecker der Bedieneinheit ist vorhanden;Bauteilauswahl 2, Bezug 8
+Steuerleitung 6 x 0,5 mm²;1;LiYY 6 x 0,5 mm², Länge nach Einbauort;-;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2, Bezug 8
+Stiftleiste und Stecker 2-polig 5,08 mm (J2);1;Phoenix MSTBA 2,5/2-G-5,08 (1757242) und MSTB 2,5/2-ST-5,08 (1757019);-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 2, Bezug 8
+Buchsenleiste 2x20 2,54 mm (Zero);1;Buchsenleiste 2x20;nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2, Bezug 8
+Bus-Empfänger U1;1;MAX3488EEPA-TUDI (DIP-8);C53286052;Extended;200;1.62;MAX3488ESA-TUDI (SOP-8);C53286186;Extended;208;0.68;wie MC (Werte aus MC-Liste);Bauteilauswahl 3, Bezug 8
+A/D-Wandler U2, U6;2;MCP3208-CI/P (DIP-16, Sockel);C1543277;Extended;10;4.27;MCP3208T-CI/SL (SOIC-16);C626764;Extended;1088;3.32;wie MC (Werte aus MC-Liste);Bauteilauswahl 3, Bezug 8
+Spannungsreferenz 2,5 V U4;1;LM4040AIZ-2.5/NOPB (TO-92);C544355;-;2;4.43;nicht geprüft;-;-;-;-;wie MC, Bezug RS 534-3037;Bauteilauswahl 3, Bezug 8
+Sockel DIP-8 / DIP-16;1 / 2;Sockel DIP-8 (U1), DIP-16 (U2, U6);nicht geprüft;-;-;-;-;-;-;-;-;steckbar;Bauteilauswahl 3, Bezug 8
+Vorwiderstand LM4040;1;ca. 1 kΩ (Wert im Schaltplan);nicht geprüft;-;-;-;-;-;-;-;-;gerechnet;Bauteilauswahl 3, Bezug 8
+Sicherung 1 A träge 5 x 20 mm mit Halter;1;Sicherung 1 A T, Halter Schurter OGN 0031.8201;C3204125 (Halter);-;-;-;-;-;-;-;-;MC: 2 A, hier weniger Last;Bauteilauswahl 4, Bezug 8
+Verpolschutz;1;Vishay SB540-E3/54;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8
+Überspannungsschutz;1;1.5KE20A (DO-201);C1976464;Extended;308;0.16;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8
+Filter 5-V-Zweig;1 Satz;3 x 4,7 µF 50 V X7R (TDK FG16X7R1H475KRT06 statt KEMET C320C475K5R5TA, nicht am Lager), 1 x Bourns RLB0914-100KL;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8
+Regler 5 V / 2 A;1;Recom R-78B5.0-2.0 (SIP-3);-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8
+Anzeige Sicherung;1 Satz;Leuchtdiode rot 3 mm, 4,7 kΩ;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8
+Rechner;1;Raspberry Pi Zero 2 W (oder 2 WH) und microSD 32 GB für Dauerschreiben;-;-;-;-;-;-;-;-;-;Zukaufteil;Bauteilauswahl 5, Bezug 8
+Netz Weg 1;1 Satz;WLAN-Stick MT7601 (ALLNET ALLWA0150) oder RT5370, USB-2.0-Verlängerung 5 m, OTG-Adapter micro-B auf A;-;-;-;-;-;-;-;-;-;Zukaufteil, lsusb 148f:5370 prüfen;Bauteilauswahl 5, Bezug 8
+Netz Weg 2;1;LAN-Adapter RTL8152 (LogiLink UA0144) am OTG-Adapter, oder Plugable USB2-OTGE100;-;-;-;-;-;-;-;-;-;Zukaufteil;Bauteilauswahl 5, Bezug 8

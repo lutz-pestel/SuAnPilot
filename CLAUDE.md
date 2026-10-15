@@ -9,6 +9,11 @@ Das Projekt liegt in Git (lokal), hat kein Build-System und keine automatischen 
 ## Goldene Regel (gilt für alle Projektteile)
 **Ein Kommando ist erst beendet, wenn seine Ausführung überprüft wurde.**
 
+## Bauteilauswahl (Standard, IMMER)
+Jede Teilewahl folgt **immer und ohne Aufforderung** `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md` (Schritte 1–9),
+schon beim ersten Vorschlag. Nur THT, außer der Betreiber gibt anderes frei. **Kein Teil ohne zwei geprüfte Händler** mit
+Link, Preis, Lager und Datum; Kontrolle per Skript, Lücken unter „Offen".
+
 ## Einstieg für neue Sitzungen
 1. Gesamtprojekt: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`. 2. `0-gesamtprojekt/TODO.md` (was als Nächstes ansteht). 3. Heutiger Aufbau und Werte:
 `1-tinypilot/docs/system/Systembeschreibung.md`. 4. Letzte Tests: `1-tinypilot/docs/tests/`, Ablauf und Sicherheit:
@@ -21,6 +26,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
   `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 - 100: `CLAUDE.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`
+- 120: `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md`
 - 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`, `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/Bauteilauswahl.md`
