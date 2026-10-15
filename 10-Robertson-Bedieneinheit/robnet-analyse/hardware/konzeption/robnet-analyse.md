@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.19, Stand 15.10.2026, Obergrenze 100 Zeilen.
+Version 00.20, Stand 15.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -13,8 +13,10 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   Leere Platzhalter: `hardware/kicad/v00.01/`, `software/`.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
   1. Offene Punkte der Teileauswahl klären (`Bauteilauswahl.md`, Abschnitt 7).
-  2. Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus (Seriell-Schnittstelle frei), SPI an, pigpio.
-  3. Schaltplan in KiCad (`hardware/kicad/v00.01/`), Platine, Bestellung JLCPCB.
+  2. Schaltplan in KiCad (`hardware/kicad/v00.01/`), Platine, Bestellung JLCPCB.
+  3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
+     Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus
+     (Seriell-Schnittstelle frei), SPI an, pigpio.
   4. Software: Aufzeichnung, Datenraten durchprobieren, Telegramme zerlegen; dann Trennversuche (Block 8).
 
 ## 1. Grundsätze
