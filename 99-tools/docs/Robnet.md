@@ -1,6 +1,6 @@
 # Robnet (Datennetz des Robertson AP300X)
 
-Version 00.09, Stand 15.10.2026, Obergrenze 60 Zeilen.
+Version 00.10, Stand 15.10.2026, Obergrenze 60 Zeilen.
 Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 
 ## 1. Belegt (Handbuch AP300X `handbuecher/Robertson/Control-Unit/AP300CX_Manual.pdf`, Abschnitte 1.1, 3.x; AP11-Handbuch)
@@ -38,12 +38,15 @@ Alarm treibt. Protokoll und Datenrate nennen weder die Handbücher (AP300X, AP11
   H1 und H4 gestützt durch die Pegel in Abschnitt 2 (0,7/4,4 V, typisch 5-V-Differenztreiber), nicht bewiesen.
 - **H2** Nicht RS422: das bräuchte zwei Datenpaare, Robnet hat eines.
 - **H3** Nicht NMEA 0183: dort sendet nur ein Gerät je Leitung; Robnet hat mehrere Teilnehmer und beliebige Abzweige.
-- **H4** Am ehesten RS485-artig (ein Paar, mehrere Teilnehmer, abwechselndes Senden). Könnte auch ein eigener Robertson-Aufbau sein.
+- **H4** Am ehesten RS485-artig (ein Paar, mehrere Teilnehmer, abwechselndes Senden); **Arbeitshypothese** (Betreiber,
+  14.10.2026). Könnte auch ein eigener Robertson-Aufbau sein: Rückfall in der Robnet-Analyse über den Wandler.
 - **H5** „V System“ ist die Versorgung der Bedieneinheit aus dem J300; gemessen 26,4 V, also über der Bordspannung (J300 erzeugt sie wohl selbst).
 - **H6 bestätigt:** Nur „Bus“ ist eine serielle Datenleitung (Datenpakete, Oszilloskop). Alarm ist 5-V-Logik (0,4 / 4,8 V).
   On-Off ist eine Schaltleitung ohne Logikpegel (12 V → 8 V beim Kommando ON/OFF); vermutlich zieht eine Seite sie über
   einen Widerstand herunter – welche, zeigt der Shunt der Robnet-Analyse.
 - **H7** Datenrate höchstens etwa 9600 Baud, weil das Gerät alt ist (Annahme des Betreibers, ungemessen).
+- **H8** Kein Abschlusswiderstand im Bus: 3,7 V zwischen Bus+ und Bus− wären bei 2 × 120 Ω (RS485-Norm) ungewöhnlich
+  hoch. Nur ein Hinweis (Zustand nicht notiert, Multimeter mittelt); prüfen: Ohmmeter zwischen Bus+ und Bus−, alles aus.
 
 ## 4. Weitere Messungen
 Multimeter-Messung (Stufe 1) erledigt, Ergebnisse in Abschnitt 2. Datenrate, Signalform, Telegramme, Richtung

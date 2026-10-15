@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.05, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
+  <p class="sub">Version 00.09, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
   Robnet-Bus mit (sendet nie), erkennt &uuml;ber Shunts die Richtung jeder Ader und kann f&uuml;nf der sechs Adern per Jumper trennen. Anforderungen und Einstieg:
   <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte: <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und
   MCP3208 aus den KiCad-Symbolen des Motor-Controllers; Zero-Pins und Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in
@@ -139,8 +139,8 @@
   <circle class="dot" cx="585" cy="160" r="3.5"/><text class="nn" x="590" y="155">VSYS_B</text>
   <circle class="dot" cx="585" cy="230" r="3.5"/><text class="nn" x="590" y="225">ONOFF_B</text>
   <circle class="dot" cx="585" cy="265" r="3.5"/><text class="nn" x="590" y="260">ALARM_B</text>
-  <circle class="dot" cx="600" cy="300" r="3.5"/><text class="nn" x="596" y="392" text-anchor="end">BUSP_B</text>
-  <circle class="dot" cx="620" cy="335" r="3.5"/><text class="nn" x="624" y="392">BUSN_B</text>
+  <circle class="dot" cx="590" cy="300" r="3.5"/><text class="nn" x="594" y="317">BUSP_B</text>
+  <circle class="dot" cx="590" cy="335" r="3.5"/><text class="nn" x="594" y="352">BUSN_B</text>
 
   <!-- ======== Strommessverstaerker ======== -->
   <rect x="800" y="120" width="220" height="160" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
@@ -171,18 +171,14 @@
   <path class="w-data" d="M360,300 L360,408"/>
   <path class="w-data" d="M390,335 L390,408"/>
 
-  <!-- ======== U5 Empfaenger Seite Bedieneinheit ======== -->
-  <rect x="550" y="410" width="230" height="140" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="551" y="420" width="228" height="129"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>U5 MAX3488, Seite Bedieneinheit</b>
-    Beschaltung wie U1 (R3/R4, JP2). RO &#8594; Zero, Lesen per pigpio (Software-Empfang).
-    <i>U1 und U5 sehen dieselben Bits; JP6/JP7 gezogen: jeder zeigt seine Seite.</i></div></foreignObject>
-  <path class="w-data" d="M600,300 L600,408"/>
-  <path class="w-data" d="M620,335 L620,408"/>
+
+  <!-- ======== J4 Stiftleiste Messpunkte ======== -->
+  <rect x="530" y="420" width="150" height="80" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
+  <foreignObject x="531" y="421" width="148" height="78"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>J4 Stiftleiste, Messpunkte</b>1 <span style="color:#7c3aed;font-weight:600">BUSP_J</span>, 2 <span style="color:#7c3aed;font-weight:600">BUSN_J</span>, 3 GND.
+    <i>F&uuml;r Oszilloskop oder Logikanalysator.</i></div></foreignObject>
 
   <!-- RO-Leitungen zum Zero -->
-  <path class="w-data" d="M780,470 L1098,470"/>
-  <text class="lb" x="940" y="463" text-anchor="middle">RO_B (Seite Bedieneinheit)</text>
   <path class="w-data" d="M300,550 L300,590 L1098,590"/>
   <circle class="dot" cx="760" cy="590" r="4"/>
   <path class="w-data" d="M760,590 L760,615 L1098,615"/>
@@ -214,7 +210,7 @@
     <li>15 VREF &#8592; U4 LM4040AIZ-2.5 (Vorwiderstand von +3V3)</li>
     <li>13 CLK, 11 Din, 12 Dout, 10 CS</li>
     <li>16 VDD +3V3 mit 100&nbsp;nF; 9 DGND, 14 AGND</li></ul>
-    <i>Pegel und Hub aller Adern; Bitmuster nur bis ~2400&#8211;4800 Baud.</i></div></foreignObject>
+    <i>Pegel und Hub aller Adern; Bus-Kan&auml;le = R&uuml;ckfall, falls nicht RS485 (Bitmuster vermutlich nur bis ~2400&#8211;4800 Baud).</i></div></foreignObject>
 
   <!-- SPI -->
   <path class="w-digi" d="M1098,700 L902,700"/><text class="lb" x="1000" y="694" text-anchor="middle">CLK&#8594;13</text>
@@ -244,7 +240,7 @@
     <b>Versorgung</b>
     J2 +12&nbsp;V &#8594; F1 Sicherung &#8594; D1 Verpolschutz &#8594; <b style="display:inline;font-size:10px">Netz +12V_F</b> &#8594;
     U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V) &#8594; <b style="display:inline;font-size:10px">+5V</b> &#8594; Zero Pin 2/4.
-    <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U5, U2, U6, U4 und U7&#8211;U11. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
+    <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U2, U6, U4 und U7&#8211;U11. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
     Nicht aus Vsys versorgen (Robnet nicht belasten).
     <br><i>Zero nie gleichzeitig &uuml;ber USB versorgen.</i></div></foreignObject>
   <path class="w-power" d="M1020,1110 L1098,1110"/>
@@ -258,13 +254,13 @@
   <text class="lb" x="1110" y="149">40-pol. Leiste aufgesteckt (Pin / GPIO)</text>
   <text class="pn" x="1110" y="354">Pin 26 &#183; GPIO7 CE1 &#8594; U6</text>
   <text class="lb" x="1110" y="366">SPI-Leitungen gemeinsam mit U2</text>
-  <text class="pn" x="1110" y="474">Pin 18 &#183; GPIO24 &#8592; RO_B</text>
-  <text class="lb" x="1110" y="486">pigpio, Software-Empfang</text>
   <text class="pn" x="1110" y="594">Pin 10 &#183; GPIO15 RXD &#8592; RO_J</text>
   <text class="lb" x="1110" y="606">Seriell-Schnittstelle (Bluetooth aus)</text>
   <text class="pn" x="1110" y="619">Pin 16 &#183; GPIO23 &#8592; RO_J</text>
   <text class="lb" x="1110" y="631">Zeitstempel (pigpio)</text>
   <text class="lb" x="1110" y="645">Pin 1/17 +3V3 &#8594; Netz +3V3</text>
+  <text class="pn" x="1110" y="668">Daten-USB (Buchse am Zero)</text>
+  <text class="lb" x="1110" y="680">&#8594; WLAN-Stick am 5-m-Kabel oder LAN-Adapter</text>
   <text class="pn" x="1110" y="704">Pin 23 &#183; GPIO11 SCLK</text>
   <text class="pn" x="1110" y="729">Pin 19 &#183; GPIO10 MOSI</text>
   <text class="pn" x="1110" y="754">Pin 21 &#183; GPIO9 MISO</text>
@@ -279,10 +275,10 @@
   <!-- ======== PC ======== -->
   <rect x="1410" y="560" width="180" height="120" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
   <foreignObject x="1411" y="561" width="178" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten; stellt die Uhr des Zero. WLAN: Samsung AP,
-    Ersatz das WLAN des Masters.</div></foreignObject>
+    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten; stellt die Uhr. Motorraum abgeschirmt: Netz &#252;ber
+    USB des Zero, (1) WLAN-Stick am 5-m-Kabel au&#223;erhalb, (2) LAN-Adapter. WLAN: Samsung AP, Ersatz Master.</div></foreignObject>
   <path class="w-data" d="M1352,620 L1408,620" style="marker-start:url(#m-data)"/>
-  <text class="lb" x="1384" y="612">WLAN</text>
+  <text class="lb" x="1384" y="612">Netz</text>
   <text class="lb" x="1384" y="638">SSH</text>
 </svg>
 </div>
@@ -300,8 +296,9 @@
   Pfeile zeigen die Signalrichtung; Robnet-Adern ohne Pfeil (beide Richtungen). Ein Punkt ist ein Abzweig, Linien ohne
   Punkt kreuzen sich ohne Verbindung. <b>Violette fette Namen sind Netznamen: gleicher Name = verbunden</b> (Abgriffe vor
   den Shunts Seite J300 &#8222;_J&#8220;, dahinter Seite Bedieneinheit &#8222;_B&#8220;). Pinnummern an J1/J3 wie an der J300-Klemmleiste
-  (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Shunt-Werte gerechnet, nicht gemessen. Offen: Phoenix-Typ und Rastermaß,
-  Jumperart (l&ouml;st sich nicht, Vsys+ strombelastbar), Typ und Verst&auml;rkung U7&#8211;U11, Werte von R1&#8211;R4, Vorwiderstand der
+  (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Shunt-Werte gerechnet, nicht gemessen; Bus 2,2 &#937; bei Abschlusswiderst&auml;nden im Robertson-Bus, 100 &#937; ohne
+  (Hinweis: eher ohne, <code>Robnet.md</code> H8). Arbeitshypothese RS485 (H4). Offen: WLAN-Stick, 5-m-Kabel, LAN-Adapter, Phoenix-Typ und Rastermaß,
+  Jumperart (l&ouml;st sich nicht, Vsys+ strombelastbar), Typ und Verst&auml;rkung U7&#8211;U11, Werte von R1/R2, Vorwiderstand der
   Referenz, Sicherung, Verpolschutz.
 </p>
 </div>
