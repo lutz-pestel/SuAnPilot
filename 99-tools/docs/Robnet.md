@@ -1,6 +1,6 @@
 # Robnet (Datennetz des Robertson AP300X)
 
-Version 00.08, Stand 14.10.2026, Obergrenze 60 Zeilen.
+Version 00.09, Stand 15.10.2026, Obergrenze 60 Zeilen.
 Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 
 ## 1. Belegt (Handbuch AP300X `handbuecher/Robertson/Control-Unit/AP300CX_Manual.pdf`, Abschnitte 1.1, 3.x; AP11-Handbuch)
@@ -42,11 +42,11 @@ Alarm treibt. Protokoll und Datenrate nennen weder die Handbücher (AP300X, AP11
 - **H5** „V System“ ist die Versorgung der Bedieneinheit aus dem J300; gemessen 26,4 V, also über der Bordspannung (J300 erzeugt sie wohl selbst).
 - **H6 bestätigt:** Nur „Bus“ ist eine serielle Datenleitung (Datenpakete, Oszilloskop). Alarm ist 5-V-Logik (0,4 / 4,8 V).
   On-Off ist eine Schaltleitung ohne Logikpegel (12 V → 8 V beim Kommando ON/OFF); vermutlich zieht eine Seite sie über
-  einen Widerstand herunter – welche, klärt die Robnet-Analyse durch Auftrennen.
+  einen Widerstand herunter – welche, zeigt der Shunt der Robnet-Analyse.
 - **H7** Datenrate höchstens etwa 9600 Baud, weil das Gerät alt ist (Annahme des Betreibers, ungemessen).
 
 ## 4. Weitere Messungen
-Multimeter-Messung (Stufe 1) erledigt, Ergebnisse in Abschnitt 2. Datenrate, Signalform, Telegramme und das Auftrennen
-einzelner Adern übernimmt die Platine Robnet-Analyse: Einstieg `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`.
+Multimeter-Messung (Stufe 1) erledigt, Ergebnisse in Abschnitt 2. Datenrate, Signalform, Telegramme, Richtung
+(Shunts) und das Trennen einzelner Adern (Jumper) übernimmt die Platine Robnet-Analyse: Einstieg `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`.
 Sicherheit beim Messen von Hand: Klemmleiste gesteckt lassen, schwarze Spitze fest an Grau, Bordspannung und Pumpenausgang
 im J300 nicht berühren.
