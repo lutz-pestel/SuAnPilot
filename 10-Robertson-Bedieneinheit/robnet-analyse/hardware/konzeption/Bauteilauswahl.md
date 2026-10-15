@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse
 
-Version 00.06, Stand 15.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.20),
+Version 00.08, Stand 15.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.24),
 `Blockschaltbild_Robnet-Analyse.html` (00.15). Stückliste: `hardware/bom/bom.csv`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
@@ -38,7 +38,7 @@ Größenordnung; vor der Bestellung neu prüfen. Verworfene Wege stehen in je ei
   (Konzept), JP1 und JP2 siehe Abschnitt 1.
 - **U2, U6 MCP3208-CI/P** (DIP-16, je im Sockel; MC Abschnitt 3), Hardware-SPI, U2 an CE0, U6 an CE1.
 - **U4 Referenz LM4040AIZ-2.5/NOPB** (TO-92, ±0,1 %; MC Abschnitt 3), eine für beide Wandler.
-  Vorwiderstand von 3,3 V etwa 1 kΩ (≈ 0,8 mA, gerechnet; Wert im Schaltplan).
+  Vorwiderstand von 3,3 V: R4 1 kΩ (≈ 0,8 mA, gerechnet).
 - **Teiler:** Vishay MBB0207, 1 %, 0,6 W (Bereich 0,22 Ω–22 MΩ; ±1 % ab 10 Ω): 100 kΩ (12 Stück), 18 kΩ (9),
   8,2 kΩ (2, Vsys+ beidseitig), 180 kΩ (1, Alarm an den Zero), 1 kΩ (2, R1/R2).
 - **Klemmdioden BAT85** (MC Abschnitt 3): zwei je Wandlerkanal mit Teiler (11 Kanäle) und eine am Alarm-Teiler: 23 Stück.
@@ -48,7 +48,8 @@ Größenordnung; vor der Bestellung neu prüfen. Verworfene Wege stehen in je ei
 Bordnetz 12 V am J300 → **Sicherung 1 A träge**, 5 × 20 mm, im Halter Schurter OGN 0031.8201 (MC: 2 A; hier weniger
 Last: Zero, WLAN-Stick oder LAN-Adapter, zusammen unter 1 A bei 5 V, geschätzt) → **Verpolschutz SB540-E3/54** →
 **Schutzdiode 1.5KE20A** → Filter wie MC (4,7 µF ×2, Drossel Bourns RLB0914-100KL, 4,7 µF; KEMET C320C475K5R5TA ist
-nicht am Lager, gleichwertig TDK FG16X7R1H475KRT06, 50 V, X7R, Raster 2,5 mm) →
+nicht am Lager, gleichwertig TDK FG16X7R1H475KRT06, 50 V, X7R; laut TDK-Katalog FG 11/2024 Körper 5,5 × 3,5 mm,
+Höhe 6,0 mm, Raster 2,5 mm, Draht 0,5 mm, Endung RT06 = gegurtet, Maße wie lose; Bohrung 0,8 mm) →
 **Regler Recom R-78B5.0-2.0** (6,5–32 V) → 5 V an Zero Pin 2/4. Rote Leuchtdiode 3 mm mit 4,7 kΩ parallel zur Sicherung.
 3,3 V für U1, U2, U4, U6 vom Zero (zusammen wenige mA).
 
@@ -83,7 +84,7 @@ Regel: Jedes Teil braucht zwei unabhängige Händler. Mouser- und DigiKey-Links 
 | MAX3488EEPA (U1) | 1 + 1 | [Mouser 700-MAX3488EEPA](https://www.mouser.de/c/?q=MAX3488EEPA): 12,90 €, 99 Stück, **Restbestand** | [DigiKey MAX3488EEPA+-ND](https://www.digikey.de/de/products/result?keywords=MAX3488EEPA%2B): 13,17 €, 45 Stück |
 | MCP3208-CI/P (U2, U6) | 2 | [Reichelt MCP 3208-CI/P](https://www.reichelt.de/de/de/shop/produkt/12-bit_serieller_a_d-wandler_8-kanal_2_7v_spi_dip-16-90079): 3,05 € | [Mouser 579-MCP3208CIP](https://www.mouser.de/c/?q=MCP3208-CI%2FP): 2,39 €, 2 544 Stück |
 | LM4040AIZ-2.5/NOPB (U4) | 1 | [DigiKey LM4040AIZ-2.5/NOPB-ND](https://www.digikey.de/de/products/result?keywords=LM4040AIZ-2.5%2FNOPB): 2,49 €, 663 Stück | [Mouser 926-LM4040AIZ25NOPB](https://www.mouser.de/c/?q=LM4040AIZ-2.5%2FNOPB): 2,11 €, 43 Stück |
-| Widerstände 0207, 1 % | 29 | [Mouser Vishay MBB0207](https://www.mouser.de/c/?q=MBB02070C1003FCT00): je um 0,21 €, auf Lager: MBB02070C1003FCT00 (100 kΩ), …1802… (18 kΩ), …8201… (8,2 kΩ), …1803… (180 kΩ), …1001… (1 kΩ, 3 Stück), …4701… (4,7 kΩ) | [Reichelt METALL 100K](https://www.reichelt.de/de/de/shop/produkt/widerstand_metallschicht_100_kohm_0207_0_6_w_1_-11458) usw. (0207, 0,6 W, 1 %): 0,09 € |
+| Widerstände 0207, 1 % | 28 | [Mouser Vishay MBB0207](https://www.mouser.de/c/?q=MBB02070C1003FCT00): je um 0,21 €, auf Lager: MBB02070C1003FCT00 (100 kΩ), …1802… (18 kΩ), …8201… (8,2 kΩ), …1803… (180 kΩ), …1001… (1 kΩ, 3 Stück), …4701… (4,7 kΩ) | [Reichelt METALL 100K](https://www.reichelt.de/de/de/shop/produkt/widerstand_metallschicht_100_kohm_0207_0_6_w_1_-11458) usw. (0207, 0,6 W, 1 %): 0,09 € |
 | BAT85 | 23 | [Reichelt BAT 85](https://www.reichelt.de/de/de/shop/produkt/schottkydiode_30_v_0_2_a_do-35-4857): 0,08 € | [Mouser 78-BAT85S-TAP](https://www.mouser.de/c/?q=BAT85-TAP): 0,43 €, 42 572 Stück |
 | 100 nF KEMET C320C104K5R5TA | 3 | [Mouser 80-C320C104K5R5TA](https://www.mouser.de/c/?q=C320C104K5R5TA): 0,79 €, 87 429 Stück | [DigiKey C320C104K5R5TA](https://www.digikey.de/de/products/result?keywords=C320C104K5R5TA): 1,31 € |
 | 4,7 µF 50 V X7R, TDK FG16X7R1H475KRT06 | 3 | [Mouser 810-FG16X7R1H475KRT6](https://www.mouser.de/c/?q=X7R1H475KRT06): 0,83 €, 1 970 Stück | [DigiKey 445-173161-1-ND](https://www.digikey.de/de/products/result?keywords=FG16X7R1H475KRT06): 0,89 €, 5 691 Stück |

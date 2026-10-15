@@ -1,4 +1,4 @@
-# Version 00.04, Stand 15.10.2026. Hauptliste Robnet-Analyse. Begründung je Teil: konzeption/Bauteilauswahl.md (Abschnitt in Spalte Quelle). Lager und Preise vom 15.10.2026, vor der Bestellung neu prüfen. "MC" = wie Motor-Controller (2-motor-controller/hardware/bom/bom.csv).
+# Version 00.05, Stand 15.10.2026. Hauptliste Robnet-Analyse. Begründung je Teil: konzeption/Bauteilauswahl.md (Abschnitt in Spalte Quelle). Lager und Preise vom 15.10.2026, vor der Bestellung neu prüfen. "MC" = wie Motor-Controller (2-motor-controller/hardware/bom/bom.csv).
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
 Stiftleiste 1x2 2,54 mm vergoldet (JP3-JP7);5;Stiftleiste 1x2;nicht geprüft;-;-;-;-;-;-;-;-;gesteckt = 1:1, gezogen = getrennt;Bauteilauswahl 1, Bezug 8
 Stiftleiste 2x3 2,54 mm (JP1, JP2);2;Stiftleiste 2x3;nicht geprüft;-;-;-;-;-;-;-;-;JP1 A/B kreuzen, JP2 Seite wählen;Bauteilauswahl 1, Bezug 8
@@ -16,7 +16,7 @@ Bus-Empfänger U1;1;MAX3488EEPA-TUDI (DIP-8);C53286052;Extended;200;1.62;MAX3488
 A/D-Wandler U2, U6;2;MCP3208-CI/P (DIP-16, Sockel);C1543277;Extended;10;4.27;MCP3208T-CI/SL (SOIC-16);C626764;Extended;1088;3.32;wie MC (Werte aus MC-Liste);Bauteilauswahl 3, Bezug 8
 Spannungsreferenz 2,5 V U4;1;LM4040AIZ-2.5/NOPB (TO-92);C544355;-;2;4.43;nicht geprüft;-;-;-;-;wie MC, Bezug RS 534-3037;Bauteilauswahl 3, Bezug 8
 Sockel DIP-8 / DIP-16;1 / 2;Sockel DIP-8 (U1), DIP-16 (U2, U6);nicht geprüft;-;-;-;-;-;-;-;-;steckbar;Bauteilauswahl 3, Bezug 8
-Vorwiderstand LM4040;1;ca. 1 kΩ (Wert im Schaltplan);nicht geprüft;-;-;-;-;-;-;-;-;gerechnet;Bauteilauswahl 3, Bezug 8
+Vorwiderstand LM4040 (R4);1;1 kΩ 1 %, Vishay MBB0207;nicht geprüft;-;-;-;-;-;-;-;-;gerechnet;Bauteilauswahl 3, Bezug 8
 Sicherung 1 A träge 5 x 20 mm mit Halter;1;Sicherung 1 A T, Halter Schurter OGN 0031.8201;C3204125 (Halter);-;-;-;-;-;-;-;-;MC: 2 A, hier weniger Last;Bauteilauswahl 4, Bezug 8
 Verpolschutz;1;Vishay SB540-E3/54;-;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8
 Überspannungsschutz;1;1.5KE20A (DO-201);C1976464;Extended;308;0.16;-;-;-;-;-;wie MC;Bauteilauswahl 4, Bezug 8

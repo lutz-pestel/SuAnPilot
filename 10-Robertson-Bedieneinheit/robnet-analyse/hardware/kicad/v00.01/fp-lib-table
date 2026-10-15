@@ -1,0 +1,4 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "Robnet-Analyse")(type "KiCad")(uri "${KIPRJMOD}/Robnet-Analyse.pretty")(options "")(descr "Eigene Bauformen Robnet-Analyse"))
+)

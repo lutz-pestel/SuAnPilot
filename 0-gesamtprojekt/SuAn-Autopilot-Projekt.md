@@ -1,6 +1,6 @@
 # SuAn-Autopilot-Projekt
 
-Version 00.03, Stand 14.10.2026, Obergrenze 80 Zeilen.
+Version 00.05, Stand 15.10.2026, Obergrenze 80 Zeilen.
 Übersicht über das Gesamtprojekt auf hohem Niveau: Anlass, die zwei Wege, alle Unterprojekte. Einzelheiten stehen in den
 Dokumenten der Unterprojekte (Abschnitte 5 und 6).
 
@@ -55,7 +55,7 @@ Ziel: eine neue Bedieneinheit, gebaut auf ESP32 oder Raspberry Pi Zero, die an d
 | `1-tinypilot` | A, Phase 1 | Ersatzsystem im Betrieb; hier nur Fehler beheben und testen | läuft |
 | `2-motor-controller` | A, Phase 2 | Neubau Controller, ersetzt auch die RF300-Interfaceplatine | begonnen (Schaltplan) |
 | `3-suanpilot` | A, Phase 3 | Ersatz des TinyPilot; Ideensammlung | nicht begonnen |
-| `10-Robertson-Bedieneinheit` | B | Baugruppe `robnet-analyse` (Platine, die den Robnet-Bus mitliest) | Konzept |
+| `10-Robertson-Bedieneinheit` | B | Baugruppe `robnet-analyse` (Platine, die den Robnet-Bus mitliest) | Schaltplan fertig |
 | `99-tools` | beide | Werkzeuge: Messgerät (Strom, Spannung), Wissen zum Robnet | Messgerät: Idee |
 | `0-gesamtprojekt` | beide | diese Übersicht, Aufgaben, Chronik, Handbücher, Fertigung | laufend |
 
