@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse
 
-Version 00.08, Stand 15.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.24),
+Version 00.09, Stand 15.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.25),
 `Blockschaltbild_Robnet-Analyse.html` (00.15). Stückliste: `hardware/bom/bom.csv`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
