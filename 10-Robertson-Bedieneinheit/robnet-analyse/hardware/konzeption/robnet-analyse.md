@@ -1,14 +1,13 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.08, Stand 15.10.2026, Obergrenze 80 Zeilen.
+Version 00.09, Stand 15.10.2026, Obergrenze 80 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest, die Richtung jeder Ader über Shunts erkennt und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H7):
 `99-tools/docs/Robnet.md`. Alle Verbindungen mit Pins und Netzen: `Blockschaltbild_Robnet-Analyse.html`.
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
-- **Fertig:** Konzept (dieses Dokument), Messwerte am J300 (`Robnet.md`, Abschnitt 2).
-- **Blockschaltbild veraltet** (zeigt noch Relais statt Shunts und Jumper).
+- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.05, Messwerte am J300 (`Robnet.md`, Abschnitt 2).
 - **Noch nichts gebaut:** keine Teileauswahl, kein Schaltplan, keine Platine, keine Software. Zero 2 W nicht vorhanden.
   Leere Platzhalter: `Bauteilauswahl.md`, `hardware/bom/bom.csv`, `hardware/kicad/v00.01/`, `software/`.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
@@ -52,7 +51,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
    3,3 V für MAX3488 und MCP3208 vom Zero. **Nicht aus Vsys.**
 8. **Richtungserkennung:** Die Richtung folgt aus dem Spannungsunterschied über dem Shunt. Ein **zweiter MCP3208** (an CE1)
    misst Vsys+, On-Off, Alarm auf der Seite Bedieneinheit. Bus: Bei RS485 sendet immer nur einer; die Senderseite ist
-   stärker (CH0/CH1 gegen CH6/CH7, je Telegramm gemittelt). Kleine Shunts brauchen einen Strommessverstärker.
+   stärker (CH0/CH1 gegen CH6/CH7, je Telegramm gemittelt). Je Shunt ein Strommessverstärker (U7–U11) an den zweiten MCP3208.
 
 ## 3. Datenrate
 - **Digital (MAX3488):** übliche Datenraten an der Seriell-Schnittstelle durchprobieren; sonst ergeben die Zeitstempel

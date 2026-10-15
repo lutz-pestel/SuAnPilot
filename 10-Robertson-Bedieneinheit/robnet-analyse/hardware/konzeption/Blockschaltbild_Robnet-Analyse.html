@@ -33,8 +33,8 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.04, Stand 13.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
-  Robnet-Bus mit (sendet nie) und kann f&uuml;nf der sechs Adern &uuml;ber Relais auftrennen. Anforderungen und Einstieg:
+  <p class="sub">Version 00.05, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
+  Robnet-Bus mit (sendet nie), erkennt &uuml;ber Shunts die Richtung jeder Ader und kann f&uuml;nf der sechs Adern per Jumper trennen. Anforderungen und Einstieg:
   <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte: <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und
   MCP3208 aus den KiCad-Symbolen des Motor-Controllers; Zero-Pins und Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in
   <code>Bauteilauswahl.md</code>.</p>
@@ -83,7 +83,7 @@
 
   <!-- ======== Rahmen ======== -->
   <rect x="220" y="88" width="1160" height="1130" rx="14" fill="#fbfcfe" stroke="#8c97a6" stroke-width="2" stroke-dasharray="10 6"/>
-  <text class="frame-t" x="236" y="1208">Robnet-Analyse (eine Platine, Raspberry Pi Zero 2 W aufgesteckt) &#8211; liest nur, sendet nie; stromlos ist alles 1:1 verbunden</text>
+  <text class="frame-t" x="236" y="1208">Robnet-Analyse (eine Platine, Raspberry Pi Zero 2 W aufgesteckt) &#8211; liest nur, sendet nie; Signalweg nur passiv (Shunts, Jumper): f&#228;llt die Platine aus, l&#228;uft der Robertson weiter</text>
 
   <!-- ======== J1 Kabel zum J300 ======== -->
   <rect x="240" y="120" width="90" height="250" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
@@ -98,16 +98,16 @@
   <path class="w-cab" d="M204,250 L236,250"/>
   <text class="lb" x="204" y="243">6 Adern</text>
 
-  <!-- ======== Relais K1-K5 ======== -->
-  <rect x="420" y="120" width="120" height="250" rx="6" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <text class="pn" x="428" y="135">Relais, Ruhekontakt</text>
-  <text class="pn" x="480" y="164" text-anchor="middle">K3</text>
-  <text class="lb" x="480" y="189" text-anchor="middle">durchgehend</text>
-  <text class="pn" x="480" y="234" text-anchor="middle">K4</text>
-  <text class="pn" x="480" y="269" text-anchor="middle">K5</text>
-  <text class="pn" x="480" y="304" text-anchor="middle">K1</text>
-  <text class="pn" x="480" y="339" text-anchor="middle">K2</text>
-  <text class="lb" x="480" y="362" text-anchor="middle">stromlos = verbunden</text>
+  <!-- ======== Shunts und Jumper ======== -->
+  <rect x="410" y="120" width="160" height="250" rx="6" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <text class="pn" x="418" y="135">Shunts, Jumper w&#228;hlt</text>
+  <text class="lb" x="490" y="164" text-anchor="middle">RS1 0,1 &#937; / RS2 1 &#937; &#183; JP3</text>
+  <text class="lb" x="490" y="189" text-anchor="middle">durchgehend, kein Shunt</text>
+  <text class="lb" x="490" y="234" text-anchor="middle">RS3 10 &#937; / RS4 100 &#937; &#183; JP4</text>
+  <text class="lb" x="490" y="269" text-anchor="middle">RS5 10 &#937; / RS6 100 &#937; &#183; JP5</text>
+  <text class="lb" x="490" y="304" text-anchor="middle">RS7 2,2 &#937; / RS8 100 &#937; &#183; JP6</text>
+  <text class="lb" x="490" y="339" text-anchor="middle">RS9 2,2 &#937; / RS10 100 &#937; &#183; JP7</text>
+  <text class="lb" x="490" y="362" text-anchor="middle">Jumper gezogen = getrennt</text>
 
   <!-- ======== J3 Buchse Bedieneinheit ======== -->
   <rect x="640" y="120" width="90" height="250" rx="6" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
@@ -121,33 +121,45 @@
   <text class="pn" x="646" y="339">1 Bus&#8722;</text>
   <path class="w-cab" d="M685,118 L685,72"/>
 
-  <!-- Adern J1 -> Relais -> J3 -->
-  <path class="r-vs"  d="M330,160 L420,160 M540,160 L640,160"/>
+  <!-- Adern J1 -> Shunts -> J3 -->
+  <path class="r-vs"  d="M330,160 L410,160 M570,160 L640,160"/>
   <path class="r-gnd" d="M330,195 L640,195"/>
-  <path class="r-sw"  d="M330,230 L420,230 M540,230 L640,230"/>
-  <path class="r-sw"  d="M330,265 L420,265 M540,265 L640,265"/>
-  <path class="r-bus" d="M330,300 L420,300 M540,300 L640,300"/>
-  <path class="r-bus" d="M330,335 L420,335 M540,335 L640,335"/>
+  <path class="r-sw"  d="M330,230 L410,230 M570,230 L640,230"/>
+  <path class="r-sw"  d="M330,265 L410,265 M570,265 L640,265"/>
+  <path class="r-bus" d="M330,300 L410,300 M570,300 L640,300"/>
+  <path class="r-bus" d="M330,335 L410,335 M570,335 L640,335"/>
 
   <!-- Messabgriffe Seite J300 (Netznamen) -->
   <circle class="dot" cx="345" cy="160" r="3.5"/><text class="nn" x="350" y="155">VSYS_J</text>
   <circle class="dot" cx="345" cy="230" r="3.5"/><text class="nn" x="350" y="225">ONOFF_J</text>
   <circle class="dot" cx="345" cy="265" r="3.5"/><text class="nn" x="350" y="260">ALARM_J</text>
-  <circle class="dot" cx="360" cy="300" r="3.5"/><text class="nn" x="366" y="295">BUSP_J</text>
-  <circle class="dot" cx="390" cy="335" r="3.5"/><text class="nn" x="394" y="330">BUSN_J</text>
+  <circle class="dot" cx="360" cy="300" r="3.5"/><text class="nn" x="356" y="392" text-anchor="end">BUSP_J</text>
+  <circle class="dot" cx="390" cy="335" r="3.5"/><text class="nn" x="394" y="392">BUSN_J</text>
   <!-- Seite Bedieneinheit -->
-  <circle class="dot" cx="565" cy="300" r="3.5"/><text class="nn" x="570" y="295">BUSP_B</text>
-  <circle class="dot" cx="600" cy="335" r="3.5"/><text class="nn" x="605" y="330">BUSN_B</text>
+  <circle class="dot" cx="585" cy="160" r="3.5"/><text class="nn" x="590" y="155">VSYS_B</text>
+  <circle class="dot" cx="585" cy="230" r="3.5"/><text class="nn" x="590" y="225">ONOFF_B</text>
+  <circle class="dot" cx="585" cy="265" r="3.5"/><text class="nn" x="590" y="260">ALARM_B</text>
+  <circle class="dot" cx="600" cy="300" r="3.5"/><text class="nn" x="596" y="392" text-anchor="end">BUSP_B</text>
+  <circle class="dot" cx="620" cy="335" r="3.5"/><text class="nn" x="624" y="392">BUSN_B</text>
 
-  <!-- ======== Relaistreiber und Freigabe ======== -->
-  <rect x="800" y="120" width="220" height="150" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
-  <foreignObject x="801" y="121" width="218" height="148"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>Relaistreiber und Freigabe</b>
-    5 Treiber (Transistoren oder ULN2003) mit Freilaufdioden f&uuml;r die Spulen K1&#8211;K5 (5&nbsp;V).
-    <b style="display:inline;font-size:10px">S1 Freigabeschalter</b> des Betreibers in der Spulenversorgung +5V: ohne Freigabe zieht kein
-    Relais an. S1-Stellung &#8594; Zero (Teiler auf 3,3&nbsp;V). Trennen nur im Hafen.</div></foreignObject>
-  <path class="w-digi" d="M820,118 L820,104 L480,104 L480,118"/>
-  <text class="lb" x="590" y="99" text-anchor="middle">Spulen K1&#8211;K5</text>
+  <!-- ======== Strommessverstaerker ======== -->
+  <rect x="800" y="120" width="220" height="160" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="801" y="121" width="218" height="158"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>U7&#8211;U11 Strommessverst&auml;rker</b>
+    Je einer &uuml;ber jedem Shunt (Eingang _J gegen _B), beide Richtungen: U7 Vsys+ &#8594; I_VSYS, U8 On-Off &#8594; I_ONOFF,
+    U9 Alarm &#8594; I_ALARM, U10 Bus+ &#8594; I_BUSP, U11 Bus&#8722; &#8594; I_BUSN. Ausgang um 1,25&nbsp;V (halbe Referenz):
+    dar&uuml;ber flie&szlig;t Strom J300 &#8594; Bedieneinheit, darunter umgekehrt. Gleichtakt bis ~30&nbsp;V (Vsys+).
+    <i>Typ und Verst&auml;rkung offen.</i></div></foreignObject>
+  <path class="w-ana" d="M910,282 L910,298"/>
+
+  <!-- ======== U6 zweiter MCP3208 ======== -->
+  <rect x="800" y="300" width="220" height="100" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
+  <foreignObject x="801" y="301" width="218" height="98"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
+    <b>U6 Wandler MCP3208 (zweiter, CE1)</b>
+    CH0 &#8592; VSYS_B (100&nbsp;k / 8,2&nbsp;k), CH1 &#8592; ONOFF_B, CH2 &#8592; ALARM_B (100&nbsp;k / 18&nbsp;k; BAT85 wie U2).
+    CH3&#8211;CH7 &#8592; I_VSYS, I_ONOFF, I_ALARM, I_BUSP, I_BUSN. VREF von U4.</div></foreignObject>
+  <path class="w-digi" d="M1098,350 L1022,350" style="marker-start:url(#m-digi)"/>
+  <text class="lb" x="1060" y="343" text-anchor="middle">SPI + CE1</text>
 
   <!-- ======== U1 Empfaenger Seite J300 ======== -->
   <rect x="250" y="410" width="250" height="140" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
@@ -164,9 +176,9 @@
   <foreignObject x="551" y="420" width="228" height="129"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
     <b>U5 MAX3488, Seite Bedieneinheit</b>
     Beschaltung wie U1 (R3/R4, JP2). RO &#8594; Zero, Lesen per pigpio (Software-Empfang).
-    <i>Bei geschlossenem K1/K2 sehen U1 und U5 dasselbe; getrennt zeigt jeder seine Seite.</i></div></foreignObject>
-  <path class="w-data" d="M565,300 L565,408"/>
-  <path class="w-data" d="M600,335 L600,408"/>
+    <i>U1 und U5 sehen dieselben Bits; JP6/JP7 gezogen: jeder zeigt seine Seite.</i></div></foreignObject>
+  <path class="w-data" d="M600,300 L600,408"/>
+  <path class="w-data" d="M620,335 L620,408"/>
 
   <!-- RO-Leitungen zum Zero -->
   <path class="w-data" d="M780,470 L1098,470"/>
@@ -189,7 +201,7 @@
   <text class="lb" x="258" y="817">CH6 &#8592; <tspan class="nn">BUSP_B</tspan>  100 k / 18 k, ohne Gl&#228;ttung</text>
   <text class="lb" x="258" y="837">CH7 &#8592; <tspan class="nn">BUSN_B</tspan>  100 k / 18 k, ohne Gl&#228;ttung</text>
   <text class="lb" x="258" y="862">Je Kanal Teiler 1 %, zwei BAT85 nach +3V3/GND; Last je Ader ~118 k&#937;.</text>
-  <text class="lb" x="258" y="876">Vsys+, On-Off, Alarm nur Seite J300 (offen: zweiter MCP3208 an CE1?).</text>
+  <text class="lb" x="258" y="876">Seite Bedieneinheit von Vsys+, On-Off, Alarm: U6 (oben).</text>
   <path class="w-ana" d="M600,770 L658,770"/>
   <text class="lb" x="629" y="763" text-anchor="middle">CH0&#8211;7</text>
 
@@ -231,14 +243,12 @@
   <foreignObject x="371" y="1041" width="648" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
     <b>Versorgung</b>
     J2 +12&nbsp;V &#8594; F1 Sicherung &#8594; D1 Verpolschutz &#8594; <b style="display:inline;font-size:10px">Netz +12V_F</b> &#8594;
-    U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V) &#8594; <b style="display:inline;font-size:10px">+5V</b> &#8594; Zero Pin 2/4 und &#252;ber S1 zu den Relaisspulen.
-    <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U5, U2 und U4. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
+    U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V) &#8594; <b style="display:inline;font-size:10px">+5V</b> &#8594; Zero Pin 2/4.
+    <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U5, U2, U6, U4 und U7&#8211;U11. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
     Nicht aus Vsys versorgen (Robnet nicht belasten).
     <br><i>Zero nie gleichzeitig &uuml;ber USB versorgen.</i></div></foreignObject>
   <path class="w-power" d="M1020,1110 L1098,1110"/>
   <text class="lb" x="1060" y="1102" text-anchor="middle">+5V</text>
-  <path class="w-sup" d="M910,292 L910,272"/>
-  <text class="lb" x="916" y="290">+5V (Netz) &#8594; S1</text>
   <path class="w-sup" d="M1098,640 L1040,640"/>
   <text class="lb" x="1069" y="634" text-anchor="middle">+3V3</text>
 
@@ -246,12 +256,8 @@
   <rect x="1100" y="120" width="250" height="1060" rx="8" fill="#fff5f3" stroke="#c0392b" stroke-width="1.6"/>
   <text class="pn" x="1110" y="137">Raspberry Pi Zero 2 W (zu beschaffen)</text>
   <text class="lb" x="1110" y="149">40-pol. Leiste aufgesteckt (Pin / GPIO)</text>
-  <text class="pn" x="1110" y="174">Pin 29 &#183; GPIO5 &#8594; K1 Bus+</text>
-  <text class="pn" x="1110" y="194">Pin 31 &#183; GPIO6 &#8594; K2 Bus&#8722;</text>
-  <text class="pn" x="1110" y="214">Pin 33 &#183; GPIO13 &#8594; K3 Vsys+</text>
-  <text class="pn" x="1110" y="234">Pin 35 &#183; GPIO19 &#8594; K4 On-Off</text>
-  <text class="pn" x="1110" y="254">Pin 37 &#183; GPIO26 &#8594; K5 Alarm</text>
-  <text class="pn" x="1110" y="274">Pin 22 &#183; GPIO25 &#8592; S1-Stellung</text>
+  <text class="pn" x="1110" y="354">Pin 26 &#183; GPIO7 CE1 &#8594; U6</text>
+  <text class="lb" x="1110" y="366">SPI-Leitungen gemeinsam mit U2</text>
   <text class="pn" x="1110" y="474">Pin 18 &#183; GPIO24 &#8592; RO_B</text>
   <text class="lb" x="1110" y="486">pigpio, Software-Empfang</text>
   <text class="pn" x="1110" y="594">Pin 10 &#183; GPIO15 RXD &#8592; RO_J</text>
@@ -263,24 +269,17 @@
   <text class="pn" x="1110" y="729">Pin 19 &#183; GPIO10 MOSI</text>
   <text class="pn" x="1110" y="754">Pin 21 &#183; GPIO9 MISO</text>
   <text class="pn" x="1110" y="779">Pin 24 &#183; GPIO8 CE0</text>
-  <text class="lb" x="1110" y="793">Hardware-SPI 0; CE1 (Pin 26) frei f&#252;r 2. MCP3208</text>
+  <text class="lb" x="1110" y="793">Hardware-SPI 0 (U2 an CE0, U6 an CE1)</text>
   <text class="pn" x="1110" y="979">Pin 13 &#183; GPIO27 &#8592; ALARM</text>
   <text class="pn" x="1110" y="1114">Pin 2/4 &#183; +5V</text>
   <text class="lb" x="1110" y="1132">GND Pin 6, 9, 14, 20, 25 &#8230;</text>
   <text class="lb" x="1110" y="1146">Pin 8 GPIO14 TXD frei</text>
 
-  <!-- Zero -> Treiber -->
-  <path class="w-digi" d="M1098,170 L1022,170"/>
-  <path class="w-digi" d="M1098,190 L1022,190"/>
-  <path class="w-digi" d="M1098,210 L1022,210"/>
-  <path class="w-digi" d="M1098,230 L1022,230"/>
-  <path class="w-digi" d="M1098,250 L1022,250"/>
-  <path class="w-digi" d="M1022,268 L1098,268"/>
 
   <!-- ======== PC ======== -->
   <rect x="1410" y="560" width="180" height="120" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
   <foreignObject x="1411" y="561" width="178" height="118"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten, Relais schalten; stellt die Uhr des Zero. WLAN: Samsung AP,
+    <b>PC (Claude)</b>SSH auf den Zero: aufzeichnen, auswerten; stellt die Uhr des Zero. WLAN: Samsung AP,
     Ersatz das WLAN des Masters.</div></foreignObject>
   <path class="w-data" d="M1352,620 L1408,620" style="marker-start:url(#m-data)"/>
   <text class="lb" x="1384" y="612">WLAN</text>
@@ -300,9 +299,10 @@
 <p class="note">
   Pfeile zeigen die Signalrichtung; Robnet-Adern ohne Pfeil (beide Richtungen). Ein Punkt ist ein Abzweig, Linien ohne
   Punkt kreuzen sich ohne Verbindung. <b>Violette fette Namen sind Netznamen: gleicher Name = verbunden</b> (Abgriffe vor
-  den Relais Seite J300 &#8222;_J&#8220;, dahinter Seite Bedieneinheit &#8222;_B&#8220;). Pinnummern an J1/J3 wie an der J300-Klemmleiste
-  (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Offen: Phoenix-Typ und Rastermaß, Relaistyp,
-  Treiber, Werte von R1&#8211;R4, Vorwiderstand der Referenz, Sicherung, Verpolschutz, zweiter MCP3208.
+  den Shunts Seite J300 &#8222;_J&#8220;, dahinter Seite Bedieneinheit &#8222;_B&#8220;). Pinnummern an J1/J3 wie an der J300-Klemmleiste
+  (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Shunt-Werte gerechnet, nicht gemessen. Offen: Phoenix-Typ und Rastermaß,
+  Jumperart (l&ouml;st sich nicht, Vsys+ strombelastbar), Typ und Verst&auml;rkung U7&#8211;U11, Werte von R1&#8211;R4, Vorwiderstand der
+  Referenz, Sicherung, Verpolschutz.
 </p>
 </div>
 </body>
