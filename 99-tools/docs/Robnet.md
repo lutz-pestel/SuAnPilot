@@ -1,6 +1,6 @@
 # Robnet (Datennetz des Robertson AP300X)
 
-Version 00.10, Stand 15.10.2026, Obergrenze 60 Zeilen.
+Version 00.11, Stand 15.10.2026, Obergrenze 60 Zeilen.
 Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 
 ## 1. Belegt (Handbuch AP300X `handbuecher/Robertson/Control-Unit/AP300CX_Manual.pdf`, Abschnitte 1.1, 3.x; AP11-Handbuch)
@@ -25,7 +25,7 @@ Zweck: Was über das Robnet bekannt ist, was nicht, und was nur vermutet wird.
 - NMEA 0183 hat am J300 eigene Anschlüsse (4800 Baud, eigene LEDs), getrennt vom Robnet.
 
 ## 2. Messwerte (Betreiber, an der J300-Klemmleiste)
-Die Klemmleiste ist ein steckbarer 6-poliger Phoenix-Verbinder mit Schraubklemmen; Reihenfolge von links: Bus−, Bus+, Vsys+,
+Die Klemmleiste ist ein steckbarer 6-poliger Phoenix-Verbinder MSTB 2,5, 5,08 mm (Betreiber), mit Schraubklemmen; Reihenfolge von links: Bus−, Bus+, Vsys+,
 Vsys−, On-Off, Alarm. **10.10.2026**, Digitalvoltmeter gegen Masse der Robertson-Versorgung (Zustand nicht notiert):
 Bus− 0,7 V · Bus+ 4,4 V · Vsys+ 26,4 V · Vsys− 0,004 V · On-Off 13,5 V · Alarm 0,4 V (im Alarm 4,8 V); Bus+ gegen Bus− 3,7 V.
 Oszilloskop am Bus: Pakete aus unregelmäßigen Pulsen mit Pausen, ähnlich der NMEA-Ausgabe der RF300-Interfaceplatine.

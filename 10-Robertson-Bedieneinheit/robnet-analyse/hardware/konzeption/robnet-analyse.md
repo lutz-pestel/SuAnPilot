@@ -1,22 +1,21 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.13, Stand 15.10.2026, Obergrenze 100 Zeilen.
+Version 00.14, Stand 15.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest, die Richtung jeder Ader über Shunts erkennt und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
 `99-tools/docs/Robnet.md`. Alle Verbindungen mit Pins und Netzen: `Blockschaltbild_Robnet-Analyse.html`.
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
-- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.09, Messwerte am J300 (`Robnet.md`, Abschnitt 2).
+- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.10, Messwerte am J300 (`Robnet.md`, Abschnitt 2).
 - **Noch nichts gebaut:** keine Teileauswahl, kein Schaltplan, keine Platine, keine Software. Zero 2 W nicht vorhanden.
   Leere Platzhalter: `Bauteilauswahl.md`, `hardware/bom/bom.csv`, `hardware/kicad/v00.01/`, `software/`.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
-  1. Betreiber: Typ und Rastermaß des 6-poligen Phoenix-Steckers am J300 (Foto mit Lineal oder Aufschrift).
-  2. Teileauswahl in `Bauteilauswahl.md` (Abschnitt 5 „Offen“ ist die Liste); vorher dessen Zeilengrenze in `CLAUDE.md`
+  1. Teileauswahl in `Bauteilauswahl.md` (Abschnitt 5 „Offen“ ist die Liste); vorher dessen Zeilengrenze in `CLAUDE.md`
      eintragen. Muster: `2-motor-controller/.../Bauteilauswahl.md`.
-  3. Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus (Seriell-Schnittstelle frei), SPI an, pigpio.
-  4. Schaltplan in KiCad (`hardware/kicad/v00.01/`), Platine, Bestellung JLCPCB.
-  5. Software: Aufzeichnung, Datenraten durchprobieren, Telegramme zerlegen; dann Trennversuche (Abschnitt 1).
+  2. Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus (Seriell-Schnittstelle frei), SPI an, pigpio.
+  3. Schaltplan in KiCad (`hardware/kicad/v00.01/`), Platine, Bestellung JLCPCB.
+  4. Software: Aufzeichnung, Datenraten durchprobieren, Telegramme zerlegen; dann Trennversuche (Abschnitt 1).
 
 ## 1. Grundsätze
 - **Alle 6 Adern aufzeichnen und die Richtung erkennen:** welche Seite treibt bzw. sendet, auch auf dem Bus (Betreiber,
@@ -31,7 +30,8 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 - Teile und Schaltungen wie im Motor-Controller, wo möglich (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`).
 
 ## 2. Blöcke
-1. **Zwischenstecker:** Der 6-polige Phoenix-Stecker der Bedieneinheit (Reihenfolge Bus−, Bus+, Vsys+, Vsys−, On-Off,
+1. **Zwischenstecker:** Phoenix **MSTB 2,5, Rastermaß 5,08 mm** (wie an der RF300-Interfaceplatine; Betreiber, 15.10.2026).
+   Der 6-polige Stecker der Bedieneinheit (Reihenfolge Bus−, Bus+, Vsys+, Vsys−, On-Off,
    Alarm) wird am J300 abgezogen und in eine **Buchse auf der Platine** gesteckt; ein Kabel mit **Stecker** führt von der
    Platine in den J300. Dazu ein Kabel zur Robertson-Versorgung (+12 V) für die Platine.
 2. **Shunts und Jumper (Betreiber, 14.10.2026):** In Bus+, Bus−, Vsys+, On-Off, Alarm je zwei Shunts; ein Jumper wählt
@@ -74,7 +74,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   5 Zero-Ausgänge. Preis: Trennen nur von Hand an der Platine im Motorraum, nicht per Software vom PC.
 
 ## 5. Offen
-- Typ und Rastermaß des Phoenix-Steckers (Buchse und Stecker passend bestellen).
+- Bestellnummern: Steckerleiste auf der Platine (MSTBA 2,5/6-G-5,08) und Stecker für das Kabel zum J300 (MSTB 2,5/6-ST-5,08).
 - Jumper, der sich durch Vibration und Feuchte nicht löst (sonst ist die Ader getrennt); für Vsys+ strombelastbar.
 - Strommessverstärker passend zu beiden Shunt-Werten; Shunt-Werte bestätigen. Hilfreich, nicht zwingend, vorher messen:
   Bus-Abschluss (Ohmmeter zwischen Bus+ und Bus−, alles aus) und die Ströme in Vsys+, On-Off, Alarm.

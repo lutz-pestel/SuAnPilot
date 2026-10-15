@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.09, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
+  <p class="sub">Version 00.10, Stand 15.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
   Robnet-Bus mit (sendet nie), erkennt &uuml;ber Shunts die Richtung jeder Ader und kann f&uuml;nf der sechs Adern per Jumper trennen. Anforderungen und Einstieg:
   <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte: <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und
   MCP3208 aus den KiCad-Symbolen des Motor-Controllers; Zero-Pins und Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in
@@ -67,7 +67,7 @@
   <!-- ======== Vorhandene Anlage ======== -->
   <rect x="10" y="120" width="190" height="260" rx="8" fill="#eceff3" stroke="#9aa4b2" stroke-width="1.6"/>
   <foreignObject x="11" y="121" width="188" height="258"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
-    <b>J300 Verteilereinheit</b>Motorraum. Robnet-Buchse auf der Hauptplatine (6-polig, Phoenix, Typ offen); heute steckt dort
+    <b>J300 Verteilereinheit</b>Motorraum. Robnet-Buchse auf der Hauptplatine (6-polig, Phoenix MSTB 2,5, 5,08&nbsp;mm); heute steckt dort
     der Stecker der Bedieneinheit.
     <br><i>Gemessen gegen Masse:</i>
     <ul><li>Bus&#8722; 0,7&nbsp;V, Bus+ 4,4&nbsp;V</li><li>Vsys+ 26,4&nbsp;V, Vsys&#8722; 0,004&nbsp;V</li>
@@ -297,7 +297,7 @@
   Punkt kreuzen sich ohne Verbindung. <b>Violette fette Namen sind Netznamen: gleicher Name = verbunden</b> (Abgriffe vor
   den Shunts Seite J300 &#8222;_J&#8220;, dahinter Seite Bedieneinheit &#8222;_B&#8220;). Pinnummern an J1/J3 wie an der J300-Klemmleiste
   (von links 1&#8211;6); die Zeilenfolge im Bild ist zur &Uuml;bersicht umsortiert. Shunt-Werte gerechnet, nicht gemessen; Bus 2,2 &#937; bei Abschlusswiderst&auml;nden im Robertson-Bus, 100 &#937; ohne
-  (Hinweis: eher ohne, <code>Robnet.md</code> H8). Arbeitshypothese RS485 (H4). Offen: WLAN-Stick, 5-m-Kabel, LAN-Adapter, Phoenix-Typ und Rastermaß,
+  (Hinweis: eher ohne, <code>Robnet.md</code> H8). Arbeitshypothese RS485 (H4). Offen: WLAN-Stick, 5-m-Kabel, LAN-Adapter, Bestellnummern der Phoenix-Teile,
   Jumperart (l&ouml;st sich nicht, Vsys+ strombelastbar), Typ und Verst&auml;rkung U7&#8211;U11, Werte von R1/R2, Vorwiderstand der
   Referenz, Sicherung, Verpolschutz.
 </p>
