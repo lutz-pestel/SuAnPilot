@@ -1,11 +1,12 @@
-# Ergaenzt die Leiterbahnen der Platine Robnet-Analyse Linie B (SMD) v00.01. Version 00.02, Stand 16.10.2026.
+# Ergaenzt die Leiterbahnen der Platine Robnet-Analyse Linie B (SMD) v00.01. Version 00.03, Stand 16.10.2026.
 # Liest die platzierte Platine (ohne Bahnen, aus ../platine_erzeugen/robnet_platine.py) und schreibt die fertige Platine.
 # Aufruf mit dem Python von KiCad (KiCad geschlossen):
 #   "C:/Program Files/KiCad/10.0/bin/python.exe" robnet_bahnen.py ../platine_erzeugen/Robnet-Analyse_platziert.kicad_pcb ../Robnet-Analyse.kicad_pcb
 # Schutz: Liegt ein Bauteil im Ziel anders als in der platzierten Platine (in KiCad verschoben), bricht das Skript ab;
 # die neue Lage erst ins Platzierungsskript uebernehmen. Bahnen, die nur im Ziel stehen (in KiCad gezeichnet), ebenso;
 # Ueberschreiben nur mit --ueberschreiben; neue Lage aus dem Platzierungsskript mit --neue-lage.
-# Gruppen nacheinander, je Gruppe vom Betreiber freigegeben: 1 Versorgung und Masse, 2 Adern J1 -> Jumper -> J3 (16.10.2026).
+# Gruppen nacheinander, je Gruppe vom Betreiber freigegeben: 1 Versorgung und Masse, 2 Adern J1 -> Jumper -> J3,
+# 3 Teiler -> Wandler mit Referenz und Alarm zum Zero (16.10.2026).
 # Masse in mm, Ursprung oben links, y nach unten. Lagen: O = Oberseite (F.Cu), U = Unterseite (B.Cu, Massefläche).
 import sys, os
 import pcbnew
@@ -59,14 +60,14 @@ bahn('+5V', 1.5, O, (52.08, 5.5), (52.08, 2.6), (9.0, 2.6), (9.0, 85.2), (28.37,
 # 3,3 V vom Zero (Pin 1 und 17). Die Messleitung jedes Kanals laeuft oben quer unter ihrer BAT54S durch, deshalb
 # fuehrt die 3,3 V unten (Sammelleitung x = 57,3 rechts der Dioden, je Diode eine Durchkontaktierung).
 bahn('+3V3', 0.4, O, (25.83, 62.71), (23.6, 62.71), (23.6, 83.03), (25.83, 83.03))      # Pin 17 - Pin 1, links unter dem Zero
-bahn('+3V3', 0.3, U, (25.83, 62.71), (27.1, 63.98), (29.6, 63.98))                      # zwischen den Stiftreihen heraus
-bahn('+3V3', 0.4, U, (29.6, 63.98), (36.83, 63.98), (36.83, 50.0))                       # U2 VDD
-bahn('+3V3', 0.4, O, (34.5, 62.91), (34.5, 64.1))                                        # R4 (Referenz)
-via('+3V3', 34.5, 64.1)
-bahn('+3V3', 0.4, U, (36.83, 59.5), (57.3, 59.5))        # zwischen den Kanalbloecken: kreuzt keine Messleitung (Gruppe 3)
+bahn('+3V3', 0.4, O, (34.5, 62.91), (35.8, 64.0))                                        # R4 (Referenz); Durchkontaktierung
+via('+3V3', 35.8, 64.0)                                  # rechts, damit die Masseflaeche zwischen ihr und der Referenz durchkommt
+bahn('+3V3', 0.4, U, (35.8, 64.0), (37.9, 64.0), (37.9, 51.2), (36.83, 50.0))            # U2 VDD (Abstand zu U4 Pin 3: Masse)
+bahn('+3V3', 0.4, U, (37.9, 59.5), (57.3, 59.5))        # zwischen den Kanalbloecken: kreuzt keine Messleitung (Gruppe 3)
 bahn('+3V3', 0.4, O, (33.0, 50.48), (36.83, 50.48))                                      # C2
 bahn('+3V3', 0.4, U, (25.83, 83.03), (27.2, 84.4), (36.83, 84.4))                        # U6 VDD
 bahn('+3V3', 0.4, O, (33.0, 84.47), (36.83, 84.47))                                      # C3
+bahn('+3V3', 0.4, U, (36.83, 84.0), (36.83, 86.3), (57.3, 86.3), (57.3, 79.6))            # U6 und Zero an die Sammelleitung
 ZEILEN_J = [32.5, 37.3, 42.1, 46.9, 51.7, 56.5]          # Kanalzeilen (y der Widerstaende), Seite J300 und Bedieneinheit
 ZEILEN_B = [61.5, 66.3, 71.1, 75.9, 80.7]
 ZEILEN = ZEILEN_J + ZEILEN_B
@@ -158,6 +159,34 @@ for n in J3X:
     else:
         bahn(netz, 0.25, O, (J3X[n], 89.84), (J3X[n], EBENE[n]), (GASSE_B[n], EBENE[n]), (GASSE_B[n], ZEILE[netz]), (RX, ZEILE[netz]))
 
+# ---------------------------------------------------------------- Gruppe 3: Teiler -> Wandler, Referenz, Alarm zum Zero
+# Messleitung je Zeile oben: R zur Ader (Pin rechts) -> BAT54S Pin 3 -> unter der Diode zwischen Pin 1 und 2 durch ->
+# R zur Masse; dann unten zum Wandlerpin (Zeilen in Kanalfolge, deshalb ohne Kreuzung)
+MITTE = [('Net-(D16-COM)', 32.5, 37.3), ('Net-(D15-COM)', 37.3, 39.84), ('Net-(D14-COM)', 42.1, 42.38),
+         ('Net-(D13-COM)', 46.9, 44.92), ('Net-(D12-COM)', 51.7, 47.46), ('Net-(D11-COM)', 56.5, 50.0),
+         ('Net-(D35-COM)', 61.5, 73.84), ('Net-(D34-COM)', 66.3, 76.38), ('Net-(D33-COM)', 71.1, 78.92),
+         ('Net-(D32-COM)', 75.9, 81.46), ('Net-(D31-COM)', 80.7, 84.0)]          # Netz, Zeile, Pin y an U2/U6 (x 44,45)
+for netz, y, py in MITTE:
+    bahn(netz, 0.25, O, (51.41, y), (58.99, y))
+    bahn(netz, 0.25, O, (52.6, y), (52.6, y + 1.0))
+    via(netz, 52.6, y + 1.0)
+    bahn(netz, 0.25, U, (52.6, y + 1.0), (46.5, py), (44.45, py))
+# Referenz 2,5 V (U4, R4) unten zu U2 und U6 Pin 15, links an R4 vorbei (rechts liegt die 3,3 V von R4)
+REF = 'Net-(U2-Vref)'
+bahn(REF, 0.25, O, (34.5, 61.09), (33.2, 61.09))
+via(REF, 33.2, 61.09)
+bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 60.0), (33.2, 61.09), (33.8, 61.7), (33.8, 80.5), (34.76, 81.46), (36.83, 81.46))
+bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 55.0), (35.6, 53.7), (35.6, 48.4), (36.83, 47.46))
+# Alarm zum Zero (Pin 13): Teiler R23 - D23 - R24 oben, dann unten rechts an U1 vorbei, unter U6 nach links (y 87,6),
+# links oben hinauf und zwischen den Stiftreihen in Pin 13. Daneben bleibt Platz fuer die Empfaengerleitung (Gruppe 5):
+# unten y 86,9, oben x 30,2 zu Pin 10.
+bahn('ALARM_ZERO', 0.25, O, (66.41, 62.0), (73.99, 62.0))
+bahn('ALARM_ZERO', 0.25, O, (73.99, 62.0), (73.99, 63.3))
+via('ALARM_ZERO', 73.99, 63.3)
+bahn('ALARM_ZERO', 0.25, U, (73.99, 63.3), (74.7, 64.0), (74.7, 87.6), (30.8, 87.6))
+via('ALARM_ZERO', 30.8, 87.6)
+bahn('ALARM_ZERO', 0.25, O, (30.8, 87.6), (30.8, 66.52), (27.1, 66.52), (25.83, 67.79))
+
 # Masse: Flaeche auf der ganzen Unterseite; jedes SMD-Massepad oben mit kurzer Bahn an eine Durchkontaktierung 0,8/0,4 mm
 def masse(pad, ziel):
     bahn('GND', 0.5, O, pad, ziel)
@@ -169,7 +198,7 @@ masse((75.81, 62.0), (77.1, 62.0))                        # R24
 masse((70.84, 62.95), (70.84, 63.9))                      # D23
 masse((71.97, 65.5), (73.6, 65.5))                        # C1
 masse((33.0, 47.52), (34.6, 47.52))                       # C2
-masse((33.0, 81.53), (34.6, 81.53))                       # C3
+masse((33.0, 81.53), (33.0, 79.8))                        # C3 (rechts daneben laeuft die Referenz)
 masse((39.0, 16.52), (39.0, 14.9))                        # C4
 masse((37.5, 5.53), (35.9, 5.53))                         # C5
 masse((41.0, 5.53), (42.6, 5.53))                         # C6
