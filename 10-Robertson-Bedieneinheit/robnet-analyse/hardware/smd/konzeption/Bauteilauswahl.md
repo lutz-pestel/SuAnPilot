@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.07, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine nicht begonnen. Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.09, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert (ohne Leiterbahnen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -53,8 +53,14 @@ am Lager): machbar ohne Abstrich an der Funktion, ohne Extended; Ergebnis in `..
 Linie A mit Regel 11; dort ändern, nicht in KiCad); Feld „LCSC Part #“ an jedem JLCPCB-Teil; 67 Bauteile = `bom.csv`;
 ERC 0 Meldungen, `pruefung_blockschaltbild.py` (für Linie B angepasst) 87 von 87; alle Blätter als Bild geprüft.
 BAT54S-Anschlüsse aus der Datenblattzeichnung: 1 Anode, 2 Kathode, 3 Mitte = KiCad-Bibliothek.
-Nächster Schritt: Platine (Ablauf, Schritt 3).
+**Platine** (Ablauf, Schritt 3, 16.10.2026): `../kicad/v00.01/Robnet-Analyse.kicad_pcb`, erzeugt mit `platine_erzeugen/robnet_platine.py`.
+100 × 100 mm, 2 Lagen (günstigste Stufe: „$2 for 5pcs, 2-layer, ≤ 10cmx10cm“, jlcpcb.com/help/article/how-do-i-place-an-order,
+Stand 09.09.2026). J1 oben rechts genau über J3 unten rechts (Klemmenfolge gespiegelt, Adern kreuzen sich beim Routing);
+Jumper JP3–JP7 senkrecht unter ihren J1-Klemmen (Masse „fest“), Klemmen und Jumper mit Nummer und Name; JP2/JP1 mit
+Klartext daneben; J2 und Versorgung oben links; Zero links, 8 mm hochgesetzt; M3-Löcher in allen vier Ecken (alles Betreiber,
+16.10.2026). U1, C1 vom Betreiber in KiCad verschoben, ins Skript übernommen. SMD nur oben, ≥ 2,5 mm vom Rand (Skript). DRC: Schaltplanabgleich 0,
+keine Hof- oder Aufdrucküberlappung; nur Aufdruck J1–J3/Zero an der Kante (gewollt) und offene Verbindungen.
+Nächster Schritt: Leiterbahnen (Ablauf, Schritt 3, Punkt 7).
 
 ## 4. Offen
-- J3 (Bedieneinheit) an die Unterkante verlegen (Betreiber, 16.10.2026, beide Linien; Ablauf, Schritt 3).
 - Platinengröße: ob ≤ 100 × 100 mm (heute 113,5 mm lang) die Leiterplatte verbilligt – Preisseite noch nicht gelesen.

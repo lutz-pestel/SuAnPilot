@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.37, Stand 16.10.2026, Obergrenze 100 Zeilen.
+Version 00.38, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -8,7 +8,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
 - **Ablage** (Betreiber, 16.10.2026): gemeinsam nur `hardware/konzeption/` (dieses Konzept, Blockschaltbild). Linie A (THT) in `hardware/tht/`,
-  Linie B (SMD, JLCPCB bestückt; Teile ohne Extended und Schaltplan `smd/kicad/v00.01/` fertig 16.10.2026, `smd/konzeption/Bauteilauswahl.md`, Ablauf `0-gesamtprojekt/fertigung/ablauf-smd-bestueckung.md`) in `hardware/smd/`, gleicher Aufbau. Unten: `Bauteilauswahl.md` = THT.
+  Linie B (SMD, JLCPCB bestückt; Teile ohne Extended, Schaltplan und Platine 100 × 100 mm mit J3 unten platziert in `smd/kicad/v00.01/` 16.10.2026, `smd/konzeption/Bauteilauswahl.md`, Ablauf `0-gesamtprojekt/fertigung/ablauf-smd-bestueckung.md`) in `hardware/smd/`, gleicher Aufbau. Unten: `Bauteilauswahl.md` = THT.
 - **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.16, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
   Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.16 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Schaltplan fertig** (`hardware/tht/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
@@ -23,7 +23,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   Bahnbreite: Vsys+ 1,5 mm (3 A = Grenze der Jumper; Strom der Bedieneinheit nicht gemessen), Versorgung 1,0 mm, Signale 0,25 mm.
   DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
-  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC. J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B gleich beim Entwurf.
+  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC. J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
   2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe.
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
      Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus
