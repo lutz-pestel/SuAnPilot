@@ -1,4 +1,4 @@
-# Erzeugt den Schaltplan Robnet-Analyse v00.01 (Hauptblatt, Unterblaetter, Projektbibliotheken). Version 00.02, Stand 15.10.2026.
+# Erzeugt den Schaltplan Robnet-Analyse v00.01 (Hauptblatt, Unterblaetter, Projektbibliotheken). Version 00.03, Stand 15.10.2026.
 # Aufruf (KiCad geschlossen), im Ordner schaltplan_erzeugen:  python robnet.py ..
 # Danach: kicad-cli sch erc, Netzliste exportieren, python ../pruefung_blockschaltbild.py <netzliste.xml> (86 erfuellt).
 # Aenderungen am Schaltplan hier vornehmen und neu erzeugen, nicht in KiCad (sonst gehen sie beim naechsten Lauf verloren).

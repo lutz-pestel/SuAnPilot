@@ -1,11 +1,11 @@
-# Version 00.05, Stand 15.10.2026. Hauptliste Robnet-Analyse. Begründung je Teil: konzeption/Bauteilauswahl.md (Abschnitt in Spalte Quelle). Lager und Preise vom 15.10.2026, vor der Bestellung neu prüfen. "MC" = wie Motor-Controller (2-motor-controller/hardware/bom/bom.csv).
+# Version 00.06, Stand 15.10.2026. Hauptliste Robnet-Analyse. Begründung je Teil: konzeption/Bauteilauswahl.md (Abschnitt in Spalte Quelle). Lager und Preise vom 15.10.2026, vor der Bestellung neu prüfen. "MC" = wie Motor-Controller (2-motor-controller/hardware/bom/bom.csv).
 Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung (Grund für THT / Befund);Quelle
 Stiftleiste 1x2 2,54 mm vergoldet (JP3-JP7);5;Stiftleiste 1x2;nicht geprüft;-;-;-;-;-;-;-;-;gesteckt = 1:1, gezogen = getrennt;Bauteilauswahl 1, Bezug 8
 Stiftleiste 2x3 2,54 mm (JP1, JP2);2;Stiftleiste 2x3;nicht geprüft;-;-;-;-;-;-;-;-;JP1 A/B kreuzen, JP2 Seite wählen;Bauteilauswahl 1, Bezug 8
 Jumper vergoldet 3 A;9;Harwin M7566-05;-;-;-;-;-;-;-;-;-;5 für JP3-JP7, je 2 für JP1 und JP2, Bezug Farnell 150411;Bauteilauswahl 1, Bezug 8
 Stiftleiste 1x3 2,54 mm (J4 Messpunkte);1;Stiftleiste 1x3;nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 2, Bezug 8
 Widerstände 1 %, Vishay MBB0207;26;100 kΩ (12), 18 kΩ (9), 8,2 kΩ (2), 180 kΩ (1), 1 kΩ (2);nicht geprüft;-;-;-;-;-;-;-;-;-;Bauteilauswahl 3, Bezug 8
-Klemmdioden;23;BAT85 (DO-34);-;-;-;-;-;-;-;-;-;wie MC, Bezug RS 0300978;Bauteilauswahl 3, Bezug 8
+Klemmdioden;23;BAT85S Vishay (DO-35);-;-;-;-;-;-;-;-;-;wie MC (dort Nexperia DO-34), Bezug Reichelt/Mouser;Bauteilauswahl 3, Bezug 8
 Abblockkondensatoren 100 nF;3;KEMET C320C104K5R5TA;nicht geprüft;-;-;-;-;-;-;-;-;wie MC;Bauteilauswahl 3, Bezug 8
 Stiftleiste 6-polig 5,08 mm (J1, J3);2;Phoenix MSTBA 2,5/6-G-5,08 (1757284);-;-;-;-;-;-;-;-;-;lieferbar (Betreiber 15.10.2026), Farnell 3705213;Bauteilauswahl 2, Bezug 8
 Stecker 6-polig 5,08 mm (Kabel J1-J300);2;Phoenix MSTB 2,5/6-ST-5,08 (1757051);-;-;-;-;-;-;-;-;-;Stecker der Bedieneinheit ist vorhanden;Bauteilauswahl 2, Bezug 8

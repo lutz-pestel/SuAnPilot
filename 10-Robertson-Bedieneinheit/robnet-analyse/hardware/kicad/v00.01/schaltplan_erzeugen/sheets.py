@@ -1,8 +1,8 @@
-# Unterblaetter Robnet-Analyse v00.01: Versorgung, Bus-Empfaenger, Rechner, Messung. Version 00.02, Stand 15.10.2026.
+# Unterblaetter Robnet-Analyse v00.01: Versorgung, Bus-Empfaenger, Rechner, Messung. Version 00.03, Stand 15.10.2026.
 from kgen import Sheet
 
 FP_R = 'Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P10.16mm_Horizontal'
-FP_BAT = 'Diode_THT:D_DO-34_SOD68_P7.62mm_Horizontal'
+FP_BAT = 'Diode_THT:D_DO-35_SOD27_P7.62mm_Horizontal'   # Vishay BAT85S: DO-35 (Datenblatt Rev. 2.2)
 FP_C100N = 'Robnet-Analyse:C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm'
 FP_C4U7 = 'Robnet-Analyse:C_TDK_FG16_L5.5mm_W3.5mm_P2.50mm'
 _flg = [1]
@@ -56,7 +56,7 @@ def versorgung(path):
     # +12V_F: hinter dem Verpolschutz, Messkanal Bordspannung
     s.wire(d1.pin(1), (73.66, Y)); s.junction(73.66, Y)
     s.wire((73.66, Y), (73.66, 55.88)); s.hlabel('+12V_F', 73.66, 55.88, 'output', 90)
-    d2 = dio_v(s, 'Diode:1.5KExxA', 'D2', '1.5KE20A', 78.74, 87.63, 'Diode_THT:D_DO-201AE_P15.24mm_Horizontal', 'left')
+    d2 = dio_v(s, 'Diode:1.5KExxA', 'D2', '1.5KE20A', 78.74, 87.63, 'Diode_THT:D_DO-201_P15.24mm_Horizontal', 'left')
     c4 = cap_v(s, 'C4', '4u7 50V', 91.44, 87.63, FP_C4U7)
     c5 = cap_v(s, 'C5', '4u7 50V', 104.14, 87.63, FP_C4U7)
     l1 = s.sym('Device:L', 'L1', '10uH', 118.11, Y, 90, fp='Inductor_THT:L_Radial_D10.0mm_P5.00mm_Fastron_07P',
@@ -146,7 +146,7 @@ def rechner(path):
     px, py = 148.59, 101.6
     s.frame(78.74, 45.72, 215.9, 152.4, 'Rechner: Raspberry Pi Zero 2 W (aufgesteckt)')
     j5 = s.sym('Connector:Raspberry_Pi_2_3', 'J5', 'Raspberry Pi Zero 2 W', px, py,
-               fp='Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical',
+               fp='Robnet-Analyse:Raspberry_Pi_Zero_kopfueber',
                fields={'Reference': (px, py - 36.83, None), 'Value': (px + 12.7, py + 35.56, None)})
     rx, ts = j5.pin(10), j5.pin(16)
     s.hlabel('BUS_RX', 101.6, rx[1], 'input', 180)

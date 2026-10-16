@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.25, Stand 15.10.2026, Obergrenze 100 Zeilen.
+Version 00.29, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -8,25 +8,23 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
 - **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.15, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
-  Teileauswahl `Bauteilauswahl.md` 00.09 mit Bezugsquellen (Abschnitt 8) und Stückliste `hardware/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
+  Teileauswahl `Bauteilauswahl.md` 00.13 mit Bezugsquellen (Abschnitt 8) und Stückliste `hardware/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Schaltplan fertig** (`hardware/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
   alle Versorgungen laufen sichtbar über das Hauptblatt (in den Unterblättern nur blattlokale Versorgungszeichen).
   Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad).
-  Keine Platine, keine Software (`software/` leer). Zero 2 W nicht vorhanden.
+  Keine Software (`software/` leer). Zero 2 W nicht vorhanden.
+- **Platine: Bauteile platziert, keine Leiterbahnen** (`Robnet-Analyse.kicad_pcb`, 15.10.2026), erzeugt mit
+  `platine_erzeugen/robnet_platine.py` (Lage, Aufdruck, JLCPCB-Regeln, Leiterbahnklassen, 3D-Modelle; überschreibt kein Board mit Bahnen).
+  100 × 110 mm, 2 Lagen: J1–J3 oben, Jumper darunter, Zero kopfüber unten links (USB links, SD unten), Versorgung rechts.
+  Bahnbreite: Vsys+ 1,5 mm (3 A = Grenze der Jumper; Strom der Bedieneinheit nicht gemessen), Versorgung 1,0 mm, Signale 0,25 mm.
+  DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
-  1. Offene Punkte der Teileauswahl klären (`Bauteilauswahl.md`, Abschnitt 7).
-  2. Platine in KiCad (`hardware/kicad/v00.01/`), Bestellung JLCPCB.
+  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC.
+  2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe.
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
      Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus
      (Seriell-Schnittstelle frei), SPI an, pigpio.
   4. Software: Aufzeichnung, Datenraten durchprobieren, Telegramme zerlegen; dann Trennversuche (Block 8).
-- **Für die Platine noch offen** (Stand 15.10.2026):
-  1. Bauformen gegen Datenblatt prüfen; bestätigt nur TDK FG16 (`datenblaetter/`), übrige aus KiCad bzw. Motor-Controller übernommen.
-  2. Strom der Bedieneinheit über Vsys+ (JP5, J1/J3) unbekannt, nirgends gemessen; bestimmt die Leiterbahnbreite.
-  3. `.kicad_pro` enthält keine Fertigungsregeln; JLCPCB-Regeln nach `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md` setzen.
-  4. Arbeitsweg für die Platine (Skript, KiCad-Server oder von Hand) nicht entschieden. Achtung: `robnet.py` überschreibt beim
-     nächsten Lauf alle in KiCad am Schaltplan gemachten Änderungen (auch Bauform-Zuordnungen).
-  5. Mechanik des Zero offen: Lage, Befestigungslöcher, USB-Buchse zur Gehäusekante (Abschnitt 2, Block 6).
 
 ## 1. Grundsätze
 - **Alle 6 Adern aufzeichnen und die Richtung erkennen:** welche Seite treibt bzw. sendet, auch auf dem Bus (Betreiber,

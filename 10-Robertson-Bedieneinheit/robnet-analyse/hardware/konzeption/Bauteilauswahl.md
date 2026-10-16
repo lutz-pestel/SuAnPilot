@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse
 
-Version 00.09, Stand 15.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.25),
+Version 00.13, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.29),
 `Blockschaltbild_Robnet-Analyse.html` (00.15). Stückliste: `hardware/bom/bom.csv`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
@@ -19,7 +19,7 @@ Größenordnung; vor der Bestellung neu prüfen. Verworfene Wege stehen in je ei
 - **JP1** (A/B des Empfängers gerade oder gekreuzt) und **JP2** (Empfänger an der Seite J300 oder Bedieneinheit): je eine
   Stiftleiste 2 × 3, 2,54 mm, mit zwei Jumpern.
 - **Jumper Harwin M7566-05** (vergoldet, 3 A, 250 V, oben offen, damit man mit einer Messspitze ankommt; Farnell 150411),
-  9 Stück. 3 A reichen für Vsys+ (Verbrauch der Bedieneinheit). Gegen Lösen durch Vibration: ein Streifen Kapton-Band
+  9 Stück. Vsys+ ist auf 3 A ausgelegt (Strom der Bedieneinheit nicht gemessen). Gegen Lösen durch Vibration: ein Streifen Kapton-Band
   über alle Jumper. Gleichwertig: Binder MPE 149-1-002 (vergoldet, 3 A, oben offen; Abschnitt 8).
 - *Verworfen:* DIP-Schalter (nur für Signalstrom); Lötbrücken (Umstecken nur mit Lötkolben); Relais (Konzept, Abschnitt 4).
 
@@ -41,7 +41,7 @@ Größenordnung; vor der Bestellung neu prüfen. Verworfene Wege stehen in je ei
   Vorwiderstand von 3,3 V: R4 1 kΩ (≈ 0,8 mA, gerechnet).
 - **Teiler:** Vishay MBB0207, 1 %, 0,6 W (Bereich 0,22 Ω–22 MΩ; ±1 % ab 10 Ω): 100 kΩ (12 Stück), 18 kΩ (9),
   8,2 kΩ (2, Vsys+ beidseitig), 180 kΩ (1, Alarm an den Zero), 1 kΩ (2, R1/R2).
-- **Klemmdioden BAT85** (MC Abschnitt 3): zwei je Wandlerkanal mit Teiler (11 Kanäle) und eine am Alarm-Teiler: 23 Stück.
+- **Klemmdioden BAT85** (Vishay BAT85S, DO-35; MC Abschnitt 3): zwei je Wandlerkanal mit Teiler (11 Kanäle) und eine am Alarm-Teiler: 23 Stück.
 - **Abblockkondensatoren 100 nF** KEMET C320C104K5R5TA (MC Abschnitt 9): U1, U2, U6 (3 Stück).
 
 ## 4. Versorgung — wie MC Abschnitt 7
@@ -69,11 +69,27 @@ Höhe 6,0 mm, Raster 2,5 mm, Draht 0,5 mm, Endung RT06 = gegurtet, Maße wie los
 ## 6. Gehäuse und Einbau — Vorschlag wie MC Abschnitt 9
 3D-Druck ASA, nur mechanischer Schutz. Jumper JP1–JP7 und J4 unter einem Deckel zugänglich; USB-Buchse des
 Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2, J3 an einer Kante. Einbauort nahe J300.
+- **Zero-Befestigung** (Betreiber, 16.10.2026): 4 Abstandsbolzen Würth WA-SSTII 970110151 (M2,5, innen/innen, 11 mm =
+  Buchsenleiste 8,5 + Kunststoff der Zero-Stiftleiste 2,5, gerechnet) und 8 Schrauben M2,5 × 5 ISO 4762.
+- **3D-Modelle** (STEP, `hardware/3d-modelle/`, nicht in Git; 16.10.2026), je Teil eines:
+  - Hersteller: Phoenix 1757284, 1757242, 1757051, 1757019; Bourns RLB0914; Würth 970110151.
+  - KiCad-Bibliothek (Normmaße, nicht das Herstellermodell): DIP-8/16 und Sockel, TO-92, R 0207, DO-35, DO-201(AD),
+    R-78B, Sicherungshalter Schurter 0031.8201, LED 3 mm, Stiftleisten 1×2/1×3/2×3, Buchsenleiste 2×20.
+  - FreeCAD-Bibliothek: microSD-Karte, Schraube M2,5 × 5 ISO 4762.
+  - Selbst gezeichnet mit `3d-modelle/eigene_modelle.py` (Maße der Hersteller, Rest als ANNAHME gekennzeichnet):
+    TDK FG16, KEMET C320, Harwin M7566-05, Sicherung 5 × 20, Zero 2 W, OTG-Stecker, Steuerleitung.
+    Grund: Modell nur mit Konto (TraceParts, SnapEDA, GrabCAD) oder gar keins. Annahmen am echten Teil messen.
+  - In KiCad den Bauformen zugeordnet (`platine_erzeugen/robnet_platine.py` 00.02); gedrehte und gesteckte Teile
+    (Stecker in J1–J3, Jumper, Sicherung, Drossel, Zero mit Bolzen, Schrauben, Karte, OTG) vorab gelegt mit `3d-modelle/kicad_lage.py`
+    in `3d-modelle/kicad-lage/`. ANNAHME: Sicherungsachse 8 mm über der Platine, Stecker ganz eingesteckt.
 
 ## 7. Offen — vor der Bestellung zu prüfen
 - Lager und Preise neu prüfen (Stand der Tabelle: 15.10.2026).
-- MAX3488EEPA: Restbestand bei Mouser und DigiKey; Reserve mitbestellen, Ersatz gegebenenfalls neu suchen.
+- MAX3488EEPA: Restbestand bei Mouser und DigiKey; Reserve mitbestellen, Ersatz gegebenenfalls neu suchen. Das Datenblatt
+  (19-0333 Rev 2) nennt nur MAX3488EPA; bestätigen, dass EEPA dasselbe Teil im DIP-8 ist.
+- Datenblätter fehlen noch (Download über Chrome gesperrt): Phoenix 1757284, 1757242; Würth 61304011121, 61304021121.
 - Steuerleitung und WLAN-Stick: nur ein Händler geprüft (Abschnitt 8); zweite Quelle vor der Bestellung.
+- Abstandsbolzen und Schrauben (Abschnitt 6): zwei Händler, Preis und Lager prüfen, in `bom.csv` aufnehmen.
 - Raspberry Pi Zero 2 W: am 15.10.2026 bei Reichelt und BerryBase nicht lieferbar (Beschaffung ohnehin später).
 
 ## 8. Bezugsquellen (gesucht 15.10.2026; Preise mit MwSt., ohne Versand)
@@ -116,6 +132,16 @@ Regel: Jedes Teil braucht zwei unabhängige Händler. Mouser- und DigiKey-Links 
 **Nur eine geprüfte Quelle:** Steuerleitung und WLAN-Stick (beides Massenware ohne besondere Anforderung; vor der Bestellung
 einen zweiten Händler suchen oder einen anderen Typ wählen). **MAX3488:** zwei Händler, aber Restbestände; Reserve mitbestellen.
 Farnell, Bürklin, TME, Conrad und Eckstein ließen sich am 15.10.2026 weder direkt noch über den Browser abfragen.
+
+**Bauformen gegen Herstellerdatenblatt geprüft** (15.10.2026; Datenblätter in `hardware/datenblaetter/`):
+- **Passt** (Rastermaß, Draht, Bohrung): U1, U2, U6 und Sockel (Mill-Max, Bohrung ≥ 0,71 mm), U3, U4 (TO-92: Pin 2 Kathode, 3 Anode, 1 offen),
+  Widerstände (0207: L ≤ 6,5 mm, Draht 0,6 mm, Raster 10,16), SB540 (Draht ≤ 1,32 mm, Bohrung 1,6), Sicherungshalter (22,5 mm,
+  Bohrung 1,3), LED, C 100 nF (C320: Raster 2,54, Draht 0,51), C 4,7 µF, Drossel (Ø 8,7 mm, Raster 5,0, Draht 0,65; Bohrung 1,3 reichlich).
+- **Geändert in `robnet.py`** (Schaltplan neu erzeugt, ERC 0, Prüfskript 86/86): BAT85 ist bei Vishay (beide Händler) **DO-35** (Körper ≤ 3,9 × 1,7 mm, Draht ≤ 0,6 mm), nicht DO-34;
+  Bauform DO-35 nimmt beide Hersteller auf. 1.5KE20A ist **DO-201** (Draht ≤ 1,07 mm); KiCad-Bauform DO-201 (gleiche Bohrung wie DO-201AE).
+- **Zero 2 W** (Zeichnung Raspberry Pi): 65 × 30 mm, Löcher M2,5 im Abstand 58 × 23 mm, 3,5 mm vom Rand; beide USB an der langen
+  Kante gegenüber der Stiftleiste (41,4 und 54 mm von links), SD-Karte an der linken kurzen Kante. Der Zero steckt **kopfüber**
+  (Betreiber, 15.10.2026): J5 = eigene Bauform `Raspberry_Pi_Zero_kopfueber` (KiCad-Bauform „FaceDown“ mit Umriss und Löchern, dazu Aufdruck „ZERO KOPFÜBER“, SD, HDMI, USB, Pin 1).
 
 ## Quellen
 - MBB0207 Bereich: <https://uk.farnell.com/vishay/mbb02070c1502fc100/res-15k-1-600mw-axial-thin-film/dp/2614381>

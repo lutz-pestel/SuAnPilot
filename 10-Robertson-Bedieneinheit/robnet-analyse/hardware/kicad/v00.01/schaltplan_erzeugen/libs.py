@@ -1,4 +1,4 @@
-# Projektbibliotheken Robnet-Analyse: eigene Schaltzeichen und Bauformen. Version 00.03, Stand 15.10.2026.
+# Projektbibliotheken Robnet-Analyse: eigene Schaltzeichen und Bauformen. Version 00.04, Stand 15.10.2026.
 import os, sys, shutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sx import parse, dump, find, Q
@@ -79,6 +79,7 @@ def write(out):
     os.makedirs(pretty, exist_ok=True)
     shutil.copy(MC + 'Motor-Controller.pretty/C_KEMET_C320_L5.1mm_W4.1mm_P2.54mm.kicad_mod', pretty)
     open(os.path.join(pretty, 'C_TDK_FG16_L5.5mm_W3.5mm_P2.50mm.kicad_mod'), 'w', encoding='utf-8', newline='\n').write(TDK)
+    open(os.path.join(pretty, ZERO_NAME + '.kicad_mod'), 'w', encoding='utf-8', newline='\n').write(zero())
     open(os.path.join(out, 'sym-lib-table'), 'w', encoding='utf-8', newline='\n').write(
         '(sym_lib_table\n  (version 7)\n  (lib (name "Robnet-Analyse")(type "KiCad")(uri "${KIPRJMOD}/Robnet-Analyse.kicad_sym")'
         '(options "")(descr "Eigene Schaltzeichen Robnet-Analyse"))\n)\n')
@@ -118,6 +119,30 @@ TDK = ('(footprint "C_TDK_FG16_L5.5mm_W3.5mm_P2.50mm"\n\t(version 20260206)\n\t(
        + '\t(fp_text user "${REFERENCE}"\n\t\t(at 1.25 0 0)\n\t\t(layer "F.Fab")\n\t\t(effects\n\t\t\t(font\n\t\t\t\t(size 0.92 0.92)\n'
        '\t\t\t\t(thickness 0.138)\n\t\t\t)\n\t\t)\n\t)\n'
        + pad('1', '0') + pad('2', '2.5') + '\t(embedded_fonts no)\n)\n')
+
+# Zero 2 W kopfueber auf der Buchsenleiste (Betreiber, 15.10.2026): KiCad-Bauform Raspberry_Pi_Zero_Socketed_THT_FaceDown_MountingHoles
+# (Umriss 30 x 65 mm, Loecher 23 x 58 mm, Pin 1 an der Seite der SD-Karte; geprueft gegen datenblaetter/RaspberryPi_Zero2W-Mechanik_2021-10.pdf),
+# dazu Aufdruck, damit der Zero nur richtig herum aufgesteckt wird. Koordinaten der Bauform: Seite SD-Karte oben (y = -8,37),
+# Buchsen an der Kante x = 25,23: HDMI y = 4,03, USB Daten y = 33,03, USB Strom y = 45,63 (12,4 / 41,4 / 54 mm vom Ende).
+ZERO_NAME = 'Raspberry_Pi_Zero_kopfueber'
+ZERO_SRC = 'C:/Program Files/KiCad/10.0/share/kicad/footprints/Module.pretty/Raspberry_Pi_Zero_Socketed_THT_FaceDown_MountingHoles.kicad_mod'
+
+
+def silk(txt, x, y, rot=0, size=1.2):
+    return ('\t(fp_text user "%s"\n\t\t(at %s %s %s)\n\t\t(layer "F.SilkS")\n\t\t(effects\n\t\t\t(font\n'
+            '\t\t\t\t(size %s %s)\n\t\t\t\t(thickness %s)\n\t\t\t)\n\t\t)\n\t)\n') % (txt, x, y, rot, size, size, round(size * 0.15, 3))
+
+
+def zero():
+    t = open(ZERO_SRC, encoding='utf-8').read()
+    t = t.replace('(footprint "Raspberry_Pi_Zero_Socketed_THT_FaceDown_MountingHoles"', '(footprint "%s"' % ZERO_NAME, 1)
+    t = t.replace('"Raspberry_Pi_Zero_Socketed_THT_FaceDown_MountingHoles"', '"%s"' % ZERO_NAME)
+    marks = (silk('SD-Karte', 10.23, -6.4) + silk('HDMI', 22.8, 4.03, 90) + silk('USB Daten', 22.8, 33.03, 90)
+             + silk('USB Strom', 22.8, 45.63, 90) + silk('Pin 1', 4.4, 0) + silk('ZERO KOPFÜBER', 12.5, 24.13, 90, 2.0)
+             + silk('Bauteilseite nach unten', 16.5, 24.13, 90, 1.5))
+    i = t.index('\t(embedded_fonts') if '\t(embedded_fonts' in t else t.index('\t(model')
+    return t[:i] + marks + t[i:]
+
 
 if __name__ == '__main__':
     write(sys.argv[1])

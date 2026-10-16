@@ -1394,7 +1394,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinSocket_2.54mm:PinSocket_2x20_P2.54mm_Vertical"
+		(property "Footprint" "Robnet-Analyse:Raspberry_Pi_Zero_kopfueber"
 			(at 148.59 101.6 0)
 			(hide yes)
 			(show_name no)
