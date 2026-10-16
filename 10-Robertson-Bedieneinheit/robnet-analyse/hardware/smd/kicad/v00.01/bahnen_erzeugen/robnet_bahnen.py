@@ -1,4 +1,4 @@
-# Ergaenzt die Leiterbahnen der Platine Robnet-Analyse Linie B (SMD) v00.01. Version 00.03, Stand 16.10.2026.
+# Ergaenzt die Leiterbahnen der Platine Robnet-Analyse Linie B (SMD) v00.01. Version 00.04, Stand 16.10.2026.
 # Liest die platzierte Platine (ohne Bahnen, aus ../platine_erzeugen/robnet_platine.py) und schreibt die fertige Platine.
 # Aufruf mit dem Python von KiCad (KiCad geschlossen):
 #   "C:/Program Files/KiCad/10.0/bin/python.exe" robnet_bahnen.py ../platine_erzeugen/Robnet-Analyse_platziert.kicad_pcb ../Robnet-Analyse.kicad_pcb
@@ -6,7 +6,7 @@
 # die neue Lage erst ins Platzierungsskript uebernehmen. Bahnen, die nur im Ziel stehen (in KiCad gezeichnet), ebenso;
 # Ueberschreiben nur mit --ueberschreiben; neue Lage aus dem Platzierungsskript mit --neue-lage.
 # Gruppen nacheinander, je Gruppe vom Betreiber freigegeben: 1 Versorgung und Masse, 2 Adern J1 -> Jumper -> J3,
-# 3 Teiler -> Wandler mit Referenz und Alarm zum Zero (16.10.2026).
+# 3 Teiler -> Wandler mit Referenz und Alarm zum Zero, 4 SPI zum Zero (16.10.2026).
 # Masse in mm, Ursprung oben links, y nach unten. Lagen: O = Oberseite (F.Cu), U = Unterseite (B.Cu, Massefläche).
 import sys, os
 import pcbnew
@@ -173,9 +173,10 @@ for netz, y, py in MITTE:
     bahn(netz, 0.25, U, (52.6, y + 1.0), (46.5, py), (44.45, py))
 # Referenz 2,5 V (U4, R4) unten zu U2 und U6 Pin 15, links an R4 vorbei (rechts liegt die 3,3 V von R4)
 REF = 'Net-(U2-Vref)'
-bahn(REF, 0.25, O, (34.5, 61.09), (33.2, 61.09))
-via(REF, 33.2, 61.09)
-bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 60.0), (33.2, 61.09), (33.8, 61.7), (33.8, 80.5), (34.76, 81.46), (36.83, 81.46))
+bahn(REF, 0.25, O, (34.5, 61.09), (35.9, 61.09))          # Durchkontaktierung rechts von R4: links laufen die SPI-Leitungen
+via(REF, 35.9, 61.09)
+bahn(REF, 0.25, U, (35.9, 61.09), (34.27, 60.0))
+bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 60.0), (33.8, 60.5), (33.8, 80.5), (34.76, 81.46), (36.83, 81.46))
 bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 55.0), (35.6, 53.7), (35.6, 48.4), (36.83, 47.46))
 # Alarm zum Zero (Pin 13): Teiler R23 - D23 - R24 oben, dann unten rechts an U1 vorbei, unter U6 nach links (y 87,6),
 # links oben hinauf und zwischen den Stiftreihen in Pin 13. Daneben bleibt Platz fuer die Empfaengerleitung (Gruppe 5):
@@ -186,6 +187,34 @@ via('ALARM_ZERO', 73.99, 63.3)
 bahn('ALARM_ZERO', 0.25, U, (73.99, 63.3), (74.7, 64.0), (74.7, 87.6), (30.8, 87.6))
 via('ALARM_ZERO', 30.8, 87.6)
 bahn('ALARM_ZERO', 0.25, O, (30.8, 87.6), (30.8, 66.52), (27.1, 66.52), (25.83, 67.79))
+
+# ---------------------------------------------------------------- Gruppe 4: SPI vom Zero zu U2 und U6
+# Am Zero liegen die Pins umgekehrt zu den Wandlerpins. Deshalb: unten waagerecht aus der Stiftleiste (je Netz eine Hoehe),
+# dann je Ast eine Durchkontaktierung; oben zu U2 hinauf (links = oberer Pin) und zu U6 hinunter (rechts = oberer Pin).
+# Gasse oben: x 29,7-31,95 an der Stiftleiste, unterhalb y 62 nach rechts versetzt (links laufen Alarm und Empfaenger).
+SPI_AUS = {'CE1': ((28.37, 52.55), 52.55), 'CE0': ((28.37, 55.09), 55.09), 'SCLK': ((25.83, 55.09), 56.36),
+           'MISO': ((25.83, 57.63), 58.9), 'MOSI': ((25.83, 60.17), 61.44)}    # Pin, Hoehe der Bahn unten
+# Ast nach oben: Durchkontaktierung x, Pin y an U2. Ast nach unten: Durchkontaktierung x (None = dieselbe wie oben),
+# Gasse oben, Versatzhoehe, Gasse danach (rechts von Alarm x 30,8), Pin y an U6. Durchkontaktierung 0,5 mm (Gasse eng).
+HOCH = {'CE0': (29.65, 34.76), 'MOSI': (30.225, 37.3), 'MISO': (30.8, 39.84), 'SCLK': (31.375, 42.38)}
+RUNTER = {'SCLK': (29.65, 29.65, 63.4, 31.3, 76.38), 'MISO': (None, 31.375, 62.8, 31.75, 73.84),
+          'MOSI': (32.0, 32.0, 62.2, 32.25, 71.3), 'CE1': (32.0, 32.0, 60.0, 32.75, 68.76)}
+UX = 36.83
+for n, (pin, y) in SPI_AUS.items():
+    vias = [HOCH[n][0]] if n in HOCH else []
+    if n in RUNTER and RUNTER[n][0] is not None:
+        vias.append(RUNTER[n][0])
+    weg = [pin] if pin[1] == y else [pin, (27.1, y)]          # linke Reihe: schraeg zwischen die Stifte
+    bahn(n, 0.25, U, *(weg + [(max(vias), y)]))
+    for x in vias:
+        via(n, x, y, 0.5, 0.3)
+    if n in HOCH:
+        x, py = HOCH[n]
+        bahn(n, 0.25, O, (x, y), (x, py), (UX, py))
+    if n in RUNTER:
+        xv, x, yv, x2, py = RUNTER[n]
+        start = [(HOCH[n][0], y)] if xv is None else []      # MISO: oben von der gemeinsamen Durchkontaktierung hinueber
+        bahn(n, 0.25, O, *(start + [(x, y), (x, yv), (x2, yv + 0.45), (x2, py), (UX, py)]))
 
 # Masse: Flaeche auf der ganzen Unterseite; jedes SMD-Massepad oben mit kurzer Bahn an eine Durchkontaktierung 0,8/0,4 mm
 def masse(pad, ziel):

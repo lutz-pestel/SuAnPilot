@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.13, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, Leiterbahnen Gruppen 1–3 von 5 (Versorgung, Masse, Adern, Teiler). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.14, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, Leiterbahnen Gruppen 1–4 von 5 (Versorgung, Masse, Adern, Teiler, SPI). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -70,7 +70,9 @@ in einer Gasse zwischen U2/U6 und den Teilern hinunter; Seite Bedieneinheit rech
 (gespiegelte Klemmenfolge ohne Kreuzung); 11 Durchkontaktierungen für Kreuzungen und Wege unten (JP2, J4, R23, R21). Dafür (Betreiber, 16.10.2026):
 R31–R39 um 180° gedreht (Ader außen), Kanalzeilen von unten nach oben in Kanalfolge (CH0 unten wie an U2/U6). Gruppe 3 fertig: Messleitungen oben kurz (R – BAT54S – R), dann je eine Durchkontaktierung und unten ohne Kreuzung zum Wandlerpin;
 Referenz unten zu U2/U6; Alarm zum Zero unten rechts an U1 vorbei, unter U6 durch, links hinauf in Pin 13 (daneben frei für die
-Empfängerleitung: unten y 86,9, oben x 30,2 zu Pin 10). Massefläche ein Stück (geprüft). Weiter: 4 SPI zum Zero, 5 Empfänger.
+Empfängerleitung: unten y 86,9, oben x 30,2 zu Pin 10). Massefläche ein Stück (geprüft).
+Gruppe 4 fertig: SPI unten waagerecht aus der Stiftleiste, je Ast eine Durchkontaktierung 0,5 mm, oben zu U2 hinauf und zu U6
+hinunter (Pinfolge am Zero umgekehrt zu den Wandlern, so ohne Kreuzung); 7 Durchkontaktierungen. Weiter: 5 Empfänger.
 
 ## 4. Offen
 - Nichts offen (Platinengröße 100 × 100 mm erledigt, Abschnitt 3).
