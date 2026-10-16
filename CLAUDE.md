@@ -33,7 +33,8 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 120: `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md`
 - 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`, `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
-- 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/Bauteilauswahl.md`
+- 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/tht/konzeption/Bauteilauswahl.md`,
+  `10-Robertson-Bedieneinheit/robnet-analyse/hardware/smd/konzeption/Bauteilauswahl.md`
 - 350: `2-motor-controller/hardware/konzeption/Bauteilauswahl.md`
 - 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
 
@@ -41,6 +42,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 Je Phase von Weg A ein Ordner, Weg B in `10-`, dazu `0-gesamtprojekt/` und `99-tools/`. Im Hauptordner sonst nur, was die Werkzeuge dort
 erwarten (`CLAUDE.md`, `CLAUDE.local.md`, `.gitignore`, `.mcp.json`, `.claude/`). Jede Baugruppe hat `hardware/` (`kicad/`, `datenblaetter/`, `konzeption/`,
 `bom/`, `3d-modelle/`) und `software/`; gleichnamige Ordner (`docs/`, `daten/`) in einer Phase enthalten nur deren Inhalt.
+Baugruppe mit beiden Fertigungslinien (zuerst Robnet-Analyse): `hardware/konzeption/` gemeinsam, dazu `hardware/tht/` und `hardware/smd/` mit je obigem Aufbau.
 Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git), Name `Hersteller_Teilnummer_Ausgabe.pdf`; keine eigene Liste, die Links stehen in der Bauteilauswahl.
 3D-Modelle der Hersteller (STEP) in `3d-modelle/` (nicht in Git); Ziel: Gesamtmodell der Platine für das Gehäuse.
 - **`1-tinypilot/` = Phase 1, im Betrieb** (nur Fehler beheben). Baugruppen: `autopilot/` (Software `RPI/` mit `kern/`, `plattform/`,
@@ -57,7 +59,7 @@ Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git),
   `wissen/` (Hintergrund, Marktrecherche, pypilot-Geschichte), `handbuecher/` (PyPilot, Andere Schiffe, Robertson; nicht in Git),
   `fertigung/` (JLCPCB-Strategie).
 - **`99-tools/`** (Werkzeuge für beide Wege, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`); `docs/Robnet.md` (Robertson-Bus-Wissen).
-- **`10-Robertson-Bedieneinheit/`** (Robertson-Bedieneinheit, gleicher Aufbau): Baugruppe `robnet-analyse/` (Robertson-Bus mitlesen).
+- **`10-Robertson-Bedieneinheit/`** (Robertson-Bedieneinheit, gleicher Aufbau): Baugruppe `robnet-analyse/` (Robertson-Bus mitlesen; `hardware/tht/` und `hardware/smd/`).
 - Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.
 - KiCad: Das alte Original (Platinen, Gerber, Pläne) liegt außerhalb, nicht Teil des Projekts:
   `E:\Users\SuAn\Cloud\My Apps\KiCad\Projects\PyPilot_KiCAD\`. `1-tinypilot/autopilot/hardware/kicad/` ist eine Kopie

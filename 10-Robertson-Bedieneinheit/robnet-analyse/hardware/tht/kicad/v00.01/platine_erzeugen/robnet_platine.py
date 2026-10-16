@@ -1,4 +1,4 @@
-# Erzeugt die Platine Robnet-Analyse v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle (keine Leiterbahnen). Version 00.02, Stand 16.10.2026.
+# Erzeugt die Platine Robnet-Analyse v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle (keine Leiterbahnen). Version 00.03, Stand 16.10.2026.
 # Aufruf mit dem Python von KiCad (KiCad geschlossen):
 #   "C:/Program Files/KiCad/10.0/bin/python.exe" robnet_platine.py <netzliste.xml> <ziel.kicad_pcb>
 # Netzliste vorher: kicad-cli sch export netlist --format kicadxml -o <netzliste.xml> ../Robnet-Analyse.kicad_sch
@@ -16,7 +16,8 @@ PROJ = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Robnet-An
 if len(sys.argv) > 3:
     PROJ = sys.argv[3]
 
-B, H = 100.0, 110.0                     # Platinengroesse
+B, H = 100.0, 113.5                     # Platinengroesse
+DY = 3.5                                # Platz fuer die grosse Steckerbeschriftung: alles unter den Steckern rueckt um DY nach unten
 
 # ---------------------------------------------------------------- Lage der Bauteile: Ref -> (x, y, Drehung)
 P = {}
@@ -25,11 +26,11 @@ P['J1'] = (36.83, 10.16, 180)           # Kabel zum J300
 P['J3'] = (71.12, 10.16, 180)           # Stecker der Bedieneinheit
 P['J2'] = (87.63, 10.16, 180)           # +12 V Versorgung
 # Trenn-Jumper unter den Steckern, Reihenfolge wie die Adern an J1/J3 (Alarm, On-Off, Vsys+, Bus+, Bus-)
-JPX = 31.75                             # erster Jumper; Abstand 6,35 mm, damit Finger und Beschriftung Platz haben
+JPX = 33.02                             # erster Jumper; Abstand 6,35 mm, damit Finger und Beschriftung Platz haben
 ADERN = (('JP7', 'Alarm'), ('JP6', 'On-Off'), ('JP5', 'Vsys+'), ('JP3', 'Bus+'), ('JP4', 'Bus−'))
 for i, (r, _) in enumerate(ADERN):
     P[r] = (JPX + 6.35 * i, 19.05, 0)
-P['J4'] = (62.23, 19.05, 0)             # Messpunkte Bus+, Bus-, Masse
+P['J4'] = (64.77, 19.05, 0)             # Messpunkte Bus+, Bus-, Masse
 # Bus-Empfaenger oben links (ueber dem Zero)
 P['JP2'] = (24.13, 19.05, 0)            # Seitenwahl
 P['R1'] = (20.32, 19.05, 180)
@@ -118,6 +119,11 @@ for (z, s), teile in KANAL.items():
             P[ref] = (x, yb - laenge, 270)
         else:                           # Pin 1 nach unten: Drehung 90, Pin 1 unten
             P[ref] = (x, yb, 90)
+
+for ref in list(P):                     # alles ausser den Steckern (oben) und dem Zero (an H gebunden) nach unten
+    if ref not in ('J1', 'J2', 'J3', 'J5'):
+        x, y, r = P[ref]
+        P[ref] = (x, y + DY, r)
 
 fehlt = sorted(set(comps) - set(P))
 zuviel = sorted(set(P) - set(comps))
@@ -213,13 +219,13 @@ for i, (x, y) in enumerate(LOECHER, 1):
     board.Add(f)
 
 # ---------------------------------------------------------------- Beschriftung (Aufdruck oben)
-def text(s, x, y, groesse=1.0, winkel=0, links=False):
+def text(s, x, y, groesse=1.0, winkel=0, links=False, dicke=0.15):
     tx = pcbnew.PCB_TEXT(board)
     tx.SetText(s)
     tx.SetPosition(pcbnew.VECTOR2I(mm(x), mm(y)))
     tx.SetLayer(pcbnew.F_SilkS)
     tx.SetTextSize(pcbnew.VECTOR2I(mm(groesse * 0.8), mm(groesse)))
-    tx.SetTextThickness(mm(0.15))
+    tx.SetTextThickness(mm(dicke))
     tx.SetTextAngleDegrees(winkel)
     if links:
         tx.SetHorizJustify(pcbnew.GR_TEXT_H_ALIGN_LEFT)
@@ -233,24 +239,25 @@ def feld(f, x, y, winkel=0, groesse=1.0, breite=0.8):
     r.SetTextThickness(mm(0.15))
 
 ADERNAME = ('Bus−', 'Bus+', 'Vsys+', 'Masse', 'On-Off', 'Alarm')        # Klemme 1-6 an J1 und J3
-ZEILE_A, ZEILE_B, ZEILE_C = 14.2, 15.9, 24.9
+ZEILE_T, ZEILE_A, ZEILE_C = 14.9, 14.2 + DY, 24.9 + DY   # Steckername gross, Pinnamen, Adernamen
 for ref in ('J1', 'J3'):
     x1 = P[ref][0]
     for k, nm in enumerate(ADERNAME):
         text(nm, x1 - 5.08 * k, ZEILE_A)
 text('+12 V', P['J2'][0], ZEILE_A)
 text('Masse', P['J2'][0] - 5.08, ZEILE_A)
-text('J1: zum J300', 9.0, ZEILE_B, links=True)
-text('J3: Bedieneinheit', 64.5, ZEILE_B, links=True)
-text('J2', P['J2'][0] + 3.0, ZEILE_B)
+# Wohin welcher Stecker gehoert, gross direkt unter dem Stecker (Betreiber, 16.10.2026)
+text('J1: HAUPTGERÄT J300', P['J1'][0] - 12.7, ZEILE_T, groesse=1.8, dicke=0.3)
+text('J3: BEDIENEINHEIT', P['J3'][0] - 12.7, ZEILE_T, groesse=1.8, dicke=0.3)
+text('J2: +12 V', P['J2'][0] - 2.54, ZEILE_T, groesse=1.8, dicke=0.3)
 for r, nm in ADERN:
     text(nm, P[r][0], ZEILE_C)
-text('gesteckt = verbunden', JPX - 1.8, 26.4, groesse=1.0, links=True)
+text('gesteckt = verbunden', JPX - 1.8, 26.4 + DY, groesse=1.0, links=True)
 for k, nm in enumerate(('Bus+', 'Bus−', 'Masse')):
     text(nm, P['J4'][0] + 1.9, P['J4'][1] + 2.54 * k, groesse=1.0, links=True)
 for i, s in enumerate(('JP1 oben: gerade', 'JP1 unten: gekreuzt', 'JP2 oben: J300', 'JP2 unten: Bedieneinh.')):
-    text(s, 14.0, 34.4 + 1.8 * i, groesse=1.0, links=True)
-text('Robnet-Analyse v00.01', 89.0, 94.0)
+    text(s, 14.0, 34.4 + DY + 1.8 * i, groesse=1.0, links=True)
+text('Robnet-Analyse v00.01', 89.0, 94.0 + DY)
 
 for f in board.GetFootprints():
     ref = f.GetReference()
@@ -265,7 +272,7 @@ for f in board.GetFootprints():
     elif ref in ('C4', 'C5', 'C6'):
         feld(f, P[ref][0] + 6.0, P[ref][1])
     elif ref == 'D3':
-        feld(f, P[ref][0], 39.0)
+        feld(f, P[ref][0], 39.0 + DY)
     elif ref in ('R1', 'R2', 'R3', 'R4', 'D1', 'D2') or (ref[0] in 'RD' and ref[1:].isdigit() and int(ref[1:]) >= 11):
         pads = list(f.Pads())
         x = sum(pcbnew.ToMM(p.GetPosition().x) for p in pads) / 2

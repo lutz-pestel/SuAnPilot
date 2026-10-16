@@ -1,9 +1,9 @@
 # Standard: Bauteilauswahl
 
-Version 00.01, Stand 15.10.2026, Obergrenze 120 Zeilen.
+Version 00.02, Stand 16.10.2026, Obergrenze 120 Zeilen.
 Gilt für **jede** Bauteilauswahl im Projekt: alle Platinen, alle Phasen, Weg A und Weg B. Wird **immer und ohne
 Aufforderung** angewandt (Betreiber, 15.10.2026). Entstanden an der Robnet-Analyse
-(`10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/Bauteilauswahl.md`, Muster für Aufbau und Tabellen).
+(`10-Robertson-Bedieneinheit/robnet-analyse/hardware/tht/konzeption/Bauteilauswahl.md`, Muster für Aufbau und Tabellen).
 
 ## Grundsatz
 **Ohne Teile kein Projekt.** Ein Teil ohne verifizierte Bezugsquelle wird nicht eingesetzt. Ziel sind zwei unabhängige

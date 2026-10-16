@@ -84,3 +84,12 @@ der Netzliste nachgewiesen ist und jede Aussage über Anschlüsse einen Herstell
 Die Aufzeichnung legt ihre Datei an, bevor der TinyPilot antwortet; Leitstand und Überwachung lasen die leere Kopfzeile und
 verwarfen danach jede Zeile. Seite „Güte“ zeigte seit 06.10. die Werte von damals als aktuell.
 **Lehre:** Wer einer neuen Datei folgt, liest sie erst, wenn die Kopfzeile vollständig ist. Jede Anzeige prüft das Alter ihrer Daten.
+
+## 2026-10-15 – Robnet-Analyse: Bauform aus der Bibliothek übernommen, nicht vom gekauften Teil
+Die BAT85 stand im Schaltplan als DO-34 (wie im Motor-Controller, Nexperia); beide gewählten Händler liefern Vishay BAT85S in DO-35.
+**Lehre:** Gleiche Teilenummer heißt nicht gleiche Bauform. Bauform immer gegen das Datenblatt des Herstellers prüfen, den die Händler liefern.
+
+## 2026-10-16 – Robnet-Analyse: Stecker nach Gerätenamen beschriftet, den keiner kennt
+„J1: zum J300“ stand klein zwischen Pinnamen und Jumpern; der Betreiber fand keinen Hinweis, welcher Stecker zum Hauptgerät gehört.
+**Lehre:** Stecker groß und direkt am Stecker mit dem Ziel des Kabels beschriften („Hauptgerät“, „Bedieneinheit“), nicht nur mit Kürzeln.
+3D-Modelle der Hersteller gibt es oft nur mit Konto (TraceParts, SnapEDA): dann nach Herstellermaßen selbst zeichnen, Annahmen kennzeichnen.

@@ -1,10 +1,10 @@
-# Projektbibliotheken Robnet-Analyse: eigene Schaltzeichen und Bauformen. Version 00.04, Stand 15.10.2026.
+# Projektbibliotheken Robnet-Analyse: eigene Schaltzeichen und Bauformen. Version 00.05, Stand 16.10.2026.
 import os, sys, shutil
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from sx import parse, dump, find, Q
 
 # Quelle der LM4040- und KEMET-Vorlagen: Motor-Controller v00.01 (gleiche Teile)
-MC = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../../../..',
+MC = os.path.normpath(os.path.join(os.path.dirname(os.path.abspath(__file__)), '../../../../../../..',
                                    '2-motor-controller/hardware/kicad/v00.01')) + '/'
 
 

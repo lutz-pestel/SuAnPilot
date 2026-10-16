@@ -1,7 +1,7 @@
-# Bauteilauswahl Robnet-Analyse
+# Bauteilauswahl Robnet-Analyse – Linie A (THT, selbst gelötet)
 
-Version 00.13, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `robnet-analyse.md` (Konzept 00.29),
-`Blockschaltbild_Robnet-Analyse.html` (00.15). Stückliste: `hardware/bom/bom.csv`.
+Version 00.15, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.32),
+`../../konzeption/Blockschaltbild_Robnet-Analyse.html` (00.16). Stückliste: `tht/bom/bom.csv`. Linie B (SMD): `../../smd/`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
 Größenordnung; vor der Bestellung neu prüfen. Verworfene Wege stehen in je einem Satz.
@@ -71,7 +71,7 @@ Höhe 6,0 mm, Raster 2,5 mm, Draht 0,5 mm, Endung RT06 = gegurtet, Maße wie los
 Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2, J3 an einer Kante. Einbauort nahe J300.
 - **Zero-Befestigung** (Betreiber, 16.10.2026): 4 Abstandsbolzen Würth WA-SSTII 970110151 (M2,5, innen/innen, 11 mm =
   Buchsenleiste 8,5 + Kunststoff der Zero-Stiftleiste 2,5, gerechnet) und 8 Schrauben M2,5 × 5 ISO 4762.
-- **3D-Modelle** (STEP, `hardware/3d-modelle/`, nicht in Git; 16.10.2026), je Teil eines:
+- **3D-Modelle** (STEP, `tht/3d-modelle/`, nicht in Git; 16.10.2026), je Teil eines:
   - Hersteller: Phoenix 1757284, 1757242, 1757051, 1757019; Bourns RLB0914; Würth 970110151.
   - KiCad-Bibliothek (Normmaße, nicht das Herstellermodell): DIP-8/16 und Sockel, TO-92, R 0207, DO-35, DO-201(AD),
     R-78B, Sicherungshalter Schurter 0031.8201, LED 3 mm, Stiftleisten 1×2/1×3/2×3, Buchsenleiste 2×20.
@@ -79,7 +79,7 @@ Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2, J3 an einer Ka
   - Selbst gezeichnet mit `3d-modelle/eigene_modelle.py` (Maße der Hersteller, Rest als ANNAHME gekennzeichnet):
     TDK FG16, KEMET C320, Harwin M7566-05, Sicherung 5 × 20, Zero 2 W, OTG-Stecker, Steuerleitung.
     Grund: Modell nur mit Konto (TraceParts, SnapEDA, GrabCAD) oder gar keins. Annahmen am echten Teil messen.
-  - In KiCad den Bauformen zugeordnet (`platine_erzeugen/robnet_platine.py` 00.02); gedrehte und gesteckte Teile
+  - In KiCad den Bauformen zugeordnet (`platine_erzeugen/robnet_platine.py` 00.03); gedrehte und gesteckte Teile
     (Stecker in J1–J3, Jumper, Sicherung, Drossel, Zero mit Bolzen, Schrauben, Karte, OTG) vorab gelegt mit `3d-modelle/kicad_lage.py`
     in `3d-modelle/kicad-lage/`. ANNAHME: Sicherungsachse 8 mm über der Platine, Stecker ganz eingesteckt.
 
@@ -133,7 +133,7 @@ Regel: Jedes Teil braucht zwei unabhängige Händler. Mouser- und DigiKey-Links 
 einen zweiten Händler suchen oder einen anderen Typ wählen). **MAX3488:** zwei Händler, aber Restbestände; Reserve mitbestellen.
 Farnell, Bürklin, TME, Conrad und Eckstein ließen sich am 15.10.2026 weder direkt noch über den Browser abfragen.
 
-**Bauformen gegen Herstellerdatenblatt geprüft** (15.10.2026; Datenblätter in `hardware/datenblaetter/`):
+**Bauformen gegen Herstellerdatenblatt geprüft** (15.10.2026; Datenblätter in `tht/datenblaetter/`):
 - **Passt** (Rastermaß, Draht, Bohrung): U1, U2, U6 und Sockel (Mill-Max, Bohrung ≥ 0,71 mm), U3, U4 (TO-92: Pin 2 Kathode, 3 Anode, 1 offen),
   Widerstände (0207: L ≤ 6,5 mm, Draht 0,6 mm, Raster 10,16), SB540 (Draht ≤ 1,32 mm, Bohrung 1,6), Sicherungshalter (22,5 mm,
   Bohrung 1,3), LED, C 100 nF (C320: Raster 2,54, Draht 0,51), C 4,7 µF, Drossel (Ø 8,7 mm, Raster 5,0, Draht 0,65; Bohrung 1,3 reichlich).

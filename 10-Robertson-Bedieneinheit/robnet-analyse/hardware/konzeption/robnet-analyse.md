@@ -1,21 +1,25 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.29, Stand 16.10.2026, Obergrenze 100 Zeilen.
+Version 00.32, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
 `99-tools/docs/Robnet.md`. Alle Verbindungen mit Pins und Netzen: `Blockschaltbild_Robnet-Analyse.html`.
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
-- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.15, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
-  Teileauswahl `Bauteilauswahl.md` 00.13 mit Bezugsquellen (Abschnitt 8) und Stückliste `hardware/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
-- **Schaltplan fertig** (`hardware/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
+- **Ablage** (Betreiber, 16.10.2026): gemeinsam nur `hardware/konzeption/` (dieses Konzept, Blockschaltbild). Linie A (THT) in `hardware/tht/`,
+  Linie B (SMD, JLCPCB bestückt; Regeln und Stand `smd/konzeption/Bauteilauswahl.md`) in `hardware/smd/`, gleicher Aufbau. Unten: `Bauteilauswahl.md` = THT.
+- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.16, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
+  Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.15 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
+- **Schaltplan fertig** (`hardware/tht/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
   alle Versorgungen laufen sichtbar über das Hauptblatt (in den Unterblättern nur blattlokale Versorgungszeichen).
-  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad).
-  Keine Software (`software/` leer). Zero 2 W nicht vorhanden.
-- **Platine: Bauteile platziert, keine Leiterbahnen** (`Robnet-Analyse.kicad_pcb`, 15.10.2026), erzeugt mit
-  `platine_erzeugen/robnet_platine.py` (Lage, Aufdruck, JLCPCB-Regeln, Leiterbahnklassen, 3D-Modelle; überschreibt kein Board mit Bahnen).
-  100 × 110 mm, 2 Lagen: J1–J3 oben, Jumper darunter, Zero kopfüber unten links (USB links, SD unten), Versorgung rechts.
+  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Keine Software (`software/` leer). Zero 2 W nicht vorhanden.
+- **Arbeitsweise Platine:** KiCad vorher schließen (Sperrdateien `~*.lck` in `tht/kicad/v00.01/`). Netzliste: `kicad-cli sch export netlist
+  --format kicadxml`; erzeugen: `platine_erzeugen/robnet_platine.py <netzliste> ../Robnet-Analyse.kicad_pcb` mit dem Python von KiCad;
+  prüfen: `kicad-cli pcb drc --schematic-parity`, ansehen: `kicad-cli pcb render`. Das Skript verweigert eine Platine mit Bahnen;
+  Vorschlag (nicht freigegeben): Leiterbahnen in einem eigenen Skript, das die platzierte Platine lädt und ergänzt.
+- **Platine: Bauteile platziert, keine Leiterbahnen** (`Robnet-Analyse.kicad_pcb`, 15.10.2026; Skript setzt Lage, Aufdruck, JLCPCB-Regeln, Leiterbahnklassen, 3D-Modelle).
+  100 × 113,5 mm, 2 Lagen: J1–J3 oben, groß beschriftet (J1: Hauptgerät J300, J3: Bedieneinheit, J2: +12 V), Jumper darunter, Zero kopfüber unten links (USB links, SD unten), Versorgung rechts.
   Bahnbreite: Vsys+ 1,5 mm (3 A = Grenze der Jumper; Strom der Bedieneinheit nicht gemessen), Versorgung 1,0 mm, Signale 0,25 mm.
   DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
