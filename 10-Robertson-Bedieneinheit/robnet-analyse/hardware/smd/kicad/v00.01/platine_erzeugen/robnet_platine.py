@@ -1,10 +1,11 @@
 # Erzeugt die Platine Robnet-Analyse Linie B (SMD) v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle
-# (keine Leiterbahnen). Version 00.02, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
+# (keine Leiterbahnen). Version 00.03, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
 # Gegen Linie A: 100 x 100 mm (guenstigste Leiterplattenstufe bei JLCPCB), J1 genau ueber J3 an der Unterkante, Jumper senkrecht
 # unter ihren Klemmen an J1, M3-Loecher in allen vier Ecken (Betreiber 16.10.2026),
 # alle SMD-Teile oben und mindestens 2,5 mm vom Rand (Regel fuer von JLCPCB bestueckte Teile).
-# Aufruf mit dem Python von KiCad (KiCad geschlossen):
-#   "C:/Program Files/KiCad/10.0/bin/python.exe" robnet_platine.py <netzliste.xml> <ziel.kicad_pcb>
+# Aufruf mit dem Python von KiCad (KiCad geschlossen), Ziel ist die Zwischendatei ohne Bahnen:
+#   "C:/Program Files/KiCad/10.0/bin/python.exe" robnet_platine.py <netzliste.xml> Robnet-Analyse_platziert.kicad_pcb
+# Die Leiterbahnen ergaenzt danach ../bahnen_erzeugen/robnet_bahnen.py und schreibt ../Robnet-Analyse.kicad_pcb.
 # Netzliste vorher: kicad-cli sch export netlist --format kicadxml -o <netzliste.xml> ../Robnet-Analyse.kicad_sch
 # Masse in mm, Ursprung oben links, y nach unten. Drehung in Grad gegen den Uhrzeigersinn (wie KiCad).
 # Ein vorhandenes Board mit Leiterbahnen wird nicht ueberschrieben (Schutz der gezeichneten Bahnen).
@@ -340,7 +341,7 @@ REGELN = {'min_clearance': 0.15, 'min_track_width': 0.15, 'min_via_diameter': 0.
 KLASSEN = [('Default', 0.25, 0.2, []),
            ('Strom_3A', 1.5, 0.3, ['*VSYS_J', '*VSYS_B']),
            ('Versorgung', 1.0, 0.2, ['*+12V_EIN', '*+12V_F', 'Net-(L1-Pad1)', 'Net-(U3-IN)', '*+5V', 'GND'])]
-pro_pfad = os.path.splitext(ZIEL)[0] + '.kicad_pro'
+pro_pfad = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'Robnet-Analyse.kicad_pro')   # Projekt der fertigen Platine
 pro = json.load(open(pro_pfad, encoding='utf-8')) if os.path.exists(pro_pfad) else {'meta': {'filename': os.path.basename(pro_pfad), 'version': 3}}
 ds = pro.setdefault('board', {}).setdefault('design_settings', {})
 ds.setdefault('rules', {}).update(REGELN)
@@ -358,6 +359,11 @@ for i, (name, breite, abstand, pat) in enumerate(KLASSEN):
 ns['classes'] = klassen
 ns['netclass_patterns'] = muster
 json.dump(pro, open(pro_pfad, 'w', encoding='utf-8'), indent=2)
+zwischen = os.path.splitext(os.path.abspath(ZIEL))[0] + '.kicad_pro'      # gleiche Regeln in der Zwischendatei, damit das
+if os.path.normcase(zwischen) != os.path.normcase(os.path.abspath(pro_pfad)):  # Bahnenskript mit ihnen arbeitet
+    kopie = json.loads(json.dumps(pro))
+    kopie.setdefault('meta', {})['filename'] = os.path.basename(zwischen)
+    json.dump(kopie, open(zwischen, 'w', encoding='utf-8'), indent=2)
 
 # ---------------------------------------------------------------- Selbstpruefung: Rand und Ueberlappung der Hoefe
 fehler = 0

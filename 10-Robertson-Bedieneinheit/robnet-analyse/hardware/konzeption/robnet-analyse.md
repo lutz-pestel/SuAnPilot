@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.38, Stand 16.10.2026, Obergrenze 100 Zeilen.
+Version 00.39, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -17,13 +17,13 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 - **Arbeitsweise Platine:** KiCad vorher schließen (Sperrdateien `~*.lck` in `tht/kicad/v00.01/`). Netzliste: `kicad-cli sch export netlist
   --format kicadxml`; erzeugen: `platine_erzeugen/robnet_platine.py <netzliste> ../Robnet-Analyse.kicad_pcb` mit dem Python von KiCad;
   prüfen: `kicad-cli pcb drc --schematic-parity`, ansehen: `kicad-cli pcb render`. Das Skript verweigert eine Platine mit Bahnen;
-  Vorschlag (nicht freigegeben): Leiterbahnen in einem eigenen Skript, das die platzierte Platine lädt und ergänzt.
+  Leiterbahnen in einem eigenen Skript, das die platzierte Platine lädt und ergänzt (Linie B: `smd/kicad/v00.01/bahnen_erzeugen/`, 16.10.2026).
 - **Platine: Bauteile platziert, keine Leiterbahnen** (`Robnet-Analyse.kicad_pcb`, 15.10.2026; Skript setzt Lage, Aufdruck, JLCPCB-Regeln, Leiterbahnklassen, 3D-Modelle).
   100 × 113,5 mm, 2 Lagen: J1–J3 oben, groß beschriftet (J1: Hauptgerät J300, J3: Bedieneinheit, J2: +12 V), Jumper darunter, Zero kopfüber unten links (USB links, SD unten), Versorgung rechts.
   Bahnbreite: Vsys+ 1,5 mm (3 A = Grenze der Jumper; Strom der Bedieneinheit nicht gemessen), Versorgung 1,0 mm, Signale 0,25 mm.
   DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
-  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC. J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
+  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC (Linie B: Gruppe 1 Versorgung/Masse fertig, `smd/konzeption/Bauteilauswahl.md`). J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
   2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe.
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
      Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus
