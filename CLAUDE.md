@@ -36,6 +36,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/tht/konzeption/Bauteilauswahl.md`,
   `10-Robertson-Bedieneinheit/robnet-analyse/hardware/smd/konzeption/Bauteilauswahl.md`
+- 300: `10-Robertson-Bedieneinheit/robnet-analyse/hardware/smd/konzeption/Jumper_JP1_JP2.html`
 - 350: `2-motor-controller/hardware/konzeption/Bauteilauswahl.md`
 - 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
 

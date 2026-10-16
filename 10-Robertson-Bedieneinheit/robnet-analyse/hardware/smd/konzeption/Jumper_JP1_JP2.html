@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jumper JP1 und JP2</title>
+<style>
+:root {
+  --bg: #f7f6f2; --card: #ffffff; --text: #1d1d1b; --muted: #5b5b57; --line: #d6d4cc;
+  --board: #2f6b3a; --pin: #d8b34a; --pinring: #8a6d1f; --bridge: #1f5fbf; --bad: #c62828;
+  --badbg: #fdecea; --tag: #1f5fbf; --tagtext: #ffffff; --silk: #f2f2f2;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161614; --card: #22221f; --text: #ecebe6; --muted: #a9a8a1; --line: #3a3a35;
+    --board: #24512d; --bridge: #4d8ef0; --bad: #ef5350; --badbg: #3a1d1c; --tag: #4d8ef0;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161614; --card: #22221f; --text: #ecebe6; --muted: #a9a8a1; --line: #3a3a35;
+  --board: #24512d; --bridge: #4d8ef0; --bad: #ef5350; --badbg: #3a1d1c; --tag: #4d8ef0;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text);
+  font: 16px/1.5 system-ui, "Segoe UI", sans-serif; }
+main { max-width: 980px; margin: 0 auto; padding: 24px 16px 48px; }
+h1 { font-size: 1.6rem; margin: 0 0 4px; }
+.kopf { color: var(--muted); margin: 0 0 20px; }
+h2 { font-size: 1.2rem; margin: 32px 0 12px; }
+p, li { max-width: 70ch; }
+.karte { background: var(--card); border: 1px solid var(--line); border-radius: 10px;
+  padding: 16px; margin: 0 0 16px; display: grid; grid-template-columns: 350px 1fr; gap: 20px; }
+.karte.schlecht { background: var(--badbg); border-color: var(--bad); }
+.karte svg { width: 100%; height: auto; display: block; }
+.tag { display: inline-block; min-width: 2em; text-align: center; font-weight: 700; font-size: 1.3rem;
+  background: var(--tag); color: var(--tagtext); border-radius: 6px; padding: 0 8px; margin-right: 8px; }
+.schlecht .tag { background: var(--bad); }
+.karte h3 { margin: 0 0 8px; font-size: 1.15rem; }
+.karte dl { margin: 0; display: grid; grid-template-columns: 7.5em 1fr; gap: 4px 12px; }
+.karte dt { color: var(--muted); }
+.karte dd { margin: 0; }
+table { border-collapse: collapse; width: 100%; background: var(--card); }
+th, td { border: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+@media (max-width: 700px) { .karte { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+<h1>Jumper JP1 und JP2 – alle Stellungen</h1>
+<p class="kopf">Robnet-Analyse, Linie B (SMD), Platine v00.01 · Version 00.01, Stand 16.10.2026</p>
+
+<h2>So sind die beiden Jumper gebaut</h2>
+<ul>
+  <li>JP1 und JP2 haben je <b>6 Stifte in 3 Reihen zu je 2</b>. Gesteckt werden immer <b>2 Brücken, senkrecht</b>:
+    links für Bus+, rechts für Bus−, <b>beide gleich hoch</b> (beide oben oder beide unten).</li>
+  <li>Die <b>mittlere Reihe</b> ist der Ausgang. Jede Brücke verbindet die Mitte entweder mit oben oder mit unten.</li>
+  <li>Weg des Bus-Signals: Klemme J1 bzw. J3 → <b>JP2</b> (welche Seite) → Schutzwiderstände R1, R2 (je 1 kΩ) →
+    <b>JP1</b> (Adern normal oder getauscht) → Bus-Empfänger U1 (Eingänge A und B) → Zero.</li>
+  <li>Die Trenn-Jumper <b>JP3 (Bus+) und JP4 (Bus−)</b> verbinden Hauptgerät und Bedieneinheit. Sind sie gesteckt, führen
+    beide Seiten dasselbe Signal; erst wenn sie gezogen sind, macht die Wahl mit JP2 einen Unterschied.</li>
+  <li>Die Stiftleiste J4 (für Oszilloskop) hängt fest an der Seite Hauptgerät, unabhängig von JP1 und JP2.</li>
+</ul>
+<p>Die Zeichnungen zeigen die Platine von oben, so wie die Teile liegen: JP2 oben, JP1 darunter.</p>
+
+<h2>Sinnvolle Stellungen</h2>
+<div id="gut"></div>
+
+<h2>Falsche Stellungen – nie so stecken</h2>
+<div id="falsch"></div>
+
+<h2>Übersicht</h2>
+<table>
+  <tr><th>Stellung</th><th>JP2</th><th>JP1</th><th>Empfänger liest</th><th>Wann</th></tr>
+  <tr><td><b>A</b></td><td>oben</td><td>oben</td><td>Seite Hauptgerät, Adern normal</td><td>Grundstellung</td></tr>
+  <tr><td><b>B</b></td><td>oben</td><td>unten</td><td>Seite Hauptgerät, Adern getauscht</td><td>bei A nur Unsinn</td></tr>
+  <tr><td><b>C</b></td><td>unten</td><td>oben</td><td>Seite Bedieneinheit, Adern normal</td><td>Trennversuch, JP3/JP4 gezogen</td></tr>
+  <tr><td><b>D</b></td><td>unten</td><td>unten</td><td>Seite Bedieneinheit, Adern getauscht</td><td>wie C, wenn B gilt</td></tr>
+  <tr><td><b>E</b></td><td>keine</td><td>beliebig</td><td>nichts</td><td>Empfänger vom Bus trennen</td></tr>
+</table>
+</main>
+
+<script>
+// Stifte: Spalte 0 = links (Pins 1, 3, 5), Spalte 1 = rechts (Pins 2, 4, 6); Reihe 0 = oben.
+const JP2_REIHEN = ['oben: Hauptgerät J300 (J1)', 'Mitte: zum Empfänger', 'unten: Bedieneinheit (J3)'];
+const JP2_STIFTE = [['Bus+', 'Bus−'], ['Bus+', 'Bus−'], ['Bus+', 'Bus−']];
+const JP1_REIHEN = ['oben: normal', 'Mitte: Empfänger U1', 'unten: getauscht'];
+const JP1_STIFTE = [['Bus+', 'Bus−'], ['A', 'B'], ['Bus−', 'Bus+']];
+const OBEN = [{ s: 0, r: 0 }, { s: 1, r: 0 }], UNTEN = [{ s: 0, r: 1 }, { s: 1, r: 1 }];
+
+function jumper(x, y, name, reihen, stifte, bruecken) {
+  const p = 34, ox = x + 185, oy = y + 40;
+  let g = `<text x="${x}" y="${y + 12}" class="t" font-weight="700" font-size="15">${name}</text>`;
+  g += `<rect x="${ox - 20}" y="${oy - 20}" width="${p + 40}" height="${2 * p + 40}" rx="4" fill="none" stroke="var(--silk)" stroke-width="1.5"/>`;
+  reihen.forEach((t, r) => {
+    g += `<text x="${ox - 28}" y="${oy + r * p + 4}" text-anchor="end" class="t" font-size="12">${t}</text>`;
+    stifte[r].forEach((n, s) => {
+      g += `<rect x="${ox + s * p - 9}" y="${oy + r * p - 9}" width="18" height="18" fill="var(--pin)" stroke="var(--pinring)"/>`;
+    });
+    g += `<text x="${ox + p + 30}" y="${oy + r * p + 4}" class="t" font-size="11">${stifte[r][0]} | ${stifte[r][1]}</text>`;
+  });
+  for (const b of bruecken) {
+    const farbe = b.falsch ? 'var(--bad)' : 'var(--bridge)';
+    if (b.quer) g += `<rect x="${ox - 13}" y="${oy + b.r * p - 11}" width="${p + 26}" height="22" rx="5" fill="${farbe}" opacity="0.85"/>`;
+    else g += `<rect x="${ox + b.s * p - 12}" y="${oy + b.r * p - 13}" width="24" height="${p + 26}" rx="5" fill="${farbe}" opacity="0.85"/>`;
+  }
+  return g;
+}
+
+function bild(jp2, jp1) {
+  return `<svg viewBox="0 0 350 310" role="img" aria-label="JP2 und JP1 von oben">
+    <style>.t{fill:var(--silk);font-family:system-ui,sans-serif}</style>
+    <rect x="0" y="0" width="350" height="310" rx="8" fill="var(--board)"/>
+    ${jumper(12, 10, 'JP2: welche Seite', JP2_REIHEN, JP2_STIFTE, jp2)}
+    ${jumper(12, 160, 'JP1: Adern tauschen', JP1_REIHEN, JP1_STIFTE, jp1)}
+  </svg>`;
+}
+
+function karte(v, schlecht) {
+  const zeilen = v.punkte.map(([k, t]) => `<dt>${k}</dt><dd>${t}</dd>`).join('');
+  return `<section class="karte${schlecht ? ' schlecht' : ''}">${bild(v.jp2, v.jp1)}
+    <div><h3><span class="tag">${v.id}</span>${v.titel}</h3><dl>${zeilen}</dl></div></section>`;
+}
+
+const GUT = [
+  { id: 'A', titel: 'Hauptgerät mithören, Adern normal', jp2: OBEN, jp1: OBEN, punkte: [
+    ['Stecken', 'JP2: beide Brücken oben. JP1: beide Brücken oben.'],
+    ['Empfänger', 'Eingang A = Bus+, B = Bus− der Seite Hauptgerät (J1).'],
+    ['Zweck', '<b>Grundstellung.</b> Mitlesen im normalen Betrieb. Mit gesteckten JP3/JP4 hört man so den ganzen Bus, also beide Seiten zusammen.'],
+    ['Nutzen', 'Erste Aufzeichnung: Datenrate und Telegramme bestimmen.'],
+    ['Erkennen', 'Kommen nur unsinnige Zeichen an, obwohl die Datenrate stimmt, sind Bus+ und Bus− vermutlich vertauscht → Stellung B.']] },
+  { id: 'B', titel: 'Hauptgerät mithören, Adern getauscht', jp2: OBEN, jp1: UNTEN, punkte: [
+    ['Stecken', 'JP2: beide Brücken oben. JP1: beide Brücken unten.'],
+    ['Empfänger', 'Eingang A = Bus−, B = Bus+ der Seite Hauptgerät.'],
+    ['Zweck', 'Wie A, aber mit vertauschten Adern am Empfänger. Am Bus selbst ändert sich nichts.'],
+    ['Nutzen', 'Klärt, welche Ader wirklich „+“ ist (Hypothese RS485, <i>Robnet.md</i>). Gilt B, dann für C die Stellung D nehmen.']] },
+  { id: 'C', titel: 'Bedieneinheit mithören, Adern normal', jp2: UNTEN, jp1: OBEN, punkte: [
+    ['Stecken', 'JP2: beide Brücken unten. JP1: beide Brücken oben.'],
+    ['Empfänger', 'Eingang A = Bus+, B = Bus− der Seite Bedieneinheit (J3).'],
+    ['Zweck', '<b>Trennversuch:</b> JP3 und JP4 gezogen, beide Seiten sind getrennt. Man hört nur, was die Bedieneinheit allein sendet.'],
+    ['Nutzen', 'Im Vergleich mit A (ebenfalls getrennt) zeigt sich, welche Seite welche Telegramme sendet.'],
+    ['Hinweis', 'Mit gesteckten JP3/JP4 liest C dasselbe wie A.']] },
+  { id: 'D', titel: 'Bedieneinheit mithören, Adern getauscht', jp2: UNTEN, jp1: UNTEN, punkte: [
+    ['Stecken', 'JP2: beide Brücken unten. JP1: beide Brücken unten.'],
+    ['Empfänger', 'Eingang A = Bus−, B = Bus+ der Seite Bedieneinheit.'],
+    ['Zweck', 'Wie C, wenn sich bei A/B gezeigt hat, dass die Adern getauscht werden müssen.']] },
+  { id: 'E', titel: 'Empfänger vom Bus getrennt', jp2: [], jp1: OBEN, punkte: [
+    ['Stecken', 'JP2: keine Brücke. JP1: egal (gezeichnet: oben).'],
+    ['Empfänger', 'Eingänge offen, der Zero empfängt nichts.'],
+    ['Zweck', 'Ausschließen, dass die Platine den Bus stört: Der Empfänger hängt dann nicht mehr am Bus.'],
+    ['Nutzen', 'Fehlersuche. Die Spannungsmessung beider Seiten läuft weiter.']] },
+];
+
+const FALSCH = [
+  { id: '!', titel: 'Quer gesteckt, obere oder untere Reihe von JP2', jp2: [{ quer: true, r: 0, falsch: true }], jp1: OBEN, punkte: [
+    ['Folge', '<b>Bus+ und Bus− direkt kurzgeschlossen.</b> Der Robertson-Bus fällt aus, solange die Brücke steckt (obere Reihe: Seite Hauptgerät, untere: Seite Bedieneinheit).'],
+    ['Abhilfe', 'Sofort ziehen. Brücken nur senkrecht stecken.']] },
+  { id: '!', titel: 'Quer gesteckt, sonstige Reihen', jp2: OBEN, jp1: [{ quer: true, r: 1, falsch: true }], punkte: [
+    ['Folge', 'Mittlere Reihe (JP1 oder JP2): Empfänger-Eingänge zusammen, er liest nichts. Obere/untere Reihe von JP1: Bus+ und Bus− über R1 + R2 (2 kΩ) verbunden, leichte Last am Bus, Empfänger liest nichts.'],
+    ['Abhilfe', 'Kein Schaden zu erwarten, aber keine Daten. Senkrecht stecken.']] },
+  { id: '!', titel: 'Brücken ungleich hoch (eine oben, eine unten)', jp2: [{ s: 0, r: 0, falsch: true }, { s: 1, r: 1, falsch: true }], jp1: OBEN, punkte: [
+    ['Folge', 'JP2: Bus+ von der einen, Bus− von der anderen Seite. Mit gesteckten JP3/JP4 unauffällig, beim Trennversuch Unsinn. JP1: A und B an derselben Ader, der Empfänger liest nichts.'],
+    ['Abhilfe', 'Beide Brücken gleich hoch stecken.']] },
+];
+
+document.getElementById('gut').innerHTML = GUT.map(v => karte(v, false)).join('');
+document.getElementById('falsch').innerHTML = FALSCH.map(v => karte(v, true)).join('');
+</script>
+</body>
+</html>

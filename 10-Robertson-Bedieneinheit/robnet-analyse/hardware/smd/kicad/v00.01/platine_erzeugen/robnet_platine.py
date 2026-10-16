@@ -213,14 +213,14 @@ ADERNAME = ('Bus−', 'Bus+', 'Vsys+', 'Masse', 'On-Off', 'Alarm')        # Klem
 for k, nm in enumerate(ADERNAME, 1):
     x = klemme('J1', k)
     text(str(k), x, 14.4, groesse=1.2, dicke=0.2)
+    text(nm, x, 16.5)                    # Name der Klemme zwischen Nummer und Jumper
     if k == 4:
-        text(nm, x, 16.5)                # Masse: kein Jumper, nie getrennt
-        text('fest', x, 21.0)
+        text('fest', x, 21.0)            # Masse: kein Jumper, nie getrennt
 text('J1: HAUPTGERÄT J300', klemme('J1', 3.5), 30.3, groesse=1.6, dicke=0.3)
 for r, nm, k in ADERN:                  # Jumpername unter dem Jumper: Ader und Klemme (gleiche Nummer an J1 und J3)
     text(nm, P[r][0], JPY + 6.6, groesse=1.2, dicke=0.2)
     text('Kl. %d' % k, P[r][0], JPY + 8.5, groesse=1.0)
-text('Jumper gesteckt = verbunden', klemme('J1', 3.5), 32.6)
+text('JP3–JP7: gesteckt = verbunden', klemme('J1', 3.5), 32.6)
 # J2
 text('+12 V', P['J2'][0], 14.2)
 text('Masse', P['J2'][0] - 5.08, 14.2)
@@ -234,13 +234,64 @@ text('J3: BEDIENEINHEIT', klemme('J3', 3.5), H - 19.0, groesse=1.6, dicke=0.3)
 for k, nm in enumerate(('Bus+', 'Bus−', 'Masse')):
     text(nm, P['J4'][0] - 1.9, P['J4'][1] + 2.54 * k, rechts=True)
 text('Messpunkte', P['J4'][0], P['J4'][1] + 9.0)
-# Funktion von JP2 und JP1 rechts neben der Stiftleiste; oben = Jumper 1-3 und 2-4, unten = 3-5 und 4-6
+# JP2 und JP1: je Reihe der Stifte ihre Bedeutung rechts daneben; Ueberschrift ueber JP2 bzw. unter JP1.
+# Stellungen A-E als Bildtabelle rechts (wie smd/konzeption/Jumper_JP1_JP2.html): oben = Bruecken 1-3 und 2-4, unten = 3-5 und 4-6
 XT = P['JP2'][0] + 5.0
-for y0, zeilen in ((P['JP2'][1], ('JP2: SEITENWAHL', 'oben: liest J300-Seite (J1)', 'unten: liest Bedieneinheit (J3)')),
-                   (P['JP1'][1], ('JP1: RICHTUNG A/B', 'oben: gerade (A = Bus+)', 'unten: gekreuzt (A = Bus−)'))):
+for ref, zeilen in (('JP2', ('J1 (J300)', 'U1', 'J3 (Bedien.)')), ('JP1', ('normal', 'U1', 'getauscht'))):
     for i, s in enumerate(zeilen):
-        text(s, XT, y0 + 0.2 + 2.2 * i, groesse=1.2 if i == 0 else 1.1, links=True, dicke=0.2 if i == 0 else 0.15)
+        text(s, XT, P[ref][1] + 2.54 * i, links=True)
+text('JP2: SEITE', XT, P['JP2'][1] - 2.1, groesse=1.2, links=True, dicke=0.2)
+text('JP1: ADERN TAUSCHEN', P['JP1'][0] - 1.8, P['JP1'][1] + 8.1, groesse=1.2, links=True, dicke=0.2)
+
+def flaeche(xa, ya, xb, yb):            # gefuelltes Rechteck im Aufdruck
+    s = pcbnew.PCB_SHAPE(board)
+    s.SetShape(pcbnew.SHAPE_T_RECT)
+    s.SetStart(pcbnew.VECTOR2I(mm(xa), mm(ya)))
+    s.SetEnd(pcbnew.VECTOR2I(mm(xb), mm(yb)))
+    s.SetLayer(pcbnew.F_SilkS)
+    s.SetWidth(mm(0.15))
+    s.SetFilled(True)
+    board.Add(s)
+
+def strich(xa, ya, xb, yb):
+    s = pcbnew.PCB_SHAPE(board)
+    s.SetShape(pcbnew.SHAPE_T_SEGMENT)
+    s.SetStart(pcbnew.VECTOR2I(mm(xa), mm(ya)))
+    s.SetEnd(pcbnew.VECTOR2I(mm(xb), mm(yb)))
+    s.SetLayer(pcbnew.F_SilkS)
+    s.SetWidth(mm(0.2))
+    board.Add(s)
+
+ST = 1.1                                 # Stiftabstand im Bildchen
+def bildchen(x, y, bruecken, quer=None):  # 2 x 3 Stifte, linke obere Ecke; bruecken: 'oben', 'unten' oder ''
+    for sp in (0, 1):
+        for r in (0, 1, 2):
+            if not (bruecken == 'oben' and r < 2 or bruecken == 'unten' and r > 0) and r != quer:
+                flaeche(x + sp * ST - 0.2, y + r * ST - 0.2, x + sp * ST + 0.2, y + r * ST + 0.2)
+        if bruecken:
+            r0 = 0 if bruecken == 'oben' else 1
+            flaeche(x + sp * ST - 0.35, y + r0 * ST - 0.35, x + sp * ST + 0.35, y + (r0 + 1) * ST + 0.35)
+    if quer is not None:
+        flaeche(x - 0.35, y + quer * ST - 0.35, x + ST + 0.35, y + quer * ST + 0.35)
+
+TX, TY, TZ = 87.0, 35.6, 3.8             # Tabelle: linke Spalte, erste Zeile, Zeilenabstand
+text('JP2', TX + 3.3, TY - 1.6, links=False)
+text('JP1', TX + 7.0, TY - 1.6, links=False)
+for i, (bst, jp2, jp1) in enumerate((('A', 'oben', 'oben'), ('B', 'oben', 'unten'), ('C', 'unten', 'oben'),
+                                     ('D', 'unten', 'unten'), ('E', '', 'oben'))):
+    y = TY + i * TZ
+    text(bst, TX, y + ST, groesse=1.4, dicke=0.25)
+    bildchen(TX + 2.75, y, jp2)
+    bildchen(TX + 6.45, y, jp1)
+# nie quer: Bruecke quer, durchgekreuzt
+text('nie', TX + 11.0, TY - 1.6)
+text('quer!', TX + 11.0, TY + 4.2)
+bildchen(TX + 10.45, TY, '', quer=0)
+strich(TX + 9.6, TY - 0.7, TX + 12.4, TY + 2.9)
+strich(TX + 12.4, TY - 0.7, TX + 9.6, TY + 2.9)
 text('Robnet-Analyse B v00.01', 88.0, 74.0)
+text('SuAn electronic', 88.0, 76.0)
+text('Lutz Pestel, 2026', 88.0, 77.8)
 
 SUPPLY_FELD = {'D1': (26.5, 14.0), 'D2': (33.5, 24.0), 'C4': (39.0, 22.0), 'R5': (43.5, 14.2), 'R6': (43.5, 21.6),
                'L1': (49.5, 24.6), 'C5': (37.5, 11.0), 'C6': (41.0, 11.0), 'C1': (74.8, 65.5)}
