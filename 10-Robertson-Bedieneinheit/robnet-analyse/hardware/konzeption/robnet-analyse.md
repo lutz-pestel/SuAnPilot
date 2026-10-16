@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.42, Stand 16.10.2026, Obergrenze 100 Zeilen.
+Version 00.43, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -23,7 +23,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   Bahnbreite: Vsys+ 1,5 mm (3 A = Grenze der Jumper; Strom der Bedieneinheit nicht gemessen), Versorgung 1,0 mm, Signale 0,25 mm.
   DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
-  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC (Linie B: Gruppen 1–4 Versorgung, Masse, Adern, Teiler, SPI fertig, `smd/konzeption/Bauteilauswahl.md`). J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
+  1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC (Linie B: alle Bahnen verlegt, DRC ohne Fehler, `smd/konzeption/Bauteilauswahl.md`). J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
   2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe.
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
      Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus

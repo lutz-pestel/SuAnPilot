@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.14, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, Leiterbahnen Gruppen 1–4 von 5 (Versorgung, Masse, Adern, Teiler, SPI). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.15, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, alle Leiterbahnen verlegt (5 Gruppen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -72,7 +72,10 @@ R31–R39 um 180° gedreht (Ader außen), Kanalzeilen von unten nach oben in Kan
 Referenz unten zu U2/U6; Alarm zum Zero unten rechts an U1 vorbei, unter U6 durch, links hinauf in Pin 13 (daneben frei für die
 Empfängerleitung: unten y 86,9, oben x 30,2 zu Pin 10). Massefläche ein Stück (geprüft).
 Gruppe 4 fertig: SPI unten waagerecht aus der Stiftleiste, je Ast eine Durchkontaktierung 0,5 mm, oben zu U2 hinauf und zu U6
-hinunter (Pinfolge am Zero umgekehrt zu den Wandlern, so ohne Kreuzung); 7 Durchkontaktierungen. Weiter: 5 Empfänger.
+hinunter (Pinfolge am Zero umgekehrt zu den Wandlern, so ohne Kreuzung); 7 Durchkontaktierungen.
+Gruppe 5 fertig: JP2 → R1/R2 → JP1 (Kreuzung Bus+ unten, Bus− oben), A und B zu U1, Empfängerleitung zum Zero Pin 10 und 16.
+**Stand:** 79 Durchkontaktierungen, keine offene Verbindung, DRC ohne Fehler (nur Aufdruck J1–J3/Zero an der Kante, gewollt), Abgleich 0,
+Massefläche ein Stück. Weiter: Ablauf Schritt 3, Punkt 8 (Prüfung), dann Schritt 4.
 
 ## 4. Offen
 - Nichts offen (Platinengröße 100 × 100 mm erledigt, Abschnitt 3).

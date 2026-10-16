@@ -1,4 +1,4 @@
-# Ergaenzt die Leiterbahnen der Platine Robnet-Analyse Linie B (SMD) v00.01. Version 00.04, Stand 16.10.2026.
+# Ergaenzt die Leiterbahnen der Platine Robnet-Analyse Linie B (SMD) v00.01. Version 00.05, Stand 16.10.2026.
 # Liest die platzierte Platine (ohne Bahnen, aus ../platine_erzeugen/robnet_platine.py) und schreibt die fertige Platine.
 # Aufruf mit dem Python von KiCad (KiCad geschlossen):
 #   "C:/Program Files/KiCad/10.0/bin/python.exe" robnet_bahnen.py ../platine_erzeugen/Robnet-Analyse_platziert.kicad_pcb ../Robnet-Analyse.kicad_pcb
@@ -6,7 +6,7 @@
 # die neue Lage erst ins Platzierungsskript uebernehmen. Bahnen, die nur im Ziel stehen (in KiCad gezeichnet), ebenso;
 # Ueberschreiben nur mit --ueberschreiben; neue Lage aus dem Platzierungsskript mit --neue-lage.
 # Gruppen nacheinander, je Gruppe vom Betreiber freigegeben: 1 Versorgung und Masse, 2 Adern J1 -> Jumper -> J3,
-# 3 Teiler -> Wandler mit Referenz und Alarm zum Zero, 4 SPI zum Zero (16.10.2026).
+# 3 Teiler -> Wandler mit Referenz und Alarm zum Zero, 4 SPI zum Zero, 5 Empfaenger (16.10.2026).
 # Masse in mm, Ursprung oben links, y nach unten. Lagen: O = Oberseite (F.Cu), U = Unterseite (B.Cu, Massefläche).
 import sys, os
 import pcbnew
@@ -178,15 +178,14 @@ via(REF, 35.9, 61.09)
 bahn(REF, 0.25, U, (35.9, 61.09), (34.27, 60.0))
 bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 60.0), (33.8, 60.5), (33.8, 80.5), (34.76, 81.46), (36.83, 81.46))
 bahn(REF, 0.25, U, (34.27, 57.5), (34.27, 55.0), (35.6, 53.7), (35.6, 48.4), (36.83, 47.46))
-# Alarm zum Zero (Pin 13): Teiler R23 - D23 - R24 oben, dann unten rechts an U1 vorbei, unter U6 nach links (y 87,6),
-# links oben hinauf und zwischen den Stiftreihen in Pin 13. Daneben bleibt Platz fuer die Empfaengerleitung (Gruppe 5):
-# unten y 86,9, oben x 30,2 zu Pin 10.
+# Alarm zum Zero (Pin 13): Teiler R23 - D23 - R24 oben, dann unten rechts an U1 vorbei, unter U6 nach links (y 87,6,
+# links von J3 88,4), links oben hinauf und zwischen den Stiftreihen in Pin 13. Daneben die Empfaengerleitung (Gruppe 5).
 bahn('ALARM_ZERO', 0.25, O, (66.41, 62.0), (73.99, 62.0))
 bahn('ALARM_ZERO', 0.25, O, (73.99, 62.0), (73.99, 63.3))
 via('ALARM_ZERO', 73.99, 63.3)
-bahn('ALARM_ZERO', 0.25, U, (73.99, 63.3), (74.7, 64.0), (74.7, 87.6), (30.8, 87.6))
-via('ALARM_ZERO', 30.8, 87.6)
-bahn('ALARM_ZERO', 0.25, O, (30.8, 87.6), (30.8, 66.52), (27.1, 66.52), (25.83, 67.79))
+bahn('ALARM_ZERO', 0.25, U, (73.99, 63.3), (74.7, 64.0), (74.7, 87.6), (60.8, 87.6), (60.0, 88.4), (30.8, 88.4))
+via('ALARM_ZERO', 30.8, 88.4)                             # links von J3 tiefer: Platz fuer die Masseflaeche
+bahn('ALARM_ZERO', 0.25, O, (30.8, 88.4), (30.8, 66.52), (27.1, 66.52), (25.83, 67.79))
 
 # ---------------------------------------------------------------- Gruppe 4: SPI vom Zero zu U2 und U6
 # Am Zero liegen die Pins umgekehrt zu den Wandlerpins. Deshalb: unten waagerecht aus der Stiftleiste (je Netz eine Hoehe),
@@ -215,6 +214,26 @@ for n, (pin, y) in SPI_AUS.items():
         xv, x, yv, x2, py = RUNTER[n]
         start = [(HOCH[n][0], y)] if xv is None else []      # MISO: oben von der gemeinsamen Durchkontaktierung hinueber
         bahn(n, 0.25, O, *(start + [(x, y), (x, yv), (x2, yv + 0.45), (x2, py), (UX, py)]))
+
+# ---------------------------------------------------------------- Gruppe 5: Empfaenger
+# JP2 Mitte -> R1/R2 (je aussen um JP2 herum) -> JP1 oben; JP1 kreuzt Bus+ (Pin 1 - 6, unten) und Bus- (Pin 2 - 5, oben),
+# beide zwischen den Stiftreihen durch
+bahn('Net-(JP2-Bus+)', 0.25, O, (68.0, 39.54), (66.6, 40.94), (66.6, 44.3), (67.59, 45.3))
+bahn('Net-(JP2-Bus−)', 0.25, O, (70.54, 39.54), (71.9, 40.9), (71.9, 44.3), (75.6, 44.3), (76.59, 45.3))
+bahn('Net-(JP1-Bus+-Pad1)', 0.25, O, (69.41, 45.3), (69.41, 46.6), (68.0, 48.0), (68.0, 48.5))
+bahn('Net-(JP1-Bus+-Pad1)', 0.25, U, (68.0, 48.5), (69.27, 49.77), (69.27, 52.31), (70.54, 53.58))
+bahn('Net-(JP1-Bus−-Pad2)', 0.25, O, (78.41, 45.3), (78.41, 46.9), (72.14, 46.9), (70.54, 48.5))
+bahn('Net-(JP1-Bus−-Pad2)', 0.25, O, (70.54, 48.5), (69.27, 49.77), (69.27, 52.31), (68.0, 53.58))
+# JP1 Mitte -> U1: A (Pin 3) oben links heraus, unter JP1 durch, rechts am Alarm-Teiler vorbei zu Pin 8;
+# B (Pin 4) unten rechts heraus, rechts an D23 vorbei zu Pin 7
+bahn('Net-(JP1-A)', 0.25, O, (68.0, 51.04), (66.6, 51.04), (66.6, 55.2), (78.2, 55.2), (78.2, 68.0), (74.0, 68.0), (72.81, 69.19))
+bahn('Net-(JP1-B)', 0.25, U, (70.54, 51.04), (72.1, 52.6), (72.1, 66.5), (71.6, 67.0), (71.6, 70.6), (72.81, 71.73))
+# Empfaengerleitung U1 Pin 2 -> Zero Pin 10 und 16: unten links an U1 vorbei, unter U6 durch (y 87,7), oben hinauf zu Pin 10;
+# Pin 16 unten neben der Stiftleiste
+bahn('BUS_RX', 0.25, U, (65.19, 71.73), (63.9, 71.73), (63.9, 86.9), (60.2, 86.9), (59.4, 87.7), (30.1, 87.7))
+via('BUS_RX', 30.1, 87.7)
+bahn('BUS_RX', 0.25, O, (30.1, 87.7), (30.1, 72.87), (28.37, 72.87))
+bahn('BUS_RX', 0.25, U, (28.37, 65.25), (30.1, 66.98), (30.1, 71.14), (28.37, 72.87))
 
 # Masse: Flaeche auf der ganzen Unterseite; jedes SMD-Massepad oben mit kurzer Bahn an eine Durchkontaktierung 0,8/0,4 mm
 def masse(pad, ziel):
