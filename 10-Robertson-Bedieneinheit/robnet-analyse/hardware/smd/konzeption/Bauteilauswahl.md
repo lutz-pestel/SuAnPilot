@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.15, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, alle Leiterbahnen verlegt (5 Gruppen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.16, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, alle Leiterbahnen verlegt (5 Gruppen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -61,21 +61,23 @@ Stand 09.09.2026). J1 oben rechts genau über J3 unten rechts (Klemmenfolge gesp
 Jumper JP3–JP7 senkrecht unter ihren J1-Klemmen (Masse „fest“), Klemmen und Jumper mit Nummer und Name; JP2/JP1 je
 Stiftreihe beschriftet, daneben Bildtabelle der Stellungen A–E und „nie quer“ (`Jumper_JP1_JP2.html`); J2 und Versorgung oben links; Zero links, 8 mm hochgesetzt; M3-Löcher in allen vier Ecken (alles Betreiber,
 16.10.2026). U1, C1 vom Betreiber in KiCad verschoben, ins Skript übernommen. SMD nur oben, ≥ 2,5 mm vom Rand (Skript). DRC: Schaltplanabgleich 0,
-keine Hof- oder Aufdrucküberlappung; nur Aufdruck J1–J3/Zero an der Kante (gewollt) und offene Verbindungen.
+keine Hof- oder Aufdrucküberlappung.
 **Leiterbahnen** (Ablauf, Schritt 3, Punkt 7; gruppenweise, je Gruppe freigegeben): Gruppe 1 fertig: 12 V (1,0 mm), 5 V (1,5 mm, außen herum,
 damit die Mitte für SPI frei bleibt), 3,3 V (unten, je BAT54S eine Durchkontaktierung, weil die Messleitung oben unter der Diode durchläuft),
 Massefläche unten (Abstand 0,2 mm, damit sie zwischen die Stifte des Zero reicht), SMD-Massepads je mit Durchkontaktierung.
 Gruppe 2 fertig (Adern J1 → Jumper → J3, dazu Teiler-Eingänge, JP2, J4, R23, Bordspannung zu R21): Seite J300 über J1 hinweg nach links und
 in einer Gasse zwischen U2/U6 und den Teilern hinunter; Seite Bedieneinheit rechts am Rand hinunter und in ineinanderliegenden Bögen unter J3 durch
-(gespiegelte Klemmenfolge ohne Kreuzung); 11 Durchkontaktierungen für Kreuzungen und Wege unten (JP2, J4, R23, R21). Dafür (Betreiber, 16.10.2026):
+(gespiegelte Klemmenfolge ohne Kreuzung; Vsys dadurch lang, 1,5 mm, Strom der Bedieneinheit nicht gemessen – vom Betreiber
+so angenommen, 16.10.2026); 11 Durchkontaktierungen für Kreuzungen und Wege unten (JP2, J4, R23, R21). Dafür (Betreiber, 16.10.2026):
 R31–R39 um 180° gedreht (Ader außen), Kanalzeilen von unten nach oben in Kanalfolge (CH0 unten wie an U2/U6). Gruppe 3 fertig: Messleitungen oben kurz (R – BAT54S – R), dann je eine Durchkontaktierung und unten ohne Kreuzung zum Wandlerpin;
 Referenz unten zu U2/U6; Alarm zum Zero unten rechts an U1 vorbei, unter U6 durch, links hinauf in Pin 13 (daneben frei für die
 Empfängerleitung: unten y 86,9, oben x 30,2 zu Pin 10). Massefläche ein Stück (geprüft).
 Gruppe 4 fertig: SPI unten waagerecht aus der Stiftleiste, je Ast eine Durchkontaktierung 0,5 mm, oben zu U2 hinauf und zu U6
 hinunter (Pinfolge am Zero umgekehrt zu den Wandlern, so ohne Kreuzung); 7 Durchkontaktierungen.
 Gruppe 5 fertig: JP2 → R1/R2 → JP1 (Kreuzung Bus+ unten, Bus− oben), A und B zu U1, Empfängerleitung zum Zero Pin 10 und 16.
-**Stand:** 79 Durchkontaktierungen, keine offene Verbindung, DRC ohne Fehler (nur Aufdruck J1–J3/Zero an der Kante, gewollt), Abgleich 0,
-Massefläche ein Stück. Weiter: Ablauf Schritt 3, Punkt 8 (Prüfung), dann Schritt 4.
+**Stand:** 79 Durchkontaktierungen, keine offene Verbindung, DRC ohne Meldung (Aufdruck von J1–J3 und Zero an der Kante gewollt: Regel
+`Robnet-Analyse.kicad_dru`, vom Platzierungsskript geschrieben; Betreiber, 16.10.2026), Abgleich 0,
+Massefläche ein Stück. Ablauf Schritt 3 abgeschlossen (16.10.2026). Weiter: Schritt 4 (Fertigungsdateien).
 
 ## 4. Offen
 - Nichts offen (Platinengröße 100 × 100 mm erledigt, Abschnitt 3).

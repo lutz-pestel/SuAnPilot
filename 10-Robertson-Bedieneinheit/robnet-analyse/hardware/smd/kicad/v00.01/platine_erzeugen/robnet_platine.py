@@ -1,5 +1,5 @@
 # Erzeugt die Platine Robnet-Analyse Linie B (SMD) v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle
-# (keine Leiterbahnen). Version 00.04, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
+# (keine Leiterbahnen). Version 00.05, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
 # Gegen Linie A: 100 x 100 mm (guenstigste Leiterplattenstufe bei JLCPCB), J1 genau ueber J3 an der Unterkante, Jumper senkrecht
 # unter ihren Klemmen an J1, M3-Loecher in allen vier Ecken (Betreiber 16.10.2026),
 # alle SMD-Teile oben und mindestens 2,5 mm vom Rand (Regel fuer von JLCPCB bestueckte Teile).
@@ -361,6 +361,15 @@ for i, (name, breite, abstand, pat) in enumerate(KLASSEN):
 ns['classes'] = klassen
 ns['netclass_patterns'] = muster
 json.dump(pro, open(pro_pfad, 'w', encoding='utf-8'), indent=2)
+# Aufdruck der Stecker an der Kante ist gewollt (Gehaeuse ragt ueber die Kante; JLCPCB schneidet ab; Betreiber, 16.10.2026)
+STECKER = " || ".join("%s.memberOfFootprint('%s')" % (s, r) for s in 'AB' for r in ('J1', 'J2', 'J3', 'J5'))
+open(os.path.splitext(pro_pfad)[0] + '.kicad_dru', 'w', encoding='utf-8').write(
+    '(version 1)\n'
+    '(rule "Aufdruck der Stecker an der Kante (gewollt)"\n'
+    '  (condition "(%s) && (A.Layer == \'F.Silkscreen\' || B.Layer == \'F.Silkscreen\')")\n'
+    '  (constraint silk_clearance (min -10mm))\n'
+    '  (constraint edge_clearance (min -10mm))\n'
+    '  (severity ignore))\n' % STECKER)
 zwischen = os.path.splitext(os.path.abspath(ZIEL))[0] + '.kicad_pro'      # gleiche Regeln in der Zwischendatei, damit das
 if os.path.normcase(zwischen) != os.path.normcase(os.path.abspath(pro_pfad)):  # Bahnenskript mit ihnen arbeitet
     kopie = json.loads(json.dumps(pro))
