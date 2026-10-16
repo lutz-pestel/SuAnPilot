@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie A (THT, selbst gelötet)
 
-Version 00.15, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.32),
+Version 00.16, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.34),
 `../../konzeption/Blockschaltbild_Robnet-Analyse.html` (00.16). Stückliste: `tht/bom/bom.csv`. Linie B (SMD): `../../smd/`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
@@ -68,7 +68,7 @@ Höhe 6,0 mm, Raster 2,5 mm, Draht 0,5 mm, Endung RT06 = gegurtet, Maße wie los
 
 ## 6. Gehäuse und Einbau — Vorschlag wie MC Abschnitt 9
 3D-Druck ASA, nur mechanischer Schutz. Jumper JP1–JP7 und J4 unter einem Deckel zugänglich; USB-Buchse des
-Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2, J3 an einer Kante. Einbauort nahe J300.
+Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2 an einer Kante, J3 an der gegenüberliegenden (Betreiber, 16.10.2026). Einbauort nahe J300.
 - **Zero-Befestigung** (Betreiber, 16.10.2026): 4 Abstandsbolzen Würth WA-SSTII 970110151 (M2,5, innen/innen, 11 mm =
   Buchsenleiste 8,5 + Kunststoff der Zero-Stiftleiste 2,5, gerechnet) und 8 Schrauben M2,5 × 5 ISO 4762.
 - **3D-Modelle** (STEP, `tht/3d-modelle/`, nicht in Git; 16.10.2026), je Teil eines:
