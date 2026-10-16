@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "Robnet-Analyse")(type "KiCad")(uri "${KIPRJMOD}/Robnet-Analyse.kicad_sym")(options "")(descr "Eigene Schaltzeichen Robnet-Analyse"))
+)

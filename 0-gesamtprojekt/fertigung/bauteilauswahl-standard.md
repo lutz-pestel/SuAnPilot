@@ -1,6 +1,6 @@
 # Standard: Bauteilauswahl
 
-Version 00.02, Stand 16.10.2026, Obergrenze 120 Zeilen.
+Version 00.03, Stand 16.10.2026, Obergrenze 120 Zeilen.
 Gilt für **jede** Bauteilauswahl im Projekt: alle Platinen, alle Phasen, Weg A und Weg B. Wird **immer und ohne
 Aufforderung** angewandt (Betreiber, 15.10.2026). Entstanden an der Robnet-Analyse
 (`10-Robertson-Bedieneinheit/robnet-analyse/hardware/tht/konzeption/Bauteilauswahl.md`, Muster für Aufbau und Tabellen).
@@ -13,7 +13,7 @@ Händler je Teil; hat ein Teil nur einen, steht das ausdrücklich unter „Offen
 Vor dem ersten Teil steht in Abschnitt 0 der Bauteilauswahl, woran jede Wahl gemessen wird:
 - **Nur Durchsteckteile (THT), selbst gelötet** (Linie A, `fertigungsstrategie-platinen.md`). SMD oder Bestückung durch
   JLCPCB nur, wenn der Betreiber es ausdrücklich freigibt — **nie selbst entscheiden**.
-- **Zwei unabhängige Händler je Teil** (Schritt 6).
+- **Zwei unabhängige Händler je Teil** (Schritt 6; nicht für Teile, die JLCPCB bestückt).
 - Einsatzort und Umgebung (z. B. Motorraum: Wärme, Vibration, Bauteile möglichst −40…+85 °C).
 - Robustheit und Diagnosefähigkeit vor Preis.
 - Ob die Platine später geändert werden kann; wenn nicht, Unbekanntes von Anfang an wählbar machen (z. B. Jumper).
@@ -42,7 +42,7 @@ Was in einer anderen Baugruppe des Projekts schon geprüft und begründet ist, w
 Mengen aus Schaltplan oder Blockschaltbild abzählen, nicht schätzen. Reserven (Sicherungen, Auslaufteile) ausweisen
 („1 + 1"). Die Summen in `bom.csv` müssen zu den Angaben in `Bauteilauswahl.md` passen.
 
-## Schritt 6 — Bezugsquellen (für jedes Teil, ohne Ausnahme)
+## Schritt 6 — Bezugsquellen (für jedes Teil; Ausnahme: Teile, die JLCPCB bestückt – dort zählt nur der JLCPCB-Katalog, Betreiber 16.10.2026)
 - **Zwei unabhängige Händler**, jeweils mit **Link, Preis, Lagerbestand und Datum**. Ein anderer Artikel beim selben
   Händler ist keine zweite Quelle.
 - **Händler** (Deutschland zuerst): Reichelt, Mouser, DigiKey, Farnell, Bürklin, TME, Conrad; für Raspberry-Zubehör

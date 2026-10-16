@@ -1,6 +1,6 @@
 # Ablauf: Platine mit SMD-Bestückung durch JLCPCB
 
-Version 00.01, Stand 16.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
+Version 00.02, Stand 16.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
 Motor-Controller, SuAnPilot). Regeln und Werte von JLCPCB: `jlcpcb-bestueckungsregeln.md` (Abschnittsnummern dort = „R“).
 Teilewahl je Teil: `bauteilauswahl-standard.md`. Strategie (Linien A und B): `fertigungsstrategie-platinen.md`.
 Mit dem Betreiber Schritt für Schritt festgelegt am 16.10.2026.
@@ -17,9 +17,10 @@ Mit dem Betreiber Schritt für Schritt festgelegt am 16.10.2026.
 ## Schritt 1: Machbarkeit prüfen (vor dem Schaltplan oder kurz danach)
 Ziel: wissen, ob die SMD-Platine mit Basic- und Preferred-Teilen gebaut werden kann, bevor Arbeit in Schaltplan und
 Platine fließt.
-1. Die Schaltung in Blöcke teilen (z. B. Bus-Empfänger, A/D-Wandler, Referenz, Versorgung, Stecker, Buchsenleisten).
+1. **Alle Bauteile aus dem Schaltplan** der THT-Fassung per Netzliste und Skript auslesen (nichts vergessen) und in Blöcke
+   teilen (z. B. Bus-Empfänger, A/D-Wandler, Referenz, Versorgung, Stecker, Buchsenleisten).
 2. Je Teil im **JLCPCB-Katalog** (nicht LCSC, nicht aus dem Gedächtnis) ein Gegenstück suchen: LCSC-Nummer, Klasse, Lager,
-   Preis, Datum, dazu ein Ersatzteil; nach `bauteilauswahl-standard.md`.
+   Preis, Datum. **Kein zweiter Händler** für Teile, die JLCPCB bestückt (Betreiber, 16.10.2026). Ziel: kein Extended-Teil.
 3. Gibt es kein Basic/Preferred-Teil: eine andere Schaltung suchen, die dieselbe Funktion erfüllt. Erst wenn keine geht,
    das Extended-Teil mit Begründung dem Betreiber zur Freigabe vorlegen.
 4. **Stecker, Klemmen, Buchsenleisten, Fassungen** gleich behandeln: Katalogteil mit Montageart „wave soldering“ suchen
@@ -27,9 +28,13 @@ Platine fließt.
 5. **Fassungsfrage** für jedes IC, das tauschbar sein soll: alle Daten sammeln (Fassung SMD oder THT, IC in passender
    Bauform, je Katalognummer, Klasse, Lager, Preis; wer lötet und wer steckt; Kosten, Tauschbarkeit). Der Betreiber
    entscheidet nach Vorlage aller Daten; THT ist dabei eine ausdrückliche Möglichkeit.
-6. Kleinste Bauform (0603 oder 0805) mit dem Betreiber festlegen.
+6. **Bauform größer vor kleiner** (Reparatur, Betreiber 16.10.2026): je Wert die größte Bauform, die als Basic/Preferred
+   lieferbar ist; Ausnahmen begründen.
+7. **Gleichwertigkeit aus dem Datenblatt** für jedes geänderte Teil (Werte, auf die es ankommt, alt gegen neu). LCSC-
+   Datenblätter: Die Seite enthält den eigentlichen Link `datasheet.lcsc.com/datasheet/pdf/…`, der direkt abrufbar ist.
+8. **Kosten je Auftrag** rechnen (Einrichtung, Schablone, Ladegebühren, Teile, Lötstellen; R 2).
 
-Ergebnis: Liste Block – Teil – Klasse – Lager – Ersatzteil – „bestückt JLCPCB / selbst“ in `bom/bom.csv` der Platine,
+Ergebnis: Liste Teil – Klasse – Lager – Preis – „bestückt JLCPCB / Betreiber“ in `bom/bom.csv` der Platine,
 offene Entscheidungen in ihrer Bauteilauswahl. **Ja oder Nein des Betreibers zur SMD-Fassung.**
 
 ## Schritt 2: Schaltplan
@@ -93,7 +98,7 @@ Ergebnis: Vorschaubilder und Endpreis in `bestellung.md` der Platine.
 | Datei | Inhalt | Schritt |
 |---|---|---|
 | `konzeption/Bauteilauswahl.md` | Entscheidungen der Platine: Schaltungsänderungen, freigegebene Extended-Teile, Fassungen, Randabstand, kleinste Bauform | 1, 3 |
-| `bom/bom.csv` | je Teil LCSC-Nummer, Klasse, Lager, Datum, Ersatzteil, Abweichung, „bestückt JLCPCB / selbst“ | 1, 2 |
+| `bom/bom.csv` | Spalten der Vorlage (`bauteilauswahl-standard.md`): je Teil LCSC-Nummer, Klasse, Lager, Preis, Abweichung mit „bestückt JLCPCB / Betreiber“ | 1, 2 |
 | `kicad/vNN.NN/` | Schaltplan, Platine, `production/` mit den Fertigungsdateien | 2–4 |
 | `kicad/vNN.NN/bestellung.md` | höchstens 40 Zeilen: Auftragsnummer, Datum, Stückzahl, Endpreis, Vorschaubilder, Befund beim Empfang | 5, 6 |
 Baugruppen ohne Trennung in `tht/` und `smd/` (heute der Motor-Controller) bekommen diese Struktur, wenn ihre SMD-Fassung beginnt.

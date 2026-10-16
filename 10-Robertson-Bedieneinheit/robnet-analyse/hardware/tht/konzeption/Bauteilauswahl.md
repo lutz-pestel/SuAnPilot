@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie A (THT, selbst gelötet)
 
-Version 00.16, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.34),
+Version 00.16, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.37),
 `../../konzeption/Blockschaltbild_Robnet-Analyse.html` (00.16). Stückliste: `tht/bom/bom.csv`. Linie B (SMD): `../../smd/`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur

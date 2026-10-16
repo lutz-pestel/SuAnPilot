@@ -1,0 +1,27 @@
+# Version 00.02, Stand 16.10.2026. Hauptliste Robnet-Analyse Linie B (SMD, JLCPCB bestückt, Economic). Begründung: konzeption/Bauteilauswahl.md (Regel in Spalte Quelle). SMD-Werte aus dem JLCPCB-Katalog vom 16.10.2026 (Preis = 1. Preisstufe in USD), vor der Bestellung neu prüfen. Keine Extended-Teile. THT-Teile lötet der Betreiber (Bezug wie Linie A: ../../tht/bom/bom.csv und tht/konzeption/Bauteilauswahl.md Abschnitt 8). Referenzen nach Schaltplan Linie A v00.01.
+Funktion;Menge;THT-Teil (Linie A);LCSC THT;Klasse THT;Lager THT;Preis THT;SMD-Gegenstück (Linie B);LCSC SMD;Klasse SMD;Lager SMD;Preis SMD;Abweichung;Quelle
+Teiler 100 kΩ 1 % (R11 R13 R15 R17 R19 R21 R23 R31 R33 R35 R37 R39);12;Vishay MBB0207;-;-;-;-;UNI-ROYAL 0805W8F1003T5E (0805);C149504;Basic;3686457;0.0059;JLCPCB bestückt;Regel 2
+Teiler 18 kΩ 1 % (R12 R14 R18 R20 R22 R34 R36 R38 R40);9;Vishay MBB0207;-;-;-;-;UNI-ROYAL 0805W8F1802T5E (0805);C17506;Preferred;160347;0.0043;JLCPCB bestückt;Regel 2
+Teiler 8,2 kΩ 1 % (R16 R32);2;Vishay MBB0207;-;-;-;-;UNI-ROYAL 0805W8F8201T5E (0805);C17828;Basic;250929;0.0029;JLCPCB bestückt;Regel 2
+Teiler 180 kΩ 1 % (R24 Alarm);1;Vishay MBB0207;-;-;-;-;UNI-ROYAL 0805W8F1803T5E (0805);C17501;Preferred;77875;0.0039;JLCPCB bestückt;Regel 2
+1 kΩ 1 % (R1 R2 R4);3;Vishay MBB0207;-;-;-;-;UNI-ROYAL 0805W8F1001T5E (0805);C17513;Basic;44464888;0.0035;JLCPCB bestückt;Regel 2
+Abblockkondensatoren 100 nF 50 V X7R (C1 C2 C3);3;KEMET C320C104K5R5TA;-;-;-;-;Samsung CL31B104KBCNNNC (1206);C24497;Basic;1194593;0.0221;JLCPCB bestückt;Regel 2
+Klemmdioden (11 Wandlerkanäle und Alarm);12;23 x BAT85 (D11-D23 D31-D40);-;-;-;-;Hongjiacheng BAT54S (SOT-23 zwei Dioden in Reihe);C7420333;Preferred;888318;0.0137;JLCPCB bestückt. Ersetzt je Kanal zwei BAT85 (Masse - Messpunkt - 3,3 V). Alarm nutzt beide Dioden;Regel 11
+Verpolschutz (D1);1;Vishay SB540-E3/54;-;-;-;-;MDD SS54 (SMA 40 V 5 A);C22452;Basic;2135637;0.0444;JLCPCB bestückt;Regel 11
+Überspannungsschutz (D2);1;1.5KE20A (klemmt 27,7 V);-;-;-;-;Hongjiacheng SMCJ18CA (SMC 1500 W klemmt 29,2 V);C41411753;Preferred;2670;0.1222;JLCPCB bestückt. Unter 32 V Grenze R-78B;Regel 11
+Filter Netzseite 4,7 µF 50 V X7R (C4);1;TDK FG16X7R1H475KRT06;-;-;-;-;FH 1206B475K500NT (1206);C29823;Basic;673977;0.0854;JLCPCB bestückt;Regel 11
+Filter Längswiderstand 1 Ω 1/4 W (2 parallel = 0,5 Ω);2;Drossel Bourns RLB0914-100KL (L1);-;-;-;-;UNI-ROYAL 1206W4F100KT5E (1206);C17928;Basic;144530;0.0234;JLCPCB bestückt. Filter ohne Drossel;Regel 11
+Filter Reglerseite 10 µF 50 V X5R;2;TDK FG16X7R1H475KRT06 (C5 C6 je 4,7 µF);-;-;-;-;Samsung CL31A106KBHNNNE (1206);C13585;Basic;2314147;0.2722;JLCPCB bestückt. Datenblatt R-78B 10 µF am Eingang;Regel 11
+Platz Drossel L1;1;Bourns RLB0914-100KL;-;-;-;-;-;-;-;-;-;THT Drahtbrücke vom Betreiber. Nachrüstbar mit RLB0914 wenn Messung Störungen zeigt;Regel 11
+Sicherung 1 A T mit Halter und Anzeige (F1 D3 R3);1 Satz;Schurter OGN 0031.8201 und LED rot 3 mm und 4,7 kΩ;-;-;-;-;-;-;-;-;-;Entfällt in Linie B. Sicherung sitzt in der Versorgungsleitung (Betreiber 16.10.2026);Regel 11
+Fassung DIP-8 (U1);1;Sockel DIP-8 gedreht;-;-;-;-;-;-;-;-;-;THT vom Betreiber. SMD-Fassungen nur Extended;Regel 9
+Fassung DIP-16 (U2 U6);2;Sockel DIP-16 gedreht;-;-;-;-;-;-;-;-;-;THT vom Betreiber. SMD-Fassungen nur Extended;Regel 9
+Buchsenleiste 2 x 20 2,54 mm (Zero J5);1;Buchsenleiste 2x20 vergoldet;-;-;-;-;-;-;-;-;-;THT vom Betreiber. SMD-Buchsen nur Extended;Regel 9
+Bus-Empfänger U1 (gesteckt);1;MAX3488EEPA (DIP-8);C53286052;Extended;200;1.62;-;-;-;-;-;Vom Betreiber beschafft und gesteckt. Auslaufteil mit Reserve;Regel 9
+A/D-Wandler U2 U6 (gesteckt);2;MCP3208-CI/P (DIP-16);C1543277;Extended;10;4.27;-;-;-;-;-;Vom Betreiber beschafft und gesteckt;Regel 9
+Spannungsreferenz U4;1;LM4040AIZ-2.5/NOPB (TO-92 ±0,1 %);-;-;-;-;-;-;-;-;-;THT vom Betreiber. SMD ±0,1 % nur Extended und Basic CJ431 nur ±0,5 %;Regel 10
+Regler 5 V / 2 A U3;1;Recom R-78B5.0-2.0 (SIP-3);-;-;-;-;-;-;-;-;-;THT vom Betreiber. Nicht im JLCPCB-Katalog;Regel 10
+Steckverbinder J1 J3 und J2;2 / 1;Phoenix MSTBA 2,5/6-G-5,08 und 2,5/2-G-5,08;-;-;-;-;-;-;-;-;-;THT vom Betreiber. SMD-Leisten 5,08 mm nicht am Lager;Regel 10
+Jumper-Stiftleisten JP1-JP7 und Jumper;7 / 9;1 x 2 und 2 x 3 und Harwin M7566-05;-;-;-;-;-;-;-;-;-;THT vom Betreiber;Regel 10
+Stiftleiste J4 Messpunkte;1;Stiftleiste 1 x 3 2,54 mm;-;-;-;-;-;-;-;-;-;THT vom Betreiber. Kein Basic/Preferred;Regel 10
+Stecker Kabel Rechner Netz;-;wie Linie A (MSTB-Stecker Steuerleitung Zero 2 W microSD WLAN/LAN);-;-;-;-;-;-;-;-;-;Zukauf Betreiber;Linie A
