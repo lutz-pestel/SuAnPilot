@@ -31,7 +31,8 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 - 100: `CLAUDE.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`
 - 120: `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md`
-- 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`, `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
+- 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `0-gesamtprojekt/fertigung/jlcpcb-bestueckungsregeln.md`, `0-gesamtprojekt/fertigung/ablauf-smd-bestueckung.md`,
+  `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`, `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,
   `3-suanpilot/docs/gesamt.md` und `3-suanpilot/autopilot/hardware/konzeption/bedieneinheit.md`
 - 200: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/tht/konzeption/Bauteilauswahl.md`,
   `10-Robertson-Bedieneinheit/robnet-analyse/hardware/smd/konzeption/Bauteilauswahl.md`
@@ -57,7 +58,7 @@ Datenblätter und Zeichnungen der Hersteller in `datenblaetter/` (nicht in Git),
   **Jede Schwäche des TinyPilot dort als Anforderung aufnehmen.** Versionsnummern erst im Unterordner `vNN.NN/`.
 - **`0-gesamtprojekt/`** (gilt für beide Wege): `SuAn-Autopilot-Projekt.md`, `CHRONIK.md`, `TODO.md`, `VERSIONEN.md`,
   `wissen/` (Hintergrund, Marktrecherche, pypilot-Geschichte), `handbuecher/` (PyPilot, Andere Schiffe, Robertson; nicht in Git),
-  `fertigung/` (JLCPCB-Strategie).
+  `fertigung/` (JLCPCB-Strategie, -Bestückungsregeln, SMD-Ablauf).
 - **`99-tools/`** (Werkzeuge für beide Wege, gleicher Aufbau): `docs/`, Baugruppe `messgeraet/` (Strom und Spannung, Projektplan `docs/messgeraet.md`); `docs/Robnet.md` (Robertson-Bus-Wissen).
 - **`10-Robertson-Bedieneinheit/`** (Robertson-Bedieneinheit, gleicher Aufbau): Baugruppe `robnet-analyse/` (Robertson-Bus mitlesen; `hardware/tht/` und `hardware/smd/`).
 - Das Paket baut man auf dem TinyPilot; `bauen.sh` setzt nur den Paketbaum aus `kern/` und `plattform/` zusammen.

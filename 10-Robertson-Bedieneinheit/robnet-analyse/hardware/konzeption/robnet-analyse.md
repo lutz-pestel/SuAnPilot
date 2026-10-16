@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.32, Stand 16.10.2026, Obergrenze 100 Zeilen.
+Version 00.33, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -8,7 +8,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
 - **Ablage** (Betreiber, 16.10.2026): gemeinsam nur `hardware/konzeption/` (dieses Konzept, Blockschaltbild). Linie A (THT) in `hardware/tht/`,
-  Linie B (SMD, JLCPCB bestückt; Regeln und Stand `smd/konzeption/Bauteilauswahl.md`) in `hardware/smd/`, gleicher Aufbau. Unten: `Bauteilauswahl.md` = THT.
+  Linie B (SMD, JLCPCB bestückt; Stand `smd/konzeption/Bauteilauswahl.md`, Ablauf `0-gesamtprojekt/fertigung/ablauf-smd-bestueckung.md`) in `hardware/smd/`, gleicher Aufbau. Unten: `Bauteilauswahl.md` = THT.
 - **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.16, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
   Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.15 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Schaltplan fertig** (`hardware/tht/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
