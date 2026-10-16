@@ -1,4 +1,4 @@
-# Erzeugt KiCad-10-Schaltplanblaetter aus Python-Beschreibungen. Linie B (SMD). Version 00.03, Stand 16.10.2026.
+# Erzeugt KiCad-10-Schaltplanblaetter aus Python-Beschreibungen. Linie B (SMD). Version 00.04, Stand 16.10.2026.
 # Neu gegen Linie A: Feld "LCSC Part #" je Bauteil aus LCSC (Wert -> JLCPCB-Teilenummer).
 import copy, math, uuid, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -102,8 +102,9 @@ class Sym:
         out = ['symbol', ['lib_id', Q(self.lib_id)], ['at', r(self.x), r(self.y), r(self.rot)]]
         if self.mirror:
             out.append(['mirror', self.mirror])
-        out += [['unit', '1'], ['body_style', '1'], ['exclude_from_sim', 'no'], ['in_bom', 'no' if self.ref.startswith('#') else 'yes'],
-                ['on_board', 'no' if self.ref.startswith('#') else 'yes'], ['in_pos_files', 'yes'], ['dnp', 'yes' if self.dnp else 'no'],
+        jlc = self.value in LCSC and not self.ref.startswith('#')   # sonst lötet der Betreiber: nicht in die JLCPCB-Listen
+        out += [['unit', '1'], ['body_style', '1'], ['exclude_from_sim', 'no'], ['in_bom', 'yes' if jlc else 'no'],
+                ['on_board', 'no' if self.ref.startswith('#') else 'yes'], ['in_pos_files', 'yes' if jlc else 'no'], ['dnp', 'yes' if self.dnp else 'no'],
                 ['uuid', uid(self.sheet.name, self.ref)]]
         fangle = self.rot % 180
         for key in ('Reference', 'Value', 'Footprint', 'Datasheet', 'Description'):

@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.44, Stand 16.10.2026, Obergrenze 100 Zeilen.
+Version 00.46, Stand 16.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -24,7 +24,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
   1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC (Linie B: alle Bahnen verlegt, DRC ohne Meldung, `smd/konzeption/Bauteilauswahl.md`). J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
-  2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe.
+  2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe (Linie B: Fertigungsdaten erzeugt, 16.10.2026).
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
      Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus
      (Seriell-Schnittstelle frei), SPI an, pigpio.
@@ -55,7 +55,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
    gezogenem Bus-Jumper jede Seite allein lesen kann. **Stiftleiste J4** (Bus+, Bus−, Masse, Seite J300) für Oszilloskop
    oder Logikanalysator (Betreiber, 15.10.2026).
 4. **Spannungsmessung:** MCP3208, Referenz LM4040 2,5 V, Teiler und Schutzdioden BAT85 wie im Motor-Controller.
-   Teiler 100 kΩ/18 kΩ (bis ~16 V), Vsys+ 100 kΩ/8,2 kΩ (bis ~33 V). Bus-Kanäle ohne Glättungskondensator.
+   Teiler 100 kΩ/18 kΩ (bis ~16 V; Linie B 13 kΩ, bis ~21,7 V, Betreiber 16.10.2026), Vsys+ 100 kΩ/8,2 kΩ (bis ~33 V). Bus-Kanäle ohne Glättungskondensator.
    **U2 (CE0) = Seite J300:** CH0/CH1 Bus+/Bus−, CH2 Vsys+, CH3 On-Off, CH4 Alarm, CH5 Bordspannung; CH6, CH7 frei.
    **U6 (CE1) = Seite Bedieneinheit:** CH0 Vsys+, CH1 On-Off, CH2 Alarm, CH3/CH4 Bus+/Bus−; CH5–CH7 frei.
 5. **Schaltleitungen:** Alarm zusätzlich über Teiler an einen Zero-Eingang (Zeitstempel). **On-Off nur über den Wandler:**
@@ -81,7 +81,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   ~2400–4800 Baud, bei 9600 nur Pegel und Pakete (geschätzt, ungemessen). Dritter Weg: Stiftleiste J4.
 - **Annahme ≤ 9600 Baud** (Robnet.md, H7): ~20 Punkte je Bit schon bei 5 µs, digital sicher; kein Vorab-Test auf Steckplatine (Betreiber, 15.10.2026),
   keine Reserve (schnellerer Empfänger, ESP32). Werte aus Recherche 10.10.2026, nicht gemessen.
-- **Last am Bus:** je Leitung ~118 kΩ (Teiler) plus Empfängereingang MAX3488 (12 kΩ, Datenblatt) – gering.
+- **Last am Bus:** je Leitung ~118 kΩ (Teiler; Linie B ~113 kΩ) plus Empfängereingang MAX3488 (12 kΩ, Datenblatt) – gering.
 
 ## 4. Bewusst weggelassen
 - **Senden:** bräuchte einen Baustein mit Sendefreigabe; erst nach dem Verstehen ein Thema.

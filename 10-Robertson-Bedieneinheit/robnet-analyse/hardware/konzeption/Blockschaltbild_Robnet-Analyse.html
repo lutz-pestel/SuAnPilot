@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.16, Stand 16.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
+  <p class="sub">Version 00.17, Stand 16.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
   Robnet-Bus mit (sendet nie), kann f&uuml;nf der sechs Adern per Jumper trennen; die Richtung jeder Ader zeigt ein Trennversuch. Anforderungen und Einstieg:
   <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte: <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und
   MCP3208 aus den KiCad-Symbolen des Motor-Controllers; Zero-Pins und Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in
@@ -160,7 +160,7 @@
   <foreignObject x="801" y="241" width="218" height="108"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
     <b>Teiler und Klemmdioden U6 (5 Kan&auml;le)</b>
     CH0 &#8592; VSYS_B 100&nbsp;k / 8,2&nbsp;k; CH1 &#8592; ONOFF_B, CH2 &#8592; ALARM_B, CH3 &#8592; BUSP_B, CH4 &#8592; BUSN_B je
-    100&nbsp;k / 18&nbsp;k (Bus ohne Gl&auml;ttung); je zwei BAT85 nach +3V3/GND.</div></foreignObject>
+    100&nbsp;k / 18&nbsp;k (B: 13&nbsp;k; Bus ohne Gl&auml;ttung); je zwei BAT85 nach +3V3/GND.</div></foreignObject>
   <path class="w-ana" d="M910,238 L910,224"/>
 
   <!-- ======== U6 zweiter MCP3208 ======== -->
@@ -207,14 +207,14 @@
   <!-- ======== Teiler fuer den Wandler ======== -->
   <rect x="250" y="660" width="350" height="250" rx="8" fill="#fff" stroke="#2d6cdf" stroke-width="1.6"/>
   <text class="pn" x="258" y="677">Teiler und Klemmdioden U2, Seite J300 (6 Kan&#228;le)</text>
-  <text class="lb" x="258" y="697">CH0 &#8592; <tspan class="nn">BUSP_J</tspan>  100 k / 18 k (bis ~16 V), ohne Gl&#228;ttung</text>
-  <text class="lb" x="258" y="717">CH1 &#8592; <tspan class="nn">BUSN_J</tspan>  100 k / 18 k, ohne Gl&#228;ttung</text>
+  <text class="lb" x="258" y="697">CH0 &#8592; <tspan class="nn">BUSP_J</tspan>  100 k / 18 k (B: 13 k) (bis ~16 V, B: ~21,7 V), ohne Gl&#228;ttung</text>
+  <text class="lb" x="258" y="717">CH1 &#8592; <tspan class="nn">BUSN_J</tspan>  100 k / 18 k (B: 13 k), ohne Gl&#228;ttung</text>
   <text class="lb" x="258" y="737">CH2 &#8592; <tspan class="nn">VSYS_J</tspan>  100 k / 8,2 k (bis ~33 V)</text>
-  <text class="lb" x="258" y="757">CH3 &#8592; <tspan class="nn">ONOFF_J</tspan>  100 k / 18 k (12 V / 8 V nur hier)</text>
-  <text class="lb" x="258" y="777">CH4 &#8592; <tspan class="nn">ALARM_J</tspan>  100 k / 18 k</text>
-  <text class="lb" x="258" y="797">CH5 &#8592; <tspan class="nn">+12V_F</tspan>  100 k / 18 k (Bordspannung)</text>
+  <text class="lb" x="258" y="757">CH3 &#8592; <tspan class="nn">ONOFF_J</tspan>  100 k / 18 k (B: 13 k) (12 V / 8 V nur hier)</text>
+  <text class="lb" x="258" y="777">CH4 &#8592; <tspan class="nn">ALARM_J</tspan>  100 k / 18 k (B: 13 k)</text>
+  <text class="lb" x="258" y="797">CH5 &#8592; <tspan class="nn">+12V_F</tspan>  100 k / 18 k (B: 13 k) (Bordspannung)</text>
   <text class="lb" x="258" y="817">CH6, CH7 frei</text>
-  <text class="lb" x="258" y="862">Je Kanal Teiler 1 %, zwei BAT85 nach +3V3/GND; Last je Ader ~118 k&#937;.</text>
+  <text class="lb" x="258" y="862">Je Kanal Teiler 1 %, zwei BAT85 nach +3V3/GND; Last je Ader ~118 k&#937; (B: ~113 k&#937;).</text>
   <text class="lb" x="258" y="876">Seite Bedieneinheit: Teiler U6 (oben).</text>
   <path class="w-ana" d="M600,770 L658,770"/>
   <text class="lb" x="629" y="763" text-anchor="middle">CH0&#8211;7</text>

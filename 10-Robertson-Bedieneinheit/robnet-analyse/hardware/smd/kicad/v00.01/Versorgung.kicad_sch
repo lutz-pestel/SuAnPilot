@@ -2071,9 +2071,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "bbe3a294-b681-5112-9c46-9f1d59209537")
 		(property "Reference" "L1"
@@ -2334,9 +2334,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "bce54334-244e-5fdd-9274-1eeb7e89da23")
 		(property "Reference" "U3"
@@ -2418,7 +2418,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "1e0e0c86-9e14-584b-b2d4-fa79eba70f97")
 		(property "Reference" "#FLG04"

@@ -183,10 +183,10 @@ def rechner(path):
 
 
 # ======================================================================= Messung (A3)
-LEFT = [('BUSP_J', '18k 1%', False), ('BUSN_J', '18k 1%', False), ('VSYS_J', '8k2 1%', True), ('ONOFF_J', '18k 1%', True),
-        ('ALARM_J', '18k 1%', True), ('+12V_F', '18k 1%', True)]
-RIGHT = [('VSYS_B', '8k2 1%', True), ('ONOFF_B', '18k 1%', True), ('ALARM_B', '18k 1%', True), ('BUSP_B', '18k 1%', False),
-         ('BUSN_B', '18k 1%', False)]
+LEFT = [('BUSP_J', '13k 1%', False), ('BUSN_J', '13k 1%', False), ('VSYS_J', '8k2 1%', True), ('ONOFF_J', '13k 1%', True),
+        ('ALARM_J', '13k 1%', True), ('+12V_F', '13k 1%', True)]
+RIGHT = [('VSYS_B', '8k2 1%', True), ('ONOFF_B', '13k 1%', True), ('ALARM_B', '13k 1%', True), ('BUSP_B', '13k 1%', False),
+         ('BUSN_B', '13k 1%', False)]
 
 
 def clamp(s, ref, xd, y, mirror=False):
@@ -292,8 +292,8 @@ def messung(path):
     cs2, cs6 = u2.pin(10), u6.pin(10)
     s.wire(cs2, (149.86, cs2[1]), (149.86, 142.24)); s.hlabel('CE0', 149.86, 142.24, 'input', 270)
     s.wire(cs6, (W - 149.86, cs6[1]), (W - 149.86, 142.24)); s.hlabel('CE1', W - 149.86, 142.24, 'input', 270)
-    s.text('Teiler 100 k / 18 k (bis ~16 V), Vsys+ 100 k / 8,2 k (bis ~33 V), alle 1 % (UNI-ROYAL 0805).\n'
-           'Je Kanal eine BAT54S nach +3,3 V und Masse. Bus-Kanäle ohne Glättung. Last je Ader ~118 kΩ.\n'
+    s.text('Teiler 100 k / 13 k (bis ~21,7 V), Vsys+ 100 k / 8,2 k (bis ~33 V), alle 1 % (UNI-ROYAL 0805).\n'
+           'Je Kanal eine BAT54S nach +3,3 V und Masse. Bus-Kanäle ohne Glättung. Last je Ader ~113 kΩ.\n'
            'U2, U6 MCP3208 (12 Bit, THT-Fassung), Referenz U4 LM4040 2,5 V (TO-92) für beide.\n'
            'Alarm an den Zero (GPIO27): ALARM_J über 100 k / 180 k, 4,8 V → ~3,1 V, BAT54S nach +3,3 V und Masse.', 165.1, 205.74)
     return s

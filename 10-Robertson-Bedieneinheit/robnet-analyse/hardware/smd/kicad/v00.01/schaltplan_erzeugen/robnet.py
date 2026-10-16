@@ -1,4 +1,4 @@
-# Erzeugt den Schaltplan Robnet-Analyse Linie B (SMD) v00.01 (Hauptblatt, Unterblaetter, Projektbibliotheken). Version 00.04, Stand 16.10.2026.
+# Erzeugt den Schaltplan Robnet-Analyse Linie B (SMD) v00.01 (Hauptblatt, Unterblaetter, Projektbibliotheken). Version 00.05, Stand 16.10.2026.
 # Kopie von Linie A (tht/kicad/v00.01/schaltplan_erzeugen), Aenderungen: smd/konzeption/Bauteilauswahl.md Regel 11.
 # Aufruf (KiCad geschlossen), im Ordner schaltplan_erzeugen:  python robnet.py ..
 # Danach: kicad-cli sch erc, Netzliste exportieren, python ../pruefung_blockschaltbild.py <netzliste.xml>.
@@ -6,7 +6,7 @@
 import sys, os, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import kgen, libs
-kgen.LCSC.update({'100k 1%': 'C149504', '18k 1%': 'C17506', '8k2 1%': 'C17828', '180k 1%': 'C17501', '1k 1%': 'C17513',
+kgen.LCSC.update({'100k 1%': 'C149504', '13k 1%': 'C17455', '8k2 1%': 'C17828', '180k 1%': 'C17501', '1k 1%': 'C17513',
                   '100n': 'C24497', 'BAT54S': 'C7420333', 'SS54': 'C22452', 'SMCJ18CA': 'C41411753', '4u7 50V': 'C29823',
                   '1R 1%': 'C17928', '10u 50V': 'C13585'})   # JLCPCB-Katalog 16.10.2026, smd/bom/bom.csv
 from kgen import Sheet, uid, Q

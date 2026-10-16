@@ -3332,7 +3332,7 @@
 		)
 		(uuid "c6f74318-0af6-5c91-b592-7c82084a0d22")
 	)
-	(text "Teiler 100 k / 18 k (bis ~16 V), Vsys+ 100 k / 8,2 k (bis ~33 V), alle 1 % (UNI-ROYAL 0805).\nJe Kanal eine BAT54S nach +3,3 V und Masse. Bus-Kanäle ohne Glättung. Last je Ader ~118 kΩ.\nU2, U6 MCP3208 (12 Bit, THT-Fassung), Referenz U4 LM4040 2,5 V (TO-92) für beide.\nAlarm an den Zero (GPIO27): ALARM_J über 100 k / 180 k, 4,8 V → ~3,1 V, BAT54S nach +3,3 V und Masse."
+	(text "Teiler 100 k / 13 k (bis ~21,7 V), Vsys+ 100 k / 8,2 k (bis ~33 V), alle 1 % (UNI-ROYAL 0805).\nJe Kanal eine BAT54S nach +3,3 V und Masse. Bus-Kanäle ohne Glättung. Last je Ader ~113 kΩ.\nU2, U6 MCP3208 (12 Bit, THT-Fassung), Referenz U4 LM4040 2,5 V (TO-92) für beide.\nAlarm an den Zero (GPIO27): ALARM_J über 100 k / 180 k, 4,8 V → ~3,1 V, BAT54S nach +3,3 V und Masse."
 		(exclude_from_sim no)
 		(at 165.1 205.74 0)
 		(effects
@@ -3341,7 +3341,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "53357230-3363-50b7-bbe3-e1e08a2f1ff0")
+		(uuid "fe8e247b-555a-51db-9ff1-bb7beabbb9e1")
 	)
 	(symbol
 		(lib_id "Robnet-Analyse:MCP3208")
@@ -3349,9 +3349,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "84dbcee8-37df-5687-8533-334c44b1e862")
 		(property "Reference" "U2"
@@ -3471,9 +3471,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a4004c60-5754-5809-bdf6-d744020baec6")
 		(property "Reference" "U6"
@@ -3779,7 +3779,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "30cab9ae-cf2e-5473-8763-bc662c59d12b")
 		(property "Reference" "#PWR014"
@@ -3856,7 +3856,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "8ab313b6-cf2c-5dd5-ac0d-502c3b011087")
 		(property "Reference" "#PWR015"
@@ -3947,7 +3947,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 78.74 58.42 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -3991,7 +3991,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 76.2 57.15 0)
 			(hide yes)
 			(show_name no)
@@ -4025,7 +4025,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "9570024c-4f2e-5276-9525-a97ac33f1225")
 		(property "Reference" "#PWR016"
@@ -4287,7 +4287,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "abab9b4e-336a-53cd-a7de-e73a19e9bdb9")
 		(property "Reference" "#PWR017"
@@ -4364,7 +4364,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "820adc11-6b96-5be3-89c6-c147b70e9e6c")
 		(property "Reference" "#PWR018"
@@ -4455,7 +4455,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 78.74 88.9 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -4499,7 +4499,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 76.2 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -4533,7 +4533,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "1ce5a0db-e334-5629-a065-7b3ef5824eb4")
 		(property "Reference" "#PWR019"
@@ -4795,7 +4795,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a9d4bb31-b92d-5479-bb96-1bd495313e0f")
 		(property "Reference" "#PWR020"
@@ -4872,7 +4872,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "cc20888a-c0d5-581a-8ed8-4d922164996a")
 		(property "Reference" "#PWR021"
@@ -5041,7 +5041,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "4119fb5e-746a-5da6-a432-6d930874f912")
 		(property "Reference" "#PWR022"
@@ -5303,7 +5303,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "c9cb1ebe-4d84-5011-87c3-2e3aed012522")
 		(property "Reference" "#PWR023"
@@ -5380,7 +5380,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3e12a4ee-03bc-5de0-9113-52dcc653b12f")
 		(property "Reference" "#PWR024"
@@ -5471,7 +5471,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 78.74 149.86 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -5515,7 +5515,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 76.2 148.59 0)
 			(hide yes)
 			(show_name no)
@@ -5549,7 +5549,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "c7856969-802f-5707-870c-4d66233987a4")
 		(property "Reference" "#PWR025"
@@ -5811,7 +5811,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "fa7027aa-e766-5de4-8d69-a31a756185a8")
 		(property "Reference" "#PWR026"
@@ -5888,7 +5888,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "acf3107e-954d-5503-9336-afedbc783432")
 		(property "Reference" "#PWR027"
@@ -5979,7 +5979,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 78.74 180.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6023,7 +6023,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 76.2 179.07 0)
 			(hide yes)
 			(show_name no)
@@ -6057,7 +6057,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "fbe81dc8-8370-5939-9d2f-1b0c96d900f2")
 		(property "Reference" "#PWR028"
@@ -6319,7 +6319,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "218b450b-4cd2-5729-90c1-eed2f713556f")
 		(property "Reference" "#PWR029"
@@ -6396,7 +6396,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "eba145f0-8924-5a52-b177-b1622af9b007")
 		(property "Reference" "#PWR030"
@@ -6487,7 +6487,7 @@
 				(justify left)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 78.74 241.3 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -6531,7 +6531,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 76.2 240.03 0)
 			(hide yes)
 			(show_name no)
@@ -6565,7 +6565,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "2061b99b-7c59-55de-8e38-61773d6bda4b")
 		(property "Reference" "#PWR031"
@@ -6828,7 +6828,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "8a37d13e-3dc9-5df5-88dc-a25964cef221")
 		(property "Reference" "#PWR032"
@@ -6905,7 +6905,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "ee18e2cc-3a2c-5505-8f2b-b49a9b18fece")
 		(property "Reference" "#PWR033"
@@ -7074,7 +7074,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "45e51f0e-32f0-5a70-9123-6c0102c5ff17")
 		(property "Reference" "#PWR034"
@@ -7337,7 +7337,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "872d8c3a-1bb3-5822-b925-f2449521fc0c")
 		(property "Reference" "#PWR035"
@@ -7414,7 +7414,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "232099d8-7f5b-548b-9c2e-f9f208fd845f")
 		(property "Reference" "#PWR036"
@@ -7505,7 +7505,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 342.9 88.9 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -7549,7 +7549,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 345.44 87.63 0)
 			(hide yes)
 			(show_name no)
@@ -7583,7 +7583,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "6d170e03-4db2-52e9-823b-4e976413095e")
 		(property "Reference" "#PWR037"
@@ -7846,7 +7846,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a8f57897-f842-5ba7-91b2-ecc4331d3d72")
 		(property "Reference" "#PWR038"
@@ -7923,7 +7923,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "b632835a-e91e-5ce5-8ed6-2b238a730945")
 		(property "Reference" "#PWR039"
@@ -8014,7 +8014,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 342.9 119.38 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8058,7 +8058,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 345.44 118.11 0)
 			(hide yes)
 			(show_name no)
@@ -8092,7 +8092,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "769f3fd0-7dde-5d35-99b8-15230936797b")
 		(property "Reference" "#PWR040"
@@ -8355,7 +8355,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "7550d2dc-3963-5a96-a12d-5d2f06e12003")
 		(property "Reference" "#PWR041"
@@ -8432,7 +8432,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "8f4796a7-8935-58ca-9f6c-e4817e67d99d")
 		(property "Reference" "#PWR042"
@@ -8523,7 +8523,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 342.9 149.86 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -8567,7 +8567,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 345.44 148.59 0)
 			(hide yes)
 			(show_name no)
@@ -8601,7 +8601,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "db28caae-a7ea-5f64-8365-85b427cba4d6")
 		(property "Reference" "#PWR043"
@@ -8864,7 +8864,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "ca7427f2-9a8c-57d4-b22e-d2c9a2b9dae5")
 		(property "Reference" "#PWR044"
@@ -8941,7 +8941,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "ff9ce4db-26d3-5c7d-98ca-d5e8bdb6cdd6")
 		(property "Reference" "#PWR045"
@@ -9032,7 +9032,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "18k 1%"
+		(property "Value" "13k 1%"
 			(at 342.9 180.34 0)
 			(show_name no)
 			(do_not_autoplace no)
@@ -9076,7 +9076,7 @@
 				)
 			)
 		)
-		(property "LCSC Part #" "C17506"
+		(property "LCSC Part #" "C17455"
 			(at 345.44 179.07 0)
 			(hide yes)
 			(show_name no)
@@ -9110,7 +9110,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "332cf97a-50b4-5efd-8063-0d0a8f5c7c94")
 		(property "Reference" "#PWR046"
@@ -9372,7 +9372,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "e2e2b67a-ad22-5dae-bb41-9123bd52665b")
 		(property "Reference" "#PWR047"
@@ -9449,7 +9449,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3db7f5c9-c73e-53f3-a652-380027b2f476")
 		(property "Reference" "#PWR048"
@@ -9618,7 +9618,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3ca6f590-4157-5661-adb5-7d9c0beab979")
 		(property "Reference" "#PWR049"
@@ -9695,7 +9695,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3bc5b813-146b-54ca-b23b-c760365171fc")
 		(property "Reference" "#PWR050"
@@ -9864,7 +9864,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "f5e213bc-bb47-55ea-8d8d-a2d7d1826a21")
 		(property "Reference" "#PWR051"
@@ -9941,7 +9941,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "769e33ea-1bdc-52c6-bb5c-91ef33a50447")
 		(property "Reference" "#PWR052"
@@ -10018,7 +10018,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "963447a1-6aca-57d0-a6d8-2a0bbca46803")
 		(property "Reference" "#PWR053"
@@ -10095,7 +10095,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "9fdd33d6-c7a2-5071-907b-433e40877391")
 		(property "Reference" "#PWR054"
@@ -10264,7 +10264,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "9d8537f4-19aa-57d9-91fb-10fb883fafe0")
 		(property "Reference" "#PWR055"
@@ -10341,7 +10341,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "86ae4dd7-7d85-504a-9d3e-dc84a6907cdd")
 		(property "Reference" "#PWR056"
@@ -10418,7 +10418,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "1457c8d1-d3ce-517a-9c19-04117e4106e4")
 		(property "Reference" "#PWR057"
@@ -10493,9 +10493,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "8c57ecac-39fe-5a7c-9bfc-5d6150b616da")
 		(property "Reference" "U4"
@@ -10671,7 +10671,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "378c050b-0fc9-577f-9f71-1eeba5578842")
 		(property "Reference" "#FLG03"
@@ -10749,7 +10749,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "9198035d-5a12-5097-88da-03c6e3cdafed")
 		(property "Reference" "#PWR058"
@@ -10826,7 +10826,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "2c167df4-4cd9-5b08-85f1-4ff21290e0fd")
 		(property "Reference" "#PWR059"
@@ -10903,7 +10903,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "33e455a8-4563-5354-b058-ec95a87d9e2d")
 		(property "Reference" "#PWR060"
@@ -10980,7 +10980,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "466cbb23-bbce-5103-bf15-9242247979a1")
 		(property "Reference" "#PWR061"

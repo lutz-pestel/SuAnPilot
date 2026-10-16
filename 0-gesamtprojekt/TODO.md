@@ -53,7 +53,7 @@ Ort je Aufgabe: [H] Hafen, [U] unterwegs, [M] auch unter Motor möglich. Fork: `
     in `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0.
 21. [H] **Robnet-Analyse, zweite Bezugsquelle** für Steuerleitung 6 × 0,5 mm² und WLAN-Stick (bisher nur Reichelt; `hardware/tht/konzeption/Bauteilauswahl.md`, Abschnitt 8).
 22. [H] **Bauteilauswahl Motor-Controller** nach `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md` überarbeiten (u. a. zwei Händler je Teil).
-23. [H] **Robnet-Analyse Linie A: J3 (Bedieneinheit) an die Unterkante verlegen** (Betreiber, 16.10.2026; Skript `tht/kicad/v00.01/platine_erzeugen/`).
+23. [H] **Robnet-Analyse Linie A: J3 (Bedieneinheit) an die Unterkante verlegen, Teiler 18 → 13 kΩ (20 V wie Linie B)** (Betreiber, 16.10.2026; Skript `tht/kicad/v00.01/platine_erzeugen/`).
 
 ## Offene Fragen Hardware (gemeinsam klären; geklärt → in die Systembeschreibung, hier löschen)
 Klären durch: N = nachsehen, M = messen, F = Betreiber fragen. Quelle: Unterlagen und KiCad-Pläne (03.10.2026).

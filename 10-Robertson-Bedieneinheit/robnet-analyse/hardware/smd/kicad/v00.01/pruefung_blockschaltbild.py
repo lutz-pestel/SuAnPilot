@@ -1,7 +1,7 @@
-# Prueft jede Verbindung des Blockschaltbilds 00.15 gegen die Netzliste von KiCad. Linie B (SMD). Version 00.03, Stand 16.10.2026.
+# Prueft jede Verbindung des Blockschaltbilds 00.15 gegen die Netzliste von KiCad. Linie B (SMD). Version 00.04, Stand 16.10.2026.
 # Gegen Linie A (smd/konzeption/Bauteilauswahl.md Regel 11): Klemmdioden BAT54S (Pin 1 A an Masse, Pin 3 Mitte am Messpunkt,
 #   Pin 2 K an +3V3) statt 2 x BAT85; keine Sicherung F1 und keine Sicherungs-LED; Schutzdiode SMCJ18CA;
-#   Filter 4,7 uF - R5 || R6 (je 1 Ohm) - L1 (Drahtbruecke) - 2 x 10 uF.
+#   Filter 4,7 uF - R5 || R6 (je 1 Ohm) - L1 (Drahtbruecke) - 2 x 10 uF; Teiler 100 k / 13 k statt 18 k (bis ~21,7 V).
 # Aufruf (KiCad geschlossen): kicad-cli sch export netlist --format kicadxml -o ra.xml Robnet-Analyse.kicad_sch
 #                            python pruefung_blockschaltbild.py ra.xml   -> erwartet: 86 erfuellt, 0 nicht erfuellt
 # Blaetter: Hauptblatt, Bus-Empfaenger, Rechner, Messung, Versorgung; Versorgung nur ueber Leitungen im Hauptblatt.
@@ -130,19 +130,19 @@ free('Sendeausgänge U1.5 Y und U1.6 Z offen (sonst sendet er)', 'U1.5', 'U1.6')
 same('U1.2 RO an Zero Pin 10 (GPIO15 RXD) und Pin 16 (GPIO23)', 'U1.2', 'J5.10', 'J5.16')
 free('Zero Pin 8 (GPIO14 TXD) frei', 'J5.8')
 print('--- Wandler U2 (CE0), Seite J300')
-teiler('CH0 ← BUSP_J 100k/18k, ohne Glättung', 'J1.2', 'U2.1', 100e3, 18e3, False)
-teiler('CH1 ← BUSN_J 100k/18k, ohne Glättung', 'J1.1', 'U2.2', 100e3, 18e3, False)
+teiler('CH0 ← BUSP_J 100k/13k, ohne Glättung', 'J1.2', 'U2.1', 100e3, 13e3, False)
+teiler('CH1 ← BUSN_J 100k/13k, ohne Glättung', 'J1.1', 'U2.2', 100e3, 13e3, False)
 teiler('CH2 ← VSYS_J 100k/8,2k', 'J1.3', 'U2.3', 100e3, 8.2e3)
-teiler('CH3 ← ONOFF_J 100k/18k', 'J1.5', 'U2.4', 100e3, 18e3)
-teiler('CH4 ← ALARM_J 100k/18k', 'J1.6', 'U2.5', 100e3, 18e3)
-teiler('CH5 ← +12V_F 100k/18k (Bordspannung)', V12F, 'U2.6', 100e3, 18e3)
+teiler('CH3 ← ONOFF_J 100k/13k', 'J1.5', 'U2.4', 100e3, 13e3)
+teiler('CH4 ← ALARM_J 100k/13k', 'J1.6', 'U2.5', 100e3, 13e3)
+teiler('CH5 ← +12V_F 100k/13k (Bordspannung)', V12F, 'U2.6', 100e3, 13e3)
 free('CH6, CH7 frei', 'U2.7', 'U2.8')
 print('--- Wandler U6 (CE1), Seite Bedieneinheit')
 teiler('CH0 ← VSYS_B 100k/8,2k', 'J3.3', 'U6.1', 100e3, 8.2e3)
-teiler('CH1 ← ONOFF_B 100k/18k', 'J3.5', 'U6.2', 100e3, 18e3)
-teiler('CH2 ← ALARM_B 100k/18k', 'J3.6', 'U6.3', 100e3, 18e3)
-teiler('CH3 ← BUSP_B 100k/18k, ohne Glättung', 'J3.2', 'U6.4', 100e3, 18e3, False)
-teiler('CH4 ← BUSN_B 100k/18k, ohne Glättung', 'J3.1', 'U6.5', 100e3, 18e3, False)
+teiler('CH1 ← ONOFF_B 100k/13k', 'J3.5', 'U6.2', 100e3, 13e3)
+teiler('CH2 ← ALARM_B 100k/13k', 'J3.6', 'U6.3', 100e3, 13e3)
+teiler('CH3 ← BUSP_B 100k/13k, ohne Glättung', 'J3.2', 'U6.4', 100e3, 13e3, False)
+teiler('CH4 ← BUSN_B 100k/13k, ohne Glättung', 'J3.1', 'U6.5', 100e3, 13e3, False)
 free('CH5–CH7 frei', 'U6.6', 'U6.7', 'U6.8')
 print('--- Wandler gemeinsam: Versorgung, Referenz U4, SPI 0')
 same('VDD U2.16, U6.16 an +3V3', 'U2.16', 'U6.16', V33)

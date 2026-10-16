@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.16, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, alle Leiterbahnen verlegt (5 Gruppen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.18, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, alle Leiterbahnen verlegt (5 Gruppen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -40,7 +40,7 @@ nicht ging (Fertigungsstrategie, Abschnitt 1).
 ## 3. Machbarkeit (Ablauf, Schritt 1, 16.10.2026)
 Alle 75 Bauteile des Linie-A-Schaltplans (Netzliste, per Skript) im JLCPCB-Katalog geprüft (Filter Basic/Preferred,
 am Lager): machbar ohne Abstrich an der Funktion, ohne Extended; Ergebnis in `../bom/bom.csv`.
-- **Bauformen** (größer vor kleiner, Reparatur): Kondensatoren 1206; Widerstände 0805, weil 18 kΩ, 8,2 kΩ, 180 kΩ in 1206
+- **Bauformen** (größer vor kleiner, Reparatur): Kondensatoren 1206; Widerstände 0805, weil 13 kΩ, 8,2 kΩ, 180 kΩ in 1206
   nicht Basic/Preferred sind (andere Teilerwerte würden den Bus stärker belasten); Filterwiderstände 1206.
 - **Datenblätter** (über LCSC, 16.10.2026): BAT54S (Hongjiacheng Rev 2.0) und BAT85S (Vishay Rev 2.0, 16.11.2021) je
   I_R max 2 µA bei 25 V, V_F bis 30 mA gleich (240–500 mV) → gleichwertig; Verschaltung Masse – Messpunkt – 3,3 V passt
@@ -77,7 +77,10 @@ hinunter (Pinfolge am Zero umgekehrt zu den Wandlern, so ohne Kreuzung); 7 Durch
 Gruppe 5 fertig: JP2 → R1/R2 → JP1 (Kreuzung Bus+ unten, Bus− oben), A und B zu U1, Empfängerleitung zum Zero Pin 10 und 16.
 **Stand:** 79 Durchkontaktierungen, keine offene Verbindung, DRC ohne Meldung (Aufdruck von J1–J3 und Zero an der Kante gewollt: Regel
 `Robnet-Analyse.kicad_dru`, vom Platzierungsskript geschrieben; Betreiber, 16.10.2026), Abgleich 0,
-Massefläche ein Stück. Ablauf Schritt 3 abgeschlossen (16.10.2026). Weiter: Schritt 4 (Fertigungsdateien).
+Massefläche ein Stück. Ablauf Schritt 3 abgeschlossen (16.10.2026).
+**Fertigungsdateien** (Schritt 4, 16.10.2026): `../kicad/v00.01/production/` (Gerber-ZIP, `bom.csv`, `positions.csv`) mit Fabrication Toolkit 5.3.1,
+geprüft mit `pruefung_fertigung.py` (49 Teile, 0 Fehler); selbst gelötete Teile (18) in Schaltplan und Platine aus den Listen genommen.
+Beschaffung: `../bom/bom_tht_beschaffung.csv` (2 Platinen), `../bom/bom_zubehoer.csv`. Weiter: Schritt 5 (hochladen und prüfen, nicht bestellen).
 
 ## 4. Offen
 - Nichts offen (Platinengröße 100 × 100 mm erledigt, Abschnitt 3).

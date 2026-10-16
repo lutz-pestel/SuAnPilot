@@ -1768,9 +1768,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "88d5274d-3a72-51ca-95b7-a986ff603d3a")
 		(property "Reference" "JP2"
@@ -2039,9 +2039,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "ae6e18a9-c11b-5c2c-b876-8c80d56964cf")
 		(property "Reference" "JP1"
@@ -2131,9 +2131,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "3bf34c55-1a0d-5180-adac-d3dc9a1011d9")
 		(property "Reference" "U1"
@@ -2230,7 +2230,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "5984940d-c040-5bdd-86dc-54c57d15a322")
 		(property "Reference" "#PWR008"
@@ -2399,7 +2399,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "154583d1-4d08-5a55-b0d1-72a3fe7cb495")
 		(property "Reference" "#PWR009"
@@ -2476,7 +2476,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "c15d4982-26cc-5896-95c7-1724f1eee95c")
 		(property "Reference" "#PWR010"
@@ -2553,7 +2553,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "1ba19c3a-ca84-54d4-886c-72005c9bf720")
 		(property "Reference" "#PWR011"
@@ -2630,7 +2630,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "59ff5d3f-1dcf-5f33-a94f-65e5db049e05")
 		(property "Reference" "#PWR012"
@@ -2707,7 +2707,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "7fd7ad19-eb82-551b-8206-294c8d52c279")
 		(property "Reference" "#PWR013"

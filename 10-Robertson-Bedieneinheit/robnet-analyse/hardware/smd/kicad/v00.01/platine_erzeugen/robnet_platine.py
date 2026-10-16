@@ -1,5 +1,5 @@
 # Erzeugt die Platine Robnet-Analyse Linie B (SMD) v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle
-# (keine Leiterbahnen). Version 00.05, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
+# (keine Leiterbahnen). Version 00.06, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
 # Gegen Linie A: 100 x 100 mm (guenstigste Leiterplattenstufe bei JLCPCB), J1 genau ueber J3 an der Unterkante, Jumper senkrecht
 # unter ihren Klemmen an J1, M3-Loecher in allen vier Ecken (Betreiber 16.10.2026),
 # alle SMD-Teile oben und mindestens 2,5 mm vom Rand (Regel fuer von JLCPCB bestueckte Teile).
@@ -169,6 +169,8 @@ for ref, c in sorted(comps.items()):
         if name not in ('Value',):
             f.SetField(name, wert)
             f.GetField(name).SetVisible(False)
+    if not c['felder'].get('LCSC Part #'):                 # lötet der Betreiber: nicht in Stückliste und Positionsliste
+        f.SetAttributes(f.GetAttributes() | pcbnew.FP_EXCLUDE_FROM_BOM | pcbnew.FP_EXCLUDE_FROM_POS_FILES)
     f.SetPath(pcbnew.KIID_PATH(c['path']))
     f.SetSheetname(c['sheet'])
     x, y, rot = P[ref]

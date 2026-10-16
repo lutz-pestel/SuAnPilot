@@ -401,9 +401,36 @@
     "bus_aliases": {},
     "legacy_lib_dir": "",
     "legacy_lib_list": [],
-    "top_level_sheets": []
+    "top_level_sheets": [
+      {
+        "filename": "Robnet-Analyse.kicad_sch",
+        "name": "Robnet-Analyse",
+        "uuid": "00000000-0000-0000-0000-000000000000"
+      }
+    ]
   },
-  "sheets": [],
+  "sheets": [
+    [
+      "b7968b6d-5210-5e7a-8310-e889cba3dcea",
+      "Robnet-Analyse"
+    ],
+    [
+      "4d95dbe6-12e3-5581-a852-d02bd16cb435",
+      "Bus-Empf\u00e4nger"
+    ],
+    [
+      "1a072170-242d-5871-8719-e2c24ac5cbba",
+      "Rechner"
+    ],
+    [
+      "49a9fe91-e61a-5437-a9da-325970d5be57",
+      "Messung (Teiler, Wandler)"
+    ],
+    [
+      "790fc858-b6c7-567f-a118-9fe63e020192",
+      "Versorgung"
+    ]
+  ],
   "text_variables": {},
   "tuning_profiles": {
     "meta": {

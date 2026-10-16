@@ -1369,9 +1369,9 @@
 		(unit 1)
 		(body_style 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "1ca06cbe-9d85-5414-93be-b0b079bd70e4")
 		(property "Reference" "J5"
@@ -1564,7 +1564,7 @@
 		(exclude_from_sim no)
 		(in_bom no)
 		(on_board no)
-		(in_pos_files yes)
+		(in_pos_files no)
 		(dnp no)
 		(uuid "a751f0bf-3ca7-5069-bbc1-b9d4459fdc18")
 		(property "Reference" "#FLG02"

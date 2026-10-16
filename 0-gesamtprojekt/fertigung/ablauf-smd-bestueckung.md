@@ -1,6 +1,6 @@
 # Ablauf: Platine mit SMD-Bestückung durch JLCPCB
 
-Version 00.02, Stand 16.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
+Version 00.03, Stand 16.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
 Motor-Controller, SuAnPilot). Regeln und Werte von JLCPCB: `jlcpcb-bestueckungsregeln.md` (Abschnittsnummern dort = „R“).
 Teilewahl je Teil: `bauteilauswahl-standard.md`. Strategie (Linien A und B): `fertigungsstrategie-platinen.md`.
 Mit dem Betreiber Schritt für Schritt festgelegt am 16.10.2026.
@@ -62,7 +62,10 @@ Ergebnis: geprüfter Schaltplan, jedes bestückte Teil mit LCSC-Nummer.
 Ergebnis: geprüfte Platine, Randabstand eingehalten.
 
 ## Schritt 4: Fertigungsdateien (nur nach Freigabe des Betreibers)
-1. In KiCad das Zusatzprogramm **„Fabrication Toolkit“** verwenden (R 8); vor dem ersten Einsatz erproben.
+1. In KiCad das Zusatzprogramm **„Fabrication Toolkit“** verwenden (R 8); vor dem ersten Einsatz erproben. Erprobt 16.10.2026
+   (Robnet-Analyse B): Antwortet der KiCad-Server nicht, Installation per „Install from File…“ mit dem ZIP von GitHub;
+   ohne Oberfläche: `python -m plugins.cli -p <platine> -t -nI -nB` mit dem Python von KiCad. Selbst gelötete Teile in Schaltplan
+   und Platine aus Stückliste und Positionsliste nehmen (nur auf der Platine: Abweichung im Abgleich mit dem Schaltplan).
 2. „Apply automatic component translations“ eingeschaltet lassen; Kupferflächen füllen lassen.
 3. Ergebnis im Ordner `production/` neben der Platine: Gerber (ZIP), `bom.csv` (Stückliste), `positions.csv`
    (Positionsliste).
