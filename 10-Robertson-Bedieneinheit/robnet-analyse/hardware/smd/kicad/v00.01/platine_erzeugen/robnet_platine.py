@@ -1,5 +1,5 @@
 # Erzeugt die Platine Robnet-Analyse Linie B (SMD) v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle
-# (keine Leiterbahnen). Version 00.03, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
+# (keine Leiterbahnen). Version 00.04, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
 # Gegen Linie A: 100 x 100 mm (guenstigste Leiterplattenstufe bei JLCPCB), J1 genau ueber J3 an der Unterkante, Jumper senkrecht
 # unter ihren Klemmen an J1, M3-Loecher in allen vier Ecken (Betreiber 16.10.2026),
 # alle SMD-Teile oben und mindestens 2,5 mm vom Rand (Regel fuer von JLCPCB bestueckte Teile).
@@ -71,15 +71,17 @@ KANAL_J = [('R11', 'R12', 'D11'), ('R13', 'R14', 'D12'), ('R15', 'R16', 'D13'), 
            ('R19', 'R20', 'D15'), ('R21', 'R22', 'D16')]
 KANAL_B = [('R31', 'R32', 'D31'), ('R33', 'R34', 'D32'), ('R35', 'R36', 'D33'), ('R37', 'R38', 'D34'), ('R39', 'R40', 'D35')]
 KX, KDY = 50.5, 4.8                     # linke Spalte der Kanaele, Zeilenabstand
-def zelle(t, x0, y0):
+def zelle(t, x0, y0, dreh=0):
     rt, rb, d = t
-    P[rt] = (x0, y0, 0)                 # Pin 1 (Ader) links, Pin 2 (Mitte) rechts
+    P[rt] = (x0, y0, dreh)              # Ader links, Mitte rechts (Seite Bedieneinheit: Ader an Pin 2, deshalb 180 Grad)
     P[d] = (x0 + 4.4, y0, 180)          # Pin 3 (Mitte) links, Pin 1 (Masse) unten rechts, Pin 2 (+3V3) oben rechts
     P[rb] = (x0 + 9.4, y0, 0)           # Pin 1 (Mitte) links, Pin 2 (Masse) rechts
-for i, t in enumerate(KANAL_J):
+# Zeilen von unten nach oben in Kanalfolge (Betreiber, 16.10.2026): CH0 der Wandler liegt unten (Drehung 180),
+# so laufen die Messleitungen ohne Kreuzung zu U2/U6
+for i, t in enumerate(reversed(KANAL_J)):
     zelle(t, KX, 32.5 + KDY * i)
-for i, t in enumerate(KANAL_B):
-    zelle(t, KX, 61.5 + KDY * i)
+for i, t in enumerate(reversed(KANAL_B)):
+    zelle(t, KX, 61.5 + KDY * i, 180)
 zelle(('R23', 'R24', 'D23'), KX + 15.0, 62.0)   # Alarm an den Zero (Seite J300)
 
 LOECHER = [(3.8, 3.8), (B - 3.8, 3.8), (3.8, H - 3.8), (B - 3.8, H - 3.8)]   # alle vier Ecken (Betreiber, 16.10.2026)
