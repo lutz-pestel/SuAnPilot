@@ -1,6 +1,6 @@
 # JLCPCB-Bestückungsregeln (SMT-Bestückung, gilt für alle Platinen)
 
-Version 00.01, Stand 16.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
+Version 00.02, Stand 17.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
 Motor-Controller, SuAnPilot). Ablauf dazu: `ablauf-smd-bestueckung.md`; Strategie: `fertigungsstrategie-platinen.md`.
 **Alle Werte am 16.10.2026 auf den genannten JLCPCB-Seiten selbst gelesen** (Seitentext, keine Suchtreffer-Zusammenfassung).
 Die Hilfeartikel tragen „Last updated on Sep 09, 2026“. Preise und Regeln ändern sich: vor jeder Bestellung neu prüfen.
@@ -114,7 +114,7 @@ unbestückten verzinnt zurückkommen [B]. JLCPCB bestückt nur selbst gefertigte
 - 0 Grad einer Bauform = Lage des Teils im Gurt (Datenblatt „Tape and Reel“ des Herstellers, teils je Teilenummer anders).
 - Falsche Drehung: in der Positionsliste ändern, oder JLCPCB richtet nach dem Aufdruck aus. Widerspricht der Aufdruck der
   Positionsliste, gilt der Aufdruck. Ohne Polungsmarke im Aufdruck fragt JLCPCB per E-Mail nach (Verzögerung).
-- Nur bestätigte Teile werden bestückt. Bezahlt wird vor der Prüfung durch JLCPCB.
+- Nur bestätigte Teile werden bestückt. Zahlung sofort (Geld zurück, wenn die Prüfung scheitert) oder „Review Before Payment“ (Kasse, 17.10.2026).
 
 ## 10. Mängel [B]
 Reklamation nur innerhalb von drei Monaten nach Erhalt; ersetzt wird auf Grundlage des Lötpreises, nicht die ganze Platine.

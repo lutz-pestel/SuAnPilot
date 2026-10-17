@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.18, Stand 16.10.2026, Obergrenze 200 Zeilen. Teilewahl und Schaltplan fertig, Platine platziert, alle Leiterbahnen verlegt (5 Gruppen). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.19, Stand 17.10.2026, Obergrenze 200 Zeilen. Platine fertig, bei JLCPCB bestellt (17.10.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -80,7 +80,12 @@ Gruppe 5 fertig: JP2 → R1/R2 → JP1 (Kreuzung Bus+ unten, Bus− oben), A und
 Massefläche ein Stück. Ablauf Schritt 3 abgeschlossen (16.10.2026).
 **Fertigungsdateien** (Schritt 4, 16.10.2026): `../kicad/v00.01/production/` (Gerber-ZIP, `bom.csv`, `positions.csv`) mit Fabrication Toolkit 5.3.1,
 geprüft mit `pruefung_fertigung.py` (49 Teile, 0 Fehler); selbst gelötete Teile (18) in Schaltplan und Platine aus den Listen genommen.
-Beschaffung: `../bom/bom_tht_beschaffung.csv` (2 Platinen), `../bom/bom_zubehoer.csv`. Weiter: Schritt 5 (hochladen und prüfen, nicht bestellen).
+Beschaffung: `../bom/bom_tht_beschaffung.csv` (2 Platinen), `../bom/bom_zubehoer.csv`.
+**Bestellt** (Schritt 5 und 6, 17.10.2026, Betreiber): Auftrag W2026101717094445 – Platinen Y23-3620191A (5 Stück, 1,6 mm, grün, HASL mit Blei),
+Bestückung SMT026101760935-3620191A (2 Stück, Economic, oben); Dateien `../kicad/v00.01/production/` (Stand Commit 1e8e63b). Geprüft: 12 Zeilen = `../bom/bom.csv`;
+SMCJ18CA, BAT54S, 13 kΩ, 180 kΩ als „Extended“ angezeigt, aber keine Extended-Gebühr (= Preferred). Vorschau: BAT54S-Punkt auf Aufdruck-Dreieck,
+D1-Ring auf Kathodenseite, D2 zweiseitig → Drehungen richtig. Bezahlt 38,27 € (Ware 16,17, Versand 10,67, Steuer und Zoll 11,43; Gutschein nicht
+abgezogen); Versand „Global Standard Direct Line“ (Steuer und Zoll an der Kasse bezahlt, 9–13 Werktage). Weiter: Empfang und Prüfung (Schritt 6).
 
 ## 4. Offen
 - Nichts offen (Platinengröße 100 × 100 mm erledigt, Abschnitt 3).

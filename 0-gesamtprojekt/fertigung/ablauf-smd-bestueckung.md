@@ -1,6 +1,6 @@
 # Ablauf: Platine mit SMD-Bestückung durch JLCPCB
 
-Version 00.03, Stand 16.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
+Version 00.04, Stand 17.10.2026, Obergrenze 150 Zeilen. Gilt für jede Platine, die JLCPCB bestückt (Robnet-Analyse Linie B,
 Motor-Controller, SuAnPilot). Regeln und Werte von JLCPCB: `jlcpcb-bestueckungsregeln.md` (Abschnittsnummern dort = „R“).
 Teilewahl je Teil: `bauteilauswahl-standard.md`. Strategie (Linien A und B): `fertigungsstrategie-platinen.md`.
 Mit dem Betreiber Schritt für Schritt festgelegt am 16.10.2026.
@@ -82,9 +82,11 @@ Ergebnis: drei geprüfte Dateien.
    vergleichen. Extended ohne Freigabe = Fehler, zurück zu Schritt 1.
 4. Vorschau: SMD in 2D (roter Punkt auf Aufdruckmarke, bei Dioden + und −), Durchsteckteile in 3D (R 5, R 9).
 5. Falsch gedreht: Drehung in der Positionsliste ändern und neu hochladen (nicht JLCPCB raten lassen).
-6. Nicht mehr leere Platinen bestellen als bestückte, sonst kommen die übrigen bei Economic eventuell verzinnt (R 1).
-7. Bilder der Vorschau und Endpreis dem Betreiber vorlegen. Bezahlt wird vor der Prüfung durch JLCPCB (R 9),
-   deshalb muss unsere Prüfung vollständig sein.
+6. Leere Platinen mindestens 5; mehr als bestückte kommen bei Economic eventuell verzinnt zurück (R 1).
+7. Bilder der Vorschau und Endpreis dem Betreiber vorlegen. Zahlung wahlweise sofort oder erst nach der Prüfung durch JLCPCB
+   („Review Before Payment“, R 9); unsere Prüfung muss in jedem Fall vollständig sein.
+8. Versand: die günstigste Art, bei der Steuer und Zoll an der Kasse bezahlt sind (Kassenseite, nicht Warenkorb; kein Hinweis auf
+   Gebühren des Zustellers); nie Zoll oder Zahlung bei Lieferung (Betreiber).
 
 Ergebnis: Vorschaubilder und Endpreis in `bestellung.md` der Platine.
 
