@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.19, Stand 17.10.2026, Obergrenze 200 Zeilen. Platine fertig, bei JLCPCB bestellt (17.10.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.20, Stand 23.10.2026, Obergrenze 200 Zeilen. Platine fertig, bei JLCPCB bestellt (17.10.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -29,13 +29,14 @@ nicht ging (Fertigungsstrategie, Abschnitt 1).
    die DIP-Chips (MAX3488EEPA, MCP3208-CI/P wie Linie A) steckt er – Chips bleiben tauschbar. Mehr Lötaugen auf beiden
    Lagen erschweren das Routing (Ablauf, Schritt 3).
 10. **Beschafft und gelötet vom Betreiber** (16.10.2026), wie Linie A: Fassungen und Zero-Buchse (Regel 9), J1–J3 Phoenix
-   MSTBA (SMD-Leisten 5,08 mm nicht am Lager), Jumper-Stiftleisten JP1–JP7, J4, Referenz LM4040 TO-92 (SMD ±0,1 % nur Extended), Regler R-78B (nicht im
-   Katalog), Drahtbrücke im Drosselplatz. Nicht in den JLCPCB-Listen, Randregel gilt nicht.
+   MSTBA (SMD-Leisten 5,08 mm nicht am Lager), Jumper-Stiftleisten JP1–JP7, J4, Referenz LM4040 TO-92 (SMD ±0,1 % nur Extended), Regler U3 (Regel 11,
+   vorhanden), Drahtbrücke im Drosselplatz. Nicht in den JLCPCB-Listen, Randregel gilt nicht.
 11. **Schaltungsänderungen gegen Linie A** (nur Linie B, Betreiber 16.10.2026): Klemmdioden 12 × BAT54S statt 23 × BAT85;
-   Verpolschutz SS54, Schutzdiode SMCJ18CA (klemmt 29,2 V statt 27,7 V; Grenze R-78B 32 V). **Sicherung, Halter und
+   Verpolschutz SS54, Schutzdiode SMCJ18CA (klemmt 29,2 V statt 27,7 V). **Regler U3: 5-V-Modul mit HEXIN HX1314G** statt
+   Recom R-78B (Beine wie 7805; Betreiber hat es vorhanden und an Bord erprobt; Werkzeug, zwei Platinen; 23.10.2026). Chip laut
+   Datenblatt Rev. 4/2016 (JLCPCB-Katalog C42413374): Eingang 8–30 V, Grenze 35 V, 2,8 A, Takt 130–500 kHz. **Sicherung, Halter und
    Anzeige-Leuchtdiode entfallen** (Sicherung sitzt in der Versorgungsleitung). **Filter ohne Drossel:** 4,7 µF – 0,5 Ω
-   (2 × 1 Ω) – 2 × 10 µF; Recom R-78B (Datenblatt 5/2021) schlägt eine Drossel vor (3,3 µH Klasse A, 10 µH Klasse B);
-   Dämpfung bei 460 kHz gerechnet ~29 statt ~840-fach. Platz für RLB0914 mit Drahtbrücke, nachrüstbar.
+   (2 × 1 Ω) – 2 × 10 µF, Dämpfung gerechnet ~8-fach (130 kHz) bis ~31-fach (500 kHz). Platz für RLB0914 mit Drahtbrücke, nachrüstbar.
 
 ## 3. Machbarkeit (Ablauf, Schritt 1, 16.10.2026)
 Alle 75 Bauteile des Linie-A-Schaltplans (Netzliste, per Skript) im JLCPCB-Katalog geprüft (Filter Basic/Preferred,

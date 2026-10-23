@@ -33,7 +33,7 @@
 <body>
 <div class="wrap">
   <h1>Blockschaltbild &mdash; Robnet-Analyse</h1>
-  <p class="sub">Version 00.17, Stand 16.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
+  <p class="sub">Version 00.18, Stand 23.10.2026. Platine, die zwischen J300 und Bedieneinheit eingeschleift wird: liest den
   Robnet-Bus mit (sendet nie), kann f&uuml;nf der sechs Adern per Jumper trennen; die Richtung jeder Ader zeigt ein Trennversuch. Anforderungen und Einstieg:
   <code>robnet-analyse.md</code>; Robnet-Wissen und Messwerte: <code>99-tools/docs/Robnet.md</code>. Pinnummern von MAX3488 und
   MCP3208 aus den KiCad-Symbolen des Motor-Controllers; Zero-Pins und Widerstandswerte sind Vorschl&auml;ge, festgelegt wird in
@@ -257,7 +257,7 @@
   <foreignObject x="371" y="1041" width="648" height="138"><div xmlns="http://www.w3.org/1999/xhtml" class="bx">
     <b>Versorgung</b>
     J2 +12&nbsp;V &#8594; F1 Sicherung &#8594; D1 Verpolschutz &#8594; <b style="display:inline;font-size:10px">Netz +12V_F</b> &#8594;
-    U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V) &#8594; <b style="display:inline;font-size:10px">+5V</b> &#8594; Zero Pin 2/4.
+    U3 Recom R-78B5.0-2.0 (Eingang 6,5&#8211;32&nbsp;V; B: 5-V-Modul HX1314G, 8&#8211;30&nbsp;V) &#8594; <b style="display:inline;font-size:10px">+5V</b> &#8594; Zero Pin 2/4.
     <br>+3V3 vom Zero (Pin 1/17) f&uuml;r U1, U2, U6, U4. Masse GND = Vsys&#8722; = Bordmasse, nie getrennt.
     Nicht aus Vsys versorgen (Robnet nicht belasten).
     <br><i>Zero nie gleichzeitig &uuml;ber USB versorgen.</i></div></foreignObject>

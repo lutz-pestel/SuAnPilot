@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.47, Stand 17.10.2026, Obergrenze 100 Zeilen.
+Version 00.48, Stand 23.10.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -65,7 +65,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
    Daten-USB des Zero, jeweils eins: (1) **WLAN-Stick am 5-m-USB-Kabel** außerhalb des Motorraums (einfacher);
    (2) **LAN-Adapter** am USB (umständlicher). Eingebautes WLAN nur, wenn es doch Empfang hat. WLAN: Samsung AP,
    Ersatz das WLAN des Masters. USB-Anschluss im Gehäuse zugänglich, Kabel mit Zugentlastung.
-7. **Versorgung:** Robertson-Versorgung → Sicherung → Verpolschutz → Recom R-78B5.0-2.0 → 5 V für den Zero;
+7. **Versorgung:** Robertson-Versorgung → Sicherung → Verpolschutz → Recom R-78B5.0-2.0 (Linie B: 5-V-Modul mit HX1314G, Beine wie 7805) → 5 V für den Zero;
    3,3 V für MAX3488 und MCP3208 vom Zero. **Nicht aus Vsys.**
 8. **Richtungserkennung durch Trennversuche** (im Hafen, Robertson im Standby):
    - **Bus:** Was wer sendet, zeigt zuerst der Inhalt (Taste gedrückt → neue Nachricht). Sicher: Bus-Jumper ziehen,
