@@ -1,28 +1,28 @@
 # Robnet-Analyse: Anforderungen an das Speicheroszilloskop
 
-Version 00.02, Stand 06.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, noch nicht gebaut.
+Version 00.03, Stand 06.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.01.py`, `oszilloskop_v00.01.html`, `messkern_v00.01.c`, Dienst `robnet-oszilloskop`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck
 Die Platine soll auch außerhalb der Bus-Analyse als einfaches Speicheroszilloskop dienen, vor allem um serielle Signale anzusehen.
-Bedienung im Browser am PC, ohne Anmeldung per SSH, ohne Passwort (Betreiber). Das Programm liest nur und sendet nie auf den Bus.
+Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178.50`), ohne Anmeldung per SSH, ohne Passwort (Betreiber). Das Programm liest nur und sendet nie auf den Bus.
 **Kein Testaufbau nötig:** Die Software läuft und prüft sich ohne den Testsender (PC, FTDI232, YL-12B), den es nur am Schreibtisch gibt. Entwickelt wird mit gespeicherten Referenzaufnahmen.
 
-## 2. Was die Platine kann (Grenzen)
-- **Analog:** gemessen rund 17 000 Messungen pro Sekunde mit Python, ein Chip. Die Rate teilt sich auf die aktiven Messungen auf.
+## 2. Was die Platine kann (am Pi gemessen, 06.11.2026)
+- **Analog:** Messschleife in C mit direktem Registerzugriff, ein Prozessorkern reserviert. Die Rate teilt sich auf die aktiven Messungen auf.
 - **Bereich:** etwa 0 bis 21,7 V, Vsys+ bis etwa 33 V. Keine negativen Spannungen.
-- **Digital:** Bus-Empfänger und Alarm, Zeitauflösung 2 µs. Am Testsender fehlerfrei bis 115 200 Baud.
-- **Kein Ersatz für ein echtes Oszilloskop:** Kurvenformen gehen nach Faustregel bis etwa 1–2 kHz (ein Kanal).
+- **Digital:** Bus-Empfänger und Alarm, Zeitauflösung 2 µs. Am Testsender fehlerfrei bis 115 200 Baud. Digital gegen analog gemessen auf etwa 3 µs genau.
 
-| Messungen | Rate je Messung (gerechnet) | Punkte je Bit bei 1200 Baud | Bei 9600 Baud |
-|---|---|---|---|
-| 1 | 17 000/s | etwa 14 | etwa 2 |
-| 2 | 8 500/s | etwa 7 | unter 1 |
-| 3 | 5 700/s | etwa 5 | unter 1 |
-| 4 | 4 250/s | etwa 3,5 | unter 1 |
-| 5 | 3 400/s | etwa 3 | unter 1 |
+| Geschwindigkeit | Takt | Messungen/s | Je Kanal bei 5 Kanälen | Bordspannung roh, ohne Korrektur |
+|---|---|---|---|---|
+| Maximum (voreingestellt) | 7,14 MHz | 234 000 | 47 000 | 6,3 % über dem Eingangsteiler zu niedrig, siehe unten |
+| Schnell | 4 MHz | 139 000 | 28 000 | 8,37 V statt 11,73 V |
+| Mittel | 2 MHz | 72 000 | 14 000 | 9,89 V statt 11,73 V |
+| Genau | 0,5 MHz | 18 400 | 3 700 | 11,73 V, Bezugswert |
 
-Das serielle Signal zeigt daher die **digitale Spur** genau. Die analogen Kanäle zeigen Pegel und Pakete.
+- **Maximum:** Teiler 56. Ab Teiler 52 treten Lesefehler auf, deshalb ist 56 gewählt. Das liegt über dem Datenblatt-Takt des Wandlers.
+- **Korrektur:** Der hohe Eingangswiderstand (Teiler 100 kΩ/13 kΩ) lässt den Wandler bei hohem Takt zu niedrig messen. Bei jedem Umschalten vergleicht das Programm die Bordspannung bei 0,5 MHz und im gewählten Takt und rechnet den Faktor ein, dazu einen gemessenen Nullpunkt. So bleibt die Bordspannung bei allen Stufen 11,73 V.
+- **Noch nicht geprüft:** Spannungshöhe schneller Signale. Der Testsender hing dabei ohne Massekabel an der Platine, die analogen Kurven waren deshalb unruhig.
 
 ## 3. Kanäle
 - **Höchstens 5 Kanäle,** Anzahl einstellbar, **voreingestellt 1.**
@@ -50,8 +50,8 @@ Das serielle Signal zeigt daher die **digitale Spur** genau. Die analogen Kanäl
 - **Knöpfe „Pi herunterfahren“ und „Neu starten“,** je mit Sicherheitsabfrage. Nach dem Herunterfahren zeigt die Seite, wann das Netzteil aus darf.
 - **Während der Bus-Aufzeichnung** (`aufzeichnung`) läuft die Seite weiter, misst aber nicht: Sie zeigt „Aufzeichnung läuft“, Dauer, gespeicherte Byte, freien Speicher. Oszilloskop-Start ist gesperrt, „Herunterfahren“ warnt vorher.
 - **Abtastrate messen:** In Live und Aufzeichnen zählt das Programm selbst die Messungen und zeigt die echte Rate sowie den kleinsten und größten Abstand; beim Aufzeichnen auch gespeichert.
-- **Messschleife in C,** die Oberfläche in Python: bei 1 MHz Takt rund 40 000 Messungen pro Sekunde als Obergrenze (gerechnet), gleichmäßigere Abstände, ein Prozessorkern dafür reserviert. Erst bauen, wenn die Messung den Nutzen zeigt.
+- **Messschleife in C,** die Oberfläche in Python. Sie läuft nur, solange jemand zusieht, und gibt den Wandler nach 15 Sekunden ohne Abruf wieder frei.
 
 ## 7. Offen
-- **Live-Rate:** Wie viele Punkte Live über WLAN wirklich ankommen, ist nicht gemessen.
-- **Abtastung in C:** Die erreichbare Rate ist noch nicht gemessen.
+- **Herunterfahren-Knopf:** nicht ausgelöst, der gleiche Weg ist über „Neu starten“ geprüft.
+- **Alter Zero:** Die Messschleife ist nur auf dem Zero 2 W gebaut und gemessen.

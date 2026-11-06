@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Aufzeichnung auf dem Raspberry. Version 00.01, Stand 06.11.2026.
+# Robnet-Analyse: Aufzeichnung auf dem Raspberry. Version 00.02, Stand 06.11.2026.
 # Speichert Pegelwechsel (Bus-Empfaenger, Alarm), Bytes der seriellen Schnittstelle und die
 # Spannungen aller Adern in einen neuen Ordner. Nur lesen: Das Programm sendet nichts.
-# Aufruf: python3 aufzeichnung_v00.01.py --baud 9600 --dauer 60 --stellung A
+# Aufruf: python3 aufzeichnung_v00.02.py --baud 9600 --dauer 60 --stellung A
 import argparse
 import json
 import os
@@ -17,7 +17,8 @@ import time
 import pigpio
 import spidev
 
-VERSION = "00.01"
+VERSION = "00.02"
+BELEGT = "/tmp/robnet_aufzeichnung.pid"  # sperrt das Oszilloskop, solange die Aufzeichnung laeuft
 GPIO_BUS = 23       # Raspberry-Pin 16, Ausgang des Bus-Empfaengers
 GPIO_ALARM = 27     # Raspberry-Pin 13, Alarm Seite Hauptgeraet
 VREF = 2.5
@@ -43,6 +44,18 @@ fehler = []
 def sichern(datei):
     datei.flush()
     os.fsync(datei.fileno())
+
+
+def wandler_belegen():
+    # Oszilloskop sperren und warten, bis seine Messschleife den Wandler freigegeben hat
+    with open(BELEGT, "w") as f:
+        f.write(str(os.getpid()))
+    for _ in range(150):
+        if subprocess.run(["pgrep", "-x", "messkern"], capture_output=True).returncode != 0:
+            return
+        time.sleep(0.1)
+    os.remove(BELEGT)
+    raise RuntimeError("Oszilloskop gibt den Wandler nicht frei")
 
 
 def pigpiod_starten():
@@ -159,6 +172,7 @@ def main():
     signal.signal(signal.SIGTERM, lambda *_: stopp.set())
     signal.signal(signal.SIGINT, lambda *_: stopp.set())
 
+    wandler_belegen()
     pi = pigpiod_starten()
     for g in (GPIO_BUS, GPIO_ALARM):
         pi.set_pull_up_down(g, pigpio.PUD_OFF)
@@ -183,6 +197,7 @@ def main():
     for t in faeden:
         t.join()
     pi.stop()
+    os.remove(BELEGT)
     start["dauer_s"] = round(time.monotonic() - beginn, 3)
     start.update(zaehler)
     start["fehler"] = fehler

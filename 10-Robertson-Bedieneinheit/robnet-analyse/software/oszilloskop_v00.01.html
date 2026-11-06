@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robnet Oszilloskop</title>
+<style>
+:root { --bg:#f3f4f1; --karte:#fff; --text:#1c2320; --leise:#5e6862; --linie:#d3d8d2; --akt:#0b5cad; --warn:#b3261e; --ok:#1b7f47;
+  --schirm:#0d1412; --raster:#27332e; --rastert:#a9b6ae; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#121614; --karte:#1c221f; --text:#e6ebe7; --leise:#a2ada6; --linie:#333d38; --akt:#7db8f5; --warn:#ff8a80; --ok:#57c98a; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.4 system-ui,"Segoe UI",Arial,sans-serif; }
+header { display:flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline; padding:10px 14px 2px; }
+h1 { font-size:1.2rem; margin:0; }
+#zustand { font-size:.85rem; color:var(--leise); }
+main { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:10px; padding:8px 14px 16px; align-items:start; }
+.karte { background:var(--karte); border:1px solid var(--linie); border-radius:10px; padding:10px; margin-bottom:10px; }
+h2 { font-size:.95rem; margin:0 0 6px; }
+canvas { width:100%; height:auto; display:block; border-radius:6px; background:var(--schirm); touch-action:none; }
+.mess { display:flex; flex-wrap:wrap; gap:4px 16px; font-size:.86rem; margin-top:6px; }
+.mess b { font-variant-numeric:tabular-nums; }
+.reihe { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; margin:4px 0; }
+label { font-size:.88rem; display:inline-flex; gap:4px; align-items:center; }
+select { width:auto; min-width:0; }
+select,input[type=number],input[type=text] { font:inherit; padding:3px 5px; border:1px solid var(--linie); border-radius:6px; background:var(--karte); color:var(--text); max-width:100%; }
+input[type=number] { width:80px; }
+button { font:inherit; padding:5px 10px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); cursor:pointer; }
+button.an { background:var(--akt); color:#fff; border-color:var(--akt); }
+button.warn { border-color:var(--warn); color:var(--warn); }
+.tabs { display:flex; gap:6px; margin-bottom:6px; }
+.punkt { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:2px; }
+.hinweis { font-size:.8rem; color:var(--leise); }
+#meldung { font-weight:600; color:var(--warn); min-height:1.3em; font-size:.88rem; }
+#liste { max-height:190px; overflow:auto; font-size:.84rem; }
+#liste div { display:flex; gap:6px; justify-content:space-between; align-items:center; padding:3px 0; border-bottom:1px solid var(--linie); }
+#liste span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+#bestaetigung { display:none; }
+@media (max-width:860px) { main { grid-template-columns:minmax(0,1fr); } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Robnet Oszilloskop</h1>
+  <div id="zustand">verbinde…</div>
+</header>
+<main>
+  <div>
+    <div class="karte">
+      <canvas id="schirm" width="1100" height="500"></canvas>
+      <div class="mess">
+        <span>Abtastung: <b id="m_rate">–</b></span>
+        <span>Abstand: <b id="m_abst">–</b></span>
+        <span>Angabe: <b id="m_kal">–</b></span>
+        <span id="m_trig"></span>
+      </div>
+      <div class="mess">
+        <span>Linien: <b id="m_cur">Klick setzt Linie A, Umschalt+Klick Linie B</b></span>
+      </div>
+      <div id="meldung"></div>
+    </div>
+  </div>
+  <div>
+    <div class="karte">
+      <div class="tabs">
+        <button id="b_live" class="an">Live</button>
+        <button id="b_aufz">Aufzeichnen</button>
+        <button id="b_halt">Halt</button>
+      </div>
+      <div class="reihe"><label style="flex-wrap:wrap">Messgeschwindigkeit
+        <select id="tempo" style="max-width:280px">
+          <option value="56" selected>Maximum (etwa 236 000/s)</option>
+          <option value="100">Schnell (etwa 139 000/s)</option>
+          <option value="200">Mittel (etwa 72 000/s)</option>
+          <option value="800">Genau (etwa 18 000/s)</option>
+        </select></label></div>
+      <div class="hinweis">Die Rate teilt sich auf die Kanäle auf. „Maximum“ liegt über dem Datenblatt-Wert des Wandlers, die Korrektur gleicht das aus, die Abweichung ist größer als bei „Genau“.</div>
+    </div>
+
+    <div class="karte">
+      <h2>Kanäle (Seite Hauptgerät)</h2>
+      <div id="kanaele"></div>
+      <div class="reihe"><label>Klemme 1 gegen 2
+        <select id="d12"><option value="aus">aus</option><option value="software">in der Software</option><option value="chip">im Chip (nur positiv)</option></select></label></div>
+      <div class="reihe"><label>Klemme 5 gegen 6
+        <select id="d56"><option value="aus">aus</option><option value="software">in der Software</option></select></label></div>
+      <div class="reihe">
+        <label><input type="checkbox" id="z_bus" checked>Digital: Bus-Empfänger</label>
+        <label><input type="checkbox" id="z_alarm">Digital: Alarm</label>
+      </div>
+      <div class="reihe"><label>Baudrate
+        <select id="baud"><option value="0">keine Bytes</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></label></div>
+    </div>
+
+    <div class="karte">
+      <h2>Maßstab</h2>
+      <div class="reihe"><label>Zeit je Kästchen <select id="tdiv"></select></label></div>
+      <div class="reihe"><label>Volt je Kästchen <select id="vdiv"><option>0.5</option><option>1</option><option selected>2</option><option>5</option><option>10</option></select></label>
+      <label>Verschiebung V <input id="vver" type="number" step="0.5" value="0"></label></div>
+    </div>
+
+    <div class="karte">
+      <h2>Trigger</h2>
+      <div class="reihe"><label>Quelle <select id="trig">
+        <option value="keine">keine</option><option value="k1">Kanal 1</option><option value="k2">Kanal 2</option><option value="k3">Kanal 3</option><option value="k4">Kanal 4</option><option value="k5">Kanal 5</option><option value="bus" selected>Bus-Empfänger</option><option value="alarm">Alarm</option></select></label>
+        <label>Flanke <select id="flanke"><option value="1">steigend</option><option value="0" selected>fallend</option></select></label></div>
+      <div class="reihe"><label>Spannung V <input id="pegel" type="number" step="0.1" value="1"></label>
+        <label>Vorlauf % <input id="vor" type="number" min="0" max="90" step="5" value="10"></label></div>
+      <div class="reihe"><label>Art <select id="modus"><option value="auto">Auto</option><option value="normal">Normal</option><option value="einmal">Einmal</option></select></label></div>
+    </div>
+
+    <div class="karte" id="k_aufz">
+      <h2>Aufzeichnen</h2>
+      <div class="reihe"><label>Name <input id="r_name" type="text" size="14" value="aufnahme"></label>
+        <label>Dauer s <input id="r_dauer" type="number" min="0.2" step="1" value="5"></label>
+        <button id="r_start">Start</button></div>
+      <div id="r_info" class="hinweis"></div>
+      <h2 style="margin-top:8px">Gespeichert</h2>
+      <div id="liste"></div>
+      <div class="reihe" id="zoom" style="display:none"><button id="z_rein">Zoom +</button><button id="z_raus">Zoom −</button><button id="z_links">◀</button><button id="z_rechts">▶</button><button id="z_alles">Alles</button></div>
+    </div>
+
+    <div class="karte">
+      <h2>Raspberry</h2>
+      <div class="reihe"><button class="warn" id="s_aus">Herunterfahren</button><button class="warn" id="s_neu">Neu starten</button></div>
+      <div id="bestaetigung" class="reihe"><span id="b_text"></span><button id="b_ja" class="warn">Ja</button><button id="b_nein">Nein</button></div>
+    </div>
+  </div>
+</main>
+<script>
+const FARBE = {K1:'#ffd54f',K2:'#4fc3f7',K3:'#ef5350',K4:'#81c784',K5:'#ce93d8',D12:'#ffffff',D56:'#ffb74d',bus:'#80cbc4',alarm:'#f48fb1'};
+const NAME = {K1:'K1 Bus−',K2:'K2 Bus+',K3:'K3 Vsys+',K4:'K4 On-Off',K5:'K5 Alarm',D12:'Kl.1−Kl.2',D56:'Kl.5−Kl.6',bus:'Bus',alarm:'Alarm'};
+const KAN = [[1,'Klemme 1, Bus−'],[2,'Klemme 2, Bus+'],[3,'Klemme 3, Vsys+'],[4,'Klemme 5, On-Off'],[5,'Klemme 6, Alarm']];
+const $ = id => document.getElementById(id);
+const c = $('schirm'), g = c.getContext('2d');
+const T = [5e-6,1e-5,2e-5,5e-5,1e-4,2e-4,5e-4,1e-3,2e-3,5e-3,1e-2,2e-2,5e-2,.1,.2,.5,1];
+for (const t of T) { const o = document.createElement('option'); o.value = t; o.textContent = zeit(t); if (t === 5e-4) o.selected = true; $('tdiv').appendChild(o); }
+for (const [n,t] of KAN) { const r = document.createElement('div'); r.className='reihe'; r.innerHTML = `<label><input type="checkbox" id="k${n}" ${n===1?'checked':''}><span class="punkt" style="background:${FARBE['K'+n]}"></span>Kanal ${n}: ${t}</label>`; $('kanaele').appendChild(r); }
+
+function zeit(s) { const a = Math.abs(s); if (a >= 1) return (+s.toFixed(3))+' s'; if (a >= 1e-3) return (+(s*1e3).toFixed(3))+' ms'; return (+(s*1e6).toFixed(2))+' µs'; }
+
+let betrieb = 'live', laufe = true, letzte = null, ansicht = null, cursor = {a:null,b:null}, einmal_fertig = false, belegt = false;
+
+function kanal_liste() { const a = []; for (let n = 1; n <= 5; n++) if ($('k'+n).checked) a.push(n); return a; }
+function grund() {
+  return new URLSearchParams({ tempo:$('tempo').value, k:kanal_liste().join(','), d12:$('d12').value, d56:$('d56').value, baud:$('baud').value });
+}
+function anfrage() {
+  const p = grund();
+  p.set('tdiv',$('tdiv').value); p.set('vor',$('vor').value); p.set('breite',String(Math.max(200,c.width-60)));
+  p.set('trig',$('trig').value); p.set('flanke',$('flanke').value); p.set('pegel',$('pegel').value); p.set('modus',$('modus').value);
+  p.set('bus',$('z_bus').checked?'1':'0'); p.set('alarm',$('z_alarm').checked?'1':'0');
+  return p;
+}
+
+const R = {x:50,y:10,w:1040,h:0,dig:0};
+function zeichne(d, t_us, ansichtsart) {
+  const W = c.width, H = c.height;
+  const zeige_bus = d.bus && $('z_bus').checked, zeige_alarm = d.alarm && $('z_alarm').checked;
+  const dig = (zeige_bus?1:0)+(zeige_alarm?1:0);
+  const unten = dig ? 26+dig*34+(d.bytes&&zeige_bus?18:0) : 22;
+  R.h = H-R.y-unten; R.w = W-R.x-10;
+  g.fillStyle = '#0d1412'; g.fillRect(0,0,W,H);
+  g.strokeStyle = '#27332e'; g.lineWidth = 1; g.beginPath();
+  for (let i=0;i<=10;i++){const x=R.x+R.w*i/10;g.moveTo(x,R.y);g.lineTo(x,R.y+R.h);}
+  for (let i=0;i<=8;i++){const y=R.y+R.h*i/8;g.moveTo(R.x,y);g.lineTo(R.x+R.w,y);}
+  g.stroke();
+  const vd = parseFloat($('vdiv').value), ver = parseFloat($('vver').value)||0;
+  const yv = v => R.y+R.h - (v-ver)/(vd*8)*R.h;
+  g.fillStyle='#a9b6ae'; g.font='12px Arial'; g.textAlign='right';
+  for (let i=0;i<=8;i+=2){const v=ver+vd*i; g.fillText(v.toFixed(1)+'V',R.x-4,R.y+R.h-R.h*i/8+4);}
+  g.textAlign='left';
+  // Trigger-Stelle
+  if (d.trigger_us!==undefined && ansichtsart==='live') { const x=R.x+R.w*d.trigger_us/t_us; g.strokeStyle=d.ausgeloest?'#ffd54f':'#555'; g.setLineDash([4,4]); g.beginPath(); g.moveTo(x,R.y); g.lineTo(x,R.y+R.h); g.stroke(); g.setLineDash([]); }
+  // Kurven (mV je Spalte, min und max)
+  const kur = d.kurven||{}; let lx = R.x+8;
+  for (const key in kur) {
+    const w = kur[key], n = w.length/2; if (!n) continue;
+    g.strokeStyle = FARBE[key]; g.fillStyle = FARBE[key]; g.lineWidth = 1.3; g.beginPath();
+    for (let i=0;i<n;i++) {
+      const x = R.x+R.w*(i+0.5)/n, lo = yv(w[i*2]/1000), hi = yv(w[i*2+1]/1000);
+      if (i===0) g.moveTo(x,lo); else g.lineTo(x,lo);
+      if (Math.abs(lo-hi)>0.5) g.lineTo(x,hi);
+    }
+    g.stroke();
+    g.font='12px Arial'; g.fillText(NAME[key],lx,R.y+14); lx += g.measureText(NAME[key]).width+14;
+  }
+  // Digitale Spuren
+  let yb = R.y+R.h+18;
+  const spur_z = (s, key) => {
+    if (!s) return;
+    const y1 = yb, y0 = yb+22;
+    g.strokeStyle = FARBE[key]; g.lineWidth = 1.4; g.beginPath();
+    let pegel = s.start, x = R.x; g.moveTo(x, pegel?y1:y0);
+    for (const [t,w] of s.w) { const nx = R.x+R.w*t/t_us; g.lineTo(nx, pegel?y1:y0); g.lineTo(nx, w?y1:y0); pegel=w; x=nx; }
+    g.lineTo(R.x+R.w, pegel?y1:y0); g.stroke();
+    g.fillStyle = FARBE[key]; g.font='12px Arial'; g.textAlign='right'; g.fillText(NAME[key],R.x-4,yb+15); g.textAlign='left';
+    yb += 34;
+  };
+  if (zeige_bus) { spur_z(d.bus,'bus');
+    if (d.bytes && d.bytes.length) {
+      const baud = +$('baud').value||9600, br = R.w*(10e6/baud)/t_us;
+      g.fillStyle = '#e6ee9c'; g.font='12px monospace'; g.textAlign='center';
+      if (br >= 16) for (const [t,v] of d.bytes) { const xm = R.x+R.w*t/t_us+br/2; const zeichen = v>=32&&v<127?String.fromCharCode(v):v.toString(16).padStart(2,'0').toUpperCase(); if (xm>R.x&&xm<R.x+R.w) g.fillText(zeichen,xm,yb-3); }
+      g.textAlign='left';
+      if (br < 16) { g.fillStyle='#a9b6ae'; g.fillText(`${d.bytes.length} Byte, zum Lesen Zeitmaßstab kleiner wählen`,R.x+4,yb-3); }
+      yb += 18;
+    }
+  }
+  if (zeige_alarm) spur_z(d.alarm,'alarm');
+  // Linien
+  const kt = t_us/10, kl = zeit(kt/1e6);
+  g.fillStyle='#a9b6ae'; g.font='12px Arial'; g.fillText(kl+' je Kästchen',W-140,H-6);
+  for (const n of ['a','b']) { if (cursor[n]===null) continue; const x=R.x+R.w*cursor[n]/t_us; g.strokeStyle='#fff'; g.setLineDash([2,3]); g.beginPath(); g.moveTo(x,R.y); g.lineTo(x,H-20); g.stroke(); g.setLineDash([]); g.fillStyle='#fff'; g.fillText(n.toUpperCase(),x+3,R.y+28); }
+  let z = 'Klick setzt Linie A, Umschalt+Klick Linie B';
+  if (cursor.a!==null&&cursor.b!==null) { const dt=Math.abs(cursor.b-cursor.a); z=`ΔZeit ${zeit(dt/1e6)}`+(dt>0?`, Frequenz ${(1e6/dt).toFixed(1)} Hz`:''); const w=wert(d,cursor.a,t_us),u=wert(d,cursor.b,t_us); if (w!==null&&u!==null) z+=`, ΔSpannung ${(u-w).toFixed(3)} V`; }
+  else if (cursor.a!==null) { const w=wert(d,cursor.a,t_us); z=`Linie A ${zeit(cursor.a/1e6)}`+(w!==null?`, ${w.toFixed(3)} V`:''); }
+  $('m_cur').textContent = z;
+}
+function wert(d,t,t_us){ const k=d.kurven&&Object.keys(d.kurven)[0]; if(!k)return null; const w=d.kurven[k],n=w.length/2; if(!n)return null; const i=Math.min(n-1,Math.max(0,Math.floor(t/t_us*n))); return (w[i*2]+w[i*2+1])/2000; }
+
+c.addEventListener('click', e => { const r=c.getBoundingClientRect(); const x=(e.clientX-r.left)*c.width/r.width; const tu=letzte?letzte.__t:0; if(!tu)return; const t=Math.max(0,Math.min(tu,(x-R.x)/R.w*tu)); if(e.shiftKey)cursor.b=t; else cursor.a=t; if(letzte)zeichne(letzte,letzte.__t,letzte.__art); });
+
+async function live() {
+  while (true) {
+    if (betrieb !== 'live' || !laufe || belegt) { await warte(200); continue; }
+    if (einmal_fertig) { await warte(150); continue; }
+    try {
+      const r = await fetch('/api/frame?'+anfrage());
+      const d = await r.json();
+      if (d.belegt) { $('meldung').textContent = d.belegt; await warte(500); continue; }
+      if (d.fehler) { $('meldung').textContent = d.fehler; await warte(800); continue; }
+      $('meldung').textContent = '';
+      const m = $('modus').value;
+      if (m!=='auto' && !d.ausgeloest) { $('m_trig').textContent='wartet auf Trigger…'; continue; }
+      $('m_trig').textContent = d.ausgeloest?'ausgelöst':'kein Trigger (Auto)';
+      if (m==='einmal') { einmal_fertig=true; $('b_halt').textContent='Einmal neu'; }
+      if (betrieb==='live') { d.__t=d.t_us; d.__art='live'; letzte=d; zeichne(d,d.t_us,'live'); anzeigen(d); }
+    } catch (e) { $('meldung').textContent='Keine Verbindung zum Raspberry.'; await warte(1000); }
+  }
+}
+function anzeigen(d) {
+  const j = d.rate_scan;
+  $('m_rate').textContent = `${Math.round(d.rate_gesamt).toLocaleString('de-DE')} Messungen/s gemessen, ${Math.round(j).toLocaleString('de-DE')}/s je Durchlauf (${d.messungen} Mess.), ${d.takt_mhz.toFixed(2)} MHz`;
+  $('m_abst').textContent = d.abstand_max?`${d.abstand_min.toFixed(0)}–${d.abstand_max.toFixed(0)} µs`:'–';
+  $('m_kal').textContent = `Faktor ${d.kalib.toFixed(3)}, Nullpunkt ${d.null.toFixed(1)}`;
+}
+const warte = ms => new Promise(r => setTimeout(r, ms));
+
+// Aufzeichnen
+async function liste() {
+  const a = await (await fetch('/api/aufnahmen')).json();
+  const z = $('liste'); z.innerHTML = '';
+  if (!a.length) z.textContent = 'Noch nichts gespeichert.';
+  for (const x of a) {
+    const r = document.createElement('div');
+    const n = document.createElement('span'); n.textContent = `${x.ordner}`; n.title = `${x.tempo}, ${x.groesse_kb} kB`;
+    const b = document.createElement('button'); b.textContent='Ansehen'; b.onclick=()=>ansehen(x.ordner);
+    const l = document.createElement('a'); l.textContent='CSV'; l.href='/api/csv?ordner='+encodeURIComponent(x.ordner);
+    r.append(n,b,l); z.appendChild(r);
+  }
+}
+async function ansehen(o, von, bis) {
+  betrieb='ansicht'; tabs();
+  const p = new URLSearchParams({ordner:o,breite:String(Math.max(200,c.width-60))});
+  if (von!==undefined) { p.set('von',von); p.set('bis',bis); }
+  const b = $('baud').value; if (+b) p.set('baud',b);
+  const d = await (await fetch('/api/ansehen?'+p)).json();
+  if (d.fehler) { $('meldung').textContent=d.fehler; return; }
+  $('meldung').textContent='';
+  ansicht = {o, von:d.von, bis:d.bis, gesamt:d.gesamt_s};
+  const t_us = (d.bis-d.von)*1e6;
+  d.__t=t_us; d.__art='ansicht'; letzte=d; zeichne(d,t_us,'ansicht');
+  const k=d.kopf||{};
+  $('m_rate').textContent = `Aufnahme ${k.name||o}: ${k.rate?Math.round(k.rate*(k.messungen||1)).toLocaleString('de-DE')+' Messungen/s':'Bus-Aufzeichnung'}, ${k.tempo||''}`;
+  $('m_abst').textContent = k.abstand_min!==undefined&&k.abstand_min!==null?`${k.abstand_min.toFixed(0)}–${k.abstand_max.toFixed(0)} µs`:'–';
+  $('m_kal').textContent = `Ausschnitt ${zeit(d.von)} bis ${zeit(d.bis)} von ${zeit(d.gesamt_s||0)}`;
+  $('m_trig').textContent=''; $('zoom').style.display='';
+}
+function zoom(f, dx) { if(!ansicht)return; const m=(ansicht.von+ansicht.bis)/2; let b=(ansicht.bis-ansicht.von)*f; let v=m-b/2+dx*(ansicht.bis-ansicht.von); if(b>ansicht.gesamt){b=ansicht.gesamt;v=0;} v=Math.max(0,Math.min(ansicht.gesamt-b,v)); ansehen(ansicht.o,v,v+b); }
+$('z_rein').onclick=()=>zoom(.5,0); $('z_raus').onclick=()=>zoom(2,0); $('z_links').onclick=()=>zoom(1,-.4); $('z_rechts').onclick=()=>zoom(1,.4); $('z_alles').onclick=()=>ansehen(ansicht.o,0,ansicht.gesamt);
+$('r_start').onclick = async () => { const p=grund(); p.set('name',$('r_name').value); p.set('dauer',$('r_dauer').value); p.set('breite','1000');
+  const r=await (await fetch('/api/aufnahme?'+p,{method:'POST'})).json(); $('r_info').textContent=r.fehler?r.fehler:'Aufzeichnung läuft…'; };
+
+function tabs(){ $('b_live').classList.toggle('an',betrieb==='live'&&laufe); $('b_aufz').classList.toggle('an',betrieb!=='live'); $('b_halt').classList.toggle('an',betrieb==='live'&&!laufe); }
+$('b_live').onclick=()=>{betrieb='live';laufe=true;einmal_fertig=false;$('b_halt').textContent='Halt';$('zoom').style.display='none';tabs();};
+$('b_aufz').onclick=()=>{betrieb='aufz';tabs();liste();$('k_aufz').scrollIntoView({behavior:'smooth',block:'nearest'});};
+$('b_halt').onclick=()=>{ if(einmal_fertig){einmal_fertig=false;$('b_halt').textContent='Halt';} else {laufe=!laufe;} tabs(); };
+document.querySelectorAll('select,input').forEach(e=>e.addEventListener('change',()=>{ if($('modus').value!=='einmal'){einmal_fertig=false;$('b_halt').textContent='Halt';} if(letzte&&letzte.__art==='ansicht'&&ansicht) ansehen(ansicht.o,ansicht.von,ansicht.bis); }));
+
+// Raspberry
+let frage=null;
+function fragen(text,aktion){ frage=aktion; $('b_text').textContent=text; $('bestaetigung').style.display='flex'; }
+$('b_nein').onclick=()=>{ $('bestaetigung').style.display='none'; };
+$('s_aus').onclick=()=>fragen(belegt?'Es läuft eine Aufzeichnung. Trotzdem herunterfahren?':'Raspberry wirklich herunterfahren?','herunterfahren');
+$('s_neu').onclick=()=>fragen(belegt?'Es läuft eine Aufzeichnung. Trotzdem neu starten?':'Raspberry wirklich neu starten?','neustart');
+$('b_ja').onclick=async()=>{ $('bestaetigung').style.display='none'; laufe=false; const a=frage;
+  try { await fetch('/api/system?aktion='+a,{method:'POST'}); } catch(e){}
+  if(a==='herunterfahren'){ $('meldung').textContent='Fährt herunter. Warten Sie 30 Sekunden, dann darf das Netzteil aus.'; let s=30; const t=setInterval(()=>{ s--; if(s<=0){clearInterval(t);$('meldung').textContent='Raspberry ist unten, das Netzteil darf aus.';} else $('meldung').textContent=`Fährt herunter. Noch ${s} s warten, dann darf das Netzteil aus.`; },1000); }
+  else { $('meldung').textContent='Startet neu, in etwa einer Minute Seite neu laden.'; } };
+
+// Zustand
+async function zustand_holen() {
+  try {
+    const s = await (await fetch('/api/status')).json();
+    const teile = [`Version ${s.version}`, s.temp!==null?`${s.temp} °C`:'', `${s.frei_mb.toLocaleString('de-DE')} MB frei`];
+    belegt = !!s.fremd;
+    if (s.fremd) { teile.unshift('Bus-Aufzeichnung läuft, Oszilloskop misst nicht'); teile.push(`${s.fremd_ordner||''}: ${((s.fremd_byte||0)/1024).toFixed(0)} kB, seit ${s.fremd_seit_s||0} s`); $('meldung').textContent='Bus-Aufzeichnung läuft. Oszilloskop gesperrt.'; }
+    if (s.aufnahme) { teile.unshift(`Aufzeichnung läuft: ${s.aufnahme.name}`); $('r_info').textContent=`Aufzeichnung läuft, noch ${Math.max(0,Math.round(s.aufnahme.ende-Date.now()/1000))} s`; belegt=true; war=true; }
+    else if (typeof war!=='undefined'&&war) { war=false; $('r_info').textContent='Fertig gespeichert.'; liste(); }
+    $('zustand').textContent = teile.filter(Boolean).join(' · ');
+  } catch(e) { $('zustand').textContent='Keine Verbindung zum Raspberry.'; }
+}
+var war=false; setInterval(zustand_holen,1500); zustand_holen(); liste(); tabs(); live();
+</script>
+</body>
+</html>

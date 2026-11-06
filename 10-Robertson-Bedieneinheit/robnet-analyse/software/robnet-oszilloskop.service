@@ -1,0 +1,14 @@
+# Robnet-Analyse: Oszilloskop-Oberfläche. Version 00.01, Stand 06.11.2026.
+# Liegt auf dem Raspberry unter /etc/systemd/system/. Root wegen /dev/mem und Herunterfahren.
+[Unit]
+Description=Robnet Oszilloskop
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/robnet/oszilloskop_v00.01.py
+WorkingDirectory=/home/pi/robnet
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
