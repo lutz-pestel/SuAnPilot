@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.20, Stand 23.10.2026, Obergrenze 200 Zeilen. Platine fertig, bei JLCPCB bestellt (17.10.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.23, Stand 06.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -86,7 +86,13 @@ Beschaffung: `../bom/bom_tht_beschaffung.csv` (2 Platinen), `../bom/bom_zubehoer
 Bestückung SMT026101760935-3620191A (2 Stück, Economic, oben); Dateien `../kicad/v00.01/production/` (Stand Commit 1e8e63b). Geprüft: 12 Zeilen = `../bom/bom.csv`;
 SMCJ18CA, BAT54S, 13 kΩ, 180 kΩ als „Extended“ angezeigt, aber keine Extended-Gebühr (= Preferred). Vorschau: BAT54S-Punkt auf Aufdruck-Dreieck,
 D1-Ring auf Kathodenseite, D2 zweiseitig → Drehungen richtig. Bezahlt 38,27 € (Ware 16,17, Versand 10,67, Steuer und Zoll 11,43; Gutschein nicht
-abgezogen); Versand „Global Standard Direct Line“ (Steuer und Zoll an der Kasse bezahlt, 9–13 Werktage). Weiter: Empfang und Prüfung (Schritt 6).
+abgezogen); Versand „Global Standard Direct Line“ (Steuer und Zoll an der Kasse bezahlt, 9–13 Werktage).
+**Empfang und erste Prüfung** (Schritt 6, 06.11.2026, Betreiber): Platinen und alle Teile da, erste Platine nachgerüstet. Versorgung 12 V an J2, Strom am Netzteil (mit LED parallel im Kabel):
+ohne Raspberry und Chips 18 mA, 5 V an J5 Pin 2/4, Pin 6 Masse; 3,3-V-Leitung 0,9 V und U2 CH5 1,0 V (über die Klemmdioden, solange der Raspberry fehlt, unschädlich).
+Mit altem Raspberry Pi Zero (ohne WLAN, ohne Karte): 39 mA, U1 Pin 1 und U2/U6 Pin 16 3,3 V, U2/U6 Pin 15 2,5 V, U2 Pin 6 1,3 V. Mit allen Chips: 39 mA, Chips nicht warm, Werte unverändert.
+**Tischtest** (06.11.2026, Ablauf `Tischtest_Robnet.html`, Programm `software/pruefung_wandler_v00.01.py`): Zero 2 W (Name `robnet`, Bookworm Lite 32-bit, SPI und serielle Schnittstelle an, Bluetooth aus); 12 V je Ader an J1 und J3:
+alle 10 Kanäle 11,92–12,03 V am richtigen Kanal, die übrigen 0,00–0,02 V; JP3–JP7 verbinden, Masse durchgehend; Alarm-Eingang Pin 13 folgt nur Seite J1. MAX3488: Stellungen A, B, C richtig (hoch/niedrig an Pin 10 und 16).
+Bordspannung 11,67–11,73 V bei 12 V (Verpolschutz). Nicht geprüft: echter Bus (nur Gleichspannung), zweite Platine, WLAN-Stick am Zero 2 W. Alter Zero (ohne WLAN) mit COMFAST-Stick kam nicht ins Netz, Ursache ungeklärt.
 
 ## 4. Offen
-- Nichts offen (Platinengröße 100 × 100 mm erledigt, Abschnitt 3).
+- 3D-Modell U3 zeigt noch den Recom-Block R-78B; Maße des echten 5-V-Moduls (Länge, Breite, Höhe, Überstand) fehlen, vor dem Gehäusebau messen.

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robnet Tischtest</title>
+<style>
+:root { --bg:#f4f5f2; --karte:#fff; --text:#1d2420; --leise:#5c6660; --linie:#d6dad5; --pcb:#1f5c3d; --pcbrand:#123a26;
+  --silk:#f2f4ee; --pad:#c9a64a; --smd:#8fa79a; --teil:#2b7350; --ziel:#e53935; --masse:#111; --jumper:#ffb300; --ok:#1b7f47; --warn:#b3261e; --akt:#0b5cad; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#141816; --karte:#1e2421; --text:#e7ebe7; --leise:#a2aca6; --linie:#35403a; --ok:#57c98a; --warn:#ff8a80; --akt:#7db8f5; } }
+:root[data-theme="dark"] { --bg:#141816; --karte:#1e2421; --text:#e7ebe7; --leise:#a2aca6; --linie:#35403a; --ok:#57c98a; --warn:#ff8a80; --akt:#7db8f5; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.45 system-ui,"Segoe UI",Arial,sans-serif; }
+header { padding:14px 16px 4px; }
+h1 { font-size:1.35rem; margin:0; }
+.kopf { color:var(--leise); font-size:.88rem; }
+main { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(320px,1fr); gap:14px; padding:10px 16px 24px; align-items:start; }
+.karte { background:var(--karte); border:1px solid var(--linie); border-radius:10px; padding:12px; }
+.links { position:sticky; top:8px; }
+svg { width:100%; height:auto; display:block; }
+.hinweis { font-size:.85rem; color:var(--leise); margin:8px 2px 0; }
+h2 { font-size:1.08rem; margin:0 0 4px; }
+.nr { display:inline-block; font-weight:700; color:#fff; background:var(--akt); border-radius:6px; padding:1px 8px; margin-right:6px; }
+ol.tun { margin:6px 0 8px; padding-left:22px; }
+ol.tun li { margin:3px 0; }
+.soll { border-left:4px solid var(--ok); padding:6px 10px; margin:8px 0; background:color-mix(in srgb,var(--ok) 10%,transparent); border-radius:0 6px 6px 0; }
+.vorsicht { border-left:4px solid var(--warn); padding:6px 10px; margin:8px 0; background:color-mix(in srgb,var(--warn) 10%,transparent); border-radius:0 6px 6px 0; }
+.melden { font-weight:600; }
+.knoepfe { display:flex; gap:8px; margin:10px 0; }
+button { font:inherit; padding:8px 14px; border-radius:8px; border:1px solid var(--linie); background:var(--karte); color:var(--text); cursor:pointer; }
+button.haupt { background:var(--akt); color:#fff; border-color:var(--akt); flex:1; }
+button:disabled { opacity:.45; cursor:default; }
+.liste { display:grid; grid-template-columns:repeat(auto-fill,minmax(52px,1fr)); gap:5px; margin-top:6px; }
+.liste button { padding:5px 0; font-size:.85rem; }
+.liste button.an { outline:2px solid var(--akt); font-weight:700; }
+.liste button.fertig { background:color-mix(in srgb,var(--ok) 25%,var(--karte)); }
+.block { font-size:.8rem; color:var(--leise); margin:8px 0 2px; }
+table { border-collapse:collapse; width:100%; font-size:.9rem; margin-top:6px; }
+td,th { border:1px solid var(--linie); padding:4px 7px; text-align:left; }
+label.erledigt { display:flex; gap:8px; align-items:center; font-size:.92rem; }
+@media (max-width:820px) { main { grid-template-columns:minmax(0,1fr); } .links { position:static; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Robnet-Analyse: Tischtest auf dem Tisch</h1>
+  <div class="kopf">Bauart B, Platine v00.01 · Version 00.01, Stand 06.11.2026 · Lage und Beschriftung aus der Platinendatei, Sicht von oben, J1 und J2 oben</div>
+</header>
+<main>
+  <div class="links karte">
+    <svg id="platine" viewBox="-3 -5 106 110" role="img" aria-label="Platine von oben mit markierter Messstelle"></svg>
+    <div class="hinweis">Rot: Prüfkabel von +12 V. Schwarz: Prüfkabel von Masse. Gelb: gesteckter Jumper (Steckbrücke). Weißes Quadrat: Pin 1 der Fassung. Kleine Schrift: Aufdruck der Platine.</div>
+  </div>
+  <div>
+    <div class="karte">
+      <div id="schritt"></div>
+      <div class="knoepfe">
+        <button id="zurueck">◀ Zurück</button>
+        <button id="weiter" class="haupt">Nächster Schritt ▶</button>
+      </div>
+      <label class="erledigt"><input type="checkbox" id="haken"> Schritt erledigt, Wert passt</label>
+      <div id="liste"></div>
+    </div>
+  </div>
+</main>
+<script>
+const DATEN = {"teile":[{"r":"R12","p":[["1",58.987,56.5,1.025,1.4,false,"roundrect"],["2",60.812,56.5,1.025,1.4,false,"roundrect"]],"b":[58.22,55.55,61.58,57.45]},{"r":"R5","p":[["1",42.038,16.0,1.125,1.75,false,"roundrect"],["2",44.962,16.0,1.125,1.75,false,"roundrect"]],"b":[41.22,14.87,45.78,17.13]},{"r":"R37","p":[["1",51.413,66.3,1.025,1.4,false,"roundrect"],["2",49.587,66.3,1.025,1.4,false,"roundrect"]],"b":[48.82,65.35,52.18,67.25]},{"r":"R32","p":[["1",58.987,80.7,1.025,1.4,false,"roundrect"],["2",60.812,80.7,1.025,1.4,false,"roundrect"]],"b":[58.22,79.75,61.58,81.65]},{"r":"R23","p":[["1",64.588,62.0,1.025,1.4,false,"roundrect"],["2",66.412,62.0,1.025,1.4,false,"roundrect"]],"b":[63.82,61.05,67.18,62.95]},{"r":"D31","p":[["1",55.837,81.65,1.475,0.6,false,"roundrect"],["2",55.837,79.75,1.475,0.6,false,"roundrect"],["3",53.962,80.7,1.475,0.6,false,"roundrect"]],"b":[52.97,79.0,56.83,82.4]},{"r":"R38","p":[["1",58.987,66.3,1.025,1.4,false,"roundrect"],["2",60.812,66.3,1.025,1.4,false,"roundrect"]],"b":[58.22,65.35,61.58,67.25]},{"r":"D12","p":[["1",55.837,52.65,1.475,0.6,false,"roundrect"],["2",55.837,50.75,1.475,0.6,false,"roundrect"],["3",53.962,51.7,1.475,0.6,false,"roundrect"]],"b":[52.97,50.0,56.83,53.4]},{"r":"D16","p":[["1",55.837,33.45,1.475,0.6,false,"roundrect"],["2",55.837,31.55,1.475,0.6,false,"roundrect"],["3",53.962,32.5,1.475,0.6,false,"roundrect"]],"b":[52.97,30.8,56.83,34.2]},{"r":"H4","p":[["",96.2,96.2,3.2,3.2,false,"circle"]],"b":null},{"r":"U3","p":[["1",47.0,5.5,1.7,2.5,true,"rect"],["2",49.54,5.5,1.7,2.5,true,"oval"],["3",52.08,5.5,1.7,2.5,true,"oval"]],"b":[43.54,3.25,55.54,12.25]},{"r":"R18","p":[["1",58.987,42.1,1.025,1.4,false,"roundrect"],["2",60.812,42.1,1.025,1.4,false,"roundrect"]],"b":[58.22,41.15,61.58,43.05]},{"r":"R4","p":[["1",34.5,62.913,1.4,1.025,false,"roundrect"],["2",34.5,61.087,1.4,1.025,false,"roundrect"]],"b":[33.55,60.32,35.45,63.68]},{"r":"R39","p":[["1",51.413,61.5,1.025,1.4,false,"roundrect"],["2",49.587,61.5,1.025,1.4,false,"roundrect"]],"b":[48.82,60.55,52.18,62.45]},{"r":"D23","p":[["1",70.838,62.95,1.475,0.6,false,"roundrect"],["2",70.838,61.05,1.475,0.6,false,"roundrect"],["3",68.963,62.0,1.475,0.6,false,"roundrect"]],"b":[67.97,60.3,71.83,63.7]},{"r":"R31","p":[["1",51.413,80.7,1.025,1.4,false,"roundrect"],["2",49.587,80.7,1.025,1.4,false,"roundrect"]],"b":[48.82,79.75,52.18,81.65]},{"r":"J5","p":[["",27.1,87.9,2.75,2.75,false,"circle"],["",27.1,29.9,2.75,2.75,false,"circle"],["",4.1,87.9,2.75,2.75,false,"circle"],["",4.1,29.9,2.75,2.75,false,"circle"],["1",25.83,83.03,1.7,1.7,true,"rect"],["2",28.37,83.03,1.7,1.7,true,"oval"],["3",25.83,80.49,1.7,1.7,true,"oval"],["4",28.37,80.49,1.7,1.7,true,"oval"],["5",25.83,77.95,1.7,1.7,true,"oval"],["6",28.37,77.95,1.7,1.7,true,"oval"],["7",25.83,75.41,1.7,1.7,true,"oval"],["8",28.37,75.41,1.7,1.7,true,"oval"],["9",25.83,72.87,1.7,1.7,true,"oval"],["10",28.37,72.87,1.7,1.7,true,"oval"],["11",25.83,70.33,1.7,1.7,true,"oval"],["12",28.37,70.33,1.7,1.7,true,"oval"],["13",25.83,67.79,1.7,1.7,true,"oval"],["14",28.37,67.79,1.7,1.7,true,"oval"],["15",25.83,65.25,1.7,1.7,true,"oval"],["16",28.37,65.25,1.7,1.7,true,"oval"],["17",25.83,62.71,1.7,1.7,true,"oval"],["18",28.37,62.71,1.7,1.7,true,"oval"],["19",25.83,60.17,1.7,1.7,true,"oval"],["20",28.37,60.17,1.7,1.7,true,"oval"],["21",25.83,57.63,1.7,1.7,true,"oval"],["22",28.37,57.63,1.7,1.7,true,"oval"],["23",25.83,55.09,1.7,1.7,true,"oval"],["24",28.37,55.09,1.7,1.7,true,"oval"],["25",25.83,52.55,1.7,1.7,true,"oval"],["26",28.37,52.55,1.7,1.7,true,"oval"],["27",25.83,50.01,1.7,1.7,true,"oval"],["28",28.37,50.01,1.7,1.7,true,"oval"],["29",25.83,47.47,1.7,1.7,true,"oval"],["30",28.37,47.47,1.7,1.7,true,"oval"],["31",25.83,44.93,1.7,1.7,true,"oval"],["32",28.37,44.93,1.7,1.7,true,"oval"],["33",25.83,42.39,1.7,1.7,true,"oval"],["34",28.37,42.39,1.7,1.7,true,"oval"],["35",25.83,39.85,1.7,1.7,true,"oval"],["36",28.37,39.85,1.7,1.7,true,"oval"],["37",25.83,37.31,1.7,1.7,true,"oval"],["38",28.37,37.31,1.7,1.7,true,"oval"],["39",25.83,34.77,1.7,1.7,true,"oval"],["40",28.37,34.77,1.7,1.7,true,"oval"]],"b":[-1.7,24.7,30.85,91.65]},{"r":"R21","p":[["1",49.587,32.5,1.025,1.4,false,"roundrect"],["2",51.413,32.5,1.025,1.4,false,"roundrect"]],"b":[48.82,31.55,52.18,33.45]},{"r":"J2","p":[["1",20.0,10.16,2.08,3.6,true,"roundrect"],["2",14.92,10.16,2.08,3.6,true,"oval"]],"b":[10.87,-0.34,24.04,12.66]},{"r":"H3","p":[["",3.8,96.2,3.2,3.2,false,"circle"]],"b":null},{"r":"C5","p":[["1",37.5,8.475,1.8,1.15,false,"roundrect"],["2",37.5,5.525,1.8,1.15,false,"roundrect"]],"b":[36.35,4.7,38.65,9.3]},{"r":"D32","p":[["1",55.837,76.85,1.475,0.6,false,"roundrect"],["2",55.837,74.95,1.475,0.6,false,"roundrect"],["3",53.962,75.9,1.475,0.6,false,"roundrect"]],"b":[52.97,74.2,56.83,77.6]},{"r":"J4","p":[["1",95.0,57.0,1.7,1.7,true,"rect"],["2",95.0,59.54,1.7,1.7,true,"circle"],["3",95.0,62.08,1.7,1.7,true,"circle"]],"b":[93.23,55.23,96.77,63.85]},{"r":"R22","p":[["1",58.987,32.5,1.025,1.4,false,"roundrect"],["2",60.812,32.5,1.025,1.4,false,"roundrect"]],"b":[58.22,31.55,61.58,33.45]},{"r":"R34","p":[["1",58.987,75.9,1.025,1.4,false,"roundrect"],["2",60.812,75.9,1.025,1.4,false,"roundrect"]],"b":[58.22,74.95,61.58,76.85]},{"r":"JP6","p":[["1",67.08,19.5,1.7,1.7,true,"rect"],["2",67.08,22.04,1.7,1.7,true,"circle"]],"b":[65.31,17.73,68.85,23.82]},{"r":"JP7","p":[["1",62.0,19.5,1.7,1.7,true,"rect"],["2",62.0,22.04,1.7,1.7,true,"circle"]],"b":[60.23,17.73,63.77,23.82]},{"r":"R24","p":[["1",73.988,62.0,1.025,1.4,false,"roundrect"],["2",75.812,62.0,1.025,1.4,false,"roundrect"]],"b":[73.22,61.05,76.58,62.95]},{"r":"JP4","p":[["1",87.4,19.5,1.7,1.7,true,"rect"],["2",87.4,22.04,1.7,1.7,true,"circle"]],"b":[85.63,17.73,89.17,23.82]},{"r":"JP3","p":[["1",82.32,19.5,1.7,1.7,true,"rect"],["2",82.32,22.04,1.7,1.7,true,"circle"]],"b":[80.55,17.73,84.09,23.82]},{"r":"R14","p":[["1",58.987,51.7,1.025,1.4,false,"roundrect"],["2",60.812,51.7,1.025,1.4,false,"roundrect"]],"b":[58.22,50.75,61.58,52.65]},{"r":"R1","p":[["1",67.588,45.3,1.025,1.4,false,"roundrect"],["2",69.412,45.3,1.025,1.4,false,"roundrect"]],"b":[66.82,44.35,70.18,46.25]},{"r":"R17","p":[["1",49.587,42.1,1.025,1.4,false,"roundrect"],["2",51.413,42.1,1.025,1.4,false,"roundrect"]],"b":[48.82,41.15,52.18,43.05]},{"r":"D1","p":[["1",24.5,17.0,2.5,1.8,false,"roundrect"],["2",28.5,17.0,2.5,1.8,false,"roundrect"]],"b":[23.0,15.25,30.0,18.75]},{"r":"L1","p":[["1",49.5,18.0,2.6,2.6,true,"circle"],["2",54.5,18.0,2.6,2.6,true,"circle"]],"b":null},{"r":"C4","p":[["1",39.0,19.475,1.8,1.15,false,"roundrect"],["2",39.0,16.525,1.8,1.15,false,"roundrect"]],"b":[37.85,15.7,40.15,20.3]},{"r":"R35","p":[["1",51.413,71.1,1.025,1.4,false,"roundrect"],["2",49.587,71.1,1.025,1.4,false,"roundrect"]],"b":[48.82,70.15,52.18,72.05]},{"r":"R36","p":[["1",58.987,71.1,1.025,1.4,false,"roundrect"],["2",60.812,71.1,1.025,1.4,false,"roundrect"]],"b":[58.22,70.15,61.58,72.05]},{"r":"D13","p":[["1",55.837,47.85,1.475,0.6,false,"roundrect"],["2",55.837,45.95,1.475,0.6,false,"roundrect"],["3",53.962,46.9,1.475,0.6,false,"roundrect"]],"b":[52.97,45.2,56.83,48.6]},{"r":"JP1","p":[["1",68.0,48.5,1.7,1.7,true,"rect"],["2",70.54,48.5,1.7,1.7,true,"circle"],["3",68.0,51.04,1.7,1.7,true,"circle"],["4",70.54,51.04,1.7,1.7,true,"circle"],["5",68.0,53.58,1.7,1.7,true,"circle"],["6",70.54,53.58,1.7,1.7,true,"circle"]],"b":[66.23,46.73,72.32,55.35]},{"r":"U2","p":[["1",44.45,50.0,1.6,1.6,true,"roundrect"],["2",44.45,47.46,1.6,1.6,true,"circle"],["3",44.45,44.92,1.6,1.6,true,"circle"],["4",44.45,42.38,1.6,1.6,true,"circle"],["5",44.45,39.84,1.6,1.6,true,"circle"],["6",44.45,37.3,1.6,1.6,true,"circle"],["7",44.45,34.76,1.6,1.6,true,"circle"],["8",44.45,32.22,1.6,1.6,true,"circle"],["9",36.83,32.22,1.6,1.6,true,"circle"],["10",36.83,34.76,1.6,1.6,true,"circle"],["11",36.83,37.3,1.6,1.6,true,"circle"],["12",36.83,39.84,1.6,1.6,true,"circle"],["13",36.83,42.38,1.6,1.6,true,"circle"],["14",36.83,44.92,1.6,1.6,true,"circle"],["15",36.83,47.46,1.6,1.6,true,"circle"],["16",36.83,50.0,1.6,1.6,true,"circle"]],"b":[35.31,30.64,45.97,51.58]},{"r":"D14","p":[["1",55.837,43.05,1.475,0.6,false,"roundrect"],["2",55.837,41.15,1.475,0.6,false,"roundrect"],["3",53.962,42.1,1.475,0.6,false,"roundrect"]],"b":[52.97,40.4,56.83,43.8]},{"r":"R33","p":[["1",51.413,75.9,1.025,1.4,false,"roundrect"],["2",49.587,75.9,1.025,1.4,false,"roundrect"]],"b":[48.82,74.95,52.18,76.85]},{"r":"J3","p":[["1",62.0,89.84,2.08,3.6,true,"roundrect"],["2",67.08,89.84,2.08,3.6,true,"oval"],["3",72.16,89.84,2.08,3.6,true,"oval"],["4",77.24,89.84,2.08,3.6,true,"oval"],["5",82.32,89.84,2.08,3.6,true,"oval"],["6",87.4,89.84,2.08,3.6,true,"oval"]],"b":[57.96,87.34,91.44,100.34]},{"r":"R15","p":[["1",49.587,46.9,1.025,1.4,false,"roundrect"],["2",51.413,46.9,1.025,1.4,false,"roundrect"]],"b":[48.82,45.95,52.18,47.85]},{"r":"U1","p":[["1",65.19,69.19,1.6,1.6,true,"roundrect"],["2",65.19,71.73,1.6,1.6,true,"circle"],["3",65.19,74.27,1.6,1.6,true,"circle"],["4",65.19,76.81,1.6,1.6,true,"circle"],["5",72.81,76.81,1.6,1.6,true,"circle"],["6",72.81,74.27,1.6,1.6,true,"circle"],["7",72.81,71.73,1.6,1.6,true,"circle"],["8",72.81,69.19,1.6,1.6,true,"circle"]],"b":[63.67,67.61,74.33,78.39]},{"r":"R2","p":[["1",76.588,45.3,1.025,1.4,false,"roundrect"],["2",78.412,45.3,1.025,1.4,false,"roundrect"]],"b":[75.82,44.35,79.18,46.25]},{"r":"R13","p":[["1",49.587,51.7,1.025,1.4,false,"roundrect"],["2",51.413,51.7,1.025,1.4,false,"roundrect"]],"b":[48.82,50.75,52.18,52.65]},{"r":"JP5","p":[["1",77.24,19.5,1.7,1.7,true,"rect"],["2",77.24,22.04,1.7,1.7,true,"circle"]],"b":[75.47,17.73,79.01,23.82]},{"r":"J1","p":[["1",87.4,10.16,2.08,3.6,true,"roundrect"],["2",82.32,10.16,2.08,3.6,true,"oval"],["3",77.24,10.16,2.08,3.6,true,"oval"],["4",72.16,10.16,2.08,3.6,true,"oval"],["5",67.08,10.16,2.08,3.6,true,"oval"],["6",62.0,10.16,2.08,3.6,true,"oval"]],"b":[57.96,-0.34,91.44,12.66]},{"r":"C3","p":[["1",33.0,84.475,1.8,1.15,false,"roundrect"],["2",33.0,81.525,1.8,1.15,false,"roundrect"]],"b":[31.85,80.7,34.15,85.3]},{"r":"R11","p":[["1",49.587,56.5,1.025,1.4,false,"roundrect"],["2",51.413,56.5,1.025,1.4,false,"roundrect"]],"b":[48.82,55.55,52.18,57.45]},{"r":"U6","p":[["1",44.45,84.0,1.6,1.6,true,"roundrect"],["2",44.45,81.46,1.6,1.6,true,"circle"],["3",44.45,78.92,1.6,1.6,true,"circle"],["4",44.45,76.38,1.6,1.6,true,"circle"],["5",44.45,73.84,1.6,1.6,true,"circle"],["6",44.45,71.3,1.6,1.6,true,"circle"],["7",44.45,68.76,1.6,1.6,true,"circle"],["8",44.45,66.22,1.6,1.6,true,"circle"],["9",36.83,66.22,1.6,1.6,true,"circle"],["10",36.83,68.76,1.6,1.6,true,"circle"],["11",36.83,71.3,1.6,1.6,true,"circle"],["12",36.83,73.84,1.6,1.6,true,"circle"],["13",36.83,76.38,1.6,1.6,true,"circle"],["14",36.83,78.92,1.6,1.6,true,"circle"],["15",36.83,81.46,1.6,1.6,true,"circle"],["16",36.83,84.0,1.6,1.6,true,"circle"]],"b":[35.31,64.64,45.97,85.58]},{"r":"R40","p":[["1",58.987,61.5,1.025,1.4,false,"roundrect"],["2",60.812,61.5,1.025,1.4,false,"roundrect"]],"b":[58.22,60.55,61.58,62.45]},{"r":"R6","p":[["1",42.038,19.5,1.125,1.75,false,"roundrect"],["2",44.962,19.5,1.125,1.75,false,"roundrect"]],"b":[41.22,18.37,45.78,20.63]},{"r":"H1","p":[["",3.8,3.8,3.2,3.2,false,"circle"]],"b":null},{"r":"C1","p":[["1",69.025,65.5,1.15,1.8,false,"roundrect"],["2",71.975,65.5,1.15,1.8,false,"roundrect"]],"b":[68.2,64.35,72.8,66.65]},{"r":"H2","p":[["",96.2,3.8,3.2,3.2,false,"circle"]],"b":null},{"r":"D35","p":[["1",55.837,62.45,1.475,0.6,false,"roundrect"],["2",55.837,60.55,1.475,0.6,false,"roundrect"],["3",53.962,61.5,1.475,0.6,false,"roundrect"]],"b":[52.97,59.8,56.83,63.2]},{"r":"D33","p":[["1",55.837,72.05,1.475,0.6,false,"roundrect"],["2",55.837,70.15,1.475,0.6,false,"roundrect"],["3",53.962,71.1,1.475,0.6,false,"roundrect"]],"b":[52.97,69.4,56.83,72.8]},{"r":"R16","p":[["1",58.987,46.9,1.025,1.4,false,"roundrect"],["2",60.812,46.9,1.025,1.4,false,"roundrect"]],"b":[58.22,45.95,61.58,47.85]},{"r":"D34","p":[["1",55.837,67.25,1.475,0.6,false,"roundrect"],["2",55.837,65.35,1.475,0.6,false,"roundrect"],["3",53.962,66.3,1.475,0.6,false,"roundrect"]],"b":[52.97,64.6,56.83,68.0]},{"r":"D11","p":[["1",55.837,57.45,1.475,0.6,false,"roundrect"],["2",55.837,55.55,1.475,0.6,false,"roundrect"],["3",53.962,56.5,1.475,0.6,false,"roundrect"]],"b":[52.97,54.8,56.83,58.2]},{"r":"C6","p":[["1",41.0,8.475,1.8,1.15,false,"roundrect"],["2",41.0,5.525,1.8,1.15,false,"roundrect"]],"b":[39.85,4.7,42.15,9.3]},{"r":"C2","p":[["1",33.0,50.475,1.8,1.15,false,"roundrect"],["2",33.0,47.525,1.8,1.15,false,"roundrect"]],"b":[31.85,46.7,34.15,51.3]},{"r":"JP2","p":[["1",68.0,37.0,1.7,1.7,true,"rect"],["2",70.54,37.0,1.7,1.7,true,"circle"],["3",68.0,39.54,1.7,1.7,true,"circle"],["4",70.54,39.54,1.7,1.7,true,"circle"],["5",68.0,42.08,1.7,1.7,true,"circle"],["6",70.54,42.08,1.7,1.7,true,"circle"]],"b":[66.23,35.23,72.32,43.85]},{"r":"U4","p":[["1",33.0,57.5,1.05,1.5,true,"rect"],["2",34.27,57.5,1.05,1.5,true,"oval"],["3",35.54,57.5,1.05,1.5,true,"oval"]],"b":[31.54,54.77,37.0,59.51]},{"r":"R19","p":[["1",49.587,37.3,1.025,1.4,false,"roundrect"],["2",51.413,37.3,1.025,1.4,false,"roundrect"]],"b":[48.82,36.35,52.18,38.25]},{"r":"R20","p":[["1",58.987,37.3,1.025,1.4,false,"roundrect"],["2",60.812,37.3,1.025,1.4,false,"roundrect"]],"b":[58.22,36.35,61.58,38.25]},{"r":"D2","p":[["1",33.5,20.9,2.5,3.3,false,"roundrect"],["2",33.5,14.1,2.5,3.3,false,"roundrect"]],"b":[30.15,12.6,36.85,22.4]},{"r":"D15","p":[["1",55.837,38.25,1.475,0.6,false,"roundrect"],["2",55.837,36.35,1.475,0.6,false,"roundrect"],["3",53.962,37.3,1.475,0.6,false,"roundrect"]],"b":[52.97,35.6,56.83,39.0]}],"texte":[["J1 (J300)",73.0,37.0,0.0,1.0],["U1",73.0,39.54,0.0,1.0],["J3 (Bedien.)",73.0,42.08,0.0,1.0],["normal",73.0,48.5,0.0,1.0],["U1",73.0,51.04,0.0,1.0],["getauscht",73.0,53.58,0.0,1.0],["Masse",14.92,14.2,0.0,1.0],["+12 V",20.0,14.2,0.0,1.0],["Alarm",62.0,16.5,0.0,1.0],["Kl. 6",62.0,28.0,0.0,1.0],["Bus−",62.0,83.6,0.0,1.0],["On-Off",67.08,16.5,0.0,1.0],["Kl. 5",67.08,28.0,0.0,1.0],["Bus+",67.08,83.6,0.0,1.0],["Masse",72.16,16.5,0.0,1.0],["fest",72.16,21.0,0.0,1.0],["Vsys+",72.16,83.6,0.0,1.0],["JP3–JP7: gesteckt = verbunden",74.7,32.6,0.0,1.0],["Vsys+",77.24,16.5,0.0,1.0],["Kl. 3",77.24,28.0,0.0,1.0],["Masse",77.24,83.6,0.0,1.0],["Bus+",82.32,16.5,0.0,1.0],["Kl. 2",82.32,28.0,0.0,1.0],["On-Off",82.32,83.6,0.0,1.0],["Bus−",87.4,16.5,0.0,1.0],["Kl. 1",87.4,28.0,0.0,1.0],["Alarm",87.4,83.6,0.0,1.0],["Robnet-Analyse B v00.01",88.0,74.0,0.0,1.0],["SuAn electronic",88.0,76.0,0.0,1.0],["Lutz Pestel, 2026",88.0,77.8,0.0,1.0],["JP2",90.3,34.0,0.0,1.0],["JP1",94.0,34.0,0.0,1.0],["Messpunkte",95.0,66.0,0.0,1.0],["nie",98.0,34.0,0.0,1.0],["quer!",98.0,39.8,0.0,1.0],["Bus+",93.1,57.0,0.0,1.0],["Bus−",93.1,59.54,0.0,1.0],["Masse",93.1,62.08,0.0,1.0],["JP1: ADERN TAUSCHEN",66.2,56.6,0.0,1.2],["JP2: SEITE",73.0,34.9,0.0,1.2],["6",62.0,14.4,0.0,1.2],["Alarm",62.0,26.1,0.0,1.2],["1",62.0,85.6,0.0,1.2],["5",67.08,14.4,0.0,1.2],["On-Off",67.08,26.1,0.0,1.2],["2",67.08,85.6,0.0,1.2],["4",72.16,14.4,0.0,1.2],["3",72.16,85.6,0.0,1.2],["3",77.24,14.4,0.0,1.2],["Vsys+",77.24,26.1,0.0,1.2],["4",77.24,85.6,0.0,1.2],["2",82.32,14.4,0.0,1.2],["Bus+",82.32,26.1,0.0,1.2],["5",82.32,85.6,0.0,1.2],["1",87.4,14.4,0.0,1.2],["Bus−",87.4,26.1,0.0,1.2],["6",87.4,85.6,0.0,1.2],["A",87.0,36.7,0.0,1.4],["B",87.0,40.5,0.0,1.4],["C",87.0,44.3,0.0,1.4],["D",87.0,48.1,0.0,1.4],["E",87.0,51.9,0.0,1.4],["J2: +12 V",17.46,17.6,0.0,1.6],["J1: HAUPTGERÄT J300",74.7,30.3,0.0,1.6],["J3: BEDIENEINHEIT",74.7,81.0,0.0,1.6]]};
+const TEIL = Object.fromEntries(DATEN.teile.map(t => [t.r, t]));
+const pad = (r, n) => TEIL[r].p.find(p => p[0] === String(n));
+const NS = 'http://www.w3.org/2000/svg';
+const NAMEN = {J1:'Hauptgerät (J1)', J2:'12 V (J2)', J3:'Bedieneinheit (J3)', J4:'Messpunkte (J4)', J5:'Raspberry (J5)',
+  U1:'Bus-Empfänger (U1)', U2:'Oberer Sockel (U2)', U6:'Unterer Sockel (U6)', U3:'5-V-Modul (U3)', U4:'LM4040 (U4)', L1:'Drahtbrücke (L1)'};
+
+const ALLE_JP = [];
+const KL = {'Bus−':1, 'Bus+':2, 'Vsys+':3, 'Masse':4, 'On-Off':5, 'Alarm':6};
+
+function jp(ader) { return {'Bus+':'JP3','Bus−':'JP4','Vsys+':'JP5','On-Off':'JP6','Alarm':'JP7'}[ader]; }
+
+const SCHRITTE = [];
+const VOR = {id:'0', block:'Vorbereitung', titel:'Aufbau vorbereiten', tun:[
+  '<b>Netzteil aus.</b> Stromgrenze etwa 500 mA, Spannung <b>12 V</b>, nicht mehr.',
+  'Raspberry und alle Chips bleiben drin. <b>Alle Jumper ziehen:</b> JP1 bis JP7. Der Bus-Empfänger ist so vom Prüfkabel getrennt.',
+  'Je einen <b>6-poligen Stecker</b> in die Klemmen Hauptgerät (oben) und Bedieneinheit (unten) stecken, ohne Adern.',
+  'Ein <b>Prüfkabel</b> vorbereiten: ein Ende zusätzlich an +12 V der 2-poligen Klemme, das andere bleibt frei.',
+  '<b>Niemals an den Robertson anschließen.</b> Nur das Netzteil.',
+  'Netzteil ein. Warten, bis der Raspberry erreichbar ist (etwa 1 Minute).'],
+  soll:'Strom etwa 50–200 mA (Schätzung).', melden:'„0 fertig“', wahl:{}};
+SCHRITTE.push(VOR);
+
+// Block A: Seite Hauptgeraet, Block B: Seite Bedieneinheit
+const REIHE = ['Bus+','Bus−','Vsys+','On-Off','Alarm'];
+const U2K = {'Bus+':0,'Bus−':1,'Vsys+':2,'On-Off':3,'Alarm':4};
+const U6K = {'Vsys+':0,'On-Off':1,'Alarm':2,'Bus+':3,'Bus−':4};
+function faktor(a) { return a === 'Vsys+' ? '0,91 V' : '1,38 V'; }
+REIHE.forEach((a, i) => SCHRITTE.push({id:'A'+(i+1), block:'A: Seite Hauptgerät, alle Jumper gezogen', titel:`Hauptgerät, Klemme ${KL[a]}: ${a}`,
+  tun:[`Prüfkabel (+12 V) an die Schraube von <b>Klemme ${KL[a]}</b> des Steckers am <b>Hauptgerät</b> (oben).`, 'Die übrigen Klemmen bleiben frei. Mir den Schritt melden.'],
+  soll:`Oberer Sockel (U2), Kanal ${U2K[a]}: etwa ${faktor(a)} am Wandler, also etwa 12 V an der Ader. Alle Kanäle des unteren Sockels (U6) bleiben bei 0 V.`,
+  melden:`„A${i+1} steckt“`, kabel:[['J1',KL[a]]], wahl:{}}));
+REIHE.forEach((a, i) => SCHRITTE.push({id:'B'+(i+1), block:'B: Seite Bedieneinheit, alle Jumper gezogen', titel:`Bedieneinheit, Klemme ${KL[a]}: ${a}`,
+  tun:[`Prüfkabel (+12 V) an die Schraube von <b>Klemme ${KL[a]}</b> des Steckers an der <b>Bedieneinheit</b> (unten).`, 'Achtung: Unten liegt Klemme 1 links, oben liegt sie rechts.'],
+  soll:`Unterer Sockel (U6), Kanal ${U6K[a]}: etwa ${faktor(a)} am Wandler, also etwa 12 V an der Ader. Der obere Sockel (U2) zeigt 0 V, außer der Bordspannung auf Kanal 5.`,
+  melden:`„B${i+1} steckt“`, kabel:[['J3',KL[a]]], wahl:{}}));
+REIHE.forEach((a, i) => SCHRITTE.push({id:'C'+(i+1), block:'C: Trenn-Jumper', titel:`Jumper ${jp(a)} für ${a}`,
+  tun:[`<b>Jumper ${jp(a)} stecken</b> (senkrecht), die anderen Trenn-Jumper bleiben gezogen.`, `Prüfkabel (+12 V) an <b>Klemme ${KL[a]}</b> am <b>Hauptgerät</b> (oben).`, 'Danach diesen Jumper wieder ziehen.'],
+  soll:`Oberer Sockel (U2) Kanal ${U2K[a]} <b>und</b> unterer Sockel (U6) Kanal ${U6K[a]} zeigen beide etwa 12 V an der Ader.`,
+  melden:`„C${i+1} steckt“`, kabel:[['J1',KL[a]]], wahl:{[jp(a)]:[[1,2]]}}));
+SCHRITTE.push({id:'C6', block:'C: Trenn-Jumper', titel:'Masse durchgehend, Klemme 4', tun:[
+  '<b>Netzteil aus,</b> Prüfkabel ab. Messgerät auf Durchgang (Piepton).',
+  'Klemme 4 am Hauptgerät gegen Klemme 4 an der Bedieneinheit messen, danach gegen den linken Kontakt der 2-poligen 12-V-Klemme.',
+  'Netzteil wieder ein.'], soll:'Beide Male Dauerton: Masse ist durchgehend verbunden, ohne Jumper.', melden:'„C6 piept“', mess:[['J1',4],['J3',4]], wahl:{}});
+const OBEN=[[1,3],[2,4]], UNTEN=[[3,5],[4,6]];
+const D = (id,titel,w1,w2,hoch,kl,tun) => SCHRITTE.push({id, block:'D: Bus-Empfänger, nur mit Prüfkabeln', titel, tun,
+  soll:`Empfänger-Ausgang (Pin 10 des Raspberry) ist <b>${hoch}</b>. Das lese ich aus.`, melden:`„${id} steckt“`, kabel:kl, masse:w2, wahl:{JP2:w1.jp2,JP1:w1.jp1}});
+D('D1','Stellung A, Bus+ hoch',{jp2:OBEN,jp1:OBEN},[['J1',1]],'hoch',[['J1',2]],[
+  '<b>Netzteil aus.</b> JP2 und JP1 je <b>zwei Brücken senkrecht oben</b> stecken. <b>Nie quer.</b> JP3 bis JP7 bleiben gezogen.',
+  'Zweites Prüfkabel (schwarz) von <b>Masse</b> der 2-poligen Klemme an Klemme 1 (Bus−) am Hauptgerät.',
+  'Rotes Prüfkabel (+12 V) an Klemme 2 (Bus+) am Hauptgerät. Netzteil ein.']);
+D('D2','Stellung A, Bus− hoch',{jp2:OBEN,jp1:OBEN},[['J1',2]],'niedrig',[['J1',1]],[
+  'Rot und schwarz am Hauptgerät <b>tauschen</b>: rot an Klemme 1 (Bus−), schwarz an Klemme 2 (Bus+).', 'Jumper bleiben.']);
+D('D3','Stellung B, Adern im Empfänger getauscht',{jp2:OBEN,jp1:UNTEN},[['J1',2]],'hoch',[['J1',1]],[
+  '<b>Netzteil aus.</b> JP1: beide Brücken <b>unten</b> stecken. JP2 bleibt oben.', 'Prüfkabel wie in D2 lassen. Netzteil ein.']);
+D('D4','Stellung C, Seite Bedieneinheit',{jp2:UNTEN,jp1:OBEN},[['J3',2]],'niedrig',[['J3',1]],[
+  '<b>Netzteil aus.</b> JP2: beide Brücken <b>unten</b>. JP1: beide Brücken <b>oben</b>.',
+  'Prüfkabel an die <b>Bedieneinheit</b> (unten): rot an Klemme 1 (Bus−), schwarz an Klemme 2 (Bus+). Netzteil ein.']);
+SCHRITTE.push({id:'E', block:'Abschluss', titel:'Aufräumen', tun:[
+  '<b>Netzteil aus,</b> beide Prüfkabel ab.', 'JP2 und JP1 auf <b>Stellung A</b> (beide Brücken oben) und alle Trenn-Jumper JP3 bis JP7 <b>stecken</b>. Das ist die Grundstellung für den Boots-Einbau.'],
+  soll:'Die Platine ist bereit. Einbau am Robertson nur im Hafen, und den lege ich Ihnen vorher einzeln vor.', melden:'„fertig“', wahl:{JP1:OBEN,JP2:OBEN,JP3:[[1,2]],JP4:[[1,2]],JP5:[[1,2]],JP6:[[1,2]],JP7:[[1,2]]}});
+
+function el(n, a, kinder) { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (kinder||[]).forEach(c => e.appendChild(c)); return e; }
+function text(t, x, y, h, f, zus) { const e = el('text', Object.assign({x, y, 'font-size':h, fill:f, 'text-anchor':'middle', 'dominant-baseline':'middle', 'font-family':'Arial,sans-serif'}, zus||{})); e.textContent = t; return e; }
+function frisch() { const css = getComputedStyle(document.documentElement); return k => css.getPropertyValue(k).trim(); }
+
+function zeichne(s) {
+  const c = frisch(), svg = document.getElementById('platine');
+  svg.innerHTML = '';
+  svg.appendChild(el('rect', {x:0, y:0, width:100, height:100, rx:1, fill:c('--pcb'), stroke:c('--pcbrand'), 'stroke-width':.5}));
+  for (const t of DATEN.teile) {
+    const tht = t.p.length && t.p[0][5];
+    if (t.b && NAMEN[t.r]) svg.appendChild(el('rect', {x:t.b[0], y:t.b[1], width:t.b[2]-t.b[0], height:t.b[3]-t.b[1], fill:c('--teil'), stroke:'#cfe6d8', 'stroke-width':.18, rx:.4}));
+    for (const p of t.p) {
+      if (p[5]) svg.appendChild(el('circle', {cx:p[1], cy:p[2], r:Math.max(p[3],p[4])/2.6, fill:c('--pad')}));
+      else if (p[6] !== undefined) svg.appendChild(el('rect', {x:p[1]-p[3]/2, y:p[2]-p[4]/2, width:p[3], height:p[4], fill:c('--smd')}));
+    }
+  }
+  // Pin 1 der Fassungen markieren
+  [['U1','1. Pin 1'],['U2','1. Pin 1'],['U6','1. Pin 1']].forEach(([r]) => { const p = pad(r,1); svg.appendChild(el('rect', {x:p[1]-1.05, y:p[2]-1.05, width:2.1, height:2.1, fill:'none', stroke:'#fff', 'stroke-width':.3})); });
+  // Beschriftung der Platine
+  for (const [t,x,y,rot,h] of DATEN.texte) { const e = text(t, x, y, Math.max(h,.9), c('--silk')); if (rot) e.setAttribute('transform', `rotate(${-rot} ${x} ${y})`); svg.appendChild(e); }
+  // Namen wichtiger Teile
+  const umriss = {stroke:'#0b2a1b', 'stroke-width':.7, 'paint-order':'stroke', 'font-weight':'700'};
+  const beschr = (r,x,y) => svg.appendChild(text(NAMEN[r], x, y, 1.9, '#fff', umriss));
+  beschr('U2',40.6,41); beschr('U6',40.6,75); beschr('U1',69,73); beschr('U3',49.6,1.6); beschr('U4',33,53.4); beschr('J5',14,42); beschr('L1',52,14.3);
+  ['JP3','JP4','JP5','JP6','JP7'].forEach(r => { const p = pad(r,2); svg.appendChild(text(r, p[1], p[2]+2.5, 1.5, c('--jumper'), umriss)); });
+  [['JP1',51.04],['JP2',39.54]].forEach(([r,y]) => svg.appendChild(text(r, 64.2, y, 1.7, c('--jumper'), umriss)));
+  svg.appendChild(text('Hauptgerät (J1)', 74.7, -2, 2.6, c('--text'), {'font-weight':'700'}));
+  svg.appendChild(text('12 V (J2)', 17.5, -2, 2.6, c('--text'), {'font-weight':'700'}));
+  svg.appendChild(text('Bedieneinheit (J3)', 74.7, 102.4, 2.6, c('--text'), {'font-weight':'700'}));
+  // Jumper
+  for (const r in (s.wahl||{})) for (const [a,b] of s.wahl[r]) { const A=pad(r,a), B=pad(r,b);
+    svg.appendChild(el('rect', {x:Math.min(A[1],B[1])-1.1, y:Math.min(A[2],B[2])-1.1, width:Math.abs(A[1]-B[1])+2.2, height:Math.abs(A[2]-B[2])+2.2, rx:.5, fill:c('--jumper'), stroke:'#000', 'stroke-width':.2}));
+  }
+  // Pruefkabel
+  const quelle = pad('J2',1), masse = pad('J2',2);
+  const leitung = (von, nach, f) => svg.appendChild(el('path', {d:`M${von[1]} ${von[2]} C ${von[1]} ${-3}, ${nach[1]} ${nach[2] < 50 ? -3 : 103}, ${nach[1]} ${nach[2]}`, fill:'none', stroke:f, 'stroke-width':.7, 'stroke-linecap':'round'}));
+  (s.kabel||[]).forEach(([r,n]) => { const p = pad(r,n); leitung(quelle,p,c('--ziel')); svg.appendChild(el('circle',{cx:p[1],cy:p[2],r:1.7,fill:'none',stroke:c('--ziel'),'stroke-width':.6})); svg.appendChild(el('circle',{cx:quelle[1],cy:quelle[2],r:1.5,fill:c('--ziel')})); });
+  (s.masse||[]).forEach(([r,n]) => { const p = pad(r,n); leitung(masse,p,c('--masse')); svg.appendChild(el('circle',{cx:p[1],cy:p[2],r:1.7,fill:'none',stroke:'#000','stroke-width':.6})); svg.appendChild(el('circle',{cx:masse[1],cy:masse[2],r:1.5,fill:'#000'})); });
+  (s.mess||[]).forEach(([r,n]) => { const p = pad(r,n); svg.appendChild(el('circle',{cx:p[1],cy:p[2],r:1.8,fill:'none',stroke:c('--ziel'),'stroke-width':.6})); });
+  // 12-V-Polaritaet deutlich
+  svg.appendChild(text('+', pad('J2',1)[1], 4.6, 3, '#fff', {'font-weight':'700'}));
+  svg.appendChild(text('−', pad('J2',2)[1], 4.6, 3, '#fff', {'font-weight':'700'}));
+}
+
+let i = 0;
+const erledigt = new Set();
+try { JSON.parse(localStorage.getItem('robnet-tischtest') || '[]').forEach(x => erledigt.add(x)); } catch (e) {}
+function speichern() { try { localStorage.setItem('robnet-tischtest', JSON.stringify([...erledigt])); } catch (e) {} }
+
+function zeige() {
+  const s = SCHRITTE[i];
+  document.getElementById('schritt').innerHTML = `<div class="block">${s.block}</div><h2><span class="nr">${s.id}</span>${s.titel}</h2>
+    <ol class="tun">${s.tun.map(t => `<li>${t}</li>`).join('')}</ol>
+    <div class="soll"><b>Erwartet:</b> ${s.soll}</div>
+    <div class="melden">Dann schreiben Sie mir: ${s.melden}</div>
+    <div class="hinweis">Ich lese die Werte vom Raspberry aus und sage, ob es passt. Melden Sie auch, wenn der Strom auf die Grenze springt: dann sofort Netzteil aus.</div>`;
+  document.getElementById('zurueck').disabled = i === 0;
+  document.getElementById('weiter').disabled = i === SCHRITTE.length-1;
+  document.getElementById('haken').checked = erledigt.has(s.id);
+  zeichne(s);
+  liste();
+  try { history.replaceState(null,'','#'+s.id); } catch (e) {}
+}
+function liste() {
+  const ziel = document.getElementById('liste'); ziel.innerHTML = '';
+  let block = '';
+  let box;
+  SCHRITTE.forEach((s, n) => {
+    if (s.block !== block) { block = s.block; const d = document.createElement('div'); d.className='block'; d.textContent=block; ziel.appendChild(d); box = document.createElement('div'); box.className='liste'; ziel.appendChild(box); }
+    const b = document.createElement('button'); b.textContent = s.id;
+    b.className = (n===i?'an ':'') + (erledigt.has(s.id)?'fertig':'');
+    b.onclick = () => { i=n; zeige(); };
+    box.appendChild(b);
+  });
+}
+document.getElementById('zurueck').onclick = () => { if (i>0) { i--; zeige(); } };
+document.getElementById('weiter').onclick = () => { if (i<SCHRITTE.length-1) { i++; zeige(); } };
+document.getElementById('haken').onchange = e => { const id = SCHRITTE[i].id; e.target.checked ? erledigt.add(id) : erledigt.delete(id); speichern(); liste(); };
+const anker = location.hash.slice(1);
+const start = SCHRITTE.findIndex(s => s.id === anker);
+if (start >= 0) i = start;
+zeige();
+</script>
+</body>
+</html>

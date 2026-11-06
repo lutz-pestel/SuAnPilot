@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.48, Stand 23.10.2026, Obergrenze 100 Zeilen.
+Version 00.52, Stand 06.11.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -9,11 +9,11 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 ## 0. Stand und nächster Schritt (Einstieg für neue Sitzungen)
 - **Ablage** (Betreiber, 16.10.2026): gemeinsam nur `hardware/konzeption/` (dieses Konzept, Blockschaltbild). Linie A (THT) in `hardware/tht/`,
   Linie B (SMD, JLCPCB bestückt; Teile ohne Extended, Schaltplan und Platine 100 × 100 mm mit J3 unten platziert in `smd/kicad/v00.01/` 16.10.2026, `smd/konzeption/Bauteilauswahl.md`, Ablauf `0-gesamtprojekt/fertigung/ablauf-smd-bestueckung.md`) in `hardware/smd/`, gleicher Aufbau. Unten: `Bauteilauswahl.md` = THT.
-- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.16, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
-  Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.16 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
+- **Fertig:** Konzept (dieses Dokument), Blockschaltbild 00.19, Messwerte am J300 (`Robnet.md`, Abschnitt 2),
+  Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.18 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Schaltplan fertig** (`hardware/tht/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
   alle Versorgungen laufen sichtbar über das Hauptblatt (in den Unterblättern nur blattlokale Versorgungszeichen).
-  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Keine Software (`software/` leer). Zero 2 W nicht vorhanden.
+  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Software: nur `software/pruefung_wandler_v00.01.py` (liest die Wandler). Zero 2 W vorhanden, eingerichtet (Linie B, 06.11.2026).
 - **Arbeitsweise Platine:** KiCad vorher schließen (Sperrdateien `~*.lck` in `tht/kicad/v00.01/`). Netzliste: `kicad-cli sch export netlist
   --format kicadxml`; erzeugen: `platine_erzeugen/robnet_platine.py <netzliste> ../Robnet-Analyse.kicad_pcb` mit dem Python von KiCad;
   prüfen: `kicad-cli pcb drc --schematic-parity`, ansehen: `kicad-cli pcb render`. Das Skript verweigert eine Platine mit Bahnen;
@@ -24,10 +24,10 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   DRC: nur Aufdruck an der Kante (J1–J3, Zero, gewollt bündig) und offene Verbindungen; Abgleich mit dem Schaltplan ohne Abweichung.
 - **Nächste Schritte in dieser Reihenfolge**, jeder einzeln dem Betreiber vorlegen (Regel 3):
   1. Leiterbahnen, gruppenweise, ohne Autorouter, je Gruppe Bild und DRC (Linie B: alle Bahnen verlegt, DRC ohne Meldung, `smd/konzeption/Bauteilauswahl.md`). J3 an die Unterkante (Betreiber, 16.10.2026): Linie A später (`TODO.md`, Später 23), Linie B erledigt.
-  2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe (Linie B: Fertigungsdaten erzeugt, 16.10.2026; bei JLCPCB bestellt 17.10.2026, Auftrag W2026101717094445).
+  2. Offene Punkte der Teileauswahl (`Bauteilauswahl.md`, Abschnitt 7); Fertigungsdaten und Bestellung nur mit Freigabe (Linie B: Fertigungsdaten erzeugt, 16.10.2026; bei JLCPCB bestellt 17.10.2026, Auftrag W2026101717094445; geliefert, erste Platine bestückt, Tischtest bestanden 06.11.2026, Werte in `smd/konzeption/Bauteilauswahl.md`, Abschnitt 3; Ablauf `smd/konzeption/Tischtest_Robnet.html`).
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
-     Zero 2 W, WLAN-Stick mit 5-m-USB-Kabel und LAN-Adapter beschaffen; einrichten: Netz (Block 6), SSH, Bluetooth aus
-     (Seriell-Schnittstelle frei), SPI an, pigpio.
+     5-m-USB-Kabel und LAN-Adapter beschaffen, Netz aus dem Motorraum (Block 6). Zero 2 W läuft: SSH, Bluetooth aus
+     (Seriell-Schnittstelle frei), SPI an, pigpio da, WLAN-Stick COMFAST CF-WU710N V2 (Chip MT7601) am Zero 2 W nicht erprobt.
   4. Software: Aufzeichnung, Datenraten durchprobieren, Telegramme zerlegen; dann Trennversuche (Block 8).
 
 ## 1. Grundsätze
@@ -40,7 +40,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
 - **Signalweg nur passiv (Jumper):** Fällt die Platine aus, läuft der Robertson unverändert. Trennen =
   Jumper ziehen, von Hand, nur durch den Betreiber und nur im Hafen (schaltet den Robertson teilweise ab).
 - **Masse (Vsys−, grau) nie trennen.** Grau = Bordmasse (gemessen 0,004 V); galvanische Trennung nicht nötig.
-- **Gefertigte Platine (JLCPCB), nur Durchsteckteile, selbst gelötet**; Raspberry Pi Zero 2 W (zu beschaffen) aufgesteckt.
+- **Gefertigte Platine (JLCPCB), nur Durchsteckteile, selbst gelötet**; Raspberry Pi Zero 2 W aufgesteckt.
   Kein Oszilloskop nötig (Reserve: Stiftleiste J4).
 - Teile und Schaltungen wie im Motor-Controller, wo möglich (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`).
 
