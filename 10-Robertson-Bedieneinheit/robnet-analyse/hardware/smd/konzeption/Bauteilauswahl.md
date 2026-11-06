@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.24, Stand 06.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest und Test mit Daten bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.25, Stand 06.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest und Test mit Daten bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -94,7 +94,7 @@ Mit altem Raspberry Pi Zero (ohne WLAN, ohne Karte): 39 mA, U1 Pin 1 und U2/U6 P
 alle 10 Kanäle 11,92–12,03 V am richtigen Kanal, die übrigen 0,00–0,02 V; JP3–JP7 verbinden, Masse durchgehend; Alarm-Eingang Pin 13 folgt nur Seite J1. MAX3488: Stellungen A, B, C richtig (hoch/niedrig an Pin 10 und 16).
 Bordspannung 11,67–11,73 V bei 12 V (Verpolschutz). Nicht geprüft: echter Robertson-Bus, zweite Platine, WLAN-Stick am Zero 2 W. Alter Zero (ohne WLAN) mit COMFAST-Stick kam nicht ins Netz, Ursache ungeklärt.
 **Test mit Daten** (06.11.2026, Sender PC über FTDI232 und YL-12B mit MAX490, `Testsender_Verbindung.html`; YL-12B: TX ist der Chip-Eingang, also TX an TX; ohne Massekabel; Stellung A): alle 256 Byte-Werte. 1200–230 400 Baud seriell fehlerfrei;
-über Pegelwechsel (`software/aufzeichnung_v00.01.py`, `auswertung_v00.01.py`, Abtastung 2 µs) fehlerfrei bis 115 200 Baud, bei 230 400 Baud 145 Fehler. Empfang muss vor dem Datenstrom laufen, sonst rastet die serielle Schnittstelle falsch ein. Nicht gelöst: Zerlegen bei Einstieg mitten im pausenlosen Strom.
+über Pegelwechsel (`software/aufzeichnung_v00.01.py`, `auswertung_v00.02.py`, Abtastung 2 µs) fehlerfrei bis 115 200 Baud, bei 230 400 Baud 145 Fehler. Empfang muss vor dem Datenstrom laufen, sonst rastet die serielle Schnittstelle falsch ein. Einstieg mitten im pausenlosen Strom: Die Auswertung sucht ihn, über Pegelwechsel 9600 Baud fehlerfrei, 115 200 Baud unter 0,2 % falsche Folgen (je 3 Versuche).
 
 ## 4. Offen
 - 3D-Modell U3 zeigt noch den Recom-Block R-78B; Maße des echten 5-V-Moduls (Länge, Breite, Höhe, Überstand) fehlen, vor dem Gehäusebau messen.

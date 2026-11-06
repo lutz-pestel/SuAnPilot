@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.53, Stand 06.11.2026, Obergrenze 100 Zeilen.
+Version 00.54, Stand 06.11.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -13,7 +13,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.18 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Schaltplan fertig** (`hardware/tht/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
   alle Versorgungen laufen sichtbar über das Hauptblatt (in den Unterblättern nur blattlokale Versorgungszeichen).
-  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Software in `software/`: Aufzeichnung, Auswertung, Prüfprogramm Wandler, je v00.01. Zero 2 W vorhanden, eingerichtet (Linie B, 06.11.2026).
+  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Software in `software/`: Aufzeichnung v00.01, Auswertung v00.02, Prüfprogramm Wandler v00.01. Zero 2 W vorhanden, eingerichtet (Linie B, 06.11.2026).
 - **Arbeitsweise Platine:** KiCad vorher schließen (Sperrdateien `~*.lck` in `tht/kicad/v00.01/`). Netzliste: `kicad-cli sch export netlist
   --format kicadxml`; erzeugen: `platine_erzeugen/robnet_platine.py <netzliste> ../Robnet-Analyse.kicad_pcb` mit dem Python von KiCad;
   prüfen: `kicad-cli pcb drc --schematic-parity`, ansehen: `kicad-cli pcb render`. Das Skript verweigert eine Platine mit Bahnen;

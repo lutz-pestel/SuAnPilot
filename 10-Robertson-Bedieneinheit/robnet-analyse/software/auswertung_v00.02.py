@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Wertet einen Aufzeichnungsordner aus. Version 00.01, Stand 06.11.2026.
+# Robnet-Analyse: Wertet einen Aufzeichnungsordner aus. Version 00.02, Stand 06.11.2026.
 # Bestimmt aus den Pegelwechseln die Bitdauer, zerlegt die Bytes (8 Datenbits, ohne Paritaet, 1 Stopbit)
-# und vergleicht sie mit der seriellen Schnittstelle. Aufruf: python3 auswertung_v00.01.py <Ordner>
+# und vergleicht sie mit der seriellen Schnittstelle. Aufruf: python3 auswertung_v00.02.py <Ordner>
+# Begann die Aufzeichnung mitten im pausenlosen Datenstrom, sucht sie zuerst den richtigen Einstieg.
 import collections
 import json
 import os
@@ -43,11 +44,27 @@ def bitdauer(wechsel):
     return kurz, min(STANDARD, key=lambda s: abs(s - baud))
 
 
-def zerlegen(wechsel, baud):
+def einstieg_suchen(wechsel, baud, kandidaten=40, probe=400):
+    # Jede der ersten fallenden Flanken als Startbit probieren; die mit den wenigsten
+    # ungueltigen Stopbits gewinnt, bei Gleichstand die frueheste.
+    beste, wenig, geprueft = 0, None, 0
+    for i, (_, wert) in enumerate(wechsel):
+        if wert != 0:
+            continue
+        _, falsch = zerlegen(wechsel, baud, i, probe)
+        if wenig is None or falsch < wenig:
+            beste, wenig = i, falsch
+        geprueft += 1
+        if wenig == 0 or geprueft >= kandidaten:
+            break
+    return beste, wenig or 0
+
+
+def zerlegen(wechsel, baud, ab=0, hoechstens=None):
     # Ruhepegel hoch, Start niedrig; Abtastung in Bitmitte
     bit = 1e6 / baud
     ergebnis, falsch = bytearray(), 0
-    i, n = 0, len(wechsel)
+    i, n = ab, len(wechsel)
 
     def pegel_zu(t, von):
         j = von
@@ -55,7 +72,7 @@ def zerlegen(wechsel, baud):
             j += 1
         return wechsel[j][1], j
 
-    while i < n:
+    while i < n and (hoechstens is None or len(ergebnis) + falsch < hoechstens):
         t0, wert = wechsel[i]
         if wert != 0:
             i += 1
@@ -96,8 +113,10 @@ def main():
     print(f"Pegelwechsel: {len(wechsel)}, verlorene Meldungen: {luecken}")
     print(f"Serielle Bytes: {len(seriell)}")
     if baud:
-        roh, falsch = zerlegen(wechsel, baud)
+        ab, probefehler = einstieg_suchen(wechsel, baud)
+        roh, falsch = zerlegen(wechsel, baud, ab)
         print(f"Kuerzester Puls: {kurz} us, also etwa {baud} Baud")
+        print(f"Einstieg bei Pegelwechsel {ab}, Fehler in der Probe: {probefehler}")
         print(f"Aus Pegelwechseln zerlegt: {len(roh)} Byte, ohne gueltiges Stopbit: {falsch}")
         print(f"Stimmt mit seriell ueberein: {roh == seriell}")
         print(f"Anfang (hex): {roh[:32].hex(' ')}")

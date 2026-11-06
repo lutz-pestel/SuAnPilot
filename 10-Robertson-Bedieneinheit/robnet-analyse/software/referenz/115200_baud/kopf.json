@@ -1,0 +1,16 @@
+{
+ "version": "00.01",
+ "start": "2026-11-06 22:03:28 +0100",
+ "baud": 115200,
+ "stellung": "A",
+ "notiz": "Referenz_Testsender",
+ "gpio_bus": 23,
+ "gpio_alarm": 27,
+ "tick_start": 1153374211,
+ "pegel_bus_start": 1,
+ "dauer_s": 5.094,
+ "flanken_byte": 33024,
+ "seriell_byte": 460,
+ "analog_zeilen": 51,
+ "fehler": []
+}
