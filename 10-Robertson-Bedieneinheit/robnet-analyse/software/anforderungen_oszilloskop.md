@@ -15,7 +15,7 @@ Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178
 
 | Geschwindigkeit | Takt | Messungen/s | Je Kanal bei 5 Kanälen | Bordspannung roh, ohne Korrektur |
 |---|---|---|---|---|
-| Maximum (voreingestellt) | 7,14 MHz | 234 000 | 47 000 | 6,3 % über dem Eingangsteiler zu niedrig, siehe unten |
+| Maximum (voreingestellt) | 7,14 MHz | 234 000 | 47 000 | 7,4 V statt 11,73 V |
 | Schnell | 4 MHz | 139 000 | 28 000 | 8,37 V statt 11,73 V |
 | Mittel | 2 MHz | 72 000 | 14 000 | 9,89 V statt 11,73 V |
 | Genau | 0,5 MHz | 18 400 | 3 700 | 11,73 V, Bezugswert |
