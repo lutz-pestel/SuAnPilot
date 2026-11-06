@@ -1,6 +1,6 @@
 # Robnet-Analyse: Anforderungen an das Speicheroszilloskop
 
-Version 00.03, Stand 06.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.01.py`, `oszilloskop_v00.01.html`, `messkern_v00.01.c`, Dienst `robnet-oszilloskop`.
+Version 00.04, Stand 06.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.01.py`, `oszilloskop_v00.01.html`, `messkern_v00.01.c`, Dienst `robnet-oszilloskop`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck
@@ -22,7 +22,8 @@ Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178
 
 - **Maximum:** Teiler 56. Ab Teiler 52 treten Lesefehler auf, deshalb ist 56 gewählt. Das liegt über dem Datenblatt-Takt des Wandlers.
 - **Korrektur:** Der hohe Eingangswiderstand (Teiler 100 kΩ/13 kΩ) lässt den Wandler bei hohem Takt zu niedrig messen. Bei jedem Umschalten vergleicht das Programm die Bordspannung bei 0,5 MHz und im gewählten Takt und rechnet den Faktor ein, dazu einen gemessenen Nullpunkt. So bleibt die Bordspannung bei allen Stufen 11,73 V.
-- **Noch nicht geprüft:** Spannungshöhe schneller Signale. Der Testsender hing dabei ohne Massekabel an der Platine, die analogen Kurven waren deshalb unruhig.
+- **Masse nötig:** Ohne gemeinsame Masse stört das PC-Netzteil die Analogkurven über den USB-Testsender (Spitzen bis 8,5 V). Mit Massekabel sind sie weg, die Digitalspur läuft auch ohne.
+- **Gegenprobe:** Hoher Pegel bei „Genau“ und „Maximum“ bis zu 4 % auseinander, ein anderes Messgerät fehlt noch.
 
 ## 3. Kanäle
 - **Höchstens 5 Kanäle,** Anzahl einstellbar, **voreingestellt 1.**
