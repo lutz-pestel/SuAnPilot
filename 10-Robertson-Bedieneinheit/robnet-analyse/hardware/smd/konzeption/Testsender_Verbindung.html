@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Testsender Verbindung</title>
+<style>
+:root { --bg:#f4f5f2; --karte:#fff; --text:#1d2420; --leise:#5c6660; --linie:#d6dad5; --warn:#b3261e; --modul:#e8eef8; --modulrand:#2d5fa8; --platine:#e4f1e8; --platinerand:#1f7a4d; --frei:#8a938d;
+  --vcc:#c62828; --gnd:#1d2420; --sig:#1565c0; --plus:#ad1457; --minus:#6a1b9a; --usb:#616161; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#141816; --karte:#1e2421; --text:#e7ebe7; --leise:#a2aca6; --linie:#35403a; --warn:#ff8a80; --modul:#1f2c42; --modulrand:#7da7e6; --platine:#17301f; --platinerand:#62c58f; --frei:#7c8580; --vcc:#ff7b72; --gnd:#e7ebe7; --sig:#6cb2ff; --plus:#f48fb1; --minus:#ce93d8; --usb:#b0b0b0; } }
+:root[data-theme="dark"] { --bg:#141816; --karte:#1e2421; --text:#e7ebe7; --leise:#a2aca6; --linie:#35403a; --warn:#ff8a80; --modul:#1f2c42; --modulrand:#7da7e6; --platine:#17301f; --platinerand:#62c58f; --frei:#7c8580; --vcc:#ff7b72; --gnd:#e7ebe7; --sig:#6cb2ff; --plus:#f48fb1; --minus:#ce93d8; --usb:#b0b0b0; }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.45 system-ui,"Segoe UI",Arial,sans-serif; }
+header, main { max-width:1120px; margin:auto; padding:12px 16px; }
+h1 { font-size:1.35rem; margin:0; }
+h2 { font-size:1.08rem; margin:0 0 6px; }
+.kopf { color:var(--leise); font-size:.88rem; }
+.karte { background:var(--karte); border:1px solid var(--linie); border-radius:10px; padding:12px; margin-bottom:12px; }
+.warn { border-left:4px solid var(--warn); padding:8px 12px; background:color-mix(in srgb,var(--warn) 10%,transparent); border-radius:0 6px 6px 0; margin-bottom:12px; }
+svg { width:100%; height:auto; display:block; }
+svg text { font-family:Arial,sans-serif; fill:var(--text); }
+.pin { font-size:13px; }
+.klein { font-size:11px; fill:var(--leise) !important; }
+.titel { font-size:15px; font-weight:700; }
+.nummer { font-size:11px; font-weight:700; fill:#fff !important; }
+.modul { fill:var(--modul); stroke:var(--modulrand); stroke-width:2; }
+.platine { fill:var(--platine); stroke:var(--platinerand); stroke-width:2; }
+.draht { fill:none; stroke-width:3; stroke-linecap:round; }
+table { border-collapse:collapse; width:100%; font-size:.93rem; }
+td,th { border:1px solid var(--linie); padding:5px 8px; text-align:left; vertical-align:top; }
+ol { margin:4px 0 0; padding-left:22px; }
+.farbe { display:inline-block; width:14px; height:14px; border-radius:50%; vertical-align:-2px; margin-right:5px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Testsender für die Robnet-Platine</h1>
+  <div class="kopf">FTDI232 und YL-12B an der Platine, nur für den Schreibtisch · Version 00.07, Stand 06.11.2026</div>
+</header>
+<main>
+  <div class="warn"><b>YL-12B mit Chip MAX490, 5 V.</b> Gemessen: TX des Moduls führt an den Chip-Eingang, also <b>TX an TX, nicht kreuzen.</b> Die Reihenfolge der Pins ist weiter nur meine Zählung, <b>es gilt die Beschriftung auf dem Modul.</b> Die Anschlüsse heißen laut Beschriftung Y und Z, die Zuordnung zum Chip ist nicht gemessen.</div>
+
+  <div class="karte">
+    <h2>Jetzt anschließen: nur die Kabel 5, 6 und 7</h2>
+    <p style="margin:0 0 8px">Netzteil und USB sind aus. Die Kabel 1 bis 4 sind fertig. Rechts oben sitzt der große Stecker „Hauptgerät“, links die 12-V-Klemme.</p>
+    <svg id="plan" viewBox="-4 -34 108 92" role="img" aria-label="Platine von oben mit den drei neuen Kabeln und der Jumperstellung"></svg>
+    <ol>
+      <li><b>Kabel 5:</b> YL-12B, Anschluss <b>Y</b> (Sende +) an <b>Klemme 2, Bus+</b>.</li>
+      <li><b>Kabel 6:</b> YL-12B, Anschluss <b>Z</b> (Sende −) an <b>Klemme 1, Bus−</b>.</li>
+      <li><b>Kabel 7:</b> YL-12B, <b>GND</b> an <b>Klemme 4, Masse</b>. GND gibt es nicht bei A, B, Y, Z, sondern auf der anderen Seite des Moduls bei VCC, TX, RX. Dort, wo auch Kabel 3 angelötet ist.</li>
+      <li><b>JP2 und JP1:</b> je zwei Brücken senkrecht <b>oben</b> (gelb), nie quer.</li>
+      <li><b>Erst danach:</b> 12 V einschalten, FTDI einstecken, etwa eine Minute warten, „verbunden“ melden.</li>
+    </ol>
+  </div>
+
+  <div class="karte">
+    <h2>Gesamter Verbindungsplan</h2>
+    <svg viewBox="0 0 1080 610" role="img" aria-label="Verbindung von PC, FTDI232, YL-12B und Robnet-Platine">
+      <!-- PC -->
+      <rect x="10" y="70" width="110" height="74" rx="6" class="modul"/>
+      <text x="65" y="102" text-anchor="middle" class="titel">PC</text>
+      <text x="65" y="122" text-anchor="middle" class="klein">USB-Anschluss</text>
+
+      <!-- FTDI232 -->
+      <rect x="170" y="40" width="230" height="330" rx="8" class="modul"/>
+      <text x="285" y="64" text-anchor="middle" class="titel">FTDI232</text>
+      <text x="285" y="82" text-anchor="middle" class="klein">USB-Seriell-Adapter</text>
+      <text x="285" y="116" text-anchor="middle" class="pin">USB-Buchse</text>
+      <rect x="190" y="130" width="190" height="32" rx="4" fill="none" stroke="var(--vcc)" stroke-width="2"/>
+      <text x="285" y="151" text-anchor="middle" class="pin" font-weight="700">Jumper auf 5 V (nicht 3,3 V)</text>
+      <g id="ftdi"></g>
+
+      <!-- YL-12B -->
+      <rect x="520" y="40" width="240" height="330" rx="8" class="modul"/>
+      <text x="640" y="64" text-anchor="middle" class="titel">YL-12B RS422</text>
+      <text x="640" y="82" text-anchor="middle" class="klein">Wandler auf Doppelsignal</text>
+      <text x="538" y="118" class="klein">Einfache Seite</text>
+      <text x="742" y="118" text-anchor="end" class="klein">RS422-Seite</text>
+      <g id="yl"></g>
+
+      <!-- Platine -->
+      <rect x="170" y="470" width="880" height="120" rx="8" class="platine"/>
+      <text x="610" y="572" text-anchor="middle" class="titel">Robnet-Platine: großer 6-poliger Stecker „Hauptgerät“ (J1), Sicht von oben: Klemme 1 rechts</text>
+      <g id="platine"></g>
+
+      <!-- USB -->
+      <path class="draht" stroke="var(--usb)" d="M120 107 H170"/>
+      <g id="drahte"></g>
+    </svg>
+  </div>
+
+  <div class="karte">
+    <h2>Die Kabel einzeln</h2>
+    <table>
+      <tr><th>Nr.</th><th>Von</th><th>Nach</th><th>Wozu</th></tr>
+      <tr><td><span class="farbe" style="background:var(--usb)"></span>1</td><td>PC, USB</td><td>FTDI232, USB-Buchse</td><td>Daten und Strom vom PC</td></tr>
+      <tr><td><span class="farbe" style="background:var(--vcc)"></span>2</td><td>FTDI232, Pin 4 <b>VCC</b> (5 V)</td><td>YL-12B, Pin 1 <b>VCC</b></td><td>Strom für den Wandler</td></tr>
+      <tr><td><span class="farbe" style="background:var(--gnd)"></span>3</td><td>FTDI232, Pin 6 <b>GND</b></td><td>YL-12B, Pin 2 <b>GND</b></td><td>Gemeinsame Masse</td></tr>
+      <tr><td><span class="farbe" style="background:var(--sig)"></span>4</td><td>FTDI232, Pin 3 <b>TXD</b></td><td>YL-12B, Pin 4 <b>TX</b> (Eingang, am Chip Pin 3 gemessen)</td><td>Testdaten: <b>nicht gekreuzt</b>, TX an TX</td></tr>
+      <tr><td><span class="farbe" style="background:var(--plus)"></span>5</td><td>YL-12B, Pin 5 <b>Y</b> (Sende +)</td><td>Platine, Klemme 2 <b>Bus+</b></td><td>Daten +</td></tr>
+      <tr><td><span class="farbe" style="background:var(--minus)"></span>6</td><td>YL-12B, Pin 6 <b>Z</b> (Sende −)</td><td>Platine, Klemme 1 <b>Bus−</b></td><td>Daten −</td></tr>
+      <tr><td><span class="farbe" style="background:var(--gnd)"></span>7</td><td>YL-12B, Pin 2 <b>GND</b></td><td>Platine, Klemme 4 <b>Masse</b></td><td>Gleiche Masse wie die Platine</td></tr>
+    </table>
+    <ol style="margin-top:10px">
+      <li><b>Nicht belegen:</b> FTDI232 DTR, RXD, CTS und YL-12B RX (Ausgang), A, B.</li>
+      <li><b>A und B bleiben frei:</b> Das ist der Empfangsteil des Moduls.</li>
+      <li><b>Kommt Unsinn an:</b> + und − sind vertauscht. Das löst der Jumper JP1 auf „unten“, ohne neu zu verkabeln.</li>
+    </ol>
+  </div>
+
+  <div class="karte">
+    <h2>Einstellung an der Platine für den Test</h2>
+    <ol>
+      <li>Platine wie gewohnt mit <b>12 V</b> über die 2-polige Klemme versorgen, Raspberry steckt.</li>
+      <li><b>JP2 und JP1:</b> je zwei Brücken senkrecht <b>oben</b> (Stellung A). Nie quer.</li>
+      <li><b>JP3 und JP4</b> (Trenn-Jumper Bus+ und Bus−): gesteckt oder gezogen ist hier egal, Sie senden auf die Seite Hauptgerät.</li>
+    </ol>
+  </div>
+</main>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t)e.textContent=t;return e;}
+function pinreihe(ziel,x,y0,liste,seite){ // Pinliste: [nr,name,belegt]
+  liste.forEach(([nr,name,belegt],i)=>{const y=y0+i*34;
+    const f=belegt?'var(--modulrand)':'var(--frei)';
+    ziel.appendChild(el('circle',{cx:x,cy:y,r:9,fill:f}));
+    ziel.appendChild(el('text',{x:x,y:y+4,'text-anchor':'middle',class:'nummer'},nr));
+    const tx=seite==='rechts'?x-16:x+16;
+    ziel.appendChild(el('text',{x:tx,y:y+5,'text-anchor':seite==='rechts'?'end':'start',class:'pin','font-weight':belegt?'700':'400','fill-opacity':belegt?1:.6},name));
+  });
+}
+const FT=[['1','DTR',0],['2','RXD',0],['3','TXD (sendet)',1],['4','VCC (5 V)',1],['5','CTS',0],['6','GND',1]];
+const YL_L=[['1','VCC',1],['2','GND',1],['3','RX (Ausgang)',0],['4','TX (Eingang)',1]];
+const YL_R=[['5','Y (Sende +)',1],['6','Z (Sende −)',1],['7','A',0],['8','B',0]];
+pinreihe(document.getElementById('ftdi'),380,180,FT,'rechts');
+const yl=document.getElementById('yl');
+pinreihe(yl,540,140,YL_L,'links');
+pinreihe(yl,740,140,YL_R,'rechts');
+const pl=document.getElementById('platine');
+const KL=[['6','Alarm',0],['5','On-Off',0],['4','Masse',1],['3','Vsys+',0],['2','Bus+',1],['1','Bus−',1]];
+const KX=i=>300+i*125;
+KL.forEach(([nr,name,belegt],i)=>{const x=KX(i);
+  pl.appendChild(el('circle',{cx:x,cy:505,r:11,fill:belegt?'var(--platinerand)':'var(--frei)'}));
+  pl.appendChild(el('text',{x:x,y:509,'text-anchor':'middle',class:'nummer'},nr));
+  pl.appendChild(el('text',{x:x,y:536,'text-anchor':'middle',class:'pin','font-weight':belegt?'700':'400','fill-opacity':belegt?1:.6},name));
+});
+const d=document.getElementById('drahte');
+function kabel(pfad,farbe,nr,lx,ly){d.appendChild(el('path',{class:'draht',stroke:farbe,d:pfad}));
+  d.appendChild(el('circle',{cx:lx,cy:ly,r:10,fill:farbe}));
+  d.appendChild(el('text',{x:lx,y:ly+4,'text-anchor':'middle',class:'nummer',style:'fill:var(--karte) !important'},nr));}
+// FTDI rechts x=389, YL links x=531
+const ftY=n=>180+(n-1)*34, ylY=n=>140+(n-1)*34, ylRY=n=>140+(n-5)*34;
+kabel(`M389 ${ftY(4)} H430 V${ylY(1)} H531`,'var(--vcc)','2',470,ylY(1));
+kabel(`M389 ${ftY(6)} H450 V${ylY(2)} H531`,'var(--gnd)','3',490,ylY(2));
+kabel(`M389 ${ftY(3)} H410 V${ylY(4)} H531`,'var(--sig)','4',470,ylY(4));
+d.appendChild(el('text',{x:145,y:100,'text-anchor':'middle',class:'klein'},'1'));
+// YL rechts x=749; Platine: Klemme 2 x=KX(4), Klemme 1 x=KX(5), Klemme 4 x=KX(2)
+kabel(`M749 ${ylRY(5)} H800 V440 H${KX(4)} V494`,'var(--plus)','5',800,300);
+kabel(`M749 ${ylRY(6)} H960 V450 H${KX(5)} V494`,'var(--minus)','6',960,300);
+kabel(`M531 ${ylY(2)} H505 V420 H${KX(2)} V494`,'var(--gnd)','7',505,300);
+
+// Platine von oben, Oberteil; Lage aus der Platinendatei (mm)
+const P=document.getElementById('plan');
+const add=(n,a,t)=>{const e=el(n,a,t);P.appendChild(e);return e;};
+const T=(s,x,y,h,zus)=>add('text',Object.assign({x,y,'font-size':h,'text-anchor':'middle','font-family':'Arial,sans-serif'},zus||{}),s);
+add('rect',{x:0,y:0,width:100,height:57,rx:1,class:'platine',style:'stroke-width:.4'});
+T('Platine von oben, nur der obere Teil',25,45,1.7,{style:'fill:var(--leise)'});
+add('rect',{x:11.4,y:0,width:12.1,height:12.2,fill:'none',stroke:'var(--platinerand)','stroke-width':.4,rx:.5});
+T('12-V-Klemme',17.5,-1.4,2.2,{'font-weight':700});
+[[14.92,'Masse'],[20,'+12 V']].forEach(([x,n])=>{add('circle',{cx:x,cy:10.16,r:1.6,fill:'var(--frei)'});T(n,x,14.5,1.6)});
+add('rect',{x:58.5,y:0,width:32.5,height:12.2,fill:'none',stroke:'var(--platinerand)','stroke-width':.4,rx:.5});
+T('Großer Stecker „Hauptgerät“',74.7,17,1.9,{'font-weight':700});
+const K=[[62,'6','Alarm',0],[67.08,'5','On-Off',0],[72.16,'4','Masse','var(--gnd)'],[77.24,'3','Vsys+',0],[82.32,'2','Bus+','var(--plus)'],[87.4,'1','Bus−','var(--minus)']];
+K.forEach(([x,nr,n,f])=>{add('circle',{cx:x,cy:10.16,r:1.9,fill:f||'var(--frei)'});T(nr,x,10.8,1.8,{style:'fill:#fff','font-weight':700});T(n,x,14.3,1.45,{'font-weight':f?700:400})});
+[[62,'JP7'],[67.08,'JP6'],[77.24,'JP5'],[82.32,'JP3'],[87.4,'JP4']].forEach(([x,n])=>{[19.5,22.04].forEach(y=>add('circle',{cx:x,cy:y,r:.8,fill:'var(--frei)'}));T(n,x,25,1.4)});
+function jump(titel,y0,x0){const zeilen=[y0,y0+2.54,y0+5.08];
+  [x0,x0+2.54].forEach(x=>zeilen.forEach(y=>add('circle',{cx:x,cy:y,r:.75,fill:'var(--frei)'})));
+  [x0,x0+2.54].forEach(x=>add('rect',{x:x-1,y:y0-1,width:2,height:4.54,rx:.4,fill:'#ffb300',stroke:'#000','stroke-width':.15}));
+  T(titel,x0-2.2,y0+3,1.9,{'text-anchor':'end','font-weight':700});T('zwei Brücken oben',x0+4.2,y0+1.8,1.5,{'text-anchor':'start'});}
+jump('JP2',37,68);jump('JP1',48.5,68);
+add('rect',{x:10,y:-32,width:52,height:15,rx:1,class:'modul',style:'stroke-width:.4'});
+T('YL-12B',36,-29,2.4,{'font-weight':700});
+add('line',{x1:36,y1:-27,x2:36,y2:-17,stroke:'var(--modulrand)','stroke-width':.25,'stroke-dasharray':'.8 .6'});
+T('Seite zum FTDI',23,-26,1.5,{style:'fill:var(--leise)'});T('RS422-Seite',49,-26,1.5,{style:'fill:var(--leise)'});
+[[14,'VCC'],[19,'GND'],[24,'RX'],[29,'TX'],[40,'A'],[44,'B'],[50,'Y'],[56,'Z']].forEach(([x,n])=>{const an=['GND','Y','Z'].includes(n);
+  T(n,x,-19.2,1.55,{'font-weight':an?700:400,'fill-opacity':an?1:.55});
+  add('circle',{cx:x,cy:-17.6,r:.65,fill:an?'var(--modulrand)':'var(--frei)'});});
+T('Kabel 2, 3, 4 zum FTDI sind fertig',23,-23.4,1.3,{style:'fill:var(--leise)'});
+const kab=(x0,x1,y,farbe,nr)=>{add('path',{d:`M${x0} -17 V${y} H${x1} V8.2`,fill:'none',stroke:farbe,'stroke-width':.7,'stroke-linecap':'round'});const lx=x0+(x1-x0)*.45;add('circle',{cx:lx,cy:y,r:1.9,fill:farbe});T(nr,lx,y+.65,1.8,{style:'fill:var(--karte)','font-weight':700});};
+kab(19,72.16,-5,'var(--gnd)','7');kab(50,82.32,-9,'var(--plus)','5');kab(56,87.4,-13,'var(--minus)','6');
+</script>
+</body>
+</html>

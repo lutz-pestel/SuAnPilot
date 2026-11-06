@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.23, Stand 06.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.24, Stand 06.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest und Test mit Daten bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -92,7 +92,9 @@ ohne Raspberry und Chips 18 mA, 5 V an J5 Pin 2/4, Pin 6 Masse; 3,3-V-Leitung 0,
 Mit altem Raspberry Pi Zero (ohne WLAN, ohne Karte): 39 mA, U1 Pin 1 und U2/U6 Pin 16 3,3 V, U2/U6 Pin 15 2,5 V, U2 Pin 6 1,3 V. Mit allen Chips: 39 mA, Chips nicht warm, Werte unverändert.
 **Tischtest** (06.11.2026, Ablauf `Tischtest_Robnet.html`, Programm `software/pruefung_wandler_v00.01.py`): Zero 2 W (Name `robnet`, Bookworm Lite 32-bit, SPI und serielle Schnittstelle an, Bluetooth aus); 12 V je Ader an J1 und J3:
 alle 10 Kanäle 11,92–12,03 V am richtigen Kanal, die übrigen 0,00–0,02 V; JP3–JP7 verbinden, Masse durchgehend; Alarm-Eingang Pin 13 folgt nur Seite J1. MAX3488: Stellungen A, B, C richtig (hoch/niedrig an Pin 10 und 16).
-Bordspannung 11,67–11,73 V bei 12 V (Verpolschutz). Nicht geprüft: echter Bus (nur Gleichspannung), zweite Platine, WLAN-Stick am Zero 2 W. Alter Zero (ohne WLAN) mit COMFAST-Stick kam nicht ins Netz, Ursache ungeklärt.
+Bordspannung 11,67–11,73 V bei 12 V (Verpolschutz). Nicht geprüft: echter Robertson-Bus, zweite Platine, WLAN-Stick am Zero 2 W. Alter Zero (ohne WLAN) mit COMFAST-Stick kam nicht ins Netz, Ursache ungeklärt.
+**Test mit Daten** (06.11.2026, Sender PC über FTDI232 und YL-12B mit MAX490, `Testsender_Verbindung.html`; YL-12B: TX ist der Chip-Eingang, also TX an TX; ohne Massekabel; Stellung A): alle 256 Byte-Werte. 1200–230 400 Baud seriell fehlerfrei;
+über Pegelwechsel (`software/aufzeichnung_v00.01.py`, `auswertung_v00.01.py`, Abtastung 2 µs) fehlerfrei bis 115 200 Baud, bei 230 400 Baud 145 Fehler. Empfang muss vor dem Datenstrom laufen, sonst rastet die serielle Schnittstelle falsch ein. Nicht gelöst: Zerlegen bei Einstieg mitten im pausenlosen Strom.
 
 ## 4. Offen
 - 3D-Modell U3 zeigt noch den Recom-Block R-78B; Maße des echten 5-V-Moduls (Länge, Breite, Höhe, Überstand) fehlen, vor dem Gehäusebau messen.
