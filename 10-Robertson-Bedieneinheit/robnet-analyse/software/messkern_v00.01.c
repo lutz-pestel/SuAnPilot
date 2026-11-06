@@ -166,13 +166,8 @@ static void *messen(void *arg) {
 
         if (atomic_load_explicit(&t_scharf, memory_order_relaxed)) {
             int q = atomic_load_explicit(&t_quelle, memory_order_relaxed);
-            int wert, schwelle = 1;
-            if (q >= 100) {
-                wert = (p[G_LEV0] >> (q == 100 ? GPIO_BUS : GPIO_ALARM)) & 1;
-            } else {
-                wert = ring[(w - n + q) & MASKE];
-                schwelle = atomic_load_explicit(&t_pegel, memory_order_relaxed);
-            }
+            int wert = ring[(w - n + q) & MASKE];
+            int schwelle = atomic_load_explicit(&t_pegel, memory_order_relaxed);
             int oben = wert >= schwelle;
             int stg = atomic_load_explicit(&t_steigend, memory_order_relaxed);
             if (alt[0] != 2 && oben != alt[0] && oben == stg) {
@@ -272,9 +267,33 @@ static void frame(long vor, long nach, int art, int quelle, int pegel, int steig
     Paar mess_a = paar[atomic_load(&paar_i)];
     while (atomic_load(&laufen) && (long)(atomic_load(&schreib) / (unsigned)n - start) < vor) usleep(100);
     int ausgeloest = 0;
-    uint64_t ziel;
+    uint64_t ziel, trigger_scan = 0;
     uint32_t tt = 0;
-    if (quelle >= 0 || quelle == 100 || quelle == 101) {
+    if (quelle >= 100) {
+        // Digitaler Trigger: Dieser Faden liest den Pin, damit die Messschleife gleich schnell bleibt
+        uint32_t maske = 1u << (quelle == 100 ? GPIO_BUS : GPIO_ALARM);
+        struct timespec t0, t1;
+        clock_gettime(CLOCK_MONOTONIC, &t0);
+        int alt = (p[G_LEV0] & maske) != 0;
+        unsigned runde = 0;
+        while (atomic_load(&laufen)) {
+            int jetzt = (p[G_LEV0] & maske) != 0;
+            if (jetzt != alt && jetzt == steigend) {
+                ausgeloest = 1;
+                tt = tick();
+                trigger_scan = atomic_load(&schreib) / (unsigned)n;
+                break;
+            }
+            alt = jetzt;
+            if ((++runde & 0xFFF) == 0) {
+                clock_gettime(CLOCK_MONOTONIC, &t1);
+                long ms = (t1.tv_sec - t0.tv_sec) * 1000 + (t1.tv_nsec - t0.tv_nsec) / 1000000;
+                if (warte_ms > 0 && ms >= warte_ms) break;
+                char z[64];
+                if (zeile_lesen(z, sizeof z, 0) && z[0] == 'X') break;
+            }
+        }
+    } else if (quelle >= 0) {
         atomic_store(&t_quelle, quelle);
         atomic_store(&t_pegel, pegel);
         atomic_store(&t_steigend, steigend);
@@ -294,7 +313,9 @@ static void frame(long vor, long nach, int art, int quelle, int pegel, int steig
         }
         atomic_store(&t_scharf, 0);
     }
-    if (ausgeloest) {
+    if (ausgeloest && quelle >= 100) {
+        ziel = trigger_scan;
+    } else if (ausgeloest) {
         ziel = atomic_load(&t_treffer) - 1;
         tt = atomic_load(&t_tick);
     } else {

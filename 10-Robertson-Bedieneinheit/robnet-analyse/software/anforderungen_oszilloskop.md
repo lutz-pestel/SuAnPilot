@@ -1,6 +1,6 @@
 # Robnet-Analyse: Anforderungen an das Speicheroszilloskop
 
-Version 00.04, Stand 06.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.01.py`, `oszilloskop_v00.01.html`, `messkern_v00.01.c`, Dienst `robnet-oszilloskop`.
+Version 00.05, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.01.py`, `oszilloskop_v00.01.html`, `messkern_v00.01.c`, Dienst `robnet-oszilloskop`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck
@@ -24,6 +24,7 @@ Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178
 - **Korrektur:** Der hohe Eingangswiderstand (Teiler 100 kΩ/13 kΩ) lässt den Wandler bei hohem Takt zu niedrig messen. Bei jedem Umschalten vergleicht das Programm die Bordspannung bei 0,5 MHz und im gewählten Takt und rechnet den Faktor ein, dazu einen gemessenen Nullpunkt. So bleibt die Bordspannung bei allen Stufen 11,73 V.
 - **Masse nötig:** Ohne gemeinsame Masse stört das PC-Netzteil die Analogkurven über den USB-Testsender (Spitzen bis 8,5 V). Mit Massekabel sind sie weg, die Digitalspur läuft auch ohne.
 - **Gegenprobe:** Hoher Pegel bei „Genau“ und „Maximum“ bis zu 4 % auseinander, ein anderes Messgerät fehlt noch.
+- **Zeichenfenster, Grenze (07.11.2026, Testsender):** Pakete mit Pausen fehlerfrei bis 115 200 Baud. Dauerdaten ohne Pause bei laufendem Bild fehlerfrei bis 19 200 Baud, bei 38 400 Baud kamen 18 834 von 21 000 Zeichen an. Ohne Bild bei 57 600 Baud 27 065 von 28 000, bei 115 200 Baud 36 251 von 70 000.
 
 ## 3. Kanäle
 - **Höchstens 5 Kanäle,** Anzahl einstellbar, **voreingestellt 1.**
@@ -42,7 +43,11 @@ Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178
 ## 5. Einstellungen und Anzeige
 - **Maßstab:** Zeit und Spannung je Kästchen, senkrechte Verschiebung.
 - **Trigger:** Kanal, Spannung, steigend oder fallend, Vorlauf; Auto, Normal oder Einmal.
-- **Serielle Anzeige:** Baudrate von Hand einstellbar, zerlegte Bytes unter der digitalen Spur. Automatische Erkennung nicht in der Oberfläche.
+- **Serielle Anzeige:** Baudrate von Hand einstellbar, zerlegte Bytes unter der digitalen Spur; „keine Bytes“ schaltet das Zerlegen aus.
+- **Baudrate automatisch:** Der Knopf „Automatisch“ misst 4 Sekunden am Bus-Empfänger, sucht den kürzesten Puls, prüft die Rate durch Probe-Zerlegung und stellt sie ein. Liegt die Rate nicht in der Liste oder fehlt das Signal, bleibt die Einstellung und eine Meldung nennt den Grund. Zeigt ein hoher Anteil unlesbarer Zeichen, dass das Format vielleicht nicht passt, wird das gemeldet. Am Testsender alle 10 Raten von 300 bis 115 200 Baud richtig erkannt, auch ohne einzelne Bits im Signal (Zeichen 3C); 14 400 Baud wird als nicht in der Liste gemeldet.
+- **Zeit zur Baudrate:** Beim Wechsel der Baudrate springt die Zeit je Kästchen auf mindestens 6 Zeichen im Bild und bleibt danach frei änderbar. Dahinter steht der Bereich „Text lesbar“, rot, wenn die Zeit außerhalb liegt. Unter 6 Zeichen im Bild wurden am Testsender viele Zeichen falsch.
+- **Zeichenfenster:** Unter dem Bild, lückenlos aus den Pegelwechseln, unabhängig von Bild und Trigger. Jede Zeile zeigt Hex-Werte und Klartext; neue Zeile nach einer Pause über 3 Zeichendauern, nach Zeilenvorschub oder nach 16 Zeichen. Knöpfe Anhalten (sammelt weiter), Löschen, Speichern als Textdatei. Nennt die Zahl unlesbarer Zeichen; rot nur, wenn in den letzten Sekunden über 5 % unlesbar waren. Verlorene Pegelwechsel sind immer rot.
+- **Aufteilung:** Beide Spalten scrollen unabhängig voneinander, auf schmalen Bildschirmen stehen sie untereinander.
 - **Messlinien:** zwei Linien für Zeit- und Spannungsabstand.
 - **Aufzeichnung:** Dauer, Name, Speichern als CSV-Datei für Excel.
 

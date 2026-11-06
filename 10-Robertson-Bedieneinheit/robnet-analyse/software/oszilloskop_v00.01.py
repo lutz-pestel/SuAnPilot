@@ -6,6 +6,7 @@ import bisect
 import csv
 import io
 import json
+import math
 import os
 import re
 import shutil
@@ -35,6 +36,8 @@ GPIO_BUS, GPIO_ALARM = 23, 27
 BELEGT = "/tmp/robnet_aufzeichnung.pid"
 KOPF = "<4sIIIIIQQIfffff"
 KOPF_GR = struct.calcsize(KOPF)
+BAUD_LISTE = (300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200)
+BAUD_DAUER = 4.0
 
 
 def spannung(rohwert, faktor, kern):
@@ -127,6 +130,88 @@ class Kern:
 kern = Kern()
 
 
+class TextLeser:
+    """Zerlegt die Pegelwechsel des Bus-Empfaengers fortlaufend in Zeichen: 8 Datenbits, keine Paritaet, 1 Stopbit."""
+    PUFFER = 200000
+    MASKE = 0xFFFFFFFF
+    PAUSE = 0x100  # Markierung im Puffer: vor diesem Zeichen lag eine Pause
+
+    def __init__(self, baud):
+        self.baud = baud
+        self.bit = 1e6 / baud
+        self.puffer = []
+        self.basis = 0  # Laufnummer des ersten Eintrags im Puffer
+        self.fehler = 0
+        self.verloren = 0
+        self.letzte = time.time()
+        self.pegel = 1
+        self.stelle = None  # None: wartet auf Startbit; -1 Startbit, 0 bis 7 Daten, 8 Stopbit
+        self.t0 = 0
+        self.wert = 0
+        self.vorher = None
+
+    def _bis(self, dt):
+        """Alle Abtastpunkte bis dt nach dem Startbit mit dem aktuellen Pegel auswerten."""
+        bit = self.bit
+        while self.stelle is not None:
+            s = self.stelle
+            if bit * (s + 1.5) > dt:
+                return
+            if s < 0:
+                self.stelle = None if self.pegel else 0
+            elif s < 8:
+                if self.pegel:
+                    self.wert |= 1 << s
+                self.stelle = s + 1
+            else:
+                if self.pegel:
+                    self._merken()
+                else:
+                    self.fehler += 1
+                self.stelle = None
+
+    def _merken(self):
+        v = self.wert
+        if self.vorher is not None and ((self.t0 - self.vorher) & self.MASKE) > self.bit * 30:
+            v |= self.PAUSE
+        self.vorher = self.t0
+        self.puffer.append(v)
+        if len(self.puffer) > self.PUFFER:
+            del self.puffer[:self.PUFFER // 2]
+            self.basis += self.PUFFER // 2
+
+    def flanke(self, t, w):
+        if w == self.pegel:
+            return
+        if self.stelle is not None:
+            self._bis((t - self.t0) & self.MASKE)
+        self.pegel = w
+        if w == 0 and self.stelle is None:
+            self.t0 = t
+            self.stelle = -1
+            self.wert = 0
+
+    def luecke(self, anzahl):
+        # Pegelwechsel gingen verloren: Das angefangene Zeichen ist nicht mehr zu retten
+        self.verloren += anzahl
+        self.stelle = None
+
+    def abruf(self, ab, tick):
+        self.letzte = time.time()
+        # Endet ein Zeichen mit hohem Pegel, kommt kein Wechsel mehr: nach einer Ruhezeit mit der Uhr abschliessen
+        if self.stelle is not None and tick is not None and self.letzte - digital.ankunft > 0.2:
+            dt = ((tick - self.t0 + 0x80000000) & self.MASKE) - 0x80000000 - 100000
+            if dt > 0:
+                self._bis(dt)
+        ende = self.basis + len(self.puffer)
+        von = ende if ab < 0 or ab > ende else max(ab, self.basis)
+        neu = self.puffer[von - self.basis:von - self.basis + 20000]
+        return {"baud": self.baud, "neu": neu, "weiter": von + len(neu), "fehler": self.fehler, "verloren": self.verloren}
+
+
+leser = {}  # Baudrate -> TextLeser, je Baudrate einer, damit sich mehrere Browser-Tabs nicht stoeren
+
+
 class Digital:
     """Merkt sich die Pegelwechsel von Bus-Empfaenger und Alarm (pigpio, 2 us)."""
 
@@ -137,6 +222,8 @@ class Digital:
         self.griff = None
         self.datei = None
         self.fehler = ""
+        self.ankunft = 0.0
+        self.seq = None
 
     def starten(self):
         if subprocess.run(["pgrep", "-x", "pigpiod"], capture_output=True).returncode != 0:
@@ -160,13 +247,23 @@ class Digital:
                 n = len(daten) // 12
                 rest = daten[n * 12:]
                 neu_t, neu_p = [], []
+                verloren = 0
                 for i in range(n):
-                    _, flags, tick, lev = struct.unpack_from("<HHII", daten, i * 12)
+                    seq, flags, tick, lev = struct.unpack_from("<HHII", daten, i * 12)
+                    if self.seq is not None and seq != self.seq:
+                        verloren += (seq - self.seq) & 0xFFFF
+                    self.seq = (seq + 1) & 0xFFFF
                     if flags:
                         continue
                     neu_t.append(tick)
                     neu_p.append((lev >> GPIO_BUS & 1) | (lev >> GPIO_ALARM & 1) << 1)
                 with self.sperre:
+                    self.ankunft = time.time()
+                    for text in leser.values():
+                        if verloren:
+                            text.luecke(verloren)
+                        for t, p in zip(neu_t, neu_p):
+                            text.flanke(t, p & 1)
                     self.ticks += neu_t
                     self.pegel += neu_p
                     if len(self.ticks) > 400000:
@@ -259,6 +356,59 @@ def bytes_zerlegen(start_pegel, wechsel, baud, dauer_us):
     return lauf(beste)[0][:800]
 
 
+def baud_bestimmen():
+    """Misst einige Sekunden: Der kuerzeste haeufige Puls ist ein Bit, die Probe-Zerlegung bestaetigt die Baudrate."""
+    if not digital.pi:
+        return {"fehler": "Pegelwechsel sind nicht verfügbar."}
+    tick = digital.pi.get_current_tick()
+    time.sleep(BAUD_DAUER + 0.1)
+    start, wechsel = digital.fenster(tick, BAUD_DAUER * 1e6)
+    _, w = spur(start, wechsel, 0)
+    if len(w) < 20:
+        return {"fehler": f"Zu wenig Signal: {len(w)} Pegelwechsel in {BAUD_DAUER:g} s."}
+    laengen = sorted(b[0] - a[0] for a, b in zip(w, w[1:]))
+    # Kuerzeste Gruppe aehnlicher Pulse; einzelne Stoerspitzen zaehlen nicht
+    mindest = max(3, len(laengen) // 50)
+    bit = None
+    for i, kurz in enumerate(laengen):
+        j = bisect.bisect_right(laengen, kurz * 1.25 + 2)
+        if j - i >= mindest:
+            bit = laengen[(i + j) // 2]
+            break
+    if not bit:
+        return {"fehler": "Keine gleich langen Pulse gefunden."}
+    naechste = min(BAUD_LISTE, key=lambda s: abs(math.log(s * bit / 1e6)))
+    gemessen = round(1e6 / bit)
+    # Nur Tief-Pulse: Sie bestehen aus ganzen Bits, die Ruhezeit zwischen zwei Zeichen ist beliebig lang
+    tief = [b[0] - a[0] for a, b in zip(w, w[1:]) if a[1] == 0]
+
+    def gitter(rate):
+        b = 1e6 / rate
+        grenze = max(0.2 * b, 2.5)
+        pulse = [x for x in tief if x <= b * 10.5]
+        if not pulse:
+            return 0.0
+        return sum(abs(x - b * max(1, round(x / b))) <= grenze for x in pulse) / len(pulse)
+
+    def probe(rate):
+        x = TextLeser(rate)
+        for t, p in w[:20000]:
+            x.flanke(t, p)
+        n, f = len(x.puffer), x.fehler
+        return n, f, f / (n + f) if n + f else 1.0
+    # Die langsamste Rate, zu der alle Pulse passen; kam kein einzelnes Bit vor, ist sie schneller als der kuerzeste Puls
+    for r in BAUD_LISTE:
+        if 1e6 / r <= bit * 1.1 and gitter(r) >= 0.9:
+            n, f, q = probe(r)
+            if n and q <= 0.05:
+                return {"puls_us": bit, "gemessen": gemessen, "baud": r, "zeichen": n, "unlesbar": f, "sicher": True}
+    # Abweichung: 6 %, bei hohen Raten mindestens die Zeitaufloesung von 2 us und ein wenig Reserve
+    if abs(bit - 1e6 / naechste) > max(0.06 * 1e6 / naechste, 2.5):
+        return {"puls_us": bit, "gemessen": gemessen, "baud": None}
+    n, f, _ = probe(naechste)
+    return {"puls_us": bit, "gemessen": gemessen, "baud": naechste, "zeichen": n, "unlesbar": f, "sicher": False}
+
+
 def planen(q):
     """Aus der Anfrage: Messliste und was daraus berechnet wird."""
     teiler = int(q.get("tempo", "56"))
@@ -343,6 +493,19 @@ def waechter():
         ruhe = time.time() - kern.letzte > 15 and not zustand["aufnahme"]
         if kern.laeuft() and (fremd or ruhe):
             kern.stoppen()
+        with digital.sperre:
+            for baud in [b for b, x in leser.items() if time.time() - x.letzte > 15]:
+                del leser[baud]
+
+
+def text_liefern(q):
+    baud = int(q.get("baud", "0") or 0)
+    if baud <= 0:
+        return {"fehler": "keine Baudrate"}
+    ab = int(q.get("ab", "-1") or -1)
+    tick = digital.pi.get_current_tick() if digital.pi else None
+    with digital.sperre:
+        return leser.setdefault(baud, TextLeser(baud)).abruf(ab, tick)
 
 
 def status():
@@ -413,6 +576,7 @@ def frame_liefern(q):
                "trigger_us": k["trigger_scan"] / rate * 1e6, "rate_scan": rate, "messungen": k["n"],
                "rate_gesamt": rate * k["n"], "abstand_min": k["min"] if k["max"] else None, "abstand_max": k["max"] if k["max"] else None, "kalib": round(gain, 4),
                "null": null_, "tempo": TEMPO[teiler][0], "takt_mhz": 400.0 / teiler, "kurven": kurven(k, werte, aktiv, d12, d56, plaetze, chip12, gain, null_)}
+    time.sleep(0.02)  # Die Pegelwechsel kommen ueber pigpio spaeter an als die Messwerte
     start, wechsel = digital.fenster(k["tick_start"], dauer_us)
     if q.get("bus", "1") == "1":
         s, w = spur(start, wechsel, 0)
@@ -639,6 +803,10 @@ class Handler(BaseHTTPRequestHandler):
                 self.json_senden(status())
             elif url.path == "/api/frame":
                 self.json_senden(frame_liefern(q))
+            elif url.path == "/api/text":
+                self.json_senden(text_liefern(q))
+            elif url.path == "/api/baud":
+                self.json_senden(baud_bestimmen())
             elif url.path == "/api/aufnahmen":
                 self.json_senden(aufnahmen())
             elif url.path == "/api/ansehen":

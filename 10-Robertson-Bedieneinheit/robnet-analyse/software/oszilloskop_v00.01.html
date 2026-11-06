@@ -35,7 +35,15 @@ button.warn { border-color:var(--warn); color:var(--warn); }
 #liste div { display:flex; gap:6px; justify-content:space-between; align-items:center; padding:3px 0; border-bottom:1px solid var(--linie); }
 #liste span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 #bestaetigung { display:none; }
+#text { height:220px; overflow:auto; margin:6px 0 4px; padding:6px 8px; border-radius:6px; background:var(--schirm); color:#e6ee9c; font:13px/1.35 Consolas,"Courier New",monospace; white-space:pre; }
+#x_info.warn { color:var(--warn); font-weight:600; }
 @media (max-width:860px) { main { grid-template-columns:minmax(0,1fr); } }
+@media (min-width:861px) {
+  html,body { height:100%; }
+  body { display:flex; flex-direction:column; overflow:hidden; }
+  main { flex:1; min-height:0; grid-template-rows:minmax(0,1fr); align-items:stretch; padding-bottom:0; }
+  main > div { min-height:0; overflow-y:auto; padding-right:2px; }
+}
 </style>
 </head>
 <body>
@@ -58,6 +66,14 @@ button.warn { border-color:var(--warn); color:var(--warn); }
       </div>
       <div id="meldung"></div>
     </div>
+    <div class="karte">
+      <div class="reihe" style="justify-content:space-between">
+        <h2 style="margin:0">Empfangene Zeichen (Bus-Empfänger, lückenlos)</h2>
+        <span class="reihe" style="margin:0"><button id="x_halt">Anhalten</button><button id="x_leer">Löschen</button><button id="x_datei">Speichern</button></span>
+      </div>
+      <pre id="text"></pre>
+      <div class="hinweis" id="x_info"></div>
+    </div>
   </div>
   <div>
     <div class="karte">
@@ -77,23 +93,27 @@ button.warn { border-color:var(--warn); color:var(--warn); }
     </div>
 
     <div class="karte">
-      <h2>Kanäle (Seite Hauptgerät)</h2>
+      <h2>Kurven anzeigen (Seite Hauptgerät)</h2>
       <div id="kanaele"></div>
       <div class="reihe"><label>Klemme 1 gegen 2
         <select id="d12"><option value="aus">aus</option><option value="software">in der Software</option><option value="chip">im Chip (nur positiv)</option></select></label></div>
+      <div class="hinweis" id="h12" style="display:none"></div>
       <div class="reihe"><label>Klemme 5 gegen 6
         <select id="d56"><option value="aus">aus</option><option value="software">in der Software</option></select></label></div>
+      <div class="hinweis" id="h56" style="display:none">Klemme 5 und 6 werden dafür immer gemessen, die Häkchen von Kanal 4 und 5 zeigen nur die Einzelkurven.</div>
       <div class="reihe">
         <label><input type="checkbox" id="z_bus" checked>Digital: Bus-Empfänger</label>
         <label><input type="checkbox" id="z_alarm">Digital: Alarm</label>
       </div>
       <div class="reihe"><label>Baudrate
-        <select id="baud"><option value="0">keine Bytes</option><option>300</option><option>600</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></label></div>
+        <select id="baud"><option value="0">keine Bytes</option><option>300</option><option>600</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></label>
+        <button id="b_baud">Automatisch</button></div>
+      <div class="hinweis" id="b_info"></div>
     </div>
 
     <div class="karte">
       <h2>Maßstab</h2>
-      <div class="reihe"><label>Zeit je Kästchen <select id="tdiv"></select></label></div>
+      <div class="reihe"><label>Zeit je Kästchen <select id="tdiv"></select></label><span class="hinweis" id="t_bereich"></span></div>
       <div class="reihe"><label>Volt je Kästchen <select id="vdiv"><option>0.5</option><option>1</option><option selected>2</option><option>5</option><option>10</option></select></label>
       <label>Verschiebung V <input id="vver" type="number" step="0.5" value="0"></label></div>
     </div>
@@ -287,6 +307,105 @@ $('b_aufz').onclick=()=>{betrieb='aufz';tabs();liste();$('k_aufz').scrollIntoVie
 $('b_halt').onclick=()=>{ if(einmal_fertig){einmal_fertig=false;$('b_halt').textContent='Halt';} else {laufe=!laufe;} tabs(); };
 document.querySelectorAll('select,input').forEach(e=>e.addEventListener('change',()=>{ if($('modus').value!=='einmal'){einmal_fertig=false;$('b_halt').textContent='Halt';} if(letzte&&letzte.__art==='ansicht'&&ansicht) ansehen(ansicht.o,ansicht.von,ansicht.bis); }));
 
+function hinweise(){
+  const a=$('d12').value, h=$('h12');
+  h.style.display = a==='aus' ? 'none' : '';
+  h.textContent = a==='chip' ? 'Der Chip misst die Differenz direkt, die Häkchen von Kanal 1 und 2 zeigen nur die Einzelkurven.' : 'Klemme 1 und 2 werden dafür immer gemessen, die Häkchen von Kanal 1 und 2 zeigen nur die Einzelkurven.';
+  $('h56').style.display = $('d56').value==='aus' ? 'none' : '';
+}
+$('d12').addEventListener('change',hinweise); $('d56').addEventListener('change',hinweise); hinweise();
+
+// Zeit je Kaestchen zur Baudrate: mindestens 6 Zeichen im Bild (darunter am Testsender viele falsche Zeichen), ein Zeichen mindestens 16 Bildpunkte breit
+function text_zeiten(baud){
+  const m=1.001, von=T.find(t=>t*m>=6/baud);
+  let bis=T[0]; for(const t of T) if(t<=65/baud*m) bis=t;
+  return {von,vorschlag:von,bis};
+}
+function t_anzeige(){
+  const baud=+$('baud').value, e=$('t_bereich');
+  if(!baud){ e.textContent=''; return; }
+  const z=text_zeiten(baud), t=+$('tdiv').value;
+  e.textContent=`Text lesbar: ${zeit(z.von)} bis ${zeit(z.bis)}`;
+  e.style.color = t>=z.von*.999&&t<=z.bis*1.001 ? '' : 'var(--warn)';
+}
+function zeit_vorschlagen(){ const b=+$('baud').value; if(b) $('tdiv').value=String(text_zeiten(b).vorschlag); t_anzeige(); }
+$('baud').addEventListener('change',zeit_vorschlagen); $('tdiv').addEventListener('change',t_anzeige); zeit_vorschlagen();
+
+// Baudrate automatisch bestimmen
+$('b_baud').onclick=async()=>{
+  const k=$('b_baud'), e=$('b_info'), n=x=>x.toLocaleString('de-DE');
+  k.disabled=true; e.style.color=''; e.textContent='Misst 4 Sekunden, dafür muss Signal anliegen …';
+  let warn=true;
+  try {
+    const d=await (await fetch('/api/baud')).json();
+    if(d.fehler) e.textContent=`${d.fehler} Baudrate nicht geändert.`;
+    else if(!d.baud) e.textContent=`Kürzester Puls ${n(d.puls_us)} µs, das wären ${n(d.gemessen)} Baud. Das ist keine Rate aus der Liste, Baudrate nicht geändert.`;
+    else {
+      const b=$('baud'); b.value=String(d.baud); b.dispatchEvent(new Event('change',{bubbles:true}));
+      warn=!d.sicher;
+      e.textContent=`${n(d.baud)} Baud eingestellt: kürzester Puls ${n(d.puls_us)} µs, ${n(d.zeichen)} Zeichen gelesen, ${n(d.unlesbar)} unlesbar.`+(d.sicher?'':' Viele unlesbar: Das Format ist vielleicht nicht 8 Datenbits mit 1 Stopbit.');
+    }
+  } catch(x) { e.textContent='Keine Verbindung zum Raspberry.'; }
+  e.style.color=warn?'var(--warn)':'';
+  k.disabled=false;
+};
+
+// Fortlaufende Zeichen: Der Raspberry zerlegt die Pegelwechsel unabhaengig vom Bild
+const TX_SPEICHER=100000, TX_BILD=1000;
+let tx_ab=-1, tx_halt=false, tx_zeilen=[], tx_vorher=-1, tx_baud=null, tx_menge=0, tx_f0=0, tx_v0=0, tx_letzt=null, tx_verlauf=[];
+function tx_zeile(z){ return z.trenner ? z.trenner : z.h.join(' ').padEnd(47)+'  '+z.t; }
+function tx_aufnehmen(liste){
+  for(const x of liste){
+    const v=x&255; let z=tx_zeilen[tx_zeilen.length-1];
+    if(!z||z.trenner||(x&256)||tx_vorher===10||z.h.length>=16){ z={h:[],t:''}; tx_zeilen.push(z); }
+    z.h.push(v.toString(16).padStart(2,'0').toUpperCase());
+    z.t+=v>=32&&v<127?String.fromCharCode(v):'·';
+    tx_vorher=v;
+  }
+  tx_menge+=liste.length;
+  if(tx_zeilen.length>TX_SPEICHER) tx_zeilen.splice(0,TX_SPEICHER/10);
+}
+function tx_zeigen(){
+  if(tx_halt) return;
+  const e=$('text'), unten=e.scrollHeight-e.scrollTop-e.clientHeight<30;
+  e.textContent=tx_zeilen.slice(-TX_BILD).map(tx_zeile).join('\n');
+  if(unten) e.scrollTop=e.scrollHeight;
+}
+function tx_info(){
+  const e=$('x_info'), baud=tx_baud;
+  if(!baud){ e.className='hinweis'; e.textContent='Baudrate wählen, dann erscheinen hier die Zeichen.'; return; }
+  const f=tx_letzt?tx_letzt.fehler-tx_f0:0, v=tx_letzt?tx_letzt.verloren-tx_v0:0, teile=[`${tx_menge.toLocaleString('de-DE')} Zeichen bei ${baud} Baud`];
+  if(tx_halt) teile.push('angehalten, es wird weiter gesammelt');
+  // Rot nur, wenn in den letzten Sekunden viel unlesbar war; einzelne Fehler, etwa beim Einrasten, bleiben als Zahl stehen
+  let nz=0, fz=0; for(const [a,b] of tx_verlauf){ nz+=a; fz+=b; }
+  const gerade=fz>0&&fz/(nz+fz)>0.05;
+  if(f>0) teile.push(`${f.toLocaleString('de-DE')} unlesbar`+(gerade?', gerade viele: Baudrate falsch oder Störung?':''));
+  if(v>0) teile.push(`${v.toLocaleString('de-DE')} Pegelwechsel verloren, der Raspberry kam nicht nach: Zeichen fehlen`);
+  e.className='hinweis'+(gerade||v>0?' warn':''); e.textContent=teile.join(' · ');
+}
+async function tx_lauf(){
+  while(true){
+    const baud=+$('baud').value;
+    if(baud!==tx_baud){ tx_baud=baud; tx_ab=-1; tx_f0=tx_v0=0; tx_letzt=null; tx_verlauf=[]; if(tx_zeilen.length){ tx_zeilen.push({trenner:baud?`--- ab hier ${baud} Baud ---`:'--- aus ---'}); tx_zeigen(); } }
+    if(baud){
+      try {
+        const d=await (await fetch(`/api/text?baud=${baud}&ab=${tx_ab}`)).json();
+        if(+$('baud').value===baud && d.baud===baud){ if(tx_ab<0){ tx_f0=d.fehler; tx_v0=d.verloren; } tx_verlauf.push([d.neu.length,tx_letzt?d.fehler-tx_letzt.fehler:0]); if(tx_verlauf.length>16) tx_verlauf.shift(); tx_ab=d.weiter; tx_letzt=d; if(d.neu.length){ tx_aufnehmen(d.neu); tx_zeigen(); } if(d.neu.length>=20000) continue; }
+      } catch(e) {}
+    }
+    tx_info();
+    await warte(300);
+  }
+}
+$('x_halt').onclick=()=>{ tx_halt=!tx_halt; $('x_halt').textContent=tx_halt?'Weiter':'Anhalten'; $('x_halt').classList.toggle('an',tx_halt); tx_zeigen(); tx_info(); };
+$('x_leer').onclick=()=>{ tx_zeilen=[]; tx_menge=0; tx_vorher=-1; tx_verlauf=[]; if(tx_letzt){ tx_f0=tx_letzt.fehler; tx_v0=tx_letzt.verloren; } $('text').textContent=''; tx_info(); };
+$('x_datei').onclick=()=>{
+  const u=URL.createObjectURL(new Blob([tx_zeilen.map(tx_zeile).join('\r\n')+'\r\n'],{type:'text/plain;charset=utf-8'}));
+  const a=document.createElement('a'), j=new Date(), n=x=>String(x).padStart(2,'0');
+  a.href=u; a.download=`robnet_zeichen_${j.getFullYear()}-${n(j.getMonth()+1)}-${n(j.getDate())}_${n(j.getHours())}-${n(j.getMinutes())}-${n(j.getSeconds())}.txt`;
+  a.click(); setTimeout(()=>URL.revokeObjectURL(u),2000);
+};
+
 // Raspberry
 let frage=null;
 function fragen(text,aktion){ frage=aktion; $('b_text').textContent=text; $('bestaetigung').style.display='flex'; }
@@ -310,7 +429,7 @@ async function zustand_holen() {
     $('zustand').textContent = teile.filter(Boolean).join(' · ');
   } catch(e) { $('zustand').textContent='Keine Verbindung zum Raspberry.'; }
 }
-var war=false; setInterval(zustand_holen,1500); zustand_holen(); liste(); tabs(); live();
+var war=false; setInterval(zustand_holen,1500); zustand_holen(); liste(); tabs(); live(); tx_lauf();
 </script>
 </body>
 </html>
