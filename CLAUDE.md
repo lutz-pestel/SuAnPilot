@@ -29,7 +29,8 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 80: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, `0-gesamtprojekt/TODO.md`, `1-tinypilot/regler/verbesserungen.md`, `1-tinypilot/regler/entwurf_pumpenleistung.md`, `0-gesamtprojekt/wissen/Weiterentwicklung PyPilot 2020-2026.md`,
   `1-tinypilot/motor-controller/hardware/konzeption/Motor_Controller_Fakten.md`
 - 90: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
-- 100: `CLAUDE.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`
+- 100: `CLAUDE.md`, `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, `1-tinypilot/docs/anforderungen/notloesung-A2.md`, `1-tinypilot/docs/system/Testplan_Autopilot.md`, `99-tools/docs/messgeraet.md`,
+  `0-gesamtprojekt/wissen/Lagesensor-Auswahl.md`
 - 120: `0-gesamtprojekt/fertigung/bauteilauswahl-standard.md`
 - 150: `0-gesamtprojekt/CHRONIK.md` (einzige Chronik), `0-gesamtprojekt/fertigung/jlcpcb-bestueckungsregeln.md`, `0-gesamtprojekt/fertigung/ablauf-smd-bestueckung.md`,
   `0-gesamtprojekt/Fehlersystematik und Reaktionen.md`, `1-tinypilot/docs/system/Systembeschreibung.md`, jeder Testbericht `1-tinypilot/docs/tests/*.md`, `1-tinypilot/regler/entwurf.md`,

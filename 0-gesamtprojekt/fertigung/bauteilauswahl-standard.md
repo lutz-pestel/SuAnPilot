@@ -1,6 +1,6 @@
 # Standard: Bauteilauswahl
 
-Version 00.03, Stand 16.10.2026, Obergrenze 120 Zeilen.
+Version 00.04, Stand 06.11.2026, Obergrenze 120 Zeilen.
 Gilt für **jede** Bauteilauswahl im Projekt: alle Platinen, alle Phasen, Weg A und Weg B. Wird **immer und ohne
 Aufforderung** angewandt (Betreiber, 15.10.2026). Entstanden an der Robnet-Analyse
 (`10-Robertson-Bedieneinheit/robnet-analyse/hardware/tht/konzeption/Bauteilauswahl.md`, Muster für Aufbau und Tabellen).
@@ -13,6 +13,7 @@ Händler je Teil; hat ein Teil nur einen, steht das ausdrücklich unter „Offen
 Vor dem ersten Teil steht in Abschnitt 0 der Bauteilauswahl, woran jede Wahl gemessen wird:
 - **Nur Durchsteckteile (THT), selbst gelötet** (Linie A, `fertigungsstrategie-platinen.md`). SMD oder Bestückung durch
   JLCPCB nur, wenn der Betreiber es ausdrücklich freigibt — **nie selbst entscheiden**.
+- **Selbst gelötete Beine: Bohrungen mindestens 2,5 mm auseinander**, engere Beine (TO-92) werden auseinandergebogen; weniger nur mit Erlaubnis des Betreibers.
 - **Zwei unabhängige Händler je Teil** (Schritt 6; nicht für Teile, die JLCPCB bestückt).
 - Einsatzort und Umgebung (z. B. Motorraum: Wärme, Vibration, Bauteile möglichst −40…+85 °C).
 - Robustheit und Diagnosefähigkeit vor Preis.

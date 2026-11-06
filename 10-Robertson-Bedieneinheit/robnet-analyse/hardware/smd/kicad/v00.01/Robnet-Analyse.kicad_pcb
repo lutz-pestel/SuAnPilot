@@ -8635,7 +8635,7 @@
 			(uuid "cab08446-d0c2-4cd8-b343-a19e40b39985")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/../../../tht/3d-modelle/kicad-lage/Bourns_RLB0914-100KL.step"
+		(model "${KIPRJMOD}/../../../tht/3d-modelle/Drahtbruecke_P5mm_eigen.step"
 			(offset
 				(xyz 0 0 0)
 			)

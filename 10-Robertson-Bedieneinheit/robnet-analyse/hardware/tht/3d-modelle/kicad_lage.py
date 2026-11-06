@@ -1,5 +1,5 @@
 # Legt 3D-Modelle in die Lage der KiCad-Bauformen (Unterordner kicad-lage/), damit KiCad sie ohne Drehung einbindet.
-# Version 00.01, Stand 16.10.2026. Aufruf: "C:/Program Files/FreeCAD 1.1/bin/freecadcmd.exe" kicad_lage.py
+# Version 00.02, Stand 06.11.2026. Aufruf: "C:/Program Files/FreeCAD 1.1/bin/freecadcmd.exe" kicad_lage.py
 # Koordinaten wie KiCad-3D: Ursprung = Pin 1 der Bauform, x nach rechts, y nach OBEN (= -y der Bauform), z = Platinenoberseite.
 # Platinendicke 1,6 mm (KiCad-Standard). ANNAHME = nicht belegt, am echten Teil pruefen.
 import os, Part, FreeCAD as App
@@ -64,7 +64,8 @@ schreibe('Harwin_M7566-05_2x_auf_2x03_oben', zus(j, verschoben(j, 2.54, 0, 0)))
 # --- Sicherung 5 x 20 im Halter Schurter 0031.8201 (Pins bei x 0 und 22,5): Mitte x 11,25; Achshoehe z 8,0 ANNAHME
 schreibe('Schurter_0034.3117_im_Halter', verschoben(lade('Schurter_0034.3117_Sicherung_5x20_eigen.step'), 11.25, 0, 8.0))
 
-# --- Zero 2 W kopfueber auf der Buchsenleiste J5, mit Bolzen, Schrauben, microSD und OTG-Stecker.
+# --- Zero 2 W kopfueber auf der Buchsenleiste J5, mit Kuehlkoerperset, microSD und OTG-Stecker. Der Zero haelt nur
+# durch die Buchsenleiste (Betreiber, 06.11.2026).
 # Buchsenleiste 8,5 hoch (KiCad PinSocket), darauf Kunststoff der Zero-Stiftleiste 2,5 -> Bauteilseite des Zero bei z 11,0,
 # Leiterplattenrueckseite bei z 12,0. Zero-Koordinaten (eigene_modelle.py): Pin 1 bei (8,37; 25,23), SD-Ende x = 0,
 # USB-Kante y = 0. Abbildung: x' = 25,23 - y, y' = 8,37 - x, z' = 12,0 - z (Drehung, keine Spiegelung).
@@ -82,13 +83,5 @@ sd = auf_j5(verschoben(sd, 13.0, 9.25, 1.15))
 # OTG-Stecker in der USB-Datenbuchse (Zero-x 41,4): Spitze 6,0 tief eingesteckt ab Buchsenvorderkante y = -1,8
 otg = gedreht(lade('LogiLink_AA0035_OTG-Stecker_eigen.step'), 180)              # Spitze bei y 0, Koerper nach -y
 otg = auf_j5(verschoben(otg, 41.4, -1.8 + 6.0, 1.0 + 2.9 / 2))
-# Bolzen M2,5 x 11 zwischen Platine (z 0) und Zero (z 11); Schrauben M2,5 x 5 von unten durch die Platine (Kopf unter
-# z = -1,6) und von oben durch den Zero (Kopf auf z = 12,0)
-bolzen = lade('Wuerth_970110151_WA-SSTII_M2,5x11.step')
-schraube = lade('FreeCAD-Bibliothek_Schraube_M2,5x5_ISO4762.step')               # Kopf z 0..2,5, Schaft z -5..0
-schraube_unten = verschoben(gedreht(schraube, 180, V(1, 0, 0)), 0, 0, -1.6)
-schraube_oben = verschoben(schraube, 0, 0, 12.0)
-teile = [zero, sd, otg]
-for (x, y) in ((21.73, 4.87), (21.73, -53.13), (-1.27, 4.87), (-1.27, -53.13)):
-    teile += [verschoben(bolzen, x, y, 5.5), verschoben(schraube_unten, x, y, 0), verschoben(schraube_oben, x, y, 0)]
-schreibe('Zero2W_Baugruppe_kopfueber', zus(*teile))
+kuehlkoerper = auf_j5(lade('Kuehlkoerper_Zero2W_eigen.step'))
+schreibe('Zero2W_Baugruppe_kopfueber', zus(zero, sd, otg, kuehlkoerper))

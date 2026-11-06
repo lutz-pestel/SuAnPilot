@@ -1,7 +1,7 @@
 # Projekt SuAnPilot – neuer Autopilot
 
 **Ideensammlung.** Noch nicht gestartet. Jede Anforderung wird vor Projektstart einzeln geprüft.
-Version 00.01, Stand: 05.10.2026.
+Version 00.02, Stand: 01.11.2026.
 
 ## 1. Ziel und Abgrenzung
 - Bedien- und Recheneinheit am Steuerstand: Kursregler, Sensoren, Anzeige, Tasten, Weboberfläche.
@@ -42,7 +42,7 @@ Einzelheiten: `1-tinypilot/docs/tests/2026-09-30_Fahrtest_Autopilot.md`, `0-gesa
 - U1 Arbeitet ohne WLAN und ohne Master vollständig; fehlt das WLAN, baut er einen eigenen
   Zugangspunkt für die Weboberfläche auf.
 - U2 GPS und Wind vom Master nutzen, wenn vorhanden (wie heute).
-- U3 Eigener Lage- und Kompasssensor; der für pypilot empfohlene ist zu recherchieren.
+- U3 Eigener Lage- und Kompasssensor; Anforderungen und Rangfolge: `0-gesamtprojekt/wissen/Lagesensor-Auswahl.md`.
 ### 3.3 Regler
 - R1 Betriebsarten wie heute (Kompass, GPS, Wind).
 - R2 Ruder-Trimmlage aus der gemessenen (geglätteten) Krängung; in der Böe vorausschauend Ruder geben,
@@ -93,7 +93,7 @@ Einzelheiten: `1-tinypilot/docs/tests/2026-09-30_Fahrtest_Autopilot.md`, `0-gesa
   ihre Richtung passte nur in 49 % zum Trend.
 
 ## 4. Offene Punkte
-- Welcher Lage- und Kompasssensor? Anzeige (Typ, Größe) – später.
+- Lage- und Kompasssensor: Wahl zwischen den Plätzen 1 und 2 der Rangfolge (U3). Anzeige (Typ, Größe) – später.
 - Protokoll zum neuen Motor-Controller.
 
 ## 5. Pflege

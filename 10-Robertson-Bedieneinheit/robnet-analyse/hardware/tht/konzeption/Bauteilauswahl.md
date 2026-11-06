@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie A (THT, selbst gelötet)
 
-Version 00.16, Stand 16.10.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.38),
+Version 00.18, Stand 06.11.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.38),
 `../../konzeption/Blockschaltbild_Robnet-Analyse.html` (00.16). Stückliste: `tht/bom/bom.csv`. Linie B (SMD): `../../smd/`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
@@ -69,18 +69,18 @@ Höhe 6,0 mm, Raster 2,5 mm, Draht 0,5 mm, Endung RT06 = gegurtet, Maße wie los
 ## 6. Gehäuse und Einbau — Vorschlag wie MC Abschnitt 9
 3D-Druck ASA, nur mechanischer Schutz. Jumper JP1–JP7 und J4 unter einem Deckel zugänglich; USB-Buchse des
 Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2 an einer Kante, J3 an der gegenüberliegenden (Betreiber, 16.10.2026). Einbauort nahe J300.
-- **Zero-Befestigung** (Betreiber, 16.10.2026): 4 Abstandsbolzen Würth WA-SSTII 970110151 (M2,5, innen/innen, 11 mm =
-  Buchsenleiste 8,5 + Kunststoff der Zero-Stiftleiste 2,5, gerechnet) und 8 Schrauben M2,5 × 5 ISO 4762.
+- **Zero-Befestigung** (Betreiber, 06.11.2026): hält nur durch die Buchsenleiste; später gesichert mit durchgehenden Schrauben (Maße offen). Kühlkörperset am Zero, Höhen
+  über der Platine: Rippen unten 3 mm, Rückseite Zero 12, Oberseite Platte 16 (2 mm Spacer, Zero-Außenkontur), Muttern 18, Schraubenspitzen 19.
 - **3D-Modelle** (STEP, `tht/3d-modelle/`, nicht in Git; 16.10.2026), je Teil eines:
-  - Hersteller: Phoenix 1757284, 1757242, 1757051, 1757019; Bourns RLB0914; Würth 970110151.
+  - Hersteller: Phoenix 1757284, 1757242, 1757051, 1757019; Bourns RLB0914.
   - KiCad-Bibliothek (Normmaße, nicht das Herstellermodell): DIP-8/16 und Sockel, TO-92, R 0207, DO-35, DO-201(AD),
     R-78B, Sicherungshalter Schurter 0031.8201, LED 3 mm, Stiftleisten 1×2/1×3/2×3, Buchsenleiste 2×20.
-  - FreeCAD-Bibliothek: microSD-Karte, Schraube M2,5 × 5 ISO 4762.
+  - FreeCAD-Bibliothek: microSD-Karte.
   - Selbst gezeichnet mit `3d-modelle/eigene_modelle.py` (Maße der Hersteller, Rest als ANNAHME gekennzeichnet):
-    TDK FG16, KEMET C320, Harwin M7566-05, Sicherung 5 × 20, Zero 2 W, OTG-Stecker, Steuerleitung.
+    TDK FG16, KEMET C320, Harwin M7566-05, Sicherung 5 × 20, Zero 2 W, Kühlkörperset, OTG-Stecker, Steuerleitung, Drahtbrücke L1 der SMD-Fassung.
     Grund: Modell nur mit Konto (TraceParts, SnapEDA, GrabCAD) oder gar keins. Annahmen am echten Teil messen.
   - In KiCad den Bauformen zugeordnet (`platine_erzeugen/robnet_platine.py` 00.03); gedrehte und gesteckte Teile
-    (Stecker in J1–J3, Jumper, Sicherung, Drossel, Zero mit Bolzen, Schrauben, Karte, OTG) vorab gelegt mit `3d-modelle/kicad_lage.py`
+    (Stecker in J1–J3, Jumper, Sicherung, Drossel, Zero mit Kühlkörperset, Karte, OTG) vorab gelegt mit `3d-modelle/kicad_lage.py`
     in `3d-modelle/kicad-lage/`. ANNAHME: Sicherungsachse 8 mm über der Platine, Stecker ganz eingesteckt.
 
 ## 7. Offen — vor der Bestellung zu prüfen
@@ -89,7 +89,6 @@ Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2 an einer Kante,
   (19-0333 Rev 2) nennt nur MAX3488EPA; bestätigen, dass EEPA dasselbe Teil im DIP-8 ist.
 - Datenblätter fehlen noch (Download über Chrome gesperrt): Phoenix 1757284, 1757242; Würth 61304011121, 61304021121.
 - Steuerleitung und WLAN-Stick: nur ein Händler geprüft (Abschnitt 8); zweite Quelle vor der Bestellung.
-- Abstandsbolzen und Schrauben (Abschnitt 6): zwei Händler, Preis und Lager prüfen, in `bom.csv` aufnehmen.
 - Raspberry Pi Zero 2 W: am 15.10.2026 bei Reichelt und BerryBase nicht lieferbar (Beschaffung ohnehin später).
 
 ## 8. Bezugsquellen (gesucht 15.10.2026; Preise mit MwSt., ohne Versand)

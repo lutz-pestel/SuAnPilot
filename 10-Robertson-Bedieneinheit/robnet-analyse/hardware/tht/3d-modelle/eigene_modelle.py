@@ -1,8 +1,8 @@
-# Eigene 3D-Modelle (STEP) fuer Teile ohne frei ladbares Herstellermodell. Version 00.01, Stand 16.10.2026.
+# Eigene 3D-Modelle (STEP) fuer Teile ohne frei ladbares Herstellermodell. Version 00.03, Stand 06.11.2026.
 # Aufruf: "C:/Program Files/FreeCAD 1.1/bin/freecadcmd.exe" eigene_modelle.py   (schreibt die STEP-Dateien in diesen Ordner)
 # Masse in mm. Ursprung: Pin 1 bzw. Mitte Unterkante; z = 0 ist die Platinenoberseite (Sitzflaeche).
 # Quelle je Mass im Kommentar; "ANNAHME" = nicht belegt, vor der Gehaeusekonstruktion am echten Teil messen.
-import os, Part, FreeCAD as App
+import math, os, Part, FreeCAD as App
 from FreeCAD import Vector as V
 
 OUT = os.path.dirname(os.path.abspath(__file__))
@@ -79,6 +79,29 @@ for k in range(20):
         y = 26.5 - 1.27 + 2.54 * zeile
         teile.append(box(0.64, 0.64, 3.0 + DICKE + 2.5 + 6.0, x - 0.32, y - 0.32, -3.0))
 speichern('RaspberryPi_Zero2W_eigen', *teile)
+
+# Kuehlkoerperset am Zero, gleiches Koordinatensystem wie oben (z = 0 Rueckseite des Zero, Bauteilseite z = 1,0).
+# Betreiber 06.11.2026: Rueckseite: Spacer 2,0 dick, Platte in Zero-Aussenkontur, Oberseite 4,0 ueber der Rueckseite,
+# Muttern 2,0 dick, Schraubenspitzen 7,0 ueber der Rueckseite. Bauteilseite: Rippen bis 3,0 ueber der Hauptplatine
+# (Hauptplatine 12,0 unter der Rueckseite -> z = 9,0), Senkkoepfe in der Unterseite versenkt (hier unsichtbar im Block).
+# ANNAHME: Rippenblock als volle Huelle in Zero-Aussenkontur, ausgespart fuer Buchsen, SD-Karte und Stiftleiste.
+# Spacer Durchmesser 5,0; Mutter Schluesselweite 5,0 (M2,5); Schraube Durchmesser 2,5 (Betreiber: passend zu den Loechern).
+kk = [plf.extrude(V(0, 0, 2.0)).translated(V(0, 0, -4.0))]                  # Platte z -4..-2
+block = plf.extrude(V(0, 0, 8.0)).translated(V(0, 0, 1.0))                  # Rippenblock z 1..9
+for (x, y, l, b) in ((6.25, -1.0, 12.3, 9.0), (36.9, -2.0, 9.0, 8.1), (49.5, -2.0, 9.0, 8.1),    # HDMI, USB, USB
+                     (61.5, 6.0, 5.0, 18.0), (-1.0, 8.75, 14.5, 12.0), (6.6, 23.46, 51.8, 7.0)):  # Kamera, SD, Stiftleiste
+    block = block.cut(box(l, b, 9.0, x, y, 0.5))
+kk.append(block)
+for (x, y) in ((3.5, 3.5), (61.5, 3.5), (3.5, 26.5), (61.5, 26.5)):
+    kk.append(zyl(2.5, 2.0, x, y, -2.0))                                    # Spacer
+    sechs = [V(x + 2.887 * math.cos(math.radians(60 * i)), y + 2.887 * math.sin(math.radians(60 * i)), -6.0) for i in range(7)]
+    kk.append(Part.Face(Part.Wire(Part.makePolygon(sechs))).extrude(V(0, 0, 2.0)))   # Mutter z -6..-4
+    kk.append(zyl(1.25, 16.0, x, y, -7.0))                                  # Schraube z -7..9
+speichern('Kuehlkoerper_Zero2W_eigen', *kk)
+
+# Drahtbruecke an L1 der SMD-Fassung (Betreiber 06.11.2026: im Schaltplan Drossel, bestueckt Draht). Loecher bei (0,0) und (5,0).
+# ANNAHME: Draht 0,65 dick, Oberkante 1,0 ueber der Platine, Enden 2,6 unter der Platinenoberseite.
+speichern('Drahtbruecke_P5mm_eigen', zyl(0.325, 3.275, 0, 0, -2.6), zyl(0.325, 3.275, 5.0, 0, -2.6), zyl(0.325, 5.0, 0, 0, 0.675, V(1, 0, 0)))
 
 # OTG-Adapter LogiLink AA0035 (Micro-B-Stecker an 0,2-m-Kabel auf A-Buchse; Reichelt-Daten): nur das Steckerende.
 # Steckteil 6,85 x 1,8 (USB-Micro-Norm), Laenge 6,0 ANNAHME; Umspritzung 10,5 x 7,0 x 18,0 ANNAHME; Kabel Durchmesser 3,5,

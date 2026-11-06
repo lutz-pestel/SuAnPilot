@@ -1,5 +1,5 @@
 # Erzeugt die Platine Robnet-Analyse Linie B (SMD) v00.01: Umriss, Bauteile mit Netzen, Befestigungsloecher, 3D-Modelle
-# (keine Leiterbahnen). Version 00.06, Stand 16.10.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
+# (keine Leiterbahnen). Version 00.07, Stand 06.11.2026. Grundlage: Linie A (tht/kicad/v00.01/platine_erzeugen).
 # Gegen Linie A: 100 x 100 mm (guenstigste Leiterplattenstufe bei JLCPCB), J1 genau ueber J3 an der Unterkante, Jumper senkrecht
 # unter ihren Klemmen an J1, M3-Loecher in allen vier Ecken (Betreiber 16.10.2026),
 # alle SMD-Teile oben und mindestens 2,5 mm vom Rand (Regel fuer von JLCPCB bestueckte Teile).
@@ -136,7 +136,7 @@ MODELLE = {
     'DIP-16_W7.62mm_Socket': [('KiCad_DIP-16_W7.62mm_Socket.step', 0), ('KiCad_DIP-16_W7.62mm.step', 4.0)],
     'TO-92_Inline': [('KiCad_TO-92_Inline.step', 0)],
     'Converter_DCDC_RECOM_R-78B-2.0_THT': [('KiCad_Converter_DCDC_RECOM_R-78B-2.0_THT.step', 0)],
-    'L_Radial_D10.0mm_P5.00mm_Fastron_07P': [('kicad-lage/Bourns_RLB0914-100KL.step', 0)],
+    'L_Radial_D10.0mm_P5.00mm_Fastron_07P': [('Drahtbruecke_P5mm_eigen.step', 0)],   # bestueckt mit Draht, Schaltplan bleibt L1
     'PinHeader_1x02_P2.54mm_Vertical': [('KiCad_PinHeader_1x02_P2.54mm_Vertical.step', 0), ('kicad-lage/Harwin_M7566-05_auf_1x02.step', 0)],
     'PinHeader_1x03_P2.54mm_Vertical': [('KiCad_PinHeader_1x03_P2.54mm_Vertical.step', 0)],
     'PinHeader_2x03_P2.54mm_Vertical': [('KiCad_PinHeader_2x03_P2.54mm_Vertical.step', 0), ('kicad-lage/Harwin_M7566-05_2x_auf_2x03_oben.step', 0)],
