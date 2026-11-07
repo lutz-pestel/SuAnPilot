@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Wertet einen Aufzeichnungsordner aus. Version 00.02, Stand 06.11.2026.
+# Robnet-Analyse: Wertet einen Aufzeichnungsordner aus. Version 00.03, Stand 07.11.2026.
 # Bestimmt aus den Pegelwechseln die Bitdauer, zerlegt die Bytes (8 Datenbits, ohne Paritaet, 1 Stopbit)
-# und vergleicht sie mit der seriellen Schnittstelle. Aufruf: python3 auswertung_v00.02.py <Ordner>
+# und vergleicht sie mit der seriellen Schnittstelle. Aufruf: python3 auswertung_v00.03.py <Ordner>
 # Begann die Aufzeichnung mitten im pausenlosen Datenstrom, sucht sie zuerst den richtigen Einstieg.
 import collections
 import json
@@ -39,7 +39,9 @@ def bitdauer(wechsel):
     if not laengen:
         return None, None
     haeufig = collections.Counter(round(x) for x in laengen)
-    kurz = min(k for k, v in haeufig.items() if v >= max(2, len(laengen) // 1000))
+    kurz = min((k for k, v in haeufig.items() if v >= max(2, len(laengen) // 1000)), default=None)
+    if kurz is None:
+        return None, None
     baud = 1e6 / kurz
     return kurz, min(STANDARD, key=lambda s: abs(s - baud))
 
@@ -120,6 +122,8 @@ def main():
         print(f"Aus Pegelwechseln zerlegt: {len(roh)} Byte, ohne gueltiges Stopbit: {falsch}")
         print(f"Stimmt mit seriell ueberein: {roh == seriell}")
         print(f"Anfang (hex): {roh[:32].hex(' ')}")
+    else:
+        print("Zu wenig Pegelwechsel, um die Baudrate zu bestimmen.")
     return 0
 
 

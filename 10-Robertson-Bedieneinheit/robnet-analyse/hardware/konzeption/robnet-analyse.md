@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.55, Stand 06.11.2026, Obergrenze 100 Zeilen.
+Version 00.56, Stand 07.11.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -60,10 +60,10 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
    **U6 (CE1) = Seite Bedieneinheit:** CH0 Vsys+, CH1 On-Off, CH2 Alarm, CH3/CH4 Bus+/Bus−; CH5–CH7 frei.
 5. **Schaltleitungen:** Alarm zusätzlich über Teiler an einen Zero-Eingang (Zeitstempel). **On-Off nur über den Wandler:**
    12 V und 8 V lägen nach einem Teiler beide über der Schaltschwelle des Zero.
-6. **Rechner:** Zero 2 W, per SSH vom PC (nicht über den Master); Aufzeichnung auf der Karte, Uhrzeit vom PC.
+6. **Rechner:** Zero 2 W, im Browser (`software/anforderungen_oszilloskop.md`) oder per SSH vom PC (nicht über den Master); Aufzeichnung auf der Karte, Uhrzeit vom PC.
    **Netz aus dem Motorraum** (abgeschirmt wie ein Faradayscher Käfig; Betreiber, 15.10.2026), über den einzigen
    Daten-USB des Zero, jeweils eins: (1) **WLAN-Stick am 5-m-USB-Kabel** außerhalb des Motorraums (einfacher);
-   (2) **LAN-Adapter** am USB (umständlicher). Eingebautes WLAN nur, wenn es doch Empfang hat. WLAN: Samsung AP,
+   (2) **LAN-Adapter** am USB (umständlicher). Eingebautes WLAN nur, wenn es doch Empfang hat. WLAN: Samsung AP, ohne bekanntes Netz eigener Zugangspunkt `robnet`,
    Ersatz das WLAN des Masters. USB-Anschluss im Gehäuse zugänglich, Kabel mit Zugentlastung.
 7. **Versorgung:** Robertson-Versorgung → Sicherung → Verpolschutz → Recom R-78B5.0-2.0 (Linie B: 5-V-Modul mit HX1314G, Beine wie 7805) → 5 V für den Zero;
    3,3 V für MAX3488 und MCP3208 vom Zero. **Nicht aus Vsys.**

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Speicheroszilloskop im Browser. Version 00.01, Stand 06.11.2026.
+# Robnet-Analyse: Speicheroszilloskop im Browser. Version 00.02, Stand 07.11.2026.
 # Anforderungen: anforderungen_oszilloskop.md. Nur lesen: Sendet nichts auf den Robnet-Bus.
 # Messschleife: messkern_v00.01.c. Laeuft als Dienst robnet-oszilloskop, Port 8080.
 import bisect
@@ -10,6 +10,7 @@ import math
 import os
 import re
 import shutil
+import signal
 import struct
 import subprocess
 import threading
@@ -19,10 +20,14 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import pigpio
 
-VERSION = "00.01"
+VERSION = "00.02"
 HIER = os.path.dirname(os.path.abspath(__file__))
 MESSKERN = os.path.join(HIER, "messkern")
-SEITE = os.path.join(HIER, "oszilloskop_v00.01.html")
+SEITEN = {"/": "oszilloskop_v00.02.html", "/messen": "oszilloskop_v00.02.html", "/management": "management_v00.01.html", "/analyse": "analyse_v00.01.html"}
+AUFZEICHNUNG = os.path.join(HIER, "aufzeichnung_v00.02.py")
+AUSWERTUNG = os.path.join(HIER, "auswertung_v00.03.py")
+BUS_BAUD = (1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400)
+NETZ_ORDNER = "/run/robnet-netz"  # Dienst robnet-netz, netz_v00.01.py
 ZIEL = "/home/pi/aufzeichnungen"
 PORT = 8080
 VREF = 2.5
@@ -759,6 +764,92 @@ def csv_ausgeben(handler, q):
             aus.write(zeilen.getvalue().encode())
 
 
+def netz_status():
+    try:
+        with open(os.path.join(NETZ_ORDNER, "status.json")) as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return {"fehler": "Der Netzdienst läuft nicht."}
+    if time.time() - d.get("zeit", 0) > 150:  # ein Wechsel dauert bis etwa 100 s
+        return {"fehler": "Der Netzdienst antwortet nicht."}
+    return d
+
+
+def netz_befehl(b):
+    if b.get("aktion") not in ("verbinden", "merken", "vergessen", "eigener_ap", "ap_passwort", "suchen"):
+        return {"fehler": "unbekannt"}
+    name = f"{time.time():.6f}.json"
+    frei = os.path.join(NETZ_ORDNER, "neu_" + name)
+    try:
+        fd = os.open(frei, os.O_WRONLY | os.O_CREAT, 0o600)
+        with os.fdopen(fd, "w") as f:
+            json.dump(b, f)
+        os.replace(frei, os.path.join(NETZ_ORDNER, "befehle", name))
+    except OSError:
+        return {"fehler": "Der Netzdienst läuft nicht."}
+    return {"ok": True}
+
+
+def bus_status():
+    r = {"laeuft": fremde_aufzeichnung(), "frei_mb": shutil.disk_usage("/").free // (1024 * 1024)}
+    if r["laeuft"]:
+        d = neueste_aufnahme()
+        if d:
+            r["ordner"] = os.path.basename(d)
+            r["byte"] = sum(os.path.getsize(os.path.join(d, x)) for x in os.listdir(d))
+            r["seit_s"] = round(time.time() - os.path.getmtime(os.path.join(d, "kopf.json")))
+    elif zustand["aufnahme"]:
+        r["grund"] = "Das Oszilloskop zeichnet gerade auf, die Bus-Aufzeichnung muss warten."
+    return r
+
+
+def bus_start(q):
+    if fremde_aufzeichnung():
+        return {"fehler": "Es läuft schon eine Aufzeichnung."}
+    if zustand["aufnahme"]:
+        return {"fehler": "Das Oszilloskop zeichnet gerade auf."}
+    baud = int(q.get("baud", "9600") or 0)
+    if baud not in BUS_BAUD:
+        return {"fehler": "Diese Baudrate ist nicht möglich."}
+    dauer = max(0.0, float(q.get("dauer", "0") or 0))
+    p = subprocess.Popen(["runuser", "-u", "pi", "--", "python3", AUFZEICHNUNG, "--baud", str(baud), "--dauer", str(dauer), "--stellung", q.get("stellung", "A")[:20],
+                          "--notiz", q.get("notiz", "")[:100], "--ziel", ZIEL], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    threading.Thread(target=p.wait, daemon=True).start()
+    return {"ok": True}
+
+
+def bus_stopp():
+    try:
+        os.kill(int(open(BELEGT).read().strip()), signal.SIGTERM)
+    except (OSError, ValueError):
+        return {"fehler": "Es läuft keine Aufzeichnung."}
+    return {"ok": True}
+
+
+def bus_liste():
+    aus = []
+    for x in sorted(os.listdir(ZIEL), reverse=True) if os.path.isdir(ZIEL) else []:
+        d = os.path.join(ZIEL, x)
+        try:
+            k = json.load(open(os.path.join(d, "kopf.json")))
+        except (OSError, ValueError):
+            continue
+        if k.get("art") == "oszilloskop":
+            continue
+        aus.append({"ordner": x, "dauer": k.get("dauer_s"), "baud": k.get("baud"), "stellung": k.get("stellung"), "notiz": k.get("notiz"), "fehler": bool(k.get("fehler")),
+                    "groesse_kb": sum(os.path.getsize(os.path.join(d, y)) for y in os.listdir(d)) // 1024})
+    return aus
+
+
+def bus_auswertung(q):
+    d = ordner_sicher(q.get("ordner"))
+    try:
+        r = subprocess.run(["nice", "python3", AUSWERTUNG, d], capture_output=True, text=True, timeout=240)
+    except subprocess.TimeoutExpired:
+        return {"fehler": "Die Auswertung dauerte über 4 Minuten und wurde abgebrochen."}
+    return {"text": r.stdout + r.stderr[-1500:]}
+
+
 def system_aktion(aktion):
     if aktion not in ("herunterfahren", "neustart"):
         return {"fehler": "unbekannt"}
@@ -791,8 +882,8 @@ class Handler(BaseHTTPRequestHandler):
         url = urllib.parse.urlparse(self.path)
         q = {k: v[-1] for k, v in urllib.parse.parse_qs(url.query, keep_blank_values=True).items()}
         try:
-            if url.path in ("/", "/index.html"):
-                d = open(SEITE, "rb").read()
+            if url.path in SEITEN:
+                d = open(os.path.join(HIER, SEITEN[url.path]), "rb").read()
                 self.send_response(200)
                 self.send_header("Content-Type", "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(d)))
@@ -807,6 +898,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.json_senden(text_liefern(q))
             elif url.path == "/api/baud":
                 self.json_senden(baud_bestimmen())
+            elif url.path == "/api/netz":
+                self.json_senden(netz_status())
+            elif url.path == "/api/bus/status":
+                self.json_senden(bus_status())
+            elif url.path == "/api/bus/liste":
+                self.json_senden(bus_liste())
+            elif url.path == "/api/bus/auswertung":
+                self.json_senden(bus_auswertung(q))
             elif url.path == "/api/aufnahmen":
                 self.json_senden(aufnahmen())
             elif url.path == "/api/ansehen":
@@ -831,6 +930,14 @@ class Handler(BaseHTTPRequestHandler):
                 self.json_senden(aufnahme_starten(q))
             elif url.path == "/api/system":
                 self.json_senden(system_aktion(q.get("aktion", "")))
+            elif url.path == "/api/netz":
+                # Im Inhalt der Anfrage, nicht in der Adresse: Sie kann ein Passwort enthalten
+                laenge = min(4096, int(self.headers.get("Content-Length", "0") or 0))
+                self.json_senden(netz_befehl(json.loads(self.rfile.read(laenge) or b"{}")))
+            elif url.path == "/api/bus/start":
+                self.json_senden(bus_start(q))
+            elif url.path == "/api/bus/stopp":
+                self.json_senden(bus_stopp())
             else:
                 self.send_error(404)
         except Exception as e:

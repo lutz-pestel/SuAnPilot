@@ -1,16 +1,18 @@
-# Robnet-Analyse: Anforderungen an das Speicheroszilloskop
+# Robnet-Analyse: Anforderungen an Oberfläche und Speicheroszilloskop
 
-Version 00.05, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.01.py`, `oszilloskop_v00.01.html`, `messkern_v00.01.c`, Dienst `robnet-oszilloskop`.
+Version 00.07, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.02.py` mit `oszilloskop_v00.02.html`, `management_v00.01.html`, `analyse_v00.01.html`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck
 Die Platine soll auch außerhalb der Bus-Analyse als einfaches Speicheroszilloskop dienen, vor allem um serielle Signale anzusehen.
-Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178.50`), ohne Anmeldung per SSH, ohne Passwort (Betreiber). Das Programm liest nur und sendet nie auf den Bus.
+Bedienung im Browser am PC oder Handy (`http://robnet.local:8080`, zu Hause auch `192.168.178.50`), ohne Anmeldung per SSH, ohne Passwort (Betreiber).
+**Drei Seiten mit gegenseitigen Links:** Messen (`/messen`, dieses Oszilloskop), Management (`/management`, Abschnitt 7), Robnet Analyse (`/analyse`, Abschnitt 8). Das Programm liest nur und sendet nie auf den Bus.
 **Kein Testaufbau nötig:** Die Software läuft und prüft sich ohne den Testsender (PC, FTDI232, YL-12B), den es nur am Schreibtisch gibt. Entwickelt wird mit gespeicherten Referenzaufnahmen.
 
 ## 2. Was die Platine kann (am Pi gemessen, 06.11.2026)
 - **Analog:** Messschleife in C mit direktem Registerzugriff, ein Prozessorkern reserviert. Die Rate teilt sich auf die aktiven Messungen auf.
 - **Bereich:** etwa 0 bis 21,7 V, Vsys+ bis etwa 33 V. Keine negativen Spannungen.
+- **Grenze Klemme 1 und 2:** Solange der Bus-Empfänger MAX3488 steckt, nur −7 V bis +12 V (Datenblatt −7,5 V bis +12,5 V, davor nur 1 kΩ). Für mehr den Chip ziehen. Die Seite zeigt dazu eine kurze rote Warnung, solange Klemme 1 oder 2 gemessen wird; sie lässt sich ausblenden und kommt nach Neuladen oder wenn beide aus und wieder an sind zurück.
 - **Digital:** Bus-Empfänger und Alarm, Zeitauflösung 2 µs. Am Testsender fehlerfrei bis 115 200 Baud. Digital gegen analog gemessen auf etwa 3 µs genau.
 
 | Geschwindigkeit | Takt | Messungen/s | Je Kanal bei 5 Kanälen | Bordspannung roh, ohne Korrektur |
@@ -47,17 +49,36 @@ Bedienung im Browser am PC (`http://robnet.fritz.box:8080`, Adresse `192.168.178
 - **Baudrate automatisch:** Der Knopf „Automatisch“ misst 4 Sekunden am Bus-Empfänger, sucht den kürzesten Puls, prüft die Rate durch Probe-Zerlegung und stellt sie ein. Liegt die Rate nicht in der Liste oder fehlt das Signal, bleibt die Einstellung und eine Meldung nennt den Grund. Zeigt ein hoher Anteil unlesbarer Zeichen, dass das Format vielleicht nicht passt, wird das gemeldet. Am Testsender alle 10 Raten von 300 bis 115 200 Baud richtig erkannt, auch ohne einzelne Bits im Signal (Zeichen 3C); 14 400 Baud wird als nicht in der Liste gemeldet.
 - **Zeit zur Baudrate:** Beim Wechsel der Baudrate springt die Zeit je Kästchen auf mindestens 6 Zeichen im Bild und bleibt danach frei änderbar. Dahinter steht der Bereich „Text lesbar“, rot, wenn die Zeit außerhalb liegt. Unter 6 Zeichen im Bild wurden am Testsender viele Zeichen falsch.
 - **Zeichenfenster:** Unter dem Bild, lückenlos aus den Pegelwechseln, unabhängig von Bild und Trigger. Jede Zeile zeigt Hex-Werte und Klartext; neue Zeile nach einer Pause über 3 Zeichendauern, nach Zeilenvorschub oder nach 16 Zeichen. Knöpfe Anhalten (sammelt weiter), Löschen, Speichern als Textdatei. Nennt die Zahl unlesbarer Zeichen; rot nur, wenn in den letzten Sekunden über 5 % unlesbar waren. Verlorene Pegelwechsel sind immer rot.
-- **Aufteilung:** Beide Spalten scrollen unabhängig voneinander, auf schmalen Bildschirmen stehen sie untereinander.
+- **Aufteilung:** Beide Spalten scrollen unabhängig voneinander. Auf Handys stehen sie untereinander, das Bild passt sich an, in beiden Lagen; Bedienkästen sind aufklappbar und beim Laden zu. Eine feste Querlage gibt es nicht (Safari kann sie nicht sperren).
 - **Messlinien:** zwei Linien für Zeit- und Spannungsabstand.
 - **Aufzeichnung:** Dauer, Name, Speichern als CSV-Datei für Excel.
 
 ## 6. Betrieb
 - **Automatischer Start** der Oberfläche mit dem Pi.
-- **Knöpfe „Pi herunterfahren“ und „Neu starten“,** je mit Sicherheitsabfrage. Nach dem Herunterfahren zeigt die Seite, wann das Netzteil aus darf.
+- **Knöpfe „Herunterfahren“ und „Neu starten“** auf der Seite Management, je mit Sicherheitsabfrage. Nach dem Herunterfahren zeigt die Seite, wann das Netzteil aus darf.
 - **Während der Bus-Aufzeichnung** (`aufzeichnung`) läuft die Seite weiter, misst aber nicht: Sie zeigt „Aufzeichnung läuft“, Dauer, gespeicherte Byte, freien Speicher. Oszilloskop-Start ist gesperrt, „Herunterfahren“ warnt vorher.
 - **Abtastrate messen:** In Live und Aufzeichnen zählt das Programm selbst die Messungen und zeigt die echte Rate sowie den kleinsten und größten Abstand; beim Aufzeichnen auch gespeichert.
 - **Messschleife in C,** die Oberfläche in Python. Sie läuft nur, solange jemand zusieht, und gibt den Wandler nach 15 Sekunden ohne Abruf wieder frei.
 
-## 7. Offen
+## 7. Management und Netz
+**Grundsatz (Betreiber):** Der Pi sorgt selbst dafür, dass er immer erreichbar ist, und der Nutzer kann einfach von einem Netz zum anderen wechseln.
+- **Anzeige, gut sichtbar:** Netzname, Adresse des Zugangspunkts, eigene Adresse des Pi.
+- **Start:** Der Pi bucht sich in ein gespeichertes Netz ein, das zuletzt erfolgreiche zuerst. Am Schreibtisch: nach dem Neustart 22 s bis zur Antwort.
+- **Kein Netz:** Nach 60 s ohne bekanntes Netz, beim Start wie im Betrieb, startet er den eigenen Zugangspunkt `robnet`, Adresse `192.168.4.1`, mit Passwort. Das Passwort steht nur auf dem Pi, nicht in Git und nicht auf den Seiten.
+- **Zurück vom eigenen Zugangspunkt:** nur auf Anweisung des Nutzers oder nach einem Neustart (Betreiber).
+- **Wechsel:** Netz aus der Liste wählen oder eintippen, mit Passwort. Scheitert er, ist das neue Passwort verworfen und der Pi kehrt zum vorigen Netz zurück (am Schreibtisch nach 30 bis 40 s), scheitert auch das, zum eigenen Zugangspunkt.
+- **Gespeicherte Netze:** Übersicht zum schnellen Umschalten, einzeln entfernbar. „Nur speichern“ legt ein Netz außer Reichweite an.
+- **Passwörter ändern:** Knopf je gespeichertem Netz; „Verbinden“ prüft das neue Passwort und behält bei Fehlschlag das alte, „Nur speichern“ ersetzt es ungeprüft. Das Passwort des eigenen Zugangspunkts wird auf der Seite doppelt eingegeben und gilt sofort; läuft er gerade, startet er neu.
+- **Funk:** ein gesteckter WLAN-Stick hat Vorrang vor dem eingebauten WLAN.
+- **Im eigenen Zugangspunkt** kann der Pi nicht suchen, die Seite zeigt die letzte Suche, Netznamen lassen sich eintippen.
+
+## 8. Robnet Analyse
+Bus-Aufzeichnung (`aufzeichnung_v00.02.py`) im Browser starten und stoppen, Baudrate von Hand oder automatisch, Dauer, Stellung, Notiz. Liste der Aufzeichnungen mit Auswertung (`auswertung_v00.03.py`) und Spannungen als CSV; im Bild ansehen auf der Seite Messen.
+
+## 9. Offen
+- **Eigener Zugangspunkt mit Gerät:** Am Pi geprüft, die Anmeldung eines Geräts noch nicht.
+- **WLAN-Stick:** Der Vorrang ist nicht erprobt.
+- **Handy:** nur in einem schmalen Fenster am PC geprüft, nicht auf dem iPhone.
+- **Robnet Analyse mit Daten:** Die Aufzeichnung über die Seite lief ohne Signal; die Auswertung ist mit einer Referenzaufnahme geprüft.
 - **Herunterfahren-Knopf:** nicht ausgelöst, der gleiche Weg ist über „Neu starten“ geprüft.
 - **Alter Zero:** Die Messschleife ist nur auf dem Zero 2 W gebaut und gemessen.

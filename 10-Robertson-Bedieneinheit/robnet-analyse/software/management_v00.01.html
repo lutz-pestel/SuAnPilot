@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robnet Management</title>
+<style>
+:root { --bg:#f3f4f1; --karte:#fff; --text:#1c2320; --leise:#5e6862; --linie:#d3d8d2; --akt:#0b5cad; --warn:#b3261e; --ok:#1b7f47; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#121614; --karte:#1c221f; --text:#e6ebe7; --leise:#a2ada6; --linie:#333d38; --akt:#7db8f5; --warn:#ff8a80; --ok:#57c98a; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.4 system-ui,"Segoe UI",Arial,sans-serif; }
+header { display:flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline; padding:10px 14px 2px; }
+h1 { font-size:1.2rem; margin:0; }
+nav { display:flex; flex-wrap:wrap; gap:4px; }
+nav a { padding:3px 10px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); text-decoration:none; font-size:.9rem; }
+nav a.an { background:var(--akt); border-color:var(--akt); color:#fff; }
+main { max-width:760px; padding:8px 14px 24px; }
+.karte { background:var(--karte); border:1px solid var(--linie); border-radius:10px; padding:12px; margin-bottom:10px; }
+h2 { font-size:.95rem; margin:0 0 8px; }
+.gross { font-size:1.45rem; font-weight:700; font-variant-numeric:tabular-nums; overflow-wrap:anywhere; }
+.paar { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:10px; margin-top:8px; }
+.klein { font-size:.82rem; color:var(--leise); }
+.reihe { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
+.zeile { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--linie); }
+.zeile:last-child { border-bottom:0; }
+input { font:inherit; padding:5px 7px; border:1px solid var(--linie); border-radius:6px; background:var(--karte); color:var(--text); max-width:100%; }
+button { font:inherit; padding:6px 12px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); cursor:pointer; }
+button.an { background:var(--akt); color:#fff; border-color:var(--akt); }
+button.warn { border-color:var(--warn); color:var(--warn); }
+#meldung { font-weight:600; margin-top:8px; min-height:1.2em; }
+#bestaetigung { display:none; }
+.warnfarbe { color:var(--warn); } .okfarbe { color:var(--ok); }
+@media (max-width:860px) { input,button { font-size:16px; } button { min-height:38px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Robnet</h1>
+  <nav><a href="/messen">Messen</a><a class="an" href="/management">Management</a><a href="/analyse">Robnet Analyse</a></nav>
+</header>
+<main>
+  <div class="karte">
+    <div id="m_art" class="klein">verbinde…</div>
+    <div class="gross" id="m_name">–</div>
+    <div class="paar">
+      <div><div class="klein">Adresse des Zugangspunkts</div><div class="gross" id="m_ap">–</div></div>
+      <div><div class="klein">Eigene Adresse des Raspberry</div><div class="gross" id="m_pi">–</div></div>
+    </div>
+    <div class="klein" id="m_url" style="margin-top:6px"></div>
+    <div id="meldung"></div>
+  </div>
+
+  <div class="karte">
+    <h2>Mit einem anderen Netz verbinden</h2>
+    <div class="reihe">
+      <label>Netzname <input id="n_ssid" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
+      <label>Passwort <input id="n_pw" type="password" autocomplete="new-password" autocapitalize="off"></label>
+    </div>
+    <div id="n_hin" style="font-weight:600"></div>
+    <div class="reihe"><button class="an" id="n_ver">Verbinden</button><button id="n_mer">Nur speichern</button></div>
+    <div class="klein">Klappt die Verbindung nicht, kehrt der Raspberry nach etwa 1 bis 2 Minuten zum vorigen Netz zurück; ist auch das nicht möglich, startet er seinen eigenen Zugangspunkt. „Nur speichern“ ist für Netze außer Reichweite: Er versucht sie, sobald sie erscheinen und er kein besseres hat. Ein bekanntes Netz braucht kein neues Passwort.</div>
+    <h2 style="margin-top:12px">In Reichweite</h2>
+    <div class="reihe"><button id="n_such">Neu suchen</button><span class="klein" id="n_shin"></span></div>
+    <div id="sicht"></div>
+  </div>
+
+  <div class="karte">
+    <h2>Gespeicherte Netze</h2>
+    <div id="netze"></div>
+    <div class="reihe"><button class="warn" id="a_ap">Eigenen Zugangspunkt starten</button></div>
+    <div class="klein">Vom eigenen Zugangspunkt wechselt der Raspberry nur auf Ihre Anweisung oder nach einem Neustart zurück in ein bekanntes Netz.</div>
+  </div>
+
+  <div class="karte">
+    <h2>Passwort des eigenen Zugangspunkts</h2>
+    <div class="reihe">
+      <label>Neu <input id="p_1" type="password" autocomplete="new-password" autocapitalize="off"></label>
+      <label>Wiederholen <input id="p_2" type="password" autocomplete="new-password" autocapitalize="off"></label>
+      <button id="p_set">Ändern</button>
+    </div>
+    <div class="klein" id="p_hin">8 bis 63 Zeichen. Läuft der eigene Zugangspunkt gerade, startet er neu und Ihr Gerät muss sich mit dem neuen Passwort wieder anmelden. Vergessen Sie es, kommen Sie an Bord ohne bekanntes Netz nicht mehr an den Raspberry.</div>
+  </div>
+
+  <div class="karte">
+    <h2>Raspberry</h2>
+    <div class="klein" id="r_info">–</div>
+    <div class="reihe"><button class="warn" id="s_aus">Herunterfahren</button><button class="warn" id="s_neu">Neu starten</button></div>
+    <div id="bestaetigung" class="reihe"><span id="b_text"></span><button id="b_ja" class="warn">Ja</button><button id="b_nein">Nein</button></div>
+    <div id="r_meld" class="warnfarbe" style="font-weight:600"></div>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const warte = ms => new Promise(r => setTimeout(r, ms));
+let frage = null, belegt = false, stumm = false;
+
+async function senden(obj) {
+  const r = await fetch('/api/netz', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(obj)});
+  const d = await r.json();
+  if (d.fehler) $('meldung').textContent = d.fehler;
+}
+function knopf(text, klasse, fn) { const b = document.createElement('button'); b.textContent = text; if (klasse) b.className = klasse; b.onclick = fn; return b; }
+function datum(t) { return t ? new Date(t*1000).toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'}) : 'noch nie verbunden'; }
+function wechselHinweis(ssid) { $('meldung').className='warnfarbe'; $('meldung').textContent=`Der Raspberry wechselt zu ${ssid}. Verbinden Sie Ihr Gerät ebenfalls mit diesem Netz und öffnen Sie dann http://robnet.local:8080/management`; }
+
+function passwortAendern(n) {
+  $('n_ssid').value=n.ssid; $('n_pw').value=''; $('n_hin').textContent=n.aktiv?`Neues Passwort für ${n.ssid} eintragen, dann „Verbinden“. Die Verbindung bricht dabei kurz ab; ist das Passwort falsch, bleibt das alte gültig.`:`Neues Passwort für ${n.ssid} eintragen. „Verbinden“ prüft es sofort, „Nur speichern“ ersetzt das alte ungeprüft, wenn das Netz außer Reichweite ist.`;
+  $('n_ver').closest('.karte').scrollIntoView({behavior:'smooth',block:'start'}); $('n_pw').focus();
+}
+function zeigen(s) {
+  const verbunden = s.modus==='verbunden', ap = s.modus==='eigener_ap';
+  $('m_art').textContent = {verbunden:'Verbunden mit WLAN', eigener_ap:'Eigener Zugangspunkt', verbindet:'Wechselt gerade', sucht:'Sucht bekannte Netze, startet sonst nach 60 s den eigenen Zugangspunkt'}[s.modus]||s.modus;
+  $('m_name').textContent = s.ssid || (ap ? s.ap_name : '–');
+  $('m_name').className = 'gross '+(ap?'warnfarbe':verbunden?'okfarbe':'');
+  $('m_ap').textContent = ap ? s.ap_ip : (s.ap_adresse||'–');
+  $('m_pi').textContent = s.pi_adresse || (ap ? s.ap_ip : '–');
+  const adr = s.pi_adresse || (ap ? s.ap_ip : '');
+  $('m_url').textContent = (adr?`Diese Seite: http://${adr}:8080/management, auch http://robnet.local:8080/management. `:'')+`Funk: ${s.geraet}.`;
+  if (!stumm) { $('meldung').className=''; $('meldung').textContent = s.meldung||''; }
+  $('sicht').replaceChildren(...s.sicht.map(n => {
+    const z = document.createElement('div'); z.className='zeile';
+    const t = document.createElement('span'); t.textContent = `${n.ssid} · ${n.signal} %${n.geschuetzt?'':' · ohne Passwort'}`;
+    z.append(t, knopf('Auswählen','',()=>{ $('n_ssid').value=n.ssid; $('n_pw').focus(); })); return z; }));
+  $('n_shin').textContent = ap ? 'Im eigenen Zugangspunkt kann nicht gesucht werden, gezeigt wird die letzte Suche. Netznamen können Sie auch eintippen.' : (s.sicht.length?'':'Noch keine Suche.');
+  $('n_such').disabled = ap;
+  $('netze').replaceChildren(...s.netze.map(n => {
+    const z = document.createElement('div'); z.className='zeile';
+    const t = document.createElement('span'); t.textContent = `${n.ssid}${n.aktiv?' · verbunden':''} · ${n.vorgemerkt?'gespeichert, noch nie verbunden':datum(n.zuletzt_ok)}`;
+    const k = document.createElement('span'); k.className='reihe'; k.style.margin='0';
+    k.append(knopf('Passwort ändern','',()=>passwortAendern(n)));
+    if (!n.aktiv) { k.append(knopf('Verbinden','an',async()=>{ stumm=true; wechselHinweis(n.ssid); await senden({aktion:'verbinden',ssid:n.ssid}); setTimeout(()=>stumm=false,8000); }), knopf('Entfernen','',()=>senden({aktion:'vergessen',profil:n.profil}))); }
+    z.append(t,k); return z; }));
+  if (!s.netze.length) $('netze').textContent='Noch keine.';
+}
+
+async function holen() {
+  while (true) {
+    try {
+      const s = await (await fetch('/api/netz')).json();
+      if (s.fehler) { $('m_art').textContent=s.fehler; }
+      else zeigen(s);
+      const z = await (await fetch('/api/status')).json();
+      belegt = !!(z.fremd||z.aufnahme);
+      $('r_info').textContent = [`Version ${z.version}`, z.temp!==null?`${z.temp} °C`:'', `${z.frei_mb.toLocaleString('de-DE')} MB frei`, belegt?'Aufzeichnung läuft':''].filter(Boolean).join(' · ');
+    } catch (e) { $('m_art').textContent='Keine Verbindung zum Raspberry. Er wechselt vielleicht gerade das Netz.'; }
+    await warte(2000);
+  }
+}
+
+$('n_ver').onclick = async () => { const ssid=$('n_ssid').value.trim(), pw=$('n_pw').value; if(!ssid){ $('meldung').textContent='Bitte einen Netznamen angeben.'; return; } stumm=true; wechselHinweis(ssid); await senden({aktion:'verbinden',ssid,passwort:pw}); $('n_pw').value=''; $('n_hin').textContent=''; setTimeout(()=>stumm=false,8000); };
+$('n_mer').onclick = async () => { const ssid=$('n_ssid').value.trim(), pw=$('n_pw').value; if(!ssid){ $('meldung').textContent='Bitte einen Netznamen angeben.'; return; } await senden({aktion:'merken',ssid,passwort:pw}); $('n_pw').value=''; $('n_ssid').value=''; $('n_hin').textContent=''; };
+$('p_set').onclick = async () => {
+  const a=$('p_1').value, b=$('p_2').value;
+  if (a!==b) { $('p_hin').className='klein warnfarbe'; $('p_hin').textContent='Die beiden Eingaben sind verschieden, nichts geändert.'; return; }
+  if (a.length<8||a.length>63) { $('p_hin').className='klein warnfarbe'; $('p_hin').textContent='Das Passwort muss 8 bis 63 Zeichen haben, nichts geändert.'; return; }
+  await senden({aktion:'ap_passwort',passwort:a}); $('p_1').value=''; $('p_2').value=''; $('p_hin').className='klein'; $('p_hin').textContent='Übernommen, siehe Meldung oben.';
+};
+$('n_such').onclick = () => { $('n_shin').textContent='Sucht…'; senden({aktion:'suchen'}); };
+
+function fragen(text, aktion) { frage=aktion; $('b_text').textContent=text; $('bestaetigung').style.display='flex'; }
+$('a_ap').onclick = () => fragen('Bestehende WLAN-Verbindung trennen und eigenen Zugangspunkt starten?', 'ap');
+$('s_aus').onclick = () => fragen(belegt?'Es läuft eine Aufzeichnung. Trotzdem herunterfahren?':'Raspberry wirklich herunterfahren?', 'herunterfahren');
+$('s_neu').onclick = () => fragen(belegt?'Es läuft eine Aufzeichnung. Trotzdem neu starten?':'Raspberry wirklich neu starten?', 'neustart');
+$('b_nein').onclick = () => { $('bestaetigung').style.display='none'; };
+$('b_ja').onclick = async () => {
+  $('bestaetigung').style.display='none'; const a=frage;
+  if (a==='ap') { senden({aktion:'eigener_ap'}); return; }
+  try { await fetch('/api/system?aktion='+a,{method:'POST'}); } catch(e){}
+  if (a==='herunterfahren') { let s=30; const t=setInterval(()=>{ s--; $('r_meld').textContent = s>0?`Fährt herunter. Noch ${s} s warten, dann darf das Netzteil aus.`:'Raspberry ist unten, das Netzteil darf aus.'; if(s<=0) clearInterval(t); },1000); }
+  else $('r_meld').textContent='Startet neu, in etwa einer Minute Seite neu laden.';
+};
+
+senden({aktion:'suchen'}).catch(()=>{});
+holen();
+</script>
+</body>
+</html>

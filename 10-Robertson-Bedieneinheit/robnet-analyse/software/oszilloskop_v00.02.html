@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Robnet Oszilloskop</title>
+<title>Robnet Messen</title>
 <style>
 :root { --bg:#f3f4f1; --karte:#fff; --text:#1c2320; --leise:#5e6862; --linie:#d3d8d2; --akt:#0b5cad; --warn:#b3261e; --ok:#1b7f47;
   --schirm:#0d1412; --raster:#27332e; --rastert:#a9b6ae; }
@@ -12,11 +12,16 @@
 body { margin:0; background:var(--bg); color:var(--text); font:15px/1.4 system-ui,"Segoe UI",Arial,sans-serif; }
 header { display:flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline; padding:10px 14px 2px; }
 h1 { font-size:1.2rem; margin:0; }
+nav { display:flex; flex-wrap:wrap; gap:4px; }
+nav a { padding:3px 10px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); text-decoration:none; font-size:.9rem; }
+nav a.an { background:var(--akt); border-color:var(--akt); color:#fff; }
+summary { font-size:.95rem; font-weight:700; cursor:pointer; }
+details[open] > summary { margin-bottom:6px; }
 #zustand { font-size:.85rem; color:var(--leise); }
 main { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,320px); gap:10px; padding:8px 14px 16px; align-items:start; }
 .karte { background:var(--karte); border:1px solid var(--linie); border-radius:10px; padding:10px; margin-bottom:10px; }
 h2 { font-size:.95rem; margin:0 0 6px; }
-canvas { width:100%; height:auto; display:block; border-radius:6px; background:var(--schirm); touch-action:none; }
+canvas { width:100%; display:block; border-radius:6px; background:var(--schirm); touch-action:none; }
 .mess { display:flex; flex-wrap:wrap; gap:4px 16px; font-size:.86rem; margin-top:6px; }
 .mess b { font-variant-numeric:tabular-nums; }
 .reihe { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; margin:4px 0; }
@@ -34,11 +39,21 @@ button.warn { border-color:var(--warn); color:var(--warn); }
 #liste { max-height:190px; overflow:auto; font-size:.84rem; }
 #liste div { display:flex; gap:6px; justify-content:space-between; align-items:center; padding:3px 0; border-bottom:1px solid var(--linie); }
 #liste span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-#bestaetigung { display:none; }
+#warnung { display:none; justify-content:space-between; align-items:center; gap:10px; margin:4px 14px 0; padding:3px 6px 3px 12px; border-radius:8px; background:#b3261e; color:#fff; font-size:.92rem; font-weight:600; }
+#warnung button { padding:0 8px; background:transparent; color:#fff; border-color:#fff; }
 #text { height:220px; overflow:auto; margin:6px 0 4px; padding:6px 8px; border-radius:6px; background:var(--schirm); color:#e6ee9c; font:13px/1.35 Consolas,"Courier New",monospace; white-space:pre; }
 #x_info.warn { color:var(--warn); font-weight:600; }
-@media (max-width:860px) { main { grid-template-columns:minmax(0,1fr); } }
-@media (min-width:861px) {
+@media (max-width:860px), (max-height:500px) {
+  main { grid-template-columns:minmax(0,1fr); padding:6px 6px 16px; }
+  .karte { padding:8px; }
+  select,input[type=number],input[type=text],button { font-size:16px; }
+  button { min-height:38px; }
+  input[type=checkbox] { width:20px; height:20px; }
+  #text { height:170px; font-size:12px; }
+  header { padding:6px 8px 0; }
+  #warnung { margin:4px 6px 0; }
+}
+@media (min-width:861px) and (min-height:501px) {
   html,body { height:100%; }
   body { display:flex; flex-direction:column; overflow:hidden; }
   main { flex:1; min-height:0; grid-template-rows:minmax(0,1fr); align-items:stretch; padding-bottom:0; }
@@ -48,13 +63,15 @@ button.warn { border-color:var(--warn); color:var(--warn); }
 </head>
 <body>
 <header>
-  <h1>Robnet Oszilloskop</h1>
+  <h1>Robnet</h1>
+  <nav><a class="an" href="/messen">Messen</a><a href="/management">Management</a><a href="/analyse">Robnet Analyse</a></nav>
   <div id="zustand">verbinde…</div>
 </header>
+<div id="warnung"><span>Klemme 1 und 2: nur −7 bis +12 V, für mehr MAX3488 ziehen!</span><button id="w_zu" title="Warnung ausblenden">✕</button></div>
 <main>
   <div>
     <div class="karte">
-      <canvas id="schirm" width="1100" height="500"></canvas>
+      <canvas id="schirm"></canvas>
       <div class="mess">
         <span>Abtastung: <b id="m_rate">–</b></span>
         <span>Abstand: <b id="m_abst">–</b></span>
@@ -92,8 +109,8 @@ button.warn { border-color:var(--warn); color:var(--warn); }
       <div class="hinweis">Die Rate teilt sich auf die Kanäle auf. „Maximum“ liegt über dem Datenblatt-Wert des Wandlers, die Korrektur gleicht das aus, die Abweichung ist größer als bei „Genau“.</div>
     </div>
 
-    <div class="karte">
-      <h2>Kurven anzeigen (Seite Hauptgerät)</h2>
+    <details class="karte klappe" open>
+      <summary>Kurven anzeigen (Seite Hauptgerät)</summary>
       <div id="kanaele"></div>
       <div class="reihe"><label>Klemme 1 gegen 2
         <select id="d12"><option value="aus">aus</option><option value="software">in der Software</option><option value="chip">im Chip (nur positiv)</option></select></label></div>
@@ -109,27 +126,27 @@ button.warn { border-color:var(--warn); color:var(--warn); }
         <select id="baud"><option value="0">keine Bytes</option><option>300</option><option>600</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></label>
         <button id="b_baud">Automatisch</button></div>
       <div class="hinweis" id="b_info"></div>
-    </div>
+    </details>
 
-    <div class="karte">
-      <h2>Maßstab</h2>
+    <details class="karte klappe" open>
+      <summary>Maßstab</summary>
       <div class="reihe"><label>Zeit je Kästchen <select id="tdiv"></select></label><span class="hinweis" id="t_bereich"></span></div>
       <div class="reihe"><label>Volt je Kästchen <select id="vdiv"><option>0.5</option><option>1</option><option selected>2</option><option>5</option><option>10</option></select></label>
       <label>Verschiebung V <input id="vver" type="number" step="0.5" value="0"></label></div>
-    </div>
+    </details>
 
-    <div class="karte">
-      <h2>Trigger</h2>
+    <details class="karte klappe" open>
+      <summary>Trigger</summary>
       <div class="reihe"><label>Quelle <select id="trig">
         <option value="keine">keine</option><option value="k1">Kanal 1</option><option value="k2">Kanal 2</option><option value="k3">Kanal 3</option><option value="k4">Kanal 4</option><option value="k5">Kanal 5</option><option value="bus" selected>Bus-Empfänger</option><option value="alarm">Alarm</option></select></label>
         <label>Flanke <select id="flanke"><option value="1">steigend</option><option value="0" selected>fallend</option></select></label></div>
       <div class="reihe"><label>Spannung V <input id="pegel" type="number" step="0.1" value="1"></label>
         <label>Vorlauf % <input id="vor" type="number" min="0" max="90" step="5" value="10"></label></div>
       <div class="reihe"><label>Art <select id="modus"><option value="auto">Auto</option><option value="normal">Normal</option><option value="einmal">Einmal</option></select></label></div>
-    </div>
+    </details>
 
-    <div class="karte" id="k_aufz">
-      <h2>Aufzeichnen</h2>
+    <details class="karte klappe" id="k_aufz" open>
+      <summary>Aufzeichnen</summary>
       <div class="reihe"><label>Name <input id="r_name" type="text" size="14" value="aufnahme"></label>
         <label>Dauer s <input id="r_dauer" type="number" min="0.2" step="1" value="5"></label>
         <button id="r_start">Start</button></div>
@@ -137,13 +154,7 @@ button.warn { border-color:var(--warn); color:var(--warn); }
       <h2 style="margin-top:8px">Gespeichert</h2>
       <div id="liste"></div>
       <div class="reihe" id="zoom" style="display:none"><button id="z_rein">Zoom +</button><button id="z_raus">Zoom −</button><button id="z_links">◀</button><button id="z_rechts">▶</button><button id="z_alles">Alles</button></div>
-    </div>
-
-    <div class="karte">
-      <h2>Raspberry</h2>
-      <div class="reihe"><button class="warn" id="s_aus">Herunterfahren</button><button class="warn" id="s_neu">Neu starten</button></div>
-      <div id="bestaetigung" class="reihe"><span id="b_text"></span><button id="b_ja" class="warn">Ja</button><button id="b_nein">Nein</button></div>
-    </div>
+    </details>
   </div>
 </main>
 <script>
@@ -166,15 +177,24 @@ function grund() {
 }
 function anfrage() {
   const p = grund();
-  p.set('tdiv',$('tdiv').value); p.set('vor',$('vor').value); p.set('breite',String(Math.max(200,c.width-60)));
+  p.set('tdiv',$('tdiv').value); p.set('vor',$('vor').value); p.set('breite',String(Math.max(200,LW-60)));
   p.set('trig',$('trig').value); p.set('flanke',$('flanke').value); p.set('pegel',$('pegel').value); p.set('modus',$('modus').value);
   p.set('bus',$('z_bus').checked?'1':'0'); p.set('alarm',$('z_alarm').checked?'1':'0');
   return p;
 }
 
 const R = {x:50,y:10,w:1040,h:0,dig:0};
+let LW=1100, LH=500;
+function groesse(){
+  const w=Math.round(c.clientWidth)||1100, dpr=Math.min(2,window.devicePixelRatio||1);
+  LW=w; LH=Math.round(Math.min(Math.max(260,w*.4545),Math.max(220,innerHeight-70)));
+  c.style.height=LH+'px'; c.width=w*dpr; c.height=LH*dpr; g.setTransform(dpr,0,0,dpr,0,0);
+  if(letzte) zeichne(letzte,letzte.__t,letzte.__art);
+  t_anzeige(); tx_zeigen();
+}
+addEventListener('resize',groesse);
 function zeichne(d, t_us, ansichtsart) {
-  const W = c.width, H = c.height;
+  const W = LW, H = LH;
   const zeige_bus = d.bus && $('z_bus').checked, zeige_alarm = d.alarm && $('z_alarm').checked;
   const dig = (zeige_bus?1:0)+(zeige_alarm?1:0);
   const unten = dig ? 26+dig*34+(d.bytes&&zeige_bus?18:0) : 22;
@@ -238,7 +258,7 @@ function zeichne(d, t_us, ansichtsart) {
 }
 function wert(d,t,t_us){ const k=d.kurven&&Object.keys(d.kurven)[0]; if(!k)return null; const w=d.kurven[k],n=w.length/2; if(!n)return null; const i=Math.min(n-1,Math.max(0,Math.floor(t/t_us*n))); return (w[i*2]+w[i*2+1])/2000; }
 
-c.addEventListener('click', e => { const r=c.getBoundingClientRect(); const x=(e.clientX-r.left)*c.width/r.width; const tu=letzte?letzte.__t:0; if(!tu)return; const t=Math.max(0,Math.min(tu,(x-R.x)/R.w*tu)); if(e.shiftKey)cursor.b=t; else cursor.a=t; if(letzte)zeichne(letzte,letzte.__t,letzte.__art); });
+c.addEventListener('click', e => { const r=c.getBoundingClientRect(); const x=e.clientX-r.left; const tu=letzte?letzte.__t:0; if(!tu)return; const t=Math.max(0,Math.min(tu,(x-R.x)/R.w*tu)); if(e.shiftKey)cursor.b=t; else cursor.a=t; if(letzte)zeichne(letzte,letzte.__t,letzte.__art); });
 
 async function live() {
   while (true) {
@@ -281,7 +301,7 @@ async function liste() {
 }
 async function ansehen(o, von, bis) {
   betrieb='ansicht'; tabs();
-  const p = new URLSearchParams({ordner:o,breite:String(Math.max(200,c.width-60))});
+  const p = new URLSearchParams({ordner:o,breite:String(Math.max(200,LW-60))});
   if (von!==undefined) { p.set('von',von); p.set('bis',bis); }
   const b = $('baud').value; if (+b) p.set('baud',b);
   const d = await (await fetch('/api/ansehen?'+p)).json();
@@ -303,7 +323,7 @@ $('r_start').onclick = async () => { const p=grund(); p.set('name',$('r_name').v
 
 function tabs(){ $('b_live').classList.toggle('an',betrieb==='live'&&laufe); $('b_aufz').classList.toggle('an',betrieb!=='live'); $('b_halt').classList.toggle('an',betrieb==='live'&&!laufe); }
 $('b_live').onclick=()=>{betrieb='live';laufe=true;einmal_fertig=false;$('b_halt').textContent='Halt';$('zoom').style.display='none';tabs();};
-$('b_aufz').onclick=()=>{betrieb='aufz';tabs();liste();$('k_aufz').scrollIntoView({behavior:'smooth',block:'nearest'});};
+$('b_aufz').onclick=()=>{betrieb='aufz';tabs();liste();$('k_aufz').open=true;$('k_aufz').scrollIntoView({behavior:'smooth',block:'nearest'});};
 $('b_halt').onclick=()=>{ if(einmal_fertig){einmal_fertig=false;$('b_halt').textContent='Halt';} else {laufe=!laufe;} tabs(); };
 document.querySelectorAll('select,input').forEach(e=>e.addEventListener('change',()=>{ if($('modus').value!=='einmal'){einmal_fertig=false;$('b_halt').textContent='Halt';} if(letzte&&letzte.__art==='ansicht'&&ansicht) ansehen(ansicht.o,ansicht.von,ansicht.bis); }));
 
@@ -315,17 +335,28 @@ function hinweise(){
 }
 $('d12').addEventListener('change',hinweise); $('d56').addEventListener('change',hinweise); hinweise();
 
+// Warnung nur, solange Klemme 1 oder 2 gemessen wird; ausgeblendet bleibt sie, bis beide aus und wieder an sind oder die Seite neu lädt
+let w_zu=false;
+function warnung(){
+  const benutzt=$('k1').checked||$('k2').checked||$('d12').value!=='aus';
+  if(!benutzt) w_zu=false;
+  $('warnung').style.display=benutzt&&!w_zu?'flex':'none';
+}
+$('w_zu').onclick=()=>{ w_zu=true; warnung(); };
+for(const id of ['k1','k2','d12']) $(id).addEventListener('change',warnung);
+warnung();
+
 // Zeit je Kaestchen zur Baudrate: mindestens 6 Zeichen im Bild (darunter am Testsender viele falsche Zeichen), ein Zeichen mindestens 16 Bildpunkte breit
 function text_zeiten(baud){
   const m=1.001, von=T.find(t=>t*m>=6/baud);
-  let bis=T[0]; for(const t of T) if(t<=65/baud*m) bis=t;
+  let bis=von; for(const t of T) if(t<=(LW-60)/16/baud*m&&t>bis) bis=t;
   return {von,vorschlag:von,bis};
 }
 function t_anzeige(){
   const baud=+$('baud').value, e=$('t_bereich');
   if(!baud){ e.textContent=''; return; }
   const z=text_zeiten(baud), t=+$('tdiv').value;
-  e.textContent=`Text lesbar: ${zeit(z.von)} bis ${zeit(z.bis)}`;
+  e.textContent=z.von===z.bis?`Text lesbar: ${zeit(z.von)}`:`Text lesbar: ${zeit(z.von)} bis ${zeit(z.bis)}`;
   e.style.color = t>=z.von*.999&&t<=z.bis*1.001 ? '' : 'var(--warn)';
 }
 function zeit_vorschlagen(){ const b=+$('baud').value; if(b) $('tdiv').value=String(text_zeiten(b).vorschlag); t_anzeige(); }
@@ -353,7 +384,17 @@ $('b_baud').onclick=async()=>{
 // Fortlaufende Zeichen: Der Raspberry zerlegt die Pegelwechsel unabhaengig vom Bild
 const TX_SPEICHER=100000, TX_BILD=1000;
 let tx_ab=-1, tx_halt=false, tx_zeilen=[], tx_vorher=-1, tx_baud=null, tx_menge=0, tx_f0=0, tx_v0=0, tx_letzt=null, tx_verlauf=[];
-function tx_zeile(z){ return z.trenner ? z.trenner : z.h.join(' ').padEnd(47)+'  '+z.t; }
+function tx_zeile(z,k=16){
+  if(z.trenner) return z.trenner;
+  const aus=[]; for(let i=0;i<z.h.length;i+=k) aus.push(z.h.slice(i,i+k).join(' ').padEnd(k*3-1)+'  '+z.t.slice(i,i+k));
+  return aus.join('\n');
+}
+const tx_mass=document.createElement('canvas').getContext('2d');
+function tx_spalten(){
+  const e=$('text'); tx_mass.font=getComputedStyle(e).font;
+  const n=Math.floor((e.clientWidth-20)/(tx_mass.measureText('0').width||8));
+  return Math.max(4,Math.min(16,Math.floor((n-2)/4)));
+}
 function tx_aufnehmen(liste){
   for(const x of liste){
     const v=x&255; let z=tx_zeilen[tx_zeilen.length-1];
@@ -368,7 +409,7 @@ function tx_aufnehmen(liste){
 function tx_zeigen(){
   if(tx_halt) return;
   const e=$('text'), unten=e.scrollHeight-e.scrollTop-e.clientHeight<30;
-  e.textContent=tx_zeilen.slice(-TX_BILD).map(tx_zeile).join('\n');
+  const k=tx_spalten(); e.textContent=tx_zeilen.slice(-TX_BILD).map(z=>tx_zeile(z,k)).join('\n');
   if(unten) e.scrollTop=e.scrollHeight;
 }
 function tx_info(){
@@ -400,22 +441,11 @@ async function tx_lauf(){
 $('x_halt').onclick=()=>{ tx_halt=!tx_halt; $('x_halt').textContent=tx_halt?'Weiter':'Anhalten'; $('x_halt').classList.toggle('an',tx_halt); tx_zeigen(); tx_info(); };
 $('x_leer').onclick=()=>{ tx_zeilen=[]; tx_menge=0; tx_vorher=-1; tx_verlauf=[]; if(tx_letzt){ tx_f0=tx_letzt.fehler; tx_v0=tx_letzt.verloren; } $('text').textContent=''; tx_info(); };
 $('x_datei').onclick=()=>{
-  const u=URL.createObjectURL(new Blob([tx_zeilen.map(tx_zeile).join('\r\n')+'\r\n'],{type:'text/plain;charset=utf-8'}));
+  const u=URL.createObjectURL(new Blob([tx_zeilen.map(z=>tx_zeile(z)).join('\r\n')+'\r\n'],{type:'text/plain;charset=utf-8'}));
   const a=document.createElement('a'), j=new Date(), n=x=>String(x).padStart(2,'0');
   a.href=u; a.download=`robnet_zeichen_${j.getFullYear()}-${n(j.getMonth()+1)}-${n(j.getDate())}_${n(j.getHours())}-${n(j.getMinutes())}-${n(j.getSeconds())}.txt`;
   a.click(); setTimeout(()=>URL.revokeObjectURL(u),2000);
 };
-
-// Raspberry
-let frage=null;
-function fragen(text,aktion){ frage=aktion; $('b_text').textContent=text; $('bestaetigung').style.display='flex'; }
-$('b_nein').onclick=()=>{ $('bestaetigung').style.display='none'; };
-$('s_aus').onclick=()=>fragen(belegt?'Es läuft eine Aufzeichnung. Trotzdem herunterfahren?':'Raspberry wirklich herunterfahren?','herunterfahren');
-$('s_neu').onclick=()=>fragen(belegt?'Es läuft eine Aufzeichnung. Trotzdem neu starten?':'Raspberry wirklich neu starten?','neustart');
-$('b_ja').onclick=async()=>{ $('bestaetigung').style.display='none'; laufe=false; const a=frage;
-  try { await fetch('/api/system?aktion='+a,{method:'POST'}); } catch(e){}
-  if(a==='herunterfahren'){ $('meldung').textContent='Fährt herunter. Warten Sie 30 Sekunden, dann darf das Netzteil aus.'; let s=30; const t=setInterval(()=>{ s--; if(s<=0){clearInterval(t);$('meldung').textContent='Raspberry ist unten, das Netzteil darf aus.';} else $('meldung').textContent=`Fährt herunter. Noch ${s} s warten, dann darf das Netzteil aus.`; },1000); }
-  else { $('meldung').textContent='Startet neu, in etwa einer Minute Seite neu laden.'; } };
 
 // Zustand
 async function zustand_holen() {
@@ -429,6 +459,8 @@ async function zustand_holen() {
     $('zustand').textContent = teile.filter(Boolean).join(' · ');
   } catch(e) { $('zustand').textContent='Keine Verbindung zum Raspberry.'; }
 }
+if(matchMedia('(max-width:860px),(max-height:500px)').matches) for(const e of document.querySelectorAll('.klappe')) e.open=false;
+groesse();
 var war=false; setInterval(zustand_holen,1500); zustand_holen(); liste(); tabs(); live(); tx_lauf();
 </script>
 </body>

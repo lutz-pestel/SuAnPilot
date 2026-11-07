@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robnet Analyse</title>
+<style>
+:root { --bg:#f3f4f1; --karte:#fff; --text:#1c2320; --leise:#5e6862; --linie:#d3d8d2; --akt:#0b5cad; --warn:#b3261e; --ok:#1b7f47; --schirm:#0d1412; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#121614; --karte:#1c221f; --text:#e6ebe7; --leise:#a2ada6; --linie:#333d38; --akt:#7db8f5; --warn:#ff8a80; --ok:#57c98a; } }
+* { box-sizing:border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:15px/1.4 system-ui,"Segoe UI",Arial,sans-serif; }
+header { display:flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline; padding:10px 14px 2px; }
+h1 { font-size:1.2rem; margin:0; }
+nav { display:flex; flex-wrap:wrap; gap:4px; }
+nav a { padding:3px 10px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); text-decoration:none; font-size:.9rem; }
+nav a.an { background:var(--akt); border-color:var(--akt); color:#fff; }
+main { max-width:900px; padding:8px 14px 24px; }
+.karte { background:var(--karte); border:1px solid var(--linie); border-radius:10px; padding:12px; margin-bottom:10px; }
+h2 { font-size:.95rem; margin:0 0 8px; }
+.klein { font-size:.82rem; color:var(--leise); }
+.reihe { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0; }
+.zeile { display:flex; flex-wrap:wrap; gap:6px 10px; align-items:center; justify-content:space-between; padding:6px 0; border-bottom:1px solid var(--linie); }
+.zeile:last-child { border-bottom:0; }
+label { display:inline-flex; gap:4px; align-items:center; }
+input,select { font:inherit; padding:4px 6px; border:1px solid var(--linie); border-radius:6px; background:var(--karte); color:var(--text); max-width:100%; }
+input[type=number] { width:90px; }
+button { font:inherit; padding:6px 12px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); cursor:pointer; }
+button.an { background:var(--akt); color:#fff; border-color:var(--akt); }
+button.warn { border-color:var(--warn); color:var(--warn); }
+a { color:var(--akt); }
+#zustand { font-weight:600; min-height:1.3em; }
+#ergebnis { display:none; margin:8px 0 0; padding:8px; border-radius:6px; background:var(--schirm); color:#e6ee9c; font:13px/1.35 Consolas,"Courier New",monospace; white-space:pre-wrap; overflow-wrap:anywhere; }
+@media (max-width:860px) { input,select,button { font-size:16px; } button { min-height:38px; } }
+</style>
+</head>
+<body>
+<header>
+  <h1>Robnet</h1>
+  <nav><a href="/messen">Messen</a><a href="/management">Management</a><a class="an" href="/analyse">Robnet Analyse</a></nav>
+</header>
+<main>
+  <div class="karte">
+    <h2>Bus aufzeichnen</h2>
+    <div class="reihe">
+      <label>Baudrate <select id="baud"><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option><option>230400</option></select></label>
+      <button id="b_auto">Automatisch</button>
+      <label>Dauer s <input id="dauer" type="number" min="0" step="10" value="60"></label>
+      <label>Stellung JP1/JP2 <input id="stellung" size="6" value="A"></label>
+      <label>Notiz <input id="notiz" size="18"></label>
+    </div>
+    <div class="reihe"><button class="an" id="start">Start</button><button class="warn" id="stopp">Stopp</button></div>
+    <div id="zustand"></div>
+    <div class="klein">Gespeichert werden Pegelwechsel, Bytes der seriellen Schnittstelle und alle Spannungen zehnmal je Sekunde. Das Oszilloskop ist währenddessen gesperrt. Dauer 0 läuft bis Stopp. Nur lesen: Es wird nichts auf den Bus gesendet.</div>
+  </div>
+  <div class="karte">
+    <h2>Aufzeichnungen</h2>
+    <div id="liste"></div>
+    <div class="klein">Im Bild ansehen: Seite Messen, Knopf Aufzeichnen, Liste Gespeichert.</div>
+    <pre id="ergebnis"></pre>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+const warte = ms => new Promise(r => setTimeout(r, ms));
+let lief = false;
+
+async function liste() {
+  const a = await (await fetch('/api/bus/liste')).json();
+  const z = $('liste');
+  z.replaceChildren(...a.map(x => {
+    const r = document.createElement('div'); r.className='zeile';
+    const t = document.createElement('span'); t.textContent = `${x.ordner} · ${x.dauer??'?'} s · ${x.baud} Baud · Stellung ${x.stellung}${x.notiz?' · '+x.notiz:''} · ${x.groesse_kb.toLocaleString('de-DE')} kB${x.fehler?' · Fehler':''}`;
+    const k = document.createElement('span'); k.className='reihe'; k.style.margin='0';
+    const b = document.createElement('button'); b.textContent='Auswerten'; b.onclick=()=>auswerten(x.ordner,b);
+    const l = document.createElement('a'); l.textContent='Spannungen CSV'; l.href='/api/csv?ordner='+encodeURIComponent(x.ordner);
+    k.append(b,l); r.append(t,k); return r; }));
+  if (!a.length) z.textContent='Noch keine.';
+}
+async function auswerten(o,b) {
+  const e=$('ergebnis'); e.style.display='block'; e.textContent=`Wertet ${o} aus, das dauert bei großen Aufzeichnungen etwas…`; b.disabled=true;
+  try { const d=await (await fetch('/api/bus/auswertung?ordner='+encodeURIComponent(o))).json(); e.textContent=d.fehler||d.text; }
+  catch(x){ e.textContent='Keine Verbindung zum Raspberry.'; }
+  b.disabled=false;
+}
+async function zustand() {
+  while (true) {
+    try {
+      const s = await (await fetch('/api/bus/status')).json();
+      $('zustand').textContent = s.laeuft ? `Aufzeichnung läuft: ${s.ordner||''}, seit ${s.seit_s??'?'} s, ${((s.byte||0)/1024).toLocaleString('de-DE',{maximumFractionDigits:0})} kB gespeichert` : (s.grund||`Bereit, ${s.frei_mb.toLocaleString('de-DE')} MB frei.`);
+      $('start').disabled = s.laeuft; $('stopp').disabled = !s.laeuft;
+      if (lief && !s.laeuft) liste();
+      lief = s.laeuft;
+    } catch(e) { $('zustand').textContent='Keine Verbindung zum Raspberry.'; }
+    await warte(1500);
+  }
+}
+$('start').onclick = async () => {
+  const p = new URLSearchParams({baud:$('baud').value,dauer:$('dauer').value,stellung:$('stellung').value,notiz:$('notiz').value});
+  const d = await (await fetch('/api/bus/start?'+p,{method:'POST'})).json();
+  if (d.fehler) $('zustand').textContent=d.fehler;
+};
+$('stopp').onclick = () => fetch('/api/bus/stopp',{method:'POST'});
+$('b_auto').onclick = async () => {
+  const k=$('b_auto'); k.disabled=true; $('zustand').textContent='Misst 4 Sekunden, dafür muss Signal anliegen…';
+  try {
+    const d=await (await fetch('/api/baud')).json();
+    if (d.fehler) $('zustand').textContent=d.fehler;
+    else if (d.baud && [...$('baud').options].some(o=>+o.value===d.baud)) { $('baud').value=String(d.baud); $('zustand').textContent=`${d.baud} Baud eingestellt.`; }
+    else $('zustand').textContent=`Kürzester Puls ${d.puls_us} µs: keine Rate aus der Liste. Baudrate nicht geändert.`;
+  } catch(e) {}
+  await warte(2500); k.disabled=false;
+};
+liste(); zustand();
+</script>
+</body>
+</html>

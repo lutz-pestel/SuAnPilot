@@ -1,0 +1,19 @@
+# Robnet-Analyse: Haelt den Raspberry erreichbar. Version 00.01, Stand 07.11.2026.
+# Liegt auf dem Raspberry unter /etc/systemd/system/. Root wegen NetworkManager-Profilen.
+[Unit]
+Description=Robnet Netz
+After=NetworkManager.service
+Wants=NetworkManager.service
+
+[Service]
+ExecStart=/usr/bin/python3 /home/pi/robnet/netz_v00.01.py
+RuntimeDirectory=robnet-netz
+RuntimeDirectoryMode=0700
+RuntimeDirectoryPreserve=yes
+StateDirectory=robnet
+StateDirectoryMode=0700
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
