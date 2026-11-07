@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie A (THT, selbst gelötet)
 
-Version 00.18, Stand 06.11.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.38),
+Version 00.19, Stand 07.11.2026, Obergrenze 200 Zeilen. Grundlage: `../../konzeption/robnet-analyse.md` (Konzept 00.38),
 `../../konzeption/Blockschaltbild_Robnet-Analyse.html` (00.16). Stückliste: `tht/bom/bom.csv`. Linie B (SMD): `../../smd/`.
 Teile wie im Motor-Controller, wo möglich: dort begründet, hier nur verwiesen
 (`2-motor-controller/hardware/konzeption/Bauteilauswahl.md`, kurz „MC"). Preise und Lager vom 15.10.2026, nur zur
@@ -66,10 +66,9 @@ Höhe 6,0 mm, Raster 2,5 mm, Draht 0,5 mm, Endung RT06 = gegurtet, Maße wie los
   Deutschland ab Lager. Plugable USB2-OTGE100 (micro-B direkt, ASIX AX88772A) gibt es hier nur aus den USA. Ein Netzwerk-Hub zieht laut Adafruit etwa 280 mA:
   der Regler (2 A) hat Reserve.
 
-## 6. Gehäuse und Einbau — Vorschlag wie MC Abschnitt 9
-3D-Druck ASA, nur mechanischer Schutz. Jumper JP1–JP7 und J4 unter einem Deckel zugänglich; USB-Buchse des
-Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2 an einer Kante, J3 an der gegenüberliegenden (Betreiber, 16.10.2026). Einbauort nahe J300.
-- **Zero-Befestigung** (Betreiber, 06.11.2026): hält nur durch die Buchsenleiste; später gesichert mit durchgehenden Schrauben (Maße offen). Kühlkörperset am Zero, Höhen
+## 6. Gehäuse und Einbau
+Gebaut wird nur ein Gehäuse für die SMD-Platine: `../../smd/konzeption/Gehaeuse_Anforderungen.md`. Für diese Fassung keins geplant (Betreiber, 07.11.2026). Einbauort nahe J300.
+- **Zero-Befestigung** (Betreiber, 07.11.2026): hält durch die Buchsenleiste, das Gehäuse stützt ihn nicht; Stützen über die Schraublöcher behält sich der Betreiber vor. Kühlkörperset montiert, Höhen
   über der Platine: Rippen unten 3 mm, Rückseite Zero 12, Oberseite Platte 16 (2 mm Spacer, Zero-Außenkontur), Muttern 18, Schraubenspitzen 19.
 - **3D-Modelle** (STEP, `tht/3d-modelle/`, nicht in Git; 16.10.2026), je Teil eines:
   - Hersteller: Phoenix 1757284, 1757242, 1757051, 1757019; Bourns RLB0914.
@@ -77,7 +76,7 @@ Zero zugänglich, Kabel mit Zugentlastung; Steckverbinder J1, J2 an einer Kante,
     R-78B, Sicherungshalter Schurter 0031.8201, LED 3 mm, Stiftleisten 1×2/1×3/2×3, Buchsenleiste 2×20.
   - FreeCAD-Bibliothek: microSD-Karte.
   - Selbst gezeichnet mit `3d-modelle/eigene_modelle.py` (Maße der Hersteller, Rest als ANNAHME gekennzeichnet):
-    TDK FG16, KEMET C320, Harwin M7566-05, Sicherung 5 × 20, Zero 2 W, Kühlkörperset, OTG-Stecker, Steuerleitung, Drahtbrücke L1 der SMD-Fassung.
+    TDK FG16, KEMET C320, Harwin M7566-05, Sicherung 5 × 20, Zero 2 W, Kühlkörperset, OTG-Stecker, Steuerleitung, Drahtbrücke L1 und 5-V-Modul U3 der SMD-Fassung.
     Grund: Modell nur mit Konto (TraceParts, SnapEDA, GrabCAD) oder gar keins. Annahmen am echten Teil messen.
   - In KiCad den Bauformen zugeordnet (`platine_erzeugen/robnet_platine.py` 00.03); gedrehte und gesteckte Teile
     (Stecker in J1–J3, Jumper, Sicherung, Drossel, Zero mit Kühlkörperset, Karte, OTG) vorab gelegt mit `3d-modelle/kicad_lage.py`

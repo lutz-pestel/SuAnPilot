@@ -1,6 +1,6 @@
 # Bauteilauswahl Robnet-Analyse – Linie B (SMD, von JLCPCB bestückt)
 
-Version 00.28, Stand 07.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest und Test mit Daten bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
+Version 00.30, Stand 07.11.2026, Obergrenze 200 Zeilen. Platinen geliefert, erste Platine bestückt, Tischtest und Test mit Daten bestanden (06.11.2026). Grundlage: Konzept `../../konzeption/robnet-analyse.md`,
 Linie A (THT, selbst gelötet) in `../../tht/`. Gleicher Ordneraufbau wie `tht/`: `konzeption/`, `kicad/vNN.NN/`, `bom/`,
 `datenblaetter/`, `3d-modelle/`. Allgemeine Regeln für beide Linien: `0-gesamtprojekt/fertigung/fertigungsstrategie-platinen.md`
 (Linien), `jlcpcb-bestueckungsregeln.md` (Regeln und Preise von JLCPCB), `ablauf-smd-bestueckung.md` (sechs Schritte) und
@@ -97,4 +97,4 @@ Bordspannung 11,67–11,73 V bei 12 V (Verpolschutz). Nicht geprüft: echter Rob
 über Pegelwechsel (`software/aufzeichnung_v00.02.py`, `auswertung_v00.03.py`, Abtastung 2 µs) fehlerfrei bis 115 200 Baud, bei 230 400 Baud 145 Fehler. Empfang muss vor dem Datenstrom laufen, sonst rastet die serielle Schnittstelle falsch ein. Analog nur mit Massekabel sauber (Klemme 4, sonst stört das PC-Netzteil). Einstieg mitten im pausenlosen Strom: Die Auswertung sucht ihn, über Pegelwechsel 9600 Baud fehlerfrei, 115 200 Baud unter 0,2 % falsche Folgen (je 3 Versuche).
 
 ## 4. Offen
-- 3D-Modell U3 zeigt noch den Recom-Block R-78B; Maße des echten 5-V-Moduls (Länge, Breite, Höhe, Überstand) fehlen, vor dem Gehäusebau messen.
+- 5-V-Modul U3: Maße am echten Teil nicht gemessen. 3D-Modell `HX1314G_Modul_flach_eigen.step` nach Betreiber (so groß wie ein 7805, an den Beinen abgewinkelt, liegt flach über L1, 07.11.2026), Rest Annahme: 10 × 15 × 4,5 mm, Unterkante 2,5 mm über der Platine. Gehäuse: `Gehaeuse_Anforderungen.md`.

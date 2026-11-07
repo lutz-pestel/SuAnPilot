@@ -2520,7 +2520,7 @@
 			(uuid "1d4b3b00-8bb1-4b69-afff-4ba9307c9f59")
 		)
 		(embedded_fonts no)
-		(model "${KIPRJMOD}/../../../tht/3d-modelle/KiCad_Converter_DCDC_RECOM_R-78B-2.0_THT.step"
+		(model "${KIPRJMOD}/../../../tht/3d-modelle/HX1314G_Modul_flach_eigen.step"
 			(offset
 				(xyz 0 0 0)
 			)

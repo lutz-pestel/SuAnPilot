@@ -1,4 +1,4 @@
-# Eigene 3D-Modelle (STEP) fuer Teile ohne frei ladbares Herstellermodell. Version 00.03, Stand 06.11.2026.
+# Eigene 3D-Modelle (STEP) fuer Teile ohne frei ladbares Herstellermodell. Version 00.04, Stand 07.11.2026.
 # Aufruf: "C:/Program Files/FreeCAD 1.1/bin/freecadcmd.exe" eigene_modelle.py   (schreibt die STEP-Dateien in diesen Ordner)
 # Masse in mm. Ursprung: Pin 1 bzw. Mitte Unterkante; z = 0 ist die Platinenoberseite (Sitzflaeche).
 # Quelle je Mass im Kommentar; "ANNAHME" = nicht belegt, vor der Gehaeusekonstruktion am echten Teil messen.
@@ -102,6 +102,16 @@ speichern('Kuehlkoerper_Zero2W_eigen', *kk)
 # Drahtbruecke an L1 der SMD-Fassung (Betreiber 06.11.2026: im Schaltplan Drossel, bestueckt Draht). Loecher bei (0,0) und (5,0).
 # ANNAHME: Draht 0,65 dick, Oberkante 1,0 ueber der Platine, Enden 2,6 unter der Platinenoberseite.
 speichern('Drahtbruecke_P5mm_eigen', zyl(0.325, 3.275, 0, 0, -2.6), zyl(0.325, 3.275, 5.0, 0, -2.6), zyl(0.325, 5.0, 0, 0, 0.675, V(1, 0, 0)))
+
+# 5-V-Modul der SMD-Fassung (HEXIN HX1314G, Beine wie 7805): an den Beinen abgewinkelt, liegt flach ueber L1 (Betreiber 07.11.2026).
+# Bein 1 bei (0,0), Raster 2,54; Modul zeigt nach -y (zu L1). ANNAHME (nur "so gross wie ein 7805" belegt): Koerper 10 x 15 x 4,5,
+# Unterkante 2,5 ueber der Platine, 2,0 Abstand von den Loechern, Beine 0,8 x 0,5, Enden 2,6 unter der Platinenoberseite.
+ZB, DB = 2.5, 4.5
+teile_u3 = [box(10.0, 15.0, DB, 2.54 - 5.0, -17.0, ZB)]
+for xb in (0.0, 2.54, 5.08):
+    teile_u3.append(box(0.8, 0.5, ZB + DB / 2 + 2.6, xb - 0.4, -0.25, -2.6))
+    teile_u3.append(box(0.8, 2.25, 0.5, xb - 0.4, -2.0, ZB + DB / 2 - 0.25))
+speichern('HX1314G_Modul_flach_eigen', *teile_u3)
 
 # OTG-Adapter LogiLink AA0035 (Micro-B-Stecker an 0,2-m-Kabel auf A-Buchse; Reichelt-Daten): nur das Steckerende.
 # Steckteil 6,85 x 1,8 (USB-Micro-Norm), Laenge 6,0 ANNAHME; Umspritzung 10,5 x 7,0 x 18,0 ANNAHME; Kabel Durchmesser 3,5,

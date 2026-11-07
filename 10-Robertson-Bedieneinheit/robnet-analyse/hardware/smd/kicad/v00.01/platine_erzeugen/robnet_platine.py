@@ -135,7 +135,7 @@ MODELLE = {
     'DIP-8_W7.62mm_Socket': [('KiCad_DIP-8_W7.62mm_Socket.step', 0), ('KiCad_DIP-8_W7.62mm.step', 4.0)],
     'DIP-16_W7.62mm_Socket': [('KiCad_DIP-16_W7.62mm_Socket.step', 0), ('KiCad_DIP-16_W7.62mm.step', 4.0)],
     'TO-92_Inline': [('KiCad_TO-92_Inline.step', 0)],
-    'Converter_DCDC_RECOM_R-78B-2.0_THT': [('KiCad_Converter_DCDC_RECOM_R-78B-2.0_THT.step', 0)],
+    'Converter_DCDC_RECOM_R-78B-2.0_THT': [('HX1314G_Modul_flach_eigen.step', 0)],
     'L_Radial_D10.0mm_P5.00mm_Fastron_07P': [('Drahtbruecke_P5mm_eigen.step', 0)],   # bestueckt mit Draht, Schaltplan bleibt L1
     'PinHeader_1x02_P2.54mm_Vertical': [('KiCad_PinHeader_1x02_P2.54mm_Vertical.step', 0), ('kicad-lage/Harwin_M7566-05_auf_1x02.step', 0)],
     'PinHeader_1x03_P2.54mm_Vertical': [('KiCad_PinHeader_1x03_P2.54mm_Vertical.step', 0)],
