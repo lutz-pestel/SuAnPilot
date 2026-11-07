@@ -21,7 +21,7 @@ Link, Preis, Lager und Datum; Kontrolle per Skript, Lücken unter „Offen".
 ## Einstieg für neue Sitzungen
 1. Gesamtprojekt: `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`. 2. `0-gesamtprojekt/TODO.md` (was als Nächstes ansteht). 3. Heutiger Aufbau und Werte:
 `1-tinypilot/docs/system/Systembeschreibung.md`. 4. Letzte Tests: `1-tinypilot/docs/tests/`, Ablauf und Sicherheit:
-`1-tinypilot/docs/system/Testplan_Autopilot.md`. 5. Lehren: `0-gesamtprojekt/CHRONIK.md`. 6. Weg A, Phasen 2 und 3: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `3-suanpilot/docs/gesamt.md`. 7. Weg B, Robnet-Analyse (Robertson-Bedieneinheit): `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0. Analyse am Robertson, KI-gesteuert: `software/handbuch_v00.01.html`, Abschnitt 3.3.
+`1-tinypilot/docs/system/Testplan_Autopilot.md`. 5. Lehren: `0-gesamtprojekt/CHRONIK.md`. 6. Weg A, Phasen 2 und 3: `2-motor-controller/hardware/konzeption/motorcontroller.md`, `3-suanpilot/docs/gesamt.md`. 7. Weg B, Robnet-Analyse (Robertson-Bedieneinheit): `10-Robertson-Bedieneinheit/robnet-analyse/hardware/konzeption/robnet-analyse.md`, Abschnitt 0. Analyse am Robertson, KI-gesteuert: `software/handbuch_v00.02.html`, Abschnitt 3.3.
 Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/docs/system/Systembeschreibung.md`, Abschnitt 8.
 
 ## Zeilen-Obergrenzen (Regel 1 des Betreibers)
@@ -40,7 +40,7 @@ Aufzeichnung und Pumpenüberwachung (Master, Dateien, Befehle): `1-tinypilot/doc
 - 300: `10-Robertson-Bedieneinheit/robnet-analyse/hardware/smd/konzeption/Jumper_JP1_JP2.html`
 - 350: `2-motor-controller/hardware/konzeption/Bauteilauswahl.md`
 - 500: `0-gesamtprojekt/wissen/Wie funktioniert ein Autopilot.md`
-- 1500: `10-Robertson-Bedieneinheit/robnet-analyse/software/handbuch_v00.01.html`
+- 1500: `10-Robertson-Bedieneinheit/robnet-analyse/software/handbuch_v00.02.html`
 
 ## Ablage
 Je Phase von Weg A ein Ordner, Weg B in `10-`, dazu `0-gesamtprojekt/` und `99-tools/`. Im Hauptordner sonst nur, was die Werkzeuge dort

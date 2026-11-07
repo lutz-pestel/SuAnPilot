@@ -32,7 +32,7 @@ th { background:var(--code); }
 .element { background:var(--karte); border:1px solid var(--linie); border-radius:8px; padding:7px 12px; margin:.6em 0; }
 .element h4 { margin:.1em 0 .2em; }
 .element p { margin:.25em 0; }
-.element:target, .karte:target, h3:target, h4:target, li:target { outline:3px solid var(--akt); outline-offset:2px; }
+.element:target, .karte:target, h3:target, h4:target, li:target, tr:target { outline:3px solid var(--akt); outline-offset:2px; }
 .karte { background:var(--karte); border:1px solid var(--linie); border-radius:8px; padding:10px 12px; margin:1em 0; display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; align-items:start; }
 .karte h3 { margin:0 0 .3em; }
 .karte p, .karte ul { margin:.3em 0; }
@@ -67,7 +67,7 @@ ol.schritte > li { margin:.4em 0; }
 <nav class="seiten"><a href="/messen">Messen</a><a href="/management">Management</a><a href="/analyse">Robnet Analyse</a><a class="an" href="/handbuch">Handbuch</a></nav>
 
 <h1>Robnet-Analyse: Handbuch</h1>
-<p class="stand">Version 00.01, Stand 07.11.2026. Gilt für Platine v00.01 Bauart B (Aufdruck „Robnet-Analyse B v00.01“) mit Raspberry Pi Zero 2 W.</p>
+<p class="stand">Version 00.02, Stand 07.11.2026. Gilt für Platine v00.01 Bauart B (Aufdruck „Robnet-Analyse B v00.01“) mit Raspberry Pi Zero 2 W.</p>
 
 <p><b>Inhalt:</b></p>
 <ul>
@@ -140,10 +140,10 @@ ol.schritte > li { margin:.4em 0; }
 <tr><td><b>J2</b></td><td>2-polige Klemmleiste Versorgung 12 V</td><td>oben links</td></tr>
 <tr><td><b>JP3 bis JP7</b></td><td>Trenn-Jumper in den Adern zwischen J1 und J3</td><td>unter J1</td></tr>
 <tr><td><b>JP2, JP1</b></td><td>Wahl der Seite und Tausch der Adern für den Bus-Empfänger</td><td>Mitte rechts</td></tr>
-<tr><td><b>U1</b></td><td>Bus-Empfänger MAX3488 im 8-poligen Sockel; macht aus dem Bussignal ein Digitalsignal</td><td>rechts unten, Pin 1 linke Reihe oben</td></tr>
-<tr><td><b>U2</b></td><td>Spannungswandler MCP3208 im oberen 16-poligen Sockel, misst die Seite Hauptgerät und die Bordspannung</td><td>Mitte, Pin 1 rechte Reihe unten</td></tr>
-<tr><td><b>U6</b></td><td>Spannungswandler MCP3208 im unteren 16-poligen Sockel, misst die Seite Bedieneinheit</td><td>Mitte, Pin 1 rechte Reihe unten</td></tr>
-<tr><td><b>U3</b></td><td>Regler für die 5 V des Raspberry (5-V-Modul, Eingang 8 bis 30 V)</td><td>oben Mitte</td></tr>
+<tr id="t-u1"><td><b>U1</b></td><td>Bus-Empfänger MAX3488 im 8-poligen Sockel; macht aus dem Bussignal ein Digitalsignal</td><td>rechts unten, Pin 1 linke Reihe oben</td></tr>
+<tr id="t-u2"><td><b>U2</b></td><td>Spannungswandler MCP3208 im oberen 16-poligen Sockel, misst die Seite Hauptgerät und die Bordspannung</td><td>Mitte, Pin 1 rechte Reihe unten</td></tr>
+<tr id="t-u6"><td><b>U6</b></td><td>Spannungswandler MCP3208 im unteren 16-poligen Sockel, misst die Seite Bedieneinheit</td><td>Mitte, Pin 1 rechte Reihe unten</td></tr>
+<tr id="t-u3"><td><b>U3</b></td><td>Regler für die 5 V des Raspberry (5-V-Modul, Eingang 8 bis 30 V)</td><td>oben Mitte</td></tr>
 <tr><td><b>J5</b></td><td>Buchsenleiste für den Raspberry Pi Zero 2 W, der kopfüber aufgesteckt wird</td><td>links</td></tr>
 <tr><td><b>J4</b></td><td>Messpunkte für ein fremdes Oszilloskop: Bus+, Bus−, Masse der Seite Hauptgerät</td><td>rechts</td></tr>
 </table></div>

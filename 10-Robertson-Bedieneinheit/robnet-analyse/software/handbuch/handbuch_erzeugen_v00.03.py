@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Erzeugt das Handbuch als HTML und PDF. Version 00.02, Stand 07.11.2026.
-# Eingabe: handbuch_quelle_v00.01.html mit Platzhaltern <!--skizze:X-->.
-# Ausgabe: ../handbuch_v00.01.html (kommt auf den Raspberry) und ../../docs/Robnet-Handbuch_v00.01.pdf (bleibt auf dem PC).
+# Robnet-Analyse: Erzeugt das Handbuch als HTML und PDF. Version 00.03, Stand 07.11.2026.
+# Eingabe: handbuch_quelle_v00.02.html mit Platzhaltern <!--skizze:X-->.
+# Ausgabe: ../handbuch_v00.02.html (kommt auf den Raspberry) und ../../docs/Robnet-Handbuch_v00.02.pdf (bleibt auf dem PC).
 # Die Skizzen zeigen die Platine von oben; alle Lagen stammen aus smd/kicad/v00.01/Robnet-Analyse.kicad_pcb.
 import os
 import pathlib
@@ -9,9 +9,9 @@ import re
 import subprocess
 
 HIER = os.path.dirname(os.path.abspath(__file__))
-QUELLE = os.path.join(HIER, "handbuch_quelle_v00.01.html")
-ZIEL = os.path.join(HIER, "..", "handbuch_v00.01.html")
-ZIEL_PDF = os.path.normpath(os.path.join(HIER, "..", "..", "docs", "Robnet-Handbuch_v00.01.pdf"))
+QUELLE = os.path.join(HIER, "handbuch_quelle_v00.02.html")
+ZIEL = os.path.join(HIER, "..", "handbuch_v00.02.html")
+ZIEL_PDF = os.path.normpath(os.path.join(HIER, "..", "..", "docs", "Robnet-Handbuch_v00.02.pdf"))
 CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 M = 7.0        # Bildpunkte je Millimeter
@@ -208,6 +208,7 @@ LAGEN = {
     "1": (("JP1",), (59.0, 33.0, 85.0, 57.0), "<b>JP1</b>, die untere der beiden Stiftgruppen in der Mitte rechts (rot umkreist)."),
     "W": (("JP1", "JP2"), (59.0, 33.0, 85.0, 57.0), "<b>JP2</b> (oben) und <b>JP1</b> (unten) in der Mitte rechts (rot umkreist)."),
 }
+TEILE_ZIEL = {"J1": "st-j1", "J3": "st-j1", "J2": "st-j2", "J4": "st-j4", "J5": "st-j5", "U1": "t-u1", "U2": "t-u2", "U3": "t-u3", "U6": "t-u6"}
 ZIEL_LAGE = {"T": "jp-trenn", "2": "jp2", "1": "jp1", "W": "jumper"}
 
 
@@ -225,16 +226,19 @@ def jumper_verlinken(t):
     """Macht in Fliesstext und Tabellen aus jeder Erwaehnung eines Jumpers einen Link in den Hardware-Teil."""
     aus, tiefe = [], {"a": 0, "svg": 0, "style": 0, "title": 0, "h1": 0, "h2": 0, "h3": 0, "h4": 0, "th": 0, "code": 0, "figcaption": 0}
 
-    def ziel(n):
-        return {"1": "jp1", "2": "jp2"}.get(n, "jp-trenn")
+    def sprung(name):
+        if name == "Jumper":
+            return "jumper"
+        if name.startswith("JP"):
+            return {"JP1": "jp1", "JP2": "jp2"}.get(name, "jp-trenn")
+        return TEILE_ZIEL[name]
 
     def text_ersetzen(s):
         s = re.sub(r"JP3 bis JP7", '<a href="#jp-trenn">JP3 bis JP7</a>', s)
         s = re.sub(r"Trenn-Jumper", '<a href="#jp-trenn">Trenn-Jumper</a>', s)
         teile = re.split(r"(<a href=[^>]*>.*?</a>)", s)
         for i in range(0, len(teile), 2):
-            teile[i] = re.sub(r"\bJP([1-7])\b", lambda m: f'<a href="#{ziel(m.group(1))}">JP{m.group(1)}</a>', teile[i])
-            teile[i] = re.sub(r"\bJumper\b(?! auf 5 V)", '<a href="#jumper">Jumper</a>', teile[i])
+            teile[i] = re.sub(r"\bJP[1-7]\b|\bJumper\b(?! auf 5 V)|\bJ[1-5]\b|\bU[1236]\b", lambda m: f'<a href="#{sprung(m.group(0))}">{m.group(0)}</a>', teile[i])
         return "".join(teile)
 
     for stueck in re.split(r"(<[^>]+>)", t):

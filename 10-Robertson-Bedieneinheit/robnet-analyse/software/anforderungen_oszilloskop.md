@@ -1,6 +1,6 @@
 # Robnet-Analyse: Anforderungen an Oberfläche und Speicheroszilloskop
 
-Version 00.15, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.03.py` mit `oszilloskop_v00.03.html`, `management_v00.02.html`, `analyse_v00.02.html`, `handbuch_v00.01.html`, `adern_v00.01.svg`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
+Version 00.16, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.04.py` mit `oszilloskop_v00.03.html`, `management_v00.02.html`, `analyse_v00.02.html`, `handbuch_v00.02.html`, `adern_v00.01.svg`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Speicheroszilloskop im Browser. Version 00.03, Stand 07.11.2026.
+# Robnet-Analyse: Speicheroszilloskop im Browser. Version 00.04, Stand 07.11.2026.
 # Anforderungen: anforderungen_oszilloskop.md. Nur lesen: Sendet nichts auf den Robnet-Bus.
 # Messschleife: messkern_v00.01.c. Laeuft als Dienst robnet-oszilloskop, Port 80.
 import bisect
@@ -20,10 +20,10 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import pigpio
 
-VERSION = "00.03"
+VERSION = "00.04"
 HIER = os.path.dirname(os.path.abspath(__file__))
 MESSKERN = os.path.join(HIER, "messkern")
-SEITEN = {"/": "oszilloskop_v00.03.html", "/messen": "oszilloskop_v00.03.html", "/management": "management_v00.02.html", "/analyse": "analyse_v00.02.html", "/handbuch": "handbuch_v00.01.html", "/adern.svg": "adern_v00.01.svg"}
+SEITEN = {"/": "oszilloskop_v00.03.html", "/messen": "oszilloskop_v00.03.html", "/management": "management_v00.02.html", "/analyse": "analyse_v00.02.html", "/handbuch": "handbuch_v00.02.html", "/adern.svg": "adern_v00.01.svg"}
 AUFZEICHNUNG = os.path.join(HIER, "aufzeichnung_v00.02.py")
 AUSWERTUNG = os.path.join(HIER, "auswertung_v00.03.py")
 BUS_BAUD = (1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400)
