@@ -31,6 +31,7 @@ fp-info-cache
 *.step
 
 # Automatisch erzeugt
+*.FCBak
 __pycache__/
 *.pyc
 
