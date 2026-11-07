@@ -1,12 +1,12 @@
 # Robnet-Analyse: Anforderungen an Oberfläche und Speicheroszilloskop
 
-Version 00.14, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.03.py` mit `oszilloskop_v00.03.html`, `management_v00.02.html`, `analyse_v00.02.html`, `handbuch_v00.01.html`, `adern_v00.01.svg`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
+Version 00.15, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.03.py` mit `oszilloskop_v00.03.html`, `management_v00.02.html`, `analyse_v00.02.html`, `handbuch_v00.01.html`, `adern_v00.01.svg`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck
 Die Platine soll auch außerhalb der Bus-Analyse als einfaches Speicheroszilloskop dienen, vor allem um serielle Signale anzusehen.
 Bedienung im Browser am PC oder Handy (`http://robnet.local`, zu Hause auch `192.168.178.50`), ohne Anmeldung per SSH, ohne Passwort (Betreiber).
-**Drei Seiten mit gegenseitigen Links:** Messen (`/messen`, dieses Oszilloskop), Management (`/management`, Abschnitt 7), Robnet Analyse (`/analyse`, Abschnitt 8), dazu das Handbuch (`/handbuch`). Jede Einstellung hat ein kleines Fragezeichen, das in einem neuen Tab an die passende Stelle des Handbuchs springt. Quelle und Skizzen: `handbuch/`, das PDF bleibt auf dem PC. Das Programm liest nur und sendet nie auf den Bus.
+**Drei Seiten mit gegenseitigen Links:** Messen (`/messen`, dieses Oszilloskop), Management (`/management`, Abschnitt 7), Robnet Analyse (`/analyse`, Abschnitt 8), dazu das Handbuch (`/handbuch`). Jede Einstellung hat ein kleines Fragezeichen, das in einem neuen Tab an die passende Stelle des Handbuchs springt. Quelle und Skizzen: `handbuch/`. Das PDF liegt in `../docs/` und bleibt auf dem PC. Das Programm liest nur und sendet nie auf den Bus.
 **Kein Testaufbau nötig:** Die Software läuft und prüft sich ohne den Testsender (PC, FTDI232, YL-12B), den es nur am Schreibtisch gibt. Entwickelt wird mit gespeicherten Referenzaufnahmen.
 
 ## 2. Was die Platine kann (am Pi gemessen, 06.11.2026)

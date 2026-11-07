@@ -1,13 +1,18 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Erzeugt das Handbuch. Version 00.01, Stand 07.11.2026.
-# Eingabe: handbuch_quelle_v00.01.html mit Platzhaltern <!--skizze:X-->. Ausgabe: ../handbuch_v00.01.html.
+# Robnet-Analyse: Erzeugt das Handbuch als HTML und PDF. Version 00.02, Stand 07.11.2026.
+# Eingabe: handbuch_quelle_v00.01.html mit Platzhaltern <!--skizze:X-->.
+# Ausgabe: ../handbuch_v00.01.html (kommt auf den Raspberry) und ../../docs/Robnet-Handbuch_v00.01.pdf (bleibt auf dem PC).
 # Die Skizzen zeigen die Platine von oben; alle Lagen stammen aus smd/kicad/v00.01/Robnet-Analyse.kicad_pcb.
 import os
+import pathlib
 import re
+import subprocess
 
 HIER = os.path.dirname(os.path.abspath(__file__))
 QUELLE = os.path.join(HIER, "handbuch_quelle_v00.01.html")
 ZIEL = os.path.join(HIER, "..", "handbuch_v00.01.html")
+ZIEL_PDF = os.path.normpath(os.path.join(HIER, "..", "..", "docs", "Robnet-Handbuch_v00.01.pdf"))
+CHROME = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
 
 M = 7.0        # Bildpunkte je Millimeter
 RAND_O = 18.0  # Platz oberhalb der Platine in mm, fuer die Beschriftung der Kabel
@@ -246,6 +251,22 @@ def jumper_verlinken(t):
     return "".join(aus)
 
 
+def pdf_erzeugen():
+    """Druckt das HTML mit Chrome; das alte PDF wird erst ersetzt, wenn das neue gelungen ist."""
+    os.makedirs(os.path.dirname(ZIEL_PDF), exist_ok=True)
+    neu = ZIEL_PDF + ".neu"
+    if os.path.exists(neu):
+        os.remove(neu)
+    subprocess.run([CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", f"--print-to-pdf={neu}",
+                    pathlib.Path(ZIEL).resolve().as_uri()], capture_output=True, timeout=120)
+    with open(neu, "rb") as f:
+        daten = f.read()
+    if not daten.startswith(b"%PDF") or b"%%EOF" not in daten[-64:]:
+        raise SystemExit("Das PDF ist nicht vollständig, das alte bleibt erhalten: " + ZIEL_PDF)
+    os.replace(neu, ZIEL_PDF)
+    print("erzeugt", ZIEL_PDF, len(daten) // 1024, "kB")
+
+
 def main():
     t = open(QUELLE, encoding="utf-8").read()
     t = re.sub(r"<!--lage:(\w)-->", lambda m: lage(m.group(1)), t)
@@ -255,6 +276,7 @@ def main():
     t = re.sub(r"<!--skizze:(\w)-->", lambda m: SKIZZEN[m.group(1)](), t)
     open(ZIEL, "w", encoding="utf-8", newline="\n").write(t)
     print("erzeugt", os.path.normpath(ZIEL), t.count("\n") + 1, "Zeilen", len(t) // 1024, "kB")
+    pdf_erzeugen()
 
 
 if __name__ == "__main__":
