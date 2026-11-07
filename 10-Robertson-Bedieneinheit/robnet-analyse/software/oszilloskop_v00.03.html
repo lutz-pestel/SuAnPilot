@@ -40,7 +40,23 @@ button.warn { border-color:var(--warn); color:var(--warn); }
 #liste div { display:flex; gap:6px; justify-content:space-between; align-items:center; padding:3px 0; border-bottom:1px solid var(--linie); }
 #liste span { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
 #warnung { display:none; justify-content:space-between; align-items:center; gap:10px; margin:4px 14px 0; padding:3px 6px 3px 12px; border-radius:8px; background:#b3261e; color:#fff; font-size:.92rem; font-weight:600; }
+.h { display:inline-block; width:14px; height:14px; line-height:12px; border-radius:50%; border:1px solid var(--akt); color:var(--akt); background:var(--karte); font-size:10px; font-weight:700; text-align:center; text-decoration:none; margin-left:3px; vertical-align:middle; flex:none; }
+@media (pointer:coarse) { .h { width:18px; height:18px; line-height:16px; font-size:12px; margin-left:5px; } }
+#warnung a:not(.h) { color:#fff; text-decoration:underline; }
+#warnung .h { background:#fff; color:#b3261e; border-color:#fff; }
 #warnung button { padding:0 8px; background:transparent; color:#fff; border-color:#fff; }
+#vm { display:none; margin-bottom:8px; }
+#vm table { border-collapse:collapse; width:100%; font-size:.86rem; font-variant-numeric:tabular-nums; }
+#vm th, #vm td { border-bottom:1px solid var(--linie); padding:2px 6px; text-align:left; white-space:nowrap; }
+#vm th { color:var(--leise); font-weight:600; }
+.vm_wert { font-size:1.2rem; font-weight:700; }
+.vm_ueber { color:var(--warn); font-weight:700; }
+.vm_farbe { display:inline-block; width:14px; height:10px; border:1px solid #777; border-radius:2px; margin-right:4px; }
+.vm_tab { overflow-x:auto; }
+#vm_svg { max-width:560px; margin-top:6px; }
+#vm_svg svg { width:100%; height:auto; display:block; }
+#vm_sk summary { font-size:.88rem; font-weight:600; margin-top:6px; }
+#vm_hin { font-size:.8rem; color:var(--leise); margin-top:3px; }
 #text { height:220px; overflow:auto; margin:6px 0 4px; padding:6px 8px; border-radius:6px; background:var(--schirm); color:#e6ee9c; font:13px/1.35 Consolas,"Courier New",monospace; white-space:pre; }
 #x_info.warn { color:var(--warn); font-weight:600; }
 @media (max-width:860px), (max-height:500px) {
@@ -64,28 +80,34 @@ button.warn { border-color:var(--warn); color:var(--warn); }
 <body>
 <header>
   <h1>Robnet</h1>
-  <nav><a class="an" href="/messen">Messen</a><a href="/management">Management</a><a href="/analyse">Robnet Analyse</a></nav>
+  <nav><a class="an" href="/messen">Messen</a><a href="/management">Management</a><a href="/analyse">Robnet Analyse</a><a href="/handbuch" target="_blank">Handbuch</a></nav>
   <div id="zustand">verbinde…</div>
 </header>
-<div id="warnung"><span>Klemme 1 und 2: nur −7 bis +12 V, für mehr MAX3488 ziehen!</span><button id="w_zu" title="Warnung ausblenden">✕</button></div>
+<div id="warnung"><span>Klemme 1 und 2: nur −7 bis +12 V, für mehr <a href="/handbuch#skizze-E" target="_blank">beide Brücken von JP2</a> ziehen!<a class="h" href="/handbuch#m-warnung" target="_blank" title="Erklärung im Handbuch">?</a></span><button id="w_zu" title="Warnung ausblenden">✕</button></div>
 <main>
   <div>
     <div class="karte">
+      <div class="reihe" style="margin-top:0"><button id="vm_knopf">Spannungsanzeige</button><button id="vm_reset" style="display:none">Min/Max zurücksetzen</button><a class="h" href="/handbuch#m-spannung" target="_blank" title="Erklärung im Handbuch">?</a></div>
+      <div id="vm">
+        <div class="vm_tab"><table><thead><tr><th>Kanal</th><th>Klemme</th><th>Bedeutung</th><th>Robnet-Pin</th><th>Ader</th><th>Spannung</th><th>min</th><th>max</th></tr></thead><tbody id="vm_zeilen"><tr><td colspan="8">Warte auf Messwerte…</td></tr></tbody></table></div>
+        <div id="vm_hin"></div>
+        <details id="vm_sk"><summary>Skizze: Klemmen, Adern und Robnet-Stecker<a class="h" href="/handbuch#skizze-S" target="_blank" title="Erklärung im Handbuch">?</a></summary><div id="vm_svg"></div></details>
+      </div>
       <canvas id="schirm"></canvas>
       <div class="mess">
         <span>Abtastung: <b id="m_rate">–</b></span>
         <span>Abstand: <b id="m_abst">–</b></span>
-        <span>Angabe: <b id="m_kal">–</b></span>
+        <span>Angabe: <b id="m_kal">–</b><a class="h" href="/handbuch#m-kalib" target="_blank" title="Erklärung im Handbuch">?</a><a class="h" href="/handbuch#m-linien" target="_blank" title="Erklärung im Handbuch">?</a></span>
         <span id="m_trig"></span>
       </div>
       <div class="mess">
-        <span>Linien: <b id="m_cur">Klick setzt Linie A, Umschalt+Klick Linie B</b></span>
+        <span>Linien: <b id="m_cur">Klick setzt Linie A, Umschalt+Klick Linie B</b><a class="h" href="/handbuch#m-linien" target="_blank" title="Erklärung im Handbuch">?</a></span>
       </div>
       <div id="meldung"></div>
     </div>
     <div class="karte">
       <div class="reihe" style="justify-content:space-between">
-        <h2 style="margin:0">Empfangene Zeichen (Bus-Empfänger, lückenlos)</h2>
+        <h2 style="margin:0">Empfangene Zeichen (Bus-Empfänger, lückenlos)<a class="h" href="/handbuch#m-zeichen" target="_blank" title="Erklärung im Handbuch">?</a></h2>
         <span class="reihe" style="margin:0"><button id="x_halt">Anhalten</button><button id="x_leer">Löschen</button><button id="x_datei">Speichern</button></span>
       </div>
       <pre id="text"></pre>
@@ -97,70 +119,70 @@ button.warn { border-color:var(--warn); color:var(--warn); }
       <div class="tabs">
         <button id="b_live" class="an">Live</button>
         <button id="b_aufz">Aufzeichnen</button>
-        <button id="b_halt">Halt</button>
+        <button id="b_halt">Halt</button><a class="h" href="/handbuch#m-modus" target="_blank" title="Erklärung im Handbuch">?</a>
       </div>
       <div class="reihe"><label style="flex-wrap:wrap">Messgeschwindigkeit
-        <select id="tempo" style="max-width:280px">
+        <select id="tempo" style="max-width:235px">
           <option value="56" selected>Maximum (etwa 236 000/s)</option>
           <option value="100">Schnell (etwa 139 000/s)</option>
           <option value="200">Mittel (etwa 72 000/s)</option>
           <option value="800">Genau (etwa 18 000/s)</option>
-        </select></label></div>
+        </select><a class="h" href="/handbuch#m-tempo" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
       <div class="hinweis">Die Rate teilt sich auf die Kanäle auf. „Maximum“ liegt über dem Datenblatt-Wert des Wandlers, die Korrektur gleicht das aus, die Abweichung ist größer als bei „Genau“.</div>
     </div>
 
     <details class="karte klappe" open>
-      <summary>Kurven anzeigen (Seite Hauptgerät)</summary>
+      <summary>Kurven (Seite Hauptgerät)<a class="h" href="/handbuch#m-kanaele" target="_blank" title="Erklärung im Handbuch">?</a></summary>
       <div id="kanaele"></div>
       <div class="reihe"><label>Klemme 1 gegen 2
-        <select id="d12"><option value="aus">aus</option><option value="software">in der Software</option><option value="chip">im Chip (nur positiv)</option></select></label></div>
+        <select id="d12"><option value="aus">aus</option><option value="software">in der Software</option><option value="chip">im Chip (nur positiv)</option></select><a class="h" href="/handbuch#m-diff" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
       <div class="hinweis" id="h12" style="display:none"></div>
       <div class="reihe"><label>Klemme 5 gegen 6
-        <select id="d56"><option value="aus">aus</option><option value="software">in der Software</option></select></label></div>
+        <select id="d56"><option value="aus">aus</option><option value="software">in der Software</option></select><a class="h" href="/handbuch#m-diff" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
       <div class="hinweis" id="h56" style="display:none">Klemme 5 und 6 werden dafür immer gemessen, die Häkchen von Kanal 4 und 5 zeigen nur die Einzelkurven.</div>
       <div class="reihe">
         <label><input type="checkbox" id="z_bus" checked>Digital: Bus-Empfänger</label>
-        <label><input type="checkbox" id="z_alarm">Digital: Alarm</label>
+        <label><input type="checkbox" id="z_alarm">Digital: Alarm<a class="h" href="/handbuch#m-digital" target="_blank" title="Erklärung im Handbuch">?</a></label>
       </div>
       <div class="reihe"><label>Baudrate
-        <select id="baud"><option value="0">keine Bytes</option><option>300</option><option>600</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select></label>
-        <button id="b_baud">Automatisch</button></div>
+        <select id="baud"><option value="0">keine Bytes</option><option>300</option><option>600</option><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option></select><a class="h" href="/handbuch#m-baud" target="_blank" title="Erklärung im Handbuch">?</a></label>
+        <button id="b_baud">Automatisch</button><a class="h" href="/handbuch#m-auto" target="_blank" title="Erklärung im Handbuch">?</a></div>
       <div class="hinweis" id="b_info"></div>
     </details>
 
     <details class="karte klappe" open>
       <summary>Maßstab</summary>
-      <div class="reihe"><label>Zeit je Kästchen <select id="tdiv"></select></label><span class="hinweis" id="t_bereich"></span></div>
-      <div class="reihe"><label>Volt je Kästchen <select id="vdiv"><option>0.5</option><option>1</option><option selected>2</option><option>5</option><option>10</option></select></label>
-      <label>Verschiebung V <input id="vver" type="number" step="0.5" value="0"></label></div>
+      <div class="reihe"><label>Zeit je Kästchen <select id="tdiv"></select></label><span class="hinweis" id="t_bereich"></span><a class="h" href="/handbuch#m-zeit" target="_blank" title="Erklärung im Handbuch">?</a></div>
+      <div class="reihe"><label>Volt je Kästchen <select id="vdiv"><option>0.5</option><option>1</option><option selected>2</option><option>5</option><option>10</option></select><a class="h" href="/handbuch#m-volt" target="_blank" title="Erklärung im Handbuch">?</a></label>
+      <label>Verschiebung V <input id="vver" type="number" step="0.5" value="0"><a class="h" href="/handbuch#m-volt" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
     </details>
 
     <details class="karte klappe" open>
       <summary>Trigger</summary>
       <div class="reihe"><label>Quelle <select id="trig">
-        <option value="keine">keine</option><option value="k1">Kanal 1</option><option value="k2">Kanal 2</option><option value="k3">Kanal 3</option><option value="k4">Kanal 4</option><option value="k5">Kanal 5</option><option value="bus" selected>Bus-Empfänger</option><option value="alarm">Alarm</option></select></label>
-        <label>Flanke <select id="flanke"><option value="1">steigend</option><option value="0" selected>fallend</option></select></label></div>
-      <div class="reihe"><label>Spannung V <input id="pegel" type="number" step="0.1" value="1"></label>
-        <label>Vorlauf % <input id="vor" type="number" min="0" max="90" step="5" value="10"></label></div>
-      <div class="reihe"><label>Art <select id="modus"><option value="auto">Auto</option><option value="normal">Normal</option><option value="einmal">Einmal</option></select></label></div>
+        <option value="keine">keine</option><option value="k1">Kanal 1</option><option value="k2">Kanal 2</option><option value="k3">Kanal 3</option><option value="k4">Kanal 4</option><option value="k5">Kanal 5</option><option value="k6">Betriebsspannung</option><option value="bus" selected>Bus-Empfänger</option><option value="alarm">Alarm</option></select><a class="h" href="/handbuch#m-tq" target="_blank" title="Erklärung im Handbuch">?</a></label>
+        <label>Flanke <select id="flanke"><option value="1">steigend</option><option value="0" selected>fallend</option></select><a class="h" href="/handbuch#m-tf" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
+      <div class="reihe"><label>Spannung V <input id="pegel" type="number" step="0.1" value="1"><a class="h" href="/handbuch#m-tp" target="_blank" title="Erklärung im Handbuch">?</a></label>
+        <label>Vorlauf % <input id="vor" type="number" min="0" max="90" step="5" value="10"><a class="h" href="/handbuch#m-tv" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
+      <div class="reihe"><label>Art <select id="modus"><option value="auto">Auto</option><option value="normal">Normal</option><option value="einmal">Einmal</option></select><a class="h" href="/handbuch#m-ta" target="_blank" title="Erklärung im Handbuch">?</a></label></div>
     </details>
 
     <details class="karte klappe" id="k_aufz" open>
-      <summary>Aufzeichnen</summary>
+      <summary>Aufzeichnen<a class="h" href="/handbuch#m-rec" target="_blank" title="Erklärung im Handbuch">?</a></summary>
       <div class="reihe"><label>Name <input id="r_name" type="text" size="14" value="aufnahme"></label>
         <label>Dauer s <input id="r_dauer" type="number" min="0.2" step="1" value="5"></label>
-        <button id="r_start">Start</button></div>
+        <button id="r_start">Start</button><a class="h" href="/handbuch#m-rec" target="_blank" title="Erklärung im Handbuch">?</a></div>
       <div id="r_info" class="hinweis"></div>
-      <h2 style="margin-top:8px">Gespeichert</h2>
+      <h2 style="margin-top:8px">Gespeichert<a class="h" href="/handbuch#m-gespeichert" target="_blank" title="Erklärung im Handbuch">?</a></h2>
       <div id="liste"></div>
-      <div class="reihe" id="zoom" style="display:none"><button id="z_rein">Zoom +</button><button id="z_raus">Zoom −</button><button id="z_links">◀</button><button id="z_rechts">▶</button><button id="z_alles">Alles</button></div>
+      <div class="reihe" id="zoom" style="display:none"><button id="z_rein">Zoom +</button><button id="z_raus">Zoom −</button><button id="z_links">◀</button><button id="z_rechts">▶</button><button id="z_alles">Alles</button><a class="h" href="/handbuch#m-gespeichert" target="_blank" title="Erklärung im Handbuch">?</a></div>
     </details>
   </div>
 </main>
 <script>
-const FARBE = {K1:'#ffd54f',K2:'#4fc3f7',K3:'#ef5350',K4:'#81c784',K5:'#ce93d8',D12:'#ffffff',D56:'#ffb74d',bus:'#80cbc4',alarm:'#f48fb1'};
-const NAME = {K1:'K1 Bus−',K2:'K2 Bus+',K3:'K3 Vsys+',K4:'K4 On-Off',K5:'K5 Alarm',D12:'Kl.1−Kl.2',D56:'Kl.5−Kl.6',bus:'Bus',alarm:'Alarm'};
-const KAN = [[1,'Klemme 1, Bus−'],[2,'Klemme 2, Bus+'],[3,'Klemme 3, Vsys+'],[4,'Klemme 5, On-Off'],[5,'Klemme 6, Alarm']];
+const FARBE = {K1:'#ffd54f',K2:'#4fc3f7',K3:'#ef5350',K4:'#81c784',K5:'#ce93d8',K6:'#ff8a65',D12:'#ffffff',D56:'#ffb74d',bus:'#80cbc4',alarm:'#f48fb1'};
+const NAME = {K1:'K1 Bus−',K2:'K2 Bus+',K3:'K3 Vsys+',K4:'K4 On-Off',K5:'K5 Alarm',K6:'K6 Betriebsspannung',D12:'Kl.1−Kl.2',D56:'Kl.5−Kl.6',bus:'Bus',alarm:'Alarm'};
+const KAN = [[1,'Klemme 1, Bus−'],[2,'Klemme 2, Bus+'],[3,'Klemme 3, Vsys+'],[4,'Klemme 5, On-Off'],[5,'Klemme 6, Alarm'],[6,'Betriebsspannung (fest, an keiner Klemme)']];
 const $ = id => document.getElementById(id);
 const c = $('schirm'), g = c.getContext('2d');
 const T = [5e-6,1e-5,2e-5,5e-5,1e-4,2e-4,5e-4,1e-3,2e-3,5e-3,1e-2,2e-2,5e-2,.1,.2,.5,1];
@@ -171,7 +193,7 @@ function zeit(s) { const a = Math.abs(s); if (a >= 1) return (+s.toFixed(3))+' s
 
 let betrieb = 'live', laufe = true, letzte = null, ansicht = null, cursor = {a:null,b:null}, einmal_fertig = false, belegt = false;
 
-function kanal_liste() { const a = []; for (let n = 1; n <= 5; n++) if ($('k'+n).checked) a.push(n); return a; }
+function kanal_liste() { const a = []; for (let n = 1; n <= 6; n++) if ($('k'+n).checked) a.push(n); return a; }
 function grund() {
   return new URLSearchParams({ tempo:$('tempo').value, k:kanal_liste().join(','), d12:$('d12').value, d56:$('d56').value, baud:$('baud').value });
 }
@@ -274,7 +296,7 @@ async function live() {
       if (m!=='auto' && !d.ausgeloest) { $('m_trig').textContent='wartet auf Trigger…'; continue; }
       $('m_trig').textContent = d.ausgeloest?'ausgelöst':'kein Trigger (Auto)';
       if (m==='einmal') { einmal_fertig=true; $('b_halt').textContent='Einmal neu'; }
-      if (betrieb==='live') { d.__t=d.t_us; d.__art='live'; letzte=d; zeichne(d,d.t_us,'live'); anzeigen(d); }
+      if (betrieb==='live') { d.__t=d.t_us; d.__art='live'; letzte=d; zeichne(d,d.t_us,'live'); anzeigen(d); vm_zeigen(d); }
     } catch (e) { $('meldung').textContent='Keine Verbindung zum Raspberry.'; await warte(1000); }
   }
 }
@@ -282,7 +304,7 @@ function anzeigen(d) {
   const j = d.rate_scan;
   $('m_rate').textContent = `${Math.round(d.rate_gesamt).toLocaleString('de-DE')} Messungen/s gemessen, ${Math.round(j).toLocaleString('de-DE')}/s je Durchlauf (${d.messungen} Mess.), ${d.takt_mhz.toFixed(2)} MHz`;
   $('m_abst').textContent = d.abstand_max?`${d.abstand_min.toFixed(0)}–${d.abstand_max.toFixed(0)} µs`:'–';
-  $('m_kal').textContent = `Faktor ${d.kalib.toFixed(3)}, Nullpunkt ${d.null.toFixed(1)}`;
+  $('m_kal').textContent = `Faktor ${d.kalib.toFixed(3)}, Nullpunkt ${d.null.toFixed(1)}, ${d.kalibriert?'kalibriert':'nicht kalibriert'}`;
 }
 const warte = ms => new Promise(r => setTimeout(r, ms));
 
@@ -361,6 +383,49 @@ function t_anzeige(){
 }
 function zeit_vorschlagen(){ const b=+$('baud').value; if(b) $('tdiv').value=String(text_zeiten(b).vorschlag); t_anzeige(); }
 $('baud').addEventListener('change',zeit_vorschlagen); $('tdiv').addEventListener('change',t_anzeige); zeit_vorschlagen();
+
+// Spannungsanzeige: Werte aus dem aktuellen Bild, Kleinst- und Groesstwert seit dem letzten Reset
+const VM = {
+  K1:{k:'Kanal 1',kl:'1',b:'Bus−',pin:'1',ader:'braun',f:'#a8672f',g:21.73}, K2:{k:'Kanal 2',kl:'2',b:'Bus+',pin:'2',ader:'weiß',f:'#f5f5f5',g:21.73},
+  K3:{k:'Kanal 3',kl:'3',b:'Vsys+',pin:'5',ader:'rosa',f:'#f4a6c0',g:32.99}, K4:{k:'Kanal 4',kl:'5',b:'On-Off',pin:'3',ader:'gelb',f:'#f2d13c',g:21.73},
+  K5:{k:'Kanal 5',kl:'6',b:'Alarm',pin:'6',ader:'grün',f:'#3fb763',g:21.73},
+  K6:{k:'Kanal 6',kl:'J2',b:'Betriebsspannung',pin:'–',ader:'–',g:21.73,unter:8,ueber:18},
+  D12:{k:'Differenz',kl:'1 − 2',b:'Bus− minus Bus+',pin:'–',ader:'–',g:21.73}, D56:{k:'Differenz',kl:'5 − 6',b:'On-Off minus Alarm',pin:'–',ader:'–',g:21.73} };
+let vm_an=false, vm_werte={}, vm_stand='', vm_geladen=false;
+const vm_zahl = v => v.toLocaleString('de-DE',{minimumFractionDigits:2,maximumFractionDigits:2});
+function vm_markieren(){
+  const an=new Set(); for(let n=1;n<=5;n++) if($('k'+n).checked) an.add(String(n<=3?n:n+1));
+  if($('d12').value!=='aus'){an.add('1');an.add('2');} if($('d56').value!=='aus'){an.add('5');an.add('6');}
+  for(const e of document.querySelectorAll('#vm_svg .ader')) e.style.opacity = an.has(e.dataset.k)||e.dataset.k==='4' ? 1 : .22;
+}
+function vm_zeigen(d){
+  if(!vm_an) return;
+  const stand=[$('tempo').value,kanal_liste().join(),$('d12').value,$('d56').value].join('/');
+  if(stand!==vm_stand){ vm_stand=stand; vm_werte={}; }
+  const reihen=[];
+  for(const key in (d.kurven||{})){
+    const w=d.kurven[key], n=w.length/2, m=VM[key]; if(!n||!m) continue;
+    let s=0, lo=Infinity, hi=-Infinity;
+    for(let i=0;i<n;i++){ const a=w[i*2], b=w[i*2+1]; s+=a+b; if(a<lo)lo=a; if(b>hi)hi=b; }
+    const alt=vm_werte[key]||{lo:Infinity,hi:-Infinity}; alt.lo=Math.min(alt.lo,lo); alt.hi=Math.max(alt.hi,hi); vm_werte[key]=alt;
+    const mittel=s/(2*n)/1000, ueber=hi/1000>=m.g*.99||(m.unter&&(mittel<m.unter||mittel>m.ueber)), ueber_alt=alt.hi/1000>=(m.ueber||m.g*.99), unter_alt=m.unter&&alt.lo/1000<m.unter;
+    const ader=m.f?`<span class="vm_farbe" style="background:${m.f}"></span>${m.ader}`:m.ader;
+    reihen.push(`<tr><td><span class="punkt" style="background:${FARBE[key]}"></span>${m.k}</td><td>${m.kl}</td><td>${m.b}</td><td>${m.pin}</td><td>${ader}</td>`+
+      `<td class="vm_wert${ueber?' vm_ueber':''}">${vm_zahl(mittel)} V</td><td${unter_alt?' class="vm_ueber"':''}>${vm_zahl(alt.lo/1000)}</td><td${ueber_alt?' class="vm_ueber"':''}>${vm_zahl(alt.hi/1000)}</td></tr>`);
+  }
+  $('vm_zeilen').innerHTML=reihen.join('')||'<tr><td colspan="8">Keine Kurve eingeschaltet.</td></tr>';
+  const teile=[]; teile.push(d.kalibriert?`Kalibriert am ${d.kal_datum} bei 0 V und ${vm_zahl(d.kal_bezug)} V; dazwischen und darüber nicht geprüft.`:'Nicht kalibriert: bei hoher Messgeschwindigkeit bis 7 % Abweichung gemessen.');
+  if(Object.keys(vm_werte).some(k=>VM[k]&&!VM[k].unter&&vm_werte[k].hi/1000>=VM[k].g*.99)) teile.push('Rot: an der Obergrenze des Messbereichs, der echte Wert kann höher sein.');
+  if(vm_werte.K6&&(vm_werte.K6.lo/1000<8||vm_werte.K6.hi/1000>18)) teile.push('Betriebsspannung außerhalb von 8 bis 18 V.');
+  $('vm_hin').textContent=teile.join(' ');
+  vm_markieren();
+}
+$('vm_knopf').onclick=async()=>{
+  vm_an=!vm_an; $('vm_knopf').classList.toggle('an',vm_an); $('vm').style.display=vm_an?'block':'none'; $('vm_reset').style.display=vm_an?'':'none';
+  vm_stand=''; if(vm_an&&letzte&&letzte.__art==='live') vm_zeigen(letzte);
+  if(vm_an&&!vm_geladen){ vm_geladen=true; try{ $('vm_svg').innerHTML=await (await fetch('/adern.svg')).text(); vm_markieren(); }catch(e){ vm_geladen=false; } }
+};
+$('vm_reset').onclick=()=>{ vm_werte={}; if(letzte&&letzte.__art==='live') vm_zeigen(letzte); };
 
 // Baudrate automatisch bestimmen
 $('b_baud').onclick=async()=>{

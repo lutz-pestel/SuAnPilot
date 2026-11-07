@@ -27,6 +27,8 @@ input[type=number] { width:90px; }
 button { font:inherit; padding:6px 12px; border-radius:7px; border:1px solid var(--linie); background:var(--karte); color:var(--text); cursor:pointer; }
 button.an { background:var(--akt); color:#fff; border-color:var(--akt); }
 button.warn { border-color:var(--warn); color:var(--warn); }
+.h { display:inline-block; width:14px; height:14px; line-height:12px; border-radius:50%; border:1px solid var(--akt); color:var(--akt); background:var(--karte); font-size:10px; font-weight:700; text-align:center; text-decoration:none; margin-left:3px; vertical-align:middle; flex:none; }
+@media (pointer:coarse) { .h { width:18px; height:18px; line-height:16px; font-size:12px; margin-left:5px; } }
 a { color:var(--akt); }
 #zustand { font-weight:600; min-height:1.3em; }
 #ergebnis { display:none; margin:8px 0 0; padding:8px; border-radius:6px; background:var(--schirm); color:#e6ee9c; font:13px/1.35 Consolas,"Courier New",monospace; white-space:pre-wrap; overflow-wrap:anywhere; }
@@ -36,24 +38,25 @@ a { color:var(--akt); }
 <body>
 <header>
   <h1>Robnet</h1>
-  <nav><a href="/messen">Messen</a><a href="/management">Management</a><a class="an" href="/analyse">Robnet Analyse</a></nav>
+  <nav><a href="/messen">Messen</a><a href="/management">Management</a><a class="an" href="/analyse">Robnet Analyse</a><a href="/handbuch" target="_blank">Handbuch</a></nav>
 </header>
 <main>
   <div class="karte">
-    <h2>Bus aufzeichnen</h2>
+    <h2>Bus aufzeichnen<a class="h" href="/handbuch#t33" target="_blank" title="Erklärung im Handbuch">?</a></h2>
+    <div class="klein">Die Analyse steuert normalerweise die KI, Sie erledigen die Handgriffe: <a href="/handbuch#a-start" target="_blank">So starten Sie sie</a>.</div>
     <div class="reihe">
-      <label>Baudrate <select id="baud"><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option><option>230400</option></select></label>
-      <button id="b_auto">Automatisch</button>
-      <label>Dauer s <input id="dauer" type="number" min="0" step="10" value="60"></label>
-      <label>Stellung JP1/JP2 <input id="stellung" size="6" value="A"></label>
-      <label>Notiz <input id="notiz" size="18"></label>
+      <label>Baudrate <select id="baud"><option>1200</option><option>2400</option><option>4800</option><option selected>9600</option><option>19200</option><option>38400</option><option>57600</option><option>115200</option><option>230400</option></select><a class="h" href="/handbuch#a-baud" target="_blank" title="Erklärung im Handbuch">?</a></label>
+      <button id="b_auto">Automatisch</button><a class="h" href="/handbuch#m-auto" target="_blank" title="Erklärung im Handbuch">?</a>
+      <label>Dauer s <input id="dauer" type="number" min="0" step="10" value="60"><a class="h" href="/handbuch#a-dauer" target="_blank" title="Erklärung im Handbuch">?</a></label>
+      <label>Stellung JP1/JP2 <input id="stellung" size="6" value="A"><a class="h" href="/handbuch#a-stellung" target="_blank" title="Erklärung im Handbuch">?</a></label>
+      <label>Notiz <input id="notiz" size="18"><a class="h" href="/handbuch#a-notiz" target="_blank" title="Erklärung im Handbuch">?</a></label>
     </div>
-    <div class="reihe"><button class="an" id="start">Start</button><button class="warn" id="stopp">Stopp</button></div>
+    <div class="reihe"><button class="an" id="start">Start</button><button class="warn" id="stopp">Stopp</button><a class="h" href="/handbuch#a-start-knopf" target="_blank" title="Erklärung im Handbuch">?</a></div>
     <div id="zustand"></div>
     <div class="klein">Gespeichert werden Pegelwechsel, Bytes der seriellen Schnittstelle und alle Spannungen zehnmal je Sekunde. Das Oszilloskop ist währenddessen gesperrt. Dauer 0 läuft bis Stopp. Nur lesen: Es wird nichts auf den Bus gesendet.</div>
   </div>
   <div class="karte">
-    <h2>Aufzeichnungen</h2>
+    <h2>Aufzeichnungen<a class="h" href="/handbuch#a-liste" target="_blank" title="Erklärung im Handbuch">?</a></h2>
     <div id="liste"></div>
     <div class="klein">Im Bild ansehen: Seite Messen, Knopf Aufzeichnen, Liste Gespeichert.</div>
     <pre id="ergebnis"></pre>

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
-# Robnet-Analyse: Speicheroszilloskop im Browser. Version 00.02, Stand 07.11.2026.
+# Robnet-Analyse: Speicheroszilloskop im Browser. Version 00.03, Stand 07.11.2026.
 # Anforderungen: anforderungen_oszilloskop.md. Nur lesen: Sendet nichts auf den Robnet-Bus.
-# Messschleife: messkern_v00.01.c. Laeuft als Dienst robnet-oszilloskop, Port 8080.
+# Messschleife: messkern_v00.01.c. Laeuft als Dienst robnet-oszilloskop, Port 80.
 import bisect
 import csv
 import io
@@ -20,29 +20,57 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import pigpio
 
-VERSION = "00.02"
+VERSION = "00.03"
 HIER = os.path.dirname(os.path.abspath(__file__))
 MESSKERN = os.path.join(HIER, "messkern")
-SEITEN = {"/": "oszilloskop_v00.02.html", "/messen": "oszilloskop_v00.02.html", "/management": "management_v00.01.html", "/analyse": "analyse_v00.01.html"}
+SEITEN = {"/": "oszilloskop_v00.03.html", "/messen": "oszilloskop_v00.03.html", "/management": "management_v00.02.html", "/analyse": "analyse_v00.02.html", "/handbuch": "handbuch_v00.01.html", "/adern.svg": "adern_v00.01.svg"}
 AUFZEICHNUNG = os.path.join(HIER, "aufzeichnung_v00.02.py")
 AUSWERTUNG = os.path.join(HIER, "auswertung_v00.03.py")
 BUS_BAUD = (1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200, 230400)
 NETZ_ORDNER = "/run/robnet-netz"  # Dienst robnet-netz, netz_v00.01.py
 ZIEL = "/home/pi/aufzeichnungen"
-PORT = 8080
+PORT = 80
 VREF = 2.5
 F13 = (100 + 13) / 13
 F82 = (100 + 8.2) / 8.2
 # Kanal: (Klemme, Name, Wandlerkanal, Faktor); alle am oberen Sockel U2
-KANAL = {1: (1, "Bus−", 1, F13), 2: (2, "Bus+", 0, F13), 3: (3, "Vsys+", 2, F82), 4: (5, "On-Off", 3, F13), 5: (6, "Alarm", 4, F13)}
+KANAL = {1: (1, "Bus−", 1, F13), 2: (2, "Bus+", 0, F13), 3: (3, "Vsys+", 2, F82), 4: (5, "On-Off", 3, F13), 5: (6, "Alarm", 4, F13),
+         6: ("J2", "Betriebsspannung", 5, F13)}  # fest, an keiner Klemme von J1
 # Geschwindigkeit: Teiler -> (Name, Nullpunkt in Stufen, am Pi gemessen 06.11.2026)
 TEMPO = {56: ("Maximum", 14.0), 100: ("Schnell", 8.7), 200: ("Mittel", 1.6), 800: ("Genau", 0.0)}
+# Kanal 6 misst hinter dem Verpolschutz D1. Gemessen 07.11.2026 bei laufendem Pi: Multimeter an J2 12,26 V, Anzeige ohne Ausgleich 11,906 V
+J2_AUSGLEICH = 0.354
+KALIBRIERUNG = "/var/lib/robnet/kalibrierung.json"  # je Platine, erzeugt von kalibrieren_v00.01.py
 GPIO_BUS, GPIO_ALARM = 23, 27
 BELEGT = "/tmp/robnet_aufzeichnung.pid"
 KOPF = "<4sIIIIIQQIfffff"
 KOPF_GR = struct.calcsize(KOPF)
 BAUD_LISTE = (300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 57600, 115200)
 BAUD_DAUER = 4.0
+
+
+def kalibrierung_laden():
+    try:
+        with open(KALIBRIERUNG) as f:
+            return json.load(f)
+    except (OSError, ValueError):
+        return {}
+
+
+KAL = kalibrierung_laden()
+
+
+def kal_paar(kanal, teiler):
+    """(Steigung, Nullpunkt in V) aus den beiden Messpunkten, oder None."""
+    e = KAL.get("kanaele", {}).get(f"K{kanal}", {}).get(str(teiler))
+    if not e or e[0] <= e[1]:
+        return None
+    return KAL["bezug_v"] * 1000 / (e[0] - e[1]), e[1] / 1000
+
+
+def kalibriert(kanal, teiler, werte):
+    p = kal_paar(kanal, teiler)
+    return [(v - p[1]) * p[0] for v in werte] if p else werte
 
 
 def spannung(rohwert, faktor, kern):
@@ -419,7 +447,7 @@ def planen(q):
     teiler = int(q.get("tempo", "56"))
     if teiler not in TEMPO:
         teiler = 56
-    aktiv = [int(x) for x in q.get("k", "1").split(",") if x.strip().isdigit() and int(x) in KANAL][:5]
+    aktiv = [int(x) for x in q.get("k", "1").split(",") if x.strip().isdigit() and int(x) in KANAL][:6]
     d12 = q.get("d12", "aus")
     d56 = q.get("d56", "aus")
     codes, plaetze = [], {}
@@ -449,7 +477,7 @@ def in_mv(w):
     return [int(round(x * 1000)) for x in w]
 
 
-def kurven(k, werte, aktiv, d12, d56, plaetze, chip12, gain, null_):
+def kurven(k, werte, aktiv, d12, d56, plaetze, chip12, gain, null_, teiler=0):
     """Rohspalten in Millivolt je angezeigter Kurve."""
     br = k["breite"]
     kern_d = {"null": null_, "gain": gain}
@@ -462,10 +490,10 @@ def kurven(k, werte, aktiv, d12, d56, plaetze, chip12, gain, null_):
         s = spalten(platz)
         return [spannung(x, faktor, kern_d) for x in s]
     for ka in aktiv:
-        aus[f"K{ka}"] = in_mv(volt(plaetze[ka], KANAL[ka][3]))
+        aus[f"K{ka}"] = in_mv([v + J2_AUSGLEICH for v in volt(plaetze[ka], KANAL[ka][3])] if ka == 6 else kalibriert(ka, teiler, volt(plaetze[ka], KANAL[ka][3])))
 
     def differenz(a, b):
-        va, vb = volt(plaetze[a], KANAL[a][3]), volt(plaetze[b], KANAL[b][3])
+        va, vb = kalibriert(a, teiler, volt(plaetze[a], KANAL[a][3])), kalibriert(b, teiler, volt(plaetze[b], KANAL[b][3]))
         return in_mv([x - y for x, y in zip(va, vb)])
     if d12 == "software":
         aus["D12"] = differenz(1, 2)
@@ -565,11 +593,15 @@ def frame_liefern(q):
             code = 100
         elif quelle == "alarm":
             code = 101
-        elif re.fullmatch(r"k[1-5]", quelle):
+        elif re.fullmatch(r"k[1-6]", quelle):
             ka = int(quelle[1:])
             if ka in plaetze:
                 code = plaetze[ka]
-                pegel_roh = int(pegel_v / KANAL[ka][3] * 4096 / VREF / kern.gain + kern.null)
+                ziel_v = pegel_v - J2_AUSGLEICH if ka == 6 else pegel_v
+                paar = kal_paar(ka, teiler)
+                if paar:
+                    ziel_v = ziel_v / paar[0] + paar[1]
+                pegel_roh = int(ziel_v / KANAL[ka][3] * 4096 / VREF / kern.gain + kern.null)
         art = 0 if modus == "auto" else 1
         warte = 200 if art == 0 else 250
         k, werte = kern.frame(vor, nach, art, code, pegel_roh, steigend, warte, breite)
@@ -580,7 +612,8 @@ def frame_liefern(q):
     antwort = {"t_us": dauer_us, "n_spalten": k["breite"], "ausgeloest": k["ausgeloest"], "scans": k["scans"],
                "trigger_us": k["trigger_scan"] / rate * 1e6, "rate_scan": rate, "messungen": k["n"],
                "rate_gesamt": rate * k["n"], "abstand_min": k["min"] if k["max"] else None, "abstand_max": k["max"] if k["max"] else None, "kalib": round(gain, 4),
-               "null": null_, "tempo": TEMPO[teiler][0], "takt_mhz": 400.0 / teiler, "kurven": kurven(k, werte, aktiv, d12, d56, plaetze, chip12, gain, null_)}
+               "null": null_, "tempo": TEMPO[teiler][0], "takt_mhz": 400.0 / teiler, "kurven": kurven(k, werte, aktiv, d12, d56, plaetze, chip12, gain, null_, teiler),
+               "kalibriert": bool(KAL.get("kanaele")), "kal_bezug": KAL.get("bezug_v"), "kal_datum": KAL.get("datum")}
     time.sleep(0.02)  # Die Pegelwechsel kommen ueber pigpio spaeter an als die Messwerte
     start, wechsel = digital.fenster(k["tick_start"], dauer_us)
     if q.get("bus", "1") == "1":
@@ -679,7 +712,7 @@ def aufnahme_ansehen(q):
         n2, br, _ = struct.unpack("<iii", r.stdout[:12])
         werte = struct.unpack("<%dH" % (n2 * br * 2), r.stdout[12:12 + n2 * br * 4])
         plaetze = {int(x): y for x, y in k["plaetze"].items()}
-        antwort["kurven"] = kurven({"breite": br}, werte, k["aktiv"], k["d12"], k["d56"], plaetze, k.get("chip12"), k.get("gain", 1.0), k.get("null", 0.0))
+        antwort["kurven"] = kurven({"breite": br}, werte, k["aktiv"], k["d12"], k["d56"], plaetze, k.get("chip12"), k.get("gain", 1.0), k.get("null", 0.0), k.get("teiler", 0))
         antwort["n_spalten"] = br
         tick0 = k.get("tick_start", 0)
         ereignisse = []
@@ -739,9 +772,13 @@ def csv_ausgeben(handler, q):
     plaetze = {int(x): y for x, y in k["plaetze"].items()}
     kern_d = {"null": k.get("null", 0.0), "gain": k.get("gain", 1.0)}
     faktoren = [F13] * n
+    zusatz = [0.0] * n
+    paare = [(1.0, 0.0)] * n
     namen = [f"Messung{i+1}" for i in range(n)]
     for ka, pl in plaetze.items():
         faktoren[pl] = KANAL[ka][3]
+        zusatz[pl] = J2_AUSGLEICH if ka == 6 else 0.0
+        paare[pl] = kal_paar(ka, k.get("teiler", 0)) or (1.0, 0.0)
         namen[pl] = f"Kanal{ka}_{KANAL[ka][1]}"
     if k.get("chip12") is not None:
         namen[k["chip12"]] = "Klemme1_minus_Klemme2_Chip"
@@ -758,7 +795,7 @@ def csv_ausgeben(handler, q):
             for s in range(len(w) // n):
                 zeilen.write(f"{i / rate:.6f}".replace(".", ","))
                 for j in range(n):
-                    zeilen.write(f";{spannung(w[s * n + j], faktoren[j], kern_d):.3f}".replace(".", ","))
+                    zeilen.write(f";{(spannung(w[s * n + j], faktoren[j], kern_d) - paare[j][1]) * paare[j][0] + zusatz[j]:.3f}".replace(".", ","))
                 zeilen.write("\n")
                 i += 1
             aus.write(zeilen.getvalue().encode())
@@ -885,7 +922,7 @@ class Handler(BaseHTTPRequestHandler):
             if url.path in SEITEN:
                 d = open(os.path.join(HIER, SEITEN[url.path]), "rb").read()
                 self.send_response(200)
-                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Type", "image/svg+xml" if url.path.endswith(".svg") else "text/html; charset=utf-8")
                 self.send_header("Content-Length", str(len(d)))
                 self.send_header("Cache-Control", "no-store")
                 self.end_headers()

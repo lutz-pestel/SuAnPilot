@@ -1,18 +1,18 @@
 # Robnet-Analyse: Anforderungen an Oberfläche und Speicheroszilloskop
 
-Version 00.07, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.02.py` mit `oszilloskop_v00.02.html`, `management_v00.01.html`, `analyse_v00.01.html`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
+Version 00.14, Stand 07.11.2026. Gilt für Bauart B (Platine v00.01) mit Raspberry Pi Zero 2 W. Vom Betreiber im Dialog festgelegt, gebaut als `oszilloskop_v00.03.py` mit `oszilloskop_v00.03.html`, `management_v00.02.html`, `analyse_v00.02.html`, `handbuch_v00.01.html`, `adern_v00.01.svg`, dazu `messkern_v00.01.c` und `netz_v00.01.py`, Dienste `robnet-oszilloskop` und `robnet-netz`.
 Grundlage: Konzept `../hardware/konzeption/robnet-analyse.md`, Klemmen und Kanäle ebenda, Abschnitt 2, Block 4.
 
 ## 1. Zweck
 Die Platine soll auch außerhalb der Bus-Analyse als einfaches Speicheroszilloskop dienen, vor allem um serielle Signale anzusehen.
-Bedienung im Browser am PC oder Handy (`http://robnet.local:8080`, zu Hause auch `192.168.178.50`), ohne Anmeldung per SSH, ohne Passwort (Betreiber).
-**Drei Seiten mit gegenseitigen Links:** Messen (`/messen`, dieses Oszilloskop), Management (`/management`, Abschnitt 7), Robnet Analyse (`/analyse`, Abschnitt 8). Das Programm liest nur und sendet nie auf den Bus.
+Bedienung im Browser am PC oder Handy (`http://robnet.local`, zu Hause auch `192.168.178.50`), ohne Anmeldung per SSH, ohne Passwort (Betreiber).
+**Drei Seiten mit gegenseitigen Links:** Messen (`/messen`, dieses Oszilloskop), Management (`/management`, Abschnitt 7), Robnet Analyse (`/analyse`, Abschnitt 8), dazu das Handbuch (`/handbuch`). Jede Einstellung hat ein kleines Fragezeichen, das in einem neuen Tab an die passende Stelle des Handbuchs springt. Quelle und Skizzen: `handbuch/`, das PDF bleibt auf dem PC. Das Programm liest nur und sendet nie auf den Bus.
 **Kein Testaufbau nötig:** Die Software läuft und prüft sich ohne den Testsender (PC, FTDI232, YL-12B), den es nur am Schreibtisch gibt. Entwickelt wird mit gespeicherten Referenzaufnahmen.
 
 ## 2. Was die Platine kann (am Pi gemessen, 06.11.2026)
 - **Analog:** Messschleife in C mit direktem Registerzugriff, ein Prozessorkern reserviert. Die Rate teilt sich auf die aktiven Messungen auf.
 - **Bereich:** etwa 0 bis 21,7 V, Vsys+ bis etwa 33 V. Keine negativen Spannungen.
-- **Grenze Klemme 1 und 2:** Solange der Bus-Empfänger MAX3488 steckt, nur −7 V bis +12 V (Datenblatt −7,5 V bis +12,5 V, davor nur 1 kΩ). Für mehr den Chip ziehen. Die Seite zeigt dazu eine kurze rote Warnung, solange Klemme 1 oder 2 gemessen wird; sie lässt sich ausblenden und kommt nach Neuladen oder wenn beide aus und wieder an sind zurück.
+- **Grenze Klemme 1 und 2:** Solange der Bus-Empfänger MAX3488 steckt, nur −7 V bis +12 V (Datenblatt −7,5 V bis +12,5 V, davor nur 1 kΩ). Für mehr beide Brücken von JP2 ziehen (Stellung E), dann ist der Chip vom Bus getrennt. Die Seite zeigt dazu eine kurze rote Warnung, solange Klemme 1 oder 2 gemessen wird; sie lässt sich ausblenden und kommt nach Neuladen oder wenn beide aus und wieder an sind zurück.
 - **Digital:** Bus-Empfänger und Alarm, Zeitauflösung 2 µs. Am Testsender fehlerfrei bis 115 200 Baud. Digital gegen analog gemessen auf etwa 3 µs genau.
 
 | Geschwindigkeit | Takt | Messungen/s | Je Kanal bei 5 Kanälen | Bordspannung roh, ohne Korrektur |
@@ -25,11 +25,13 @@ Bedienung im Browser am PC oder Handy (`http://robnet.local:8080`, zu Hause auch
 - **Maximum:** Teiler 56. Ab Teiler 52 treten Lesefehler auf, deshalb ist 56 gewählt. Das liegt über dem Datenblatt-Takt des Wandlers.
 - **Korrektur:** Der hohe Eingangswiderstand (Teiler 100 kΩ/13 kΩ) lässt den Wandler bei hohem Takt zu niedrig messen. Bei jedem Umschalten vergleicht das Programm die Bordspannung bei 0,5 MHz und im gewählten Takt und rechnet den Faktor ein, dazu einen gemessenen Nullpunkt. So bleibt die Bordspannung bei allen Stufen 11,73 V.
 - **Masse nötig:** Ohne gemeinsame Masse stört das PC-Netzteil die Analogkurven über den USB-Testsender (Spitzen bis 8,5 V). Mit Massekabel sind sie weg, die Digitalspur läuft auch ohne.
-- **Gegenprobe:** Hoher Pegel bei „Genau“ und „Maximum“ bis zu 4 % auseinander, ein anderes Messgerät fehlt noch.
+- **Gegenprobe:** Hoher Pegel bei „Genau“ und „Maximum“ bis zu 4 % auseinander. Multimeter (07.11.2026, laufender Pi): an J2 12,26 V, hinter der Diode 11,96 V (Abfall 0,30 V), Anzeige bei „Genau“ 11,906 V, also 0,05 V (0,45 %) zu niedrig. 
+- **Kalibrierung (07.11.2026):** Kanäle 1 bis 5 je Geschwindigkeit an zwei Punkten, 0 V und 12,26 V, mit `kalibrieren_v00.01.py`; die Werte liegen je Platine in `/var/lib/robnet/kalibrierung.json`, die der ersten Platine auch in `kalibrierung_platine1_v00.01.json`. Ohne sie zeigte Kanal 3 bis 13,16 V statt 12,26 V (Teiler 100 kΩ/8,2 kΩ), die anderen 12,14 bis 12,25 V; an GND bis −0,18 V. Übersprechen auf die anderen Kanäle höchstens 3 mV außer Kanal 2, dort bis 27 mV, Ursache ungeklärt. Nur U2 und nur die Seite Messen; „im Chip“ und Bus-Aufzeichnung nicht kalibriert. Gegenprobe Kanal 3 nach dem Abgleich: 12,26 V und 0,00 V auf allen vier Stufen. Offen zeigt Kanal 2 etwa 0,22 V, die anderen bis 0,02 V; vermutlich Leckstrom der Klemmdiode, nicht geprüft.
 - **Zeichenfenster, Grenze (07.11.2026, Testsender):** Pakete mit Pausen fehlerfrei bis 115 200 Baud. Dauerdaten ohne Pause bei laufendem Bild fehlerfrei bis 19 200 Baud, bei 38 400 Baud kamen 18 834 von 21 000 Zeichen an. Ohne Bild bei 57 600 Baud 27 065 von 28 000, bei 115 200 Baud 36 251 von 70 000.
 
 ## 3. Kanäle
-- **Höchstens 5 Kanäle,** Anzahl einstellbar, **voreingestellt 1.**
+- **5 Kanäle an J1 und ein Spezialkanal,** Anzahl einstellbar, **voreingestellt Kanal 1.**
+- **Kanal 6, Betriebsspannung** (Betreiber): verhält sich wie alle anderen Kanäle, hängt aber an keiner Klemme, sondern fest an der Versorgung J2 hinter dem Verpolschutz (U2, Eingang CH5). Das Programm rechnet fest 0,354 V dazu und zeigt so die Spannung an J2. In der Spannungsanzeige rot außerhalb von 8 bis 18 V.
 - **Nur Seite Hauptgerät (J1), kein Umschalten.** Kanal 1 = Klemme 1 (Bus−), Kanal 2 = Klemme 2 (Bus+), Kanal 3 = Klemme 3 (Vsys+), Kanal 4 = Klemme 5 (On-Off), Kanal 5 = Klemme 6 (Alarm). Alle am oberen Sockel (U2).
 - **Je Kanal:** an oder aus schalten.
 - **Vergleichsmessungen:** Klemme 1 gegen 2 und Klemme 5 gegen 6.
@@ -50,6 +52,7 @@ Bedienung im Browser am PC oder Handy (`http://robnet.local:8080`, zu Hause auch
 - **Zeit zur Baudrate:** Beim Wechsel der Baudrate springt die Zeit je Kästchen auf mindestens 6 Zeichen im Bild und bleibt danach frei änderbar. Dahinter steht der Bereich „Text lesbar“, rot, wenn die Zeit außerhalb liegt. Unter 6 Zeichen im Bild wurden am Testsender viele Zeichen falsch.
 - **Zeichenfenster:** Unter dem Bild, lückenlos aus den Pegelwechseln, unabhängig von Bild und Trigger. Jede Zeile zeigt Hex-Werte und Klartext; neue Zeile nach einer Pause über 3 Zeichendauern, nach Zeilenvorschub oder nach 16 Zeichen. Knöpfe Anhalten (sammelt weiter), Löschen, Speichern als Textdatei. Nennt die Zahl unlesbarer Zeichen; rot nur, wenn in den letzten Sekunden über 5 % unlesbar waren. Verlorene Pegelwechsel sind immer rot.
 - **Aufteilung:** Beide Spalten scrollen unabhängig voneinander. Auf Handys stehen sie untereinander, das Bild passt sich an, in beiden Lagen; Bedienkästen sind aufklappbar und beim Laden zu. Eine feste Querlage gibt es nicht (Safari kann sie nicht sperren).
+- **Spannungsanzeige:** Über dem Bild, ein- und ausschaltbar, beim Laden aus. Je Kurve Kanal, Klemme, Bedeutung, Robnet-Pin, Aderfarbe, Spannung (Mittel des Bilds), min und max seit dem Reset. Knopf zum Zurücksetzen; von selbst bei geänderten Kanälen oder Geschwindigkeit. Aufklappbare Skizze `adern_v00.01.svg`. Rot an der Obergrenze des Messbereichs.
 - **Messlinien:** zwei Linien für Zeit- und Spannungsabstand.
 - **Aufzeichnung:** Dauer, Name, Speichern als CSV-Datei für Excel.
 

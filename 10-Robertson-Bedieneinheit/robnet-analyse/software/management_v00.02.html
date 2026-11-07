@@ -29,6 +29,8 @@ button.an { background:var(--akt); color:#fff; border-color:var(--akt); }
 button.warn { border-color:var(--warn); color:var(--warn); }
 #meldung { font-weight:600; margin-top:8px; min-height:1.2em; }
 #bestaetigung { display:none; }
+.h { display:inline-block; width:14px; height:14px; line-height:12px; border-radius:50%; border:1px solid var(--akt); color:var(--akt); background:var(--karte); font-size:10px; font-weight:700; text-align:center; text-decoration:none; margin-left:3px; vertical-align:middle; flex:none; }
+@media (pointer:coarse) { .h { width:18px; height:18px; line-height:16px; font-size:12px; margin-left:5px; } }
 .warnfarbe { color:var(--warn); } .okfarbe { color:var(--ok); }
 @media (max-width:860px) { input,button { font-size:16px; } button { min-height:38px; } }
 </style>
@@ -36,11 +38,11 @@ button.warn { border-color:var(--warn); color:var(--warn); }
 <body>
 <header>
   <h1>Robnet</h1>
-  <nav><a href="/messen">Messen</a><a class="an" href="/management">Management</a><a href="/analyse">Robnet Analyse</a></nav>
+  <nav><a href="/messen">Messen</a><a class="an" href="/management">Management</a><a href="/analyse">Robnet Analyse</a><a href="/handbuch" target="_blank">Handbuch</a></nav>
 </header>
 <main>
   <div class="karte">
-    <div id="m_art" class="klein">verbinde…</div>
+    <div class="klein"><span id="m_art">verbinde…</span><a class="h" href="/handbuch#v-anzeige" target="_blank" title="Erklärung im Handbuch">?</a><a class="h" href="/handbuch#v-regeln" target="_blank" title="Erklärung im Handbuch">?</a></div>
     <div class="gross" id="m_name">–</div>
     <div class="paar">
       <div><div class="klein">Adresse des Zugangspunkts</div><div class="gross" id="m_ap">–</div></div>
@@ -51,28 +53,28 @@ button.warn { border-color:var(--warn); color:var(--warn); }
   </div>
 
   <div class="karte">
-    <h2>Mit einem anderen Netz verbinden</h2>
+    <h2>Mit einem anderen Netz verbinden<a class="h" href="/handbuch#v-wechsel" target="_blank" title="Erklärung im Handbuch">?</a></h2>
     <div class="reihe">
       <label>Netzname <input id="n_ssid" autocomplete="off" autocapitalize="off" spellcheck="false"></label>
       <label>Passwort <input id="n_pw" type="password" autocomplete="new-password" autocapitalize="off"></label>
     </div>
     <div id="n_hin" style="font-weight:600"></div>
-    <div class="reihe"><button class="an" id="n_ver">Verbinden</button><button id="n_mer">Nur speichern</button></div>
+    <div class="reihe"><button class="an" id="n_ver">Verbinden</button><a class="h" href="/handbuch#v-wechsel" target="_blank" title="Erklärung im Handbuch">?</a><button id="n_mer">Nur speichern</button><a class="h" href="/handbuch#v-speichern" target="_blank" title="Erklärung im Handbuch">?</a></div>
     <div class="klein">Klappt die Verbindung nicht, kehrt der Raspberry nach etwa 1 bis 2 Minuten zum vorigen Netz zurück; ist auch das nicht möglich, startet er seinen eigenen Zugangspunkt. „Nur speichern“ ist für Netze außer Reichweite: Er versucht sie, sobald sie erscheinen und er kein besseres hat. Ein bekanntes Netz braucht kein neues Passwort.</div>
-    <h2 style="margin-top:12px">In Reichweite</h2>
+    <h2 style="margin-top:12px">In Reichweite<a class="h" href="/handbuch#v-reichweite" target="_blank" title="Erklärung im Handbuch">?</a></h2>
     <div class="reihe"><button id="n_such">Neu suchen</button><span class="klein" id="n_shin"></span></div>
     <div id="sicht"></div>
   </div>
 
   <div class="karte">
-    <h2>Gespeicherte Netze</h2>
+    <h2>Gespeicherte Netze<a class="h" href="/handbuch#v-gespeichert" target="_blank" title="Erklärung im Handbuch">?</a><a class="h" href="/handbuch#v-pw" target="_blank" title="Erklärung im Handbuch">?</a></h2>
     <div id="netze"></div>
-    <div class="reihe"><button class="warn" id="a_ap">Eigenen Zugangspunkt starten</button></div>
+    <div class="reihe"><button class="warn" id="a_ap">Eigenen Zugangspunkt starten</button><a class="h" href="/handbuch#v-ap" target="_blank" title="Erklärung im Handbuch">?</a></div>
     <div class="klein">Vom eigenen Zugangspunkt wechselt der Raspberry nur auf Ihre Anweisung oder nach einem Neustart zurück in ein bekanntes Netz.</div>
   </div>
 
   <div class="karte">
-    <h2>Passwort des eigenen Zugangspunkts</h2>
+    <h2>Passwort des eigenen Zugangspunkts<a class="h" href="/handbuch#v-ap-pw" target="_blank" title="Erklärung im Handbuch">?</a></h2>
     <div class="reihe">
       <label>Neu <input id="p_1" type="password" autocomplete="new-password" autocapitalize="off"></label>
       <label>Wiederholen <input id="p_2" type="password" autocomplete="new-password" autocapitalize="off"></label>
@@ -82,9 +84,9 @@ button.warn { border-color:var(--warn); color:var(--warn); }
   </div>
 
   <div class="karte">
-    <h2>Raspberry</h2>
+    <h2>Raspberry<a class="h" href="/handbuch#v-info" target="_blank" title="Erklärung im Handbuch">?</a></h2>
     <div class="klein" id="r_info">–</div>
-    <div class="reihe"><button class="warn" id="s_aus">Herunterfahren</button><button class="warn" id="s_neu">Neu starten</button></div>
+    <div class="reihe"><button class="warn" id="s_aus">Herunterfahren</button><a class="h" href="/handbuch#v-aus" target="_blank" title="Erklärung im Handbuch">?</a><button class="warn" id="s_neu">Neu starten</button><a class="h" href="/handbuch#v-neu" target="_blank" title="Erklärung im Handbuch">?</a></div>
     <div id="bestaetigung" class="reihe"><span id="b_text"></span><button id="b_ja" class="warn">Ja</button><button id="b_nein">Nein</button></div>
     <div id="r_meld" class="warnfarbe" style="font-weight:600"></div>
   </div>
@@ -101,7 +103,7 @@ async function senden(obj) {
 }
 function knopf(text, klasse, fn) { const b = document.createElement('button'); b.textContent = text; if (klasse) b.className = klasse; b.onclick = fn; return b; }
 function datum(t) { return t ? new Date(t*1000).toLocaleString('de-DE',{dateStyle:'short',timeStyle:'short'}) : 'noch nie verbunden'; }
-function wechselHinweis(ssid) { $('meldung').className='warnfarbe'; $('meldung').textContent=`Der Raspberry wechselt zu ${ssid}. Verbinden Sie Ihr Gerät ebenfalls mit diesem Netz und öffnen Sie dann http://robnet.local:8080/management`; }
+function wechselHinweis(ssid) { $('meldung').className='warnfarbe'; $('meldung').textContent=`Der Raspberry wechselt zu ${ssid}. Verbinden Sie Ihr Gerät ebenfalls mit diesem Netz und öffnen Sie dann http://robnet.local/management`; }
 
 function passwortAendern(n) {
   $('n_ssid').value=n.ssid; $('n_pw').value=''; $('n_hin').textContent=n.aktiv?`Neues Passwort für ${n.ssid} eintragen, dann „Verbinden“. Die Verbindung bricht dabei kurz ab; ist das Passwort falsch, bleibt das alte gültig.`:`Neues Passwort für ${n.ssid} eintragen. „Verbinden“ prüft es sofort, „Nur speichern“ ersetzt das alte ungeprüft, wenn das Netz außer Reichweite ist.`;
@@ -115,7 +117,7 @@ function zeigen(s) {
   $('m_ap').textContent = ap ? s.ap_ip : (s.ap_adresse||'–');
   $('m_pi').textContent = s.pi_adresse || (ap ? s.ap_ip : '–');
   const adr = s.pi_adresse || (ap ? s.ap_ip : '');
-  $('m_url').textContent = (adr?`Diese Seite: http://${adr}:8080/management, auch http://robnet.local:8080/management. `:'')+`Funk: ${s.geraet}.`;
+  $('m_url').textContent = (adr?`Diese Seite: http://${adr}/management, auch http://robnet.local/management. `:'')+`Funk: ${s.geraet}.`;
   if (!stumm) { $('meldung').className=''; $('meldung').textContent = s.meldung||''; }
   $('sicht').replaceChildren(...s.sicht.map(n => {
     const z = document.createElement('div'); z.className='zeile';

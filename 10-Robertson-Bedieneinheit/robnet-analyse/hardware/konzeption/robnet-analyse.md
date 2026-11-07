@@ -1,6 +1,6 @@
 # Robnet-Analyse – Anforderungen und Konzept
 
-Version 00.56, Stand 07.11.2026, Obergrenze 100 Zeilen.
+Version 00.58, Stand 07.11.2026, Obergrenze 100 Zeilen.
 Gehört zu Weg B (neue Bedieneinheit für den Robertson, `0-gesamtprojekt/SuAn-Autopilot-Projekt.md`, Abschnitt 4).
 Zweck: Platine, die den Robnet-Bus des Robertson AP300X mitliest und jede Ader per Jumper trennen kann, damit Pegel,
 Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel, die Bedieneinheit nachzubauen. Robnet-Wissen (Belegung, Messwerte, Hypothesen H1–H8):
@@ -13,7 +13,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   Teileauswahl `tht/konzeption/Bauteilauswahl.md` 00.18 mit Bezugsquellen (Abschnitt 8) und Stückliste `tht/bom/bom.csv` (vom Betreiber durchgesehen, 15.10.2026).
 - **Schaltplan fertig** (`hardware/tht/kicad/v00.01/`, 15.10.2026): Hauptblatt, Bus-Empfänger, Rechner, Messung, Versorgung;
   alle Versorgungen laufen sichtbar über das Hauptblatt (in den Unterblättern nur blattlokale Versorgungszeichen).
-  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Software in `software/`: Aufzeichnung v00.02, Auswertung v00.02, Prüfprogramm v00.01, Oszilloskop v00.01 (`anforderungen_oszilloskop.md`). Zero 2 W vorhanden, eingerichtet (Linie B, 06.11.2026).
+  Prüfskript `pruefung_blockschaltbild.py` 86 von 86, ERC ohne Meldung. Erzeugt mit `schaltplan_erzeugen/robnet.py` (dort ändern, nicht in KiCad). Software in `software/`: Aufzeichnung v00.02, Auswertung v00.03, Prüfprogramm v00.01, Oszilloskop v00.03 (`anforderungen_oszilloskop.md`), Handbuch `software/handbuch_v00.01.html`. Zero 2 W vorhanden, eingerichtet (Linie B, 06.11.2026).
 - **Arbeitsweise Platine:** KiCad vorher schließen (Sperrdateien `~*.lck` in `tht/kicad/v00.01/`). Netzliste: `kicad-cli sch export netlist
   --format kicadxml`; erzeugen: `platine_erzeugen/robnet_platine.py <netzliste> ../Robnet-Analyse.kicad_pcb` mit dem Python von KiCad;
   prüfen: `kicad-cli pcb drc --schematic-parity`, ansehen: `kicad-cli pcb render`. Das Skript verweigert eine Platine mit Bahnen;
@@ -28,7 +28,7 @@ Datenrate, Telegramme und die Rolle jeder Seite bestimmt werden – mit dem Ziel
   3. **Später, nicht jetzt** (Betreiber, 15.10.2026; bis dahin nur dokumentiert, `Bauteilauswahl.md` Abschnitt 5):
      5-m-USB-Kabel und LAN-Adapter beschaffen, Netz aus dem Motorraum (Block 6). Zero 2 W läuft: SSH, Bluetooth aus
      (Seriell-Schnittstelle frei), SPI an, pigpio da, WLAN-Stick COMFAST CF-WU710N V2 (Chip MT7601) am Zero 2 W nicht erprobt.
-  4. Aufzeichnung am Testsender geprüft (`smd/konzeption/Testsender_Verbindung.html`); am Robertson: Datenraten, Telegramme zerlegen, dann Trennversuche (Block 8).
+  4. Aufzeichnung am Testsender geprüft (`smd/konzeption/Testsender_Verbindung.html`); am Robertson: KI-gesteuert nach Handbuch, Abschnitt 3.3 (Datenraten, Telegramme, dann Trennversuche, Block 8).
 
 ## 1. Grundsätze
 - **Alle 6 Adern aufzeichnen und die Richtung erkennen:** welche Seite treibt bzw. sendet, auch auf dem Bus (Betreiber,
